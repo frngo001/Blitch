@@ -1,0 +1,48 @@
+{
+  "name": "@overleaf/ai-agent",
+  "description": "AI Scientific Agent Service for Overleaf - Multi-Provider LLM Gateway with Scientific Skills",
+  "version": "1.0.0",
+  "private": true,
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "start": "node app.js",
+    "nodemon": "node --watch app.js",
+    "test:unit": "mocha --recursive --exit test/unit/",
+    "test:acceptance": "mocha --recursive --timeout 15000 --exit test/acceptance/",
+    "lint": "eslint --max-warnings 0 --format unix .",
+    "format": "prettier --list-different $PWD/'**/{*.js,*.mjs,*.ts}'",
+    "format:fix": "prettier --write $PWD/'**/{*.js,*.mjs,*.ts}'",
+    "lint:fix": "eslint --fix .",
+    "types:check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@overleaf/logger": "*",
+    "@overleaf/metrics": "*",
+    "@overleaf/mongo-utils": "*",
+    "@overleaf/settings": "*",
+    "@anthropic-ai/sdk": "^0.32.1",
+    "body-parser": "1.20.4",
+    "express": "4.22.1",
+    "mongodb": "6.12.0",
+    "openai": "^4.70.0",
+    "eventsource-parser": "^3.0.0",
+    "uuid": "^10.0.0"
+  },
+  "devDependencies": {
+    "chai": "^4.3.6",
+    "chai-as-promised": "^7.1.1",
+    "mocha": "^11.1.0",
+    "sinon": "^9.2.4",
+    "typescript": "^5.0.4"
+  },
+  "keywords": [
+    "ai",
+    "llm",
+    "scientific",
+    "agent",
+    "overleaf"
+  ],
+  "author": "",
+  "license": "AGPL-3.0"
+}

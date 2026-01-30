@@ -10,8 +10,28 @@ volumes:
   sharelatex-data:
   web-data:
   history-v1-buckets:
+  ollama-models:
+  webpack-node-modules:
 
 services:
+  ai-agent:
+    build:
+      context: ..
+      dockerfile: services/ai-agent/Dockerfile
+    env_file:
+      - dev.env
+    environment:
+      - AI_AGENT_PORT=3020
+      - AI_DEFAULT_PROVIDER=deepseek
+      - AI_DEFAULT_MODEL=deepseek-chat
+      # DeepSeek API key from dev.env (DEEPSEEK_API_KEY)
+      # Optional: Set ENABLE_OLLAMA=true to enable Ollama as fallback
+    ports:
+      - "127.0.0.1:3020:3020"
+    depends_on:
+      - mongo
+      - redis
+
   chat:
     build:
       context: ..
@@ -137,6 +157,23 @@ services:
     volumes:
       - redis-data:/data
 
+  ollama:
+    image: ollama/ollama:latest
+    ports:
+      - "127.0.0.1:11434:11434"
+    volumes:
+      - ollama-models:/root/.ollama
+    environment:
+      - OLLAMA_HOST=0.0.0.0
+    # Optional GPU support (uncomment if you have NVIDIA GPU)
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: 1
+    #           capabilities: [gpu]
+
   web:
     build:
       context: ..
@@ -153,6 +190,10 @@ services:
       - GIT_BRIDGE_ENABLED=true
       - GIT_BRIDGE_HOST=git-bridge
       - GIT_BRIDGE_PORT=8000
+      # AI-Agent Configuration
+      - AI_AGENT_ENABLED=true
+      - AI_AGENT_HOST=ai-agent
+      - AI_AGENT_PORT=3020
     command: ["node", "app.mjs"]
     volumes:
       - sharelatex-data:/var/lib/overleaf
@@ -160,6 +201,7 @@ services:
     depends_on:
       - mongo
       - redis
+      - ai-agent
       - chat
       - clsi
       - contacts
@@ -176,9 +218,15 @@ services:
     build:
       context: ..
       dockerfile: services/web/Dockerfile
-      target: webpack
-    command: ["npx", "webpack", "serve", "--config", "webpack.config.dev-env.js"]
+      target: dev
+    command: >
+      sh -c "npm install && npx webpack serve --config webpack.config.dev-env.js"
     ports:
       - "127.0.0.1:80:3808"
     volumes:
       - ./webpack.config.dev-env.js:/overleaf/services/web/webpack.config.dev-env.js
+      - ../services/web/frontend:/overleaf/services/web/frontend
+      - ../services/web/package.json:/overleaf/services/web/package.json
+      - ../package.json:/overleaf/package.json
+      - ../package-lock.json:/overleaf/package-lock.json
+      - webpack-node-modules:/overleaf/node_modules

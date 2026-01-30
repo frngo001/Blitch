@@ -56,6 +56,9 @@ import { reviewTooltip } from './review-tooltip'
 import { tooltipsReposition } from './tooltips-reposition'
 import { selectionListener } from '@/features/source-editor/extensions/selection-listener'
 import { contextMenu } from './context-menu'
+import { exposeEditorView } from './expose-editor-view'
+import { inlineEditState } from '@/features/ai-chat/extensions/inline-edit-state'
+import { inlineEditKeymap } from '@/features/ai-chat/extensions/inline-edit-keymap'
 
 const moduleExtensions: Array<(options: Record<string, any>) => Extension> =
   importOverleafModules('sourceEditorExtensions').map(
@@ -176,4 +179,9 @@ export const createExtensions = (options: Record<string, any>): Extension[] => [
   fileTreeItemDrop(),
   tooltipsReposition(),
   selectionListener(options.setEditorSelection),
+  // Expose editor view for external components (AI Chat, etc.)
+  exposeEditorView,
+  // AI Inline Edit (CMD+K / Ctrl+K)
+  inlineEditState,
+  inlineEditKeymap,
 ]

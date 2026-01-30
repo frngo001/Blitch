@@ -5,6 +5,7 @@ import { useLayoutContext } from '@/shared/context/layout-context'
 import { RailTabKey, useRailContext } from '../../contexts/rail-context'
 import FileTreeOutlinePanel from '../file-tree/file-tree-outline-panel'
 import { ChatIndicator, ChatPane } from '../chat/chat'
+import { AIChatPane, AIChatIndicator } from '../ai-chat/ai-chat-rail'
 import getMeta from '@/utils/meta'
 import classNames from 'classnames'
 import IntegrationsPanel from '../integrations-panel/integrations-panel'
@@ -114,6 +115,14 @@ export const RailLayout = () => {
         hide:
           !getMeta('ol-capabilities')?.includes('chat') ||
           isRestrictedTokenMember,
+      },
+      {
+        key: 'ai-chat',
+        icon: 'smart_toy',
+        component: <AIChatPane />,
+        indicator: <AIChatIndicator />,
+        title: t('ai_assistant') || 'AI Assistant',
+        hide: !getMeta('ol-aiAgentEnabled'),
       },
       ...moduleRailEntries,
     ],

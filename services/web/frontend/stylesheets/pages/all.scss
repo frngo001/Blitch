@@ -21,6 +21,9 @@
 @import 'editor/file-view';
 @import 'editor/figure-modal';
 @import 'editor/chat';
+@import 'editor/ai-chat';
+@import '../app/ai-chat-features';
+@import '../app/enhanced-chat-input';
 @import 'editor/toast';
 @import 'editor/history';
 @import 'editor/write-and-cite';

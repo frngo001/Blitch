@@ -1145,6 +1145,103 @@ async function initialize(webRouter, privateApiRouter, publicApiRouter) {
     }
   )
 
+  // AI Agent endpoints (separate from team chat)
+  if (process.env.AI_AGENT_ENABLED === 'true') {
+    const AIAgentController = (await import('./Features/AIAgent/AIAgentController.mjs')).default
+
+    // AI Agent message endpoint
+    webRouter.post(
+      '/project/:project_id/agent/message',
+      AuthorizationMiddleware.blockRestrictedUserFromProject,
+      AuthorizationMiddleware.ensureUserCanReadProject,
+      RateLimiterMiddleware.rateLimit(rateLimiters.sendChatMessage),
+      AIAgentController.sendMessage
+    )
+
+    // AI Agent streaming endpoint (SSE proxy)
+    webRouter.get(
+      '/project/:project_id/agent/stream/proxy',
+      AuthorizationMiddleware.blockRestrictedUserFromProject,
+      AuthorizationMiddleware.ensureUserCanReadProject,
+      AIAgentController.proxyStream
+    )
+
+    // AI Agent session management
+    webRouter.get(
+      '/project/:project_id/agent/session',
+      AuthorizationMiddleware.blockRestrictedUserFromProject,
+      AuthorizationMiddleware.ensureUserCanReadProject,
+      AIAgentController.getSession
+    )
+    webRouter.post(
+      '/project/:project_id/agent/session',
+      AuthorizationMiddleware.blockRestrictedUserFromProject,
+      AuthorizationMiddleware.ensureUserCanReadProject,
+      AIAgentController.createSession
+    )
+    webRouter.delete(
+      '/project/:project_id/agent/session',
+      AuthorizationMiddleware.blockRestrictedUserFromProject,
+      AuthorizationMiddleware.ensureUserCanReadProject,
+      AIAgentController.deleteSession
+    )
+    webRouter.get(
+      '/project/:project_id/agent/sessions',
+      AuthorizationMiddleware.blockRestrictedUserFromProject,
+      AuthorizationMiddleware.ensureUserCanReadProject,
+      AIAgentController.listSessions
+    )
+
+    // AI Agent skills
+    webRouter.get(
+      '/project/:project_id/agent/skills',
+      AuthorizationMiddleware.blockRestrictedUserFromProject,
+      AuthorizationMiddleware.ensureUserCanReadProject,
+      AIAgentController.getSkills
+    )
+    webRouter.post(
+      '/project/:project_id/agent/skill/:skill_id/execute',
+      AuthorizationMiddleware.blockRestrictedUserFromProject,
+      AuthorizationMiddleware.ensureUserCanReadProject,
+      RateLimiterMiddleware.rateLimit(rateLimiters.sendChatMessage),
+      AIAgentController.executeSkill
+    )
+
+    // AI Agent providers and models (global endpoints)
+    webRouter.get('/agent/providers', AIAgentController.getProviders)
+    webRouter.get('/agent/models', AIAgentController.getModels)
+    webRouter.get('/agent/health', AIAgentController.healthCheck)
+
+    // Internal AI-Agent Project APIs (for AI-Agent service to call)
+    const InternalProjectApiController = (await import('./Features/AIAgent/InternalProjectApiController.mjs')).default
+
+    privateApiRouter.get(
+      '/internal/ai-agent/project/:projectId/structure',
+      AuthenticationController.requirePrivateApiAuth(),
+      InternalProjectApiController.getProjectStructure
+    )
+    privateApiRouter.post(
+      '/internal/ai-agent/project/:projectId/doc',
+      AuthenticationController.requirePrivateApiAuth(),
+      InternalProjectApiController.upsertDoc
+    )
+    privateApiRouter.post(
+      '/internal/ai-agent/project/:projectId/file',
+      AuthenticationController.requirePrivateApiAuth(),
+      InternalProjectApiController.uploadFile
+    )
+    privateApiRouter.post(
+      '/internal/ai-agent/project/:projectId/folder',
+      AuthenticationController.requirePrivateApiAuth(),
+      InternalProjectApiController.createFolder
+    )
+    privateApiRouter.delete(
+      '/internal/ai-agent/project/:projectId/:entityType/:entityId',
+      AuthenticationController.requirePrivateApiAuth(),
+      InternalProjectApiController.deleteEntity
+    )
+  }
+
   webRouter.post(
     '/project/:Project_id/references/indexAll',
     AuthorizationMiddleware.ensureUserCanReadProject,

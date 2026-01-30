@@ -953,6 +953,7 @@ const _ProjectController = {
         imageNames,
         gitBridgePublicBaseUrl: Settings.gitBridgePublicBaseUrl,
         gitBridgeEnabled: Features.hasFeature('git-bridge'),
+        aiAgentEnabled: process.env.AI_AGENT_ENABLED === 'true',
         wsUrl,
         showSupport: Features.hasFeature('support'),
         showTemplatesServerPro,
