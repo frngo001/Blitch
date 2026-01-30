@@ -7,7 +7,7 @@
 
 import { createServer } from './app/js/server.js'
 import { getGateway } from './app/js/Infrastructure/LLMGateway/LLMGateway.js'
-import { getMCPClient } from './app/js/Infrastructure/MCP/MCPClient.js'
+import { initMCPClient } from './app/js/Infrastructure/MCP/MCPClient.js'
 import { connect as connectMongo, close as closeMongo } from './app/js/mongodb.js'
 import logger from '@overleaf/logger'
 import Settings from '@overleaf/settings'
@@ -30,18 +30,15 @@ async function main() {
     const gateway = getGateway(Settings.aiAgent || {})
     await gateway.initialize()
 
-    // Initialize MCP Client if enabled
+    // Initialize MCP Client if enabled (lazy - connects in background)
     if (MCP_ENABLED) {
-      try {
-        logger.info({ command: MCP_COMMAND, args: MCP_ARGS }, 'Initializing MCP client')
-        await getMCPClient({
-          command: MCP_COMMAND,
-          args: MCP_ARGS
-        })
-        logger.info('MCP client initialized successfully')
-      } catch (mcpError) {
-        logger.warn({ error: mcpError }, 'MCP client initialization failed - continuing without MCP')
-      }
+      logger.info({ command: MCP_COMMAND, args: MCP_ARGS }, 'Initializing MCP client (lazy)')
+      // This starts background connection but doesn't block server startup
+      initMCPClient({
+        command: MCP_COMMAND,
+        args: MCP_ARGS
+      }, true) // true = start background connection
+      logger.info('MCP client initialized (connecting in background)')
     } else {
       logger.info('MCP is disabled (set MCP_ENABLED=true to enable)')
     }

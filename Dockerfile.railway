@@ -1,0 +1,48 @@
+# ===========================================
+# Railway Dockerfile for Overleaf Web Service
+# ===========================================
+# This is a simplified Dockerfile for deploying
+# the main web service on Railway.
+#
+# For full deployment, use docker-compose.railway.yml
+
+FROM node:22.18.0-slim AS base
+
+WORKDIR /overleaf
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    curl \
+    git \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy package files
+COPY package.json package-lock.json ./
+COPY libraries/ ./libraries/
+COPY services/web/package.json ./services/web/
+
+# Install dependencies
+RUN npm ci --legacy-peer-deps --quiet
+
+# Copy web service code
+COPY services/web/ ./services/web/
+
+# Build frontend assets
+WORKDIR /overleaf/services/web
+RUN npm run webpack:production 2>/dev/null || echo "Webpack build skipped"
+
+# Production settings
+ENV NODE_ENV=production
+ENV PORT=3000
+ENV LISTEN_ADDRESS=0.0.0.0
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
+    CMD curl -f http://localhost:${PORT}/status || exit 1
+
+# Run as non-root user
+USER node
+
+EXPOSE ${PORT}
+
+CMD ["node", "app.mjs"]

@@ -23,18 +23,19 @@ export class ProviderRegistry {
     const providerConfigs = this.config.providers || Settings.aiAgent?.providers || {}
 
     // Initialize DeepSeek if API key is available (default provider)
+    // Uses Vercel AI SDK for better tool calling support
     if (providerConfigs.deepseek?.apiKey || process.env.DEEPSEEK_API_KEY) {
       try {
-        const { DeepSeekAdapter } = await import('./adapters/DeepSeekAdapter.js')
-        const adapter = new DeepSeekAdapter({
+        const { DeepSeekAISDKAdapter } = await import('./adapters/DeepSeekAISDKAdapter.js')
+        const adapter = new DeepSeekAISDKAdapter({
           apiKey: providerConfigs.deepseek?.apiKey || process.env.DEEPSEEK_API_KEY,
           baseUrl: providerConfigs.deepseek?.baseUrl || process.env.DEEPSEEK_BASE_URL || 'https://api.deepseek.com'
         })
         await adapter.initialize()
         this.adapters.set('deepseek', adapter)
-        logger.info('DeepSeek adapter initialized')
+        logger.info('DeepSeek AI SDK adapter initialized (with tool calling support)')
       } catch (error) {
-        logger.warn({ error }, 'Failed to initialize DeepSeek adapter')
+        logger.warn({ error }, 'Failed to initialize DeepSeek AI SDK adapter')
       }
     }
 

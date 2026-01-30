@@ -1,15 +1,15 @@
 /**
- * MCP Client
+ * MCP Client with Lazy Initialization
  *
  * Connects to MCP servers (like claude-skills-mcp) and provides
  * tool definitions that can be used with any LLM provider.
  *
- * Uses stdio transport to communicate with MCP servers.
+ * Uses lazy initialization to avoid timeout issues during first-run
+ * package downloads. Connection happens on first tool request.
  */
 
 import { Client } from '@modelcontextprotocol/sdk/client/index.js'
 import { StdioClientTransport } from '@modelcontextprotocol/sdk/client/stdio.js'
-import { spawn } from 'child_process'
 import logger from '@overleaf/logger'
 
 class MCPClient {
@@ -18,28 +18,68 @@ class MCPClient {
     this.transport = null
     this.tools = []
     this.connected = false
-    this.serverProcess = null
+    this.connecting = false
+    this.config = null
+    this.connectionPromise = null
   }
 
   /**
-   * Connect to an MCP server
+   * Store configuration for lazy connection
    * @param {Object} config - Server configuration
-   * @param {string} config.command - Command to run (e.g., 'uvx')
-   * @param {Array} config.args - Command arguments (e.g., ['claude-skills-mcp'])
-   * @param {Object} config.env - Environment variables
    */
-  async connect(config = {}) {
-    const {
-      command = 'uvx',
-      args = ['claude-skills-mcp'],
-      env = {}
-    } = config
+  setConfig(config) {
+    this.config = {
+      command: config.command || 'uvx',
+      args: config.args || ['claude-skills-mcp'],
+      env: config.env || {}
+    }
+    logger.info({ config: this.config }, 'MCP config stored for lazy initialization')
+  }
+
+  /**
+   * Ensure connection is established (lazy connect)
+   * @returns {Promise<boolean>} True if connected
+   */
+  async ensureConnected() {
+    if (this.connected) {
+      return true
+    }
+
+    if (this.connecting && this.connectionPromise) {
+      // Wait for ongoing connection
+      return this.connectionPromise
+    }
+
+    if (!this.config) {
+      logger.warn('MCP config not set, cannot connect')
+      return false
+    }
+
+    this.connecting = true
+    this.connectionPromise = this._connect()
 
     try {
-      logger.info({ command, args }, 'Starting MCP server')
+      await this.connectionPromise
+      return true
+    } catch (error) {
+      logger.error({ error }, 'Lazy MCP connection failed')
+      return false
+    } finally {
+      this.connecting = false
+      this.connectionPromise = null
+    }
+  }
+
+  /**
+   * Internal connect method
+   */
+  async _connect() {
+    const { command, args, env } = this.config
+
+    try {
+      logger.info({ command, args }, 'Starting MCP server (lazy initialization)')
 
       // Create stdio transport with command configuration
-      // The StdioClientTransport handles spawning the process internally
       this.transport = new StdioClientTransport({
         command,
         args,
@@ -56,8 +96,8 @@ class MCPClient {
         }
       })
 
-      // Connect to the server with extended timeout for first-run downloads (5 minutes)
-      await this.client.connect(this.transport, { timeout: 300000 })
+      // Connect to the server
+      await this.client.connect(this.transport)
       this.connected = true
 
       logger.info('Connected to MCP server')
@@ -71,6 +111,30 @@ class MCPClient {
       this.connected = false
       throw error
     }
+  }
+
+  /**
+   * Start background connection (non-blocking)
+   * Connection will complete eventually without blocking server start
+   */
+  startBackgroundConnection() {
+    if (!this.config) {
+      logger.warn('MCP config not set, cannot start background connection')
+      return
+    }
+
+    logger.info('Starting MCP background connection...')
+
+    // Fire and forget - don't await
+    this.ensureConnected().then(connected => {
+      if (connected) {
+        logger.info('MCP background connection successful')
+      } else {
+        logger.warn('MCP background connection failed')
+      }
+    }).catch(error => {
+      logger.error({ error }, 'MCP background connection error')
+    })
   }
 
   /**
@@ -114,14 +178,19 @@ class MCPClient {
   }
 
   /**
-   * Execute a tool call
+   * Execute a tool call (with lazy connection)
    * @param {string} toolName - Name of the tool to call
    * @param {Object} toolInput - Input parameters for the tool
    * @returns {Object} Tool execution result
    */
   async callTool(toolName, toolInput) {
-    if (!this.connected || !this.client) {
-      throw new Error('Not connected to MCP server')
+    // Ensure connected before calling tool
+    const isConnected = await this.ensureConnected()
+    if (!isConnected) {
+      return {
+        content: 'MCP server not available. Please try again later.',
+        isError: true
+      }
     }
 
     logger.info({ toolName, toolInput }, 'Executing MCP tool')
@@ -170,9 +239,6 @@ class MCPClient {
       if (this.client) {
         await this.client.close()
       }
-      if (this.serverProcess) {
-        this.serverProcess.kill()
-      }
       this.connected = false
       this.tools = []
       logger.info('Disconnected from MCP server')
@@ -189,6 +255,13 @@ class MCPClient {
   }
 
   /**
+   * Check if connection is in progress
+   */
+  isConnecting() {
+    return this.connecting
+  }
+
+  /**
    * Get list of available tool names
    */
   getToolNames() {
@@ -199,14 +272,44 @@ class MCPClient {
 // Singleton instance
 let mcpClient = null
 
-export async function getMCPClient(config) {
+/**
+ * Initialize MCP client with config (lazy - doesn't connect immediately)
+ * @param {Object} config - MCP server configuration
+ * @param {boolean} startBackground - If true, start connection in background
+ */
+export function initMCPClient(config, startBackground = true) {
   if (!mcpClient) {
     mcpClient = new MCPClient()
-    await mcpClient.connect(config)
   }
+  mcpClient.setConfig(config)
+
+  if (startBackground) {
+    mcpClient.startBackgroundConnection()
+  }
+
   return mcpClient
 }
 
+/**
+ * Get MCP client (creates if needed, connects lazily on first tool use)
+ * @param {Object} config - Optional config if not already set
+ */
+export async function getMCPClient(config) {
+  if (!mcpClient) {
+    mcpClient = new MCPClient()
+    if (config) {
+      mcpClient.setConfig(config)
+    }
+  }
+
+  // Ensure connected
+  await mcpClient.ensureConnected()
+  return mcpClient
+}
+
+/**
+ * Get MCP client synchronously (may not be connected yet)
+ */
 export function getMCPClientSync() {
   return mcpClient
 }

@@ -8,6 +8,30 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Added
 
+- **Railway Deployment Configuration** (2026-01-30)
+  - Complete Railway.app deployment setup for the entire Overleaf stack
+  - Files created:
+    - `railway.json` - Railway build configuration
+    - `railway.toml` - Alternative Railway configuration
+    - `docker-compose.railway.yml` - Production Docker Compose for Railway
+    - `.env.example` - Template for all environment variables
+    - `Procfile` - Web service entry point
+    - `nixpacks.toml` - Nixpacks build configuration
+    - `Dockerfile.railway` - Simplified Dockerfile for web service
+    - `RAILWAY_DEPLOYMENT.md` - Comprehensive deployment guide
+    - `railway/deploy.sh` - Automated deployment script
+    - `railway/web.railway.json` - Web service config
+    - `railway/ai-agent.railway.json` - AI Agent service config
+    - `railway/clsi.railway.json` - CLSI service config
+  - Features:
+    - Multi-service deployment support (web, ai-agent, clsi, etc.)
+    - MongoDB and Redis Railway addon integration
+    - Private networking configuration for internal services
+    - Health check endpoints for all services
+    - Production-optimized environment variables
+    - Deployment automation script with Railway CLI
+    - Comprehensive troubleshooting guide
+
 - **Cursor-like AI Chat Features** (2026-01-30)
   - **Agentic Loops**: Automatic tool execution with LLM continuation
     - Fixed tool passing to LLM adapters (AnthropicAdapter, DeepSeekAdapter)

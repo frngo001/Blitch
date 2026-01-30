@@ -1,0 +1,207 @@
+# Docker Compose for Railway Deployment
+# This file is optimized for production deployment on Railway
+#
+# Usage:
+# 1. Create a new Railway project
+# 2. Add MongoDB addon (or use external MongoDB Atlas)
+# 3. Add Redis addon (or use external Redis)
+# 4. Deploy each service from this repo
+#
+# Railway Environment Variables (set in Railway dashboard):
+# - MONGO_URL: MongoDB connection string (from Railway addon)
+# - REDIS_URL: Redis connection string (from Railway addon)
+# - DEEPSEEK_API_KEY: Your DeepSeek API key
+# - SESSION_SECRET: Random secret for sessions
+# - WEB_API_PASSWORD: API password for internal communication
+
+version: '3.8'
+
+services:
+  # ===================
+  # Main Web Application
+  # ===================
+  web:
+    build:
+      context: .
+      dockerfile: services/web/Dockerfile
+      target: base
+    environment:
+      - NODE_ENV=production
+      - APP_NAME=Overleaf
+      - PORT=${PORT:-3000}
+      - LISTEN_ADDRESS=0.0.0.0
+      # Database (from Railway addons)
+      - MONGO_URL=${MONGO_URL:-mongodb://mongo/sharelatex}
+      - REDIS_HOST=${REDIS_HOST:-redis}
+      # Internal service hostnames (Railway private networking)
+      - CHAT_HOST=chat.railway.internal
+      - CLSI_HOST=clsi.railway.internal
+      - CONTACTS_HOST=contacts.railway.internal
+      - DOCSTORE_HOST=docstore.railway.internal
+      - DOCUMENT_UPDATER_HOST=document-updater.railway.internal
+      - FILESTORE_HOST=filestore.railway.internal
+      - HISTORY_V1_HOST=history-v1.railway.internal
+      - NOTIFICATIONS_HOST=notifications.railway.internal
+      - PROJECT_HISTORY_HOST=project-history.railway.internal
+      - REALTIME_HOST=real-time.railway.internal
+      - AI_AGENT_HOST=ai-agent.railway.internal
+      # Features
+      - AI_AGENT_ENABLED=true
+      - AI_AGENT_PORT=3020
+      - EMAIL_CONFIRMATION_DISABLED=true
+      - OVERLEAF_ALLOW_PUBLIC_ACCESS=true
+      # Security
+      - SESSION_SECRET=${SESSION_SECRET}
+      - WEB_API_PASSWORD=${WEB_API_PASSWORD:-overleaf}
+      - WEB_API_USER=${WEB_API_USER:-overleaf}
+    command: ["node", "app.mjs"]
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/status"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # ===================
+  # AI Agent Service
+  # ===================
+  ai-agent:
+    build:
+      context: .
+      dockerfile: services/ai-agent/Dockerfile
+    environment:
+      - NODE_ENV=production
+      - AI_AGENT_PORT=3020
+      - LISTEN_ADDRESS=0.0.0.0
+      - MONGO_URL=${MONGO_URL:-mongodb://mongo/sharelatex}
+      - REDIS_HOST=${REDIS_HOST:-redis}
+      # LLM Providers
+      - DEEPSEEK_API_KEY=${DEEPSEEK_API_KEY}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      # MCP Configuration
+      - MCP_ENABLED=${MCP_ENABLED:-true}
+      - MCP_COMMAND=uvx
+      - MCP_ARGS=claude-skills-mcp
+      # Default model
+      - AI_DEFAULT_PROVIDER=deepseek
+      - AI_DEFAULT_MODEL=deepseek-chat
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3020/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # ===================
+  # Compile Service (LaTeX)
+  # ===================
+  clsi:
+    build:
+      context: .
+      dockerfile: services/clsi/Dockerfile.texlive
+    environment:
+      - NODE_ENV=production
+      - LISTEN_ADDRESS=0.0.0.0
+      - SANDBOXED_COMPILES=false
+      - MONGO_URL=${MONGO_URL}
+      - REDIS_HOST=${REDIS_HOST}
+    volumes:
+      - clsi-cache:/overleaf/services/clsi/cache
+
+  # ===================
+  # Supporting Services
+  # ===================
+  chat:
+    build:
+      context: .
+      dockerfile: services/chat/Dockerfile
+    environment:
+      - NODE_ENV=production
+      - LISTEN_ADDRESS=0.0.0.0
+      - MONGO_URL=${MONGO_URL}
+      - REDIS_HOST=${REDIS_HOST}
+
+  contacts:
+    build:
+      context: .
+      dockerfile: services/contacts/Dockerfile
+    environment:
+      - NODE_ENV=production
+      - LISTEN_ADDRESS=0.0.0.0
+      - MONGO_URL=${MONGO_URL}
+
+  docstore:
+    build:
+      context: .
+      dockerfile: services/docstore/Dockerfile
+    environment:
+      - NODE_ENV=production
+      - LISTEN_ADDRESS=0.0.0.0
+      - MONGO_URL=${MONGO_URL}
+
+  document-updater:
+    build:
+      context: .
+      dockerfile: services/document-updater/Dockerfile
+    environment:
+      - NODE_ENV=production
+      - LISTEN_ADDRESS=0.0.0.0
+      - MONGO_URL=${MONGO_URL}
+      - REDIS_HOST=${REDIS_HOST}
+
+  filestore:
+    build:
+      context: .
+      dockerfile: services/filestore/Dockerfile
+    environment:
+      - NODE_ENV=production
+      - LISTEN_ADDRESS=0.0.0.0
+      - MONGO_URL=${MONGO_URL}
+    volumes:
+      - filestore-data:/overleaf/services/filestore/user_files
+
+  history-v1:
+    build:
+      context: .
+      dockerfile: services/history-v1/Dockerfile
+    environment:
+      - NODE_ENV=production
+      - LISTEN_ADDRESS=0.0.0.0
+      - MONGO_URL=${MONGO_URL}
+      - PERSISTOR_BACKEND=fs
+      - USE_SUBDIRECTORIES=true
+    volumes:
+      - history-data:/buckets
+
+  notifications:
+    build:
+      context: .
+      dockerfile: services/notifications/Dockerfile
+    environment:
+      - NODE_ENV=production
+      - LISTEN_ADDRESS=0.0.0.0
+      - MONGO_URL=${MONGO_URL}
+
+  project-history:
+    build:
+      context: .
+      dockerfile: services/project-history/Dockerfile
+    environment:
+      - NODE_ENV=production
+      - LISTEN_ADDRESS=0.0.0.0
+      - MONGO_URL=${MONGO_URL}
+      - REDIS_HOST=${REDIS_HOST}
+
+  real-time:
+    build:
+      context: .
+      dockerfile: services/real-time/Dockerfile
+    environment:
+      - NODE_ENV=production
+      - LISTEN_ADDRESS=0.0.0.0
+      - MONGO_URL=${MONGO_URL}
+      - REDIS_HOST=${REDIS_HOST}
+
+volumes:
+  clsi-cache:
+  filestore-data:
+  history-data:

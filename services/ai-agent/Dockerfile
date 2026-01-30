@@ -36,6 +36,9 @@ RUN cd /overleaf && npm ci --quiet --legacy-peer-deps
 # Install MCP SDK for tool integration
 RUN cd /overleaf && npm install @modelcontextprotocol/sdk --save --legacy-peer-deps
 
+# Install Vercel AI SDK with native DeepSeek provider for tool calling support
+RUN cd /overleaf && npm install ai @ai-sdk/deepseek @ai-sdk/anthropic @ai-sdk/google zod --save --legacy-peer-deps
+
 # Copy libraries
 COPY libraries/fetch-utils/ /overleaf/libraries/fetch-utils/
 COPY libraries/logger/ /overleaf/libraries/logger/

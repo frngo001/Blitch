@@ -84,40 +84,43 @@ export const CompletionController = {
         await SessionManager.autoGenerateTitle(session._id, message)
       }
 
+      // Get LLM gateway
+      const gateway = getGateway()
+
+      // Get MCP tools first (needed for system prompt)
+      const mcpTools = getMCPTools()
+      const hasMCPTools = mcpTools.length > 0
+      logger.info({ mcpToolCount: mcpTools.length }, 'MCP tools available')
+
       // Build messages for LLM with skill context and history
       const llmMessages = buildLLMMessages(
         [...session.messages, userMessage],
         context,
-        message
+        message,
+        hasMCPTools
       )
 
-      // Get LLM gateway
-      const gateway = getGateway()
+      // Combine MCP tools with any additional tools
+      const allTools = [...mcpTools]
+      if (tools && Array.isArray(tools) && tools.length > 0) {
+        allTools.push(...tools)
+      }
 
-      // Get MCP tools
-      const mcpTools = getMCPTools()
-      logger.info({ mcpToolCount: mcpTools.length }, 'MCP tools available')
-
-      // Prepare request options
+      // Prepare request options - tools MUST be inside options for LLMGateway
       const requestOptions = {
         provider: provider || session.model_preference?.provider || 'deepseek',
         model: model || session.model_preference?.model || 'deepseek-chat',
         messages: llmMessages,
         options: {
           maxTokens: 4096,
-          temperature: 0.7
+          temperature: 0.7,
+          ...(allTools.length > 0 && { tools: allTools })
         },
         userId,
         projectId
       }
 
-      // Add MCP tools and any additional tools
-      const allTools = [...mcpTools]
-      if (tools && Array.isArray(tools) && tools.length > 0) {
-        allTools.push(...tools)
-      }
       if (allTools.length > 0) {
-        requestOptions.tools = allTools
         logger.info({ toolCount: allTools.length, toolNames: allTools.map(t => t.name) }, 'Sending tools to LLM')
       }
 
@@ -358,19 +361,21 @@ export const CompletionController = {
         await SessionManager.autoGenerateTitle(session._id, message)
       }
 
-      // Build messages for LLM with skill context
-      const llmMessages = buildLLMMessages(
-        [...session.messages, userMessage],
-        parsedContext,
-        message
-      )
-
-      // Get MCP tools
+      // Get MCP tools first (needed for system prompt)
       const mcpTools = getMCPTools()
+      const hasMCPTools = mcpTools.length > 0
       logger.info({ mcpToolCount: mcpTools.length }, 'MCP tools available for stream')
 
       // Get LLM gateway
       const gateway = getGateway()
+
+      // Build messages for LLM with skill context
+      const llmMessages = buildLLMMessages(
+        [...session.messages, userMessage],
+        parsedContext,
+        message,
+        hasMCPTools
+      )
 
       // Start streaming
       let fullContent = ''
@@ -614,16 +619,18 @@ ${selectedText}
         await SessionManager.autoGenerateTitle(session._id, message)
       }
 
+      // Get all available tools (MCP + built-in)
+      const mcpTools = getMCPTools()
+      const hasMCPTools = mcpTools.length > 0
+      const allTools = [...mcpTools]
+
       // Build messages for LLM
       const llmMessages = buildLLMMessages(
         [...session.messages, userMessage],
         parsedContext,
-        message
+        message,
+        hasMCPTools
       )
-
-      // Get all available tools (MCP + built-in)
-      const mcpTools = getMCPTools()
-      const allTools = [...mcpTools]
 
       // Create agentic handler
       const agenticHandler = createAgenticHandler({
@@ -659,7 +666,7 @@ ${selectedText}
         gateway,
         requestOptions,
         emitEvent,
-        (msgs) => buildLLMMessages(msgs, parsedContext, '')
+        (msgs) => buildLLMMessages(msgs, parsedContext, '', hasMCPTools)
       )
 
       const latencyMs = Date.now() - startTime
@@ -686,7 +693,7 @@ ${selectedText}
  * Build LLM messages from session history with skill context
  * Supports full message history including tool calls and results
  */
-function buildLLMMessages(sessionMessages, context, userQuery = '') {
+function buildLLMMessages(sessionMessages, context, userQuery = '', hasMCPTools = false) {
   const messages = []
 
   // Get the base system prompt with skill context
@@ -694,6 +701,37 @@ function buildLLMMessages(sessionMessages, context, userQuery = '') {
 
   // Add document context if available
   let fullSystemPrompt = systemPrompt
+
+  // Add MCP tool instructions if tools are available
+  if (hasMCPTools) {
+    fullSystemPrompt += `
+
+## IMPORTANT: Available Tools
+
+You have access to the following MCP tools that you MUST use:
+
+### 1. find_helpful_skills
+**ALWAYS call this tool FIRST** for any task requiring domain-specific knowledge.
+- Use it to search for relevant skills, scripts, and best practices
+- It performs semantic search over 160+ scientific skills
+- Returns ranked results with step-by-step guidance
+
+### 2. read_skill_document
+After finding a relevant skill, use this to read scripts, templates, and references.
+
+### 3. list_skills
+Lists all available skills for exploration.
+
+## Tool Usage Rules
+
+1. **ALWAYS start with find_helpful_skills** before answering domain-specific questions
+2. When a user asks about literature review, data analysis, LaTeX, or any scientific task:
+   - First call \`find_helpful_skills\` with a description of the task
+   - Read the relevant skill documents using \`read_skill_document\`
+   - Then provide your answer based on the skill content
+3. Do NOT answer from memory alone - use the tools to get current, accurate information
+4. The tools contain Python scripts, templates, and workflows that you should reference`
+  }
 
   if (context?.selection) {
     fullSystemPrompt += `\n\n## Current Document Context

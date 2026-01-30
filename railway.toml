@@ -1,0 +1,13 @@
+# Railway Configuration for Overleaf Community Edition
+# This file configures the deployment on Railway.app
+
+[build]
+builder = "dockerfile"
+
+[deploy]
+healthcheckPath = "/"
+healthcheckTimeout = 300
+numReplicas = 1
+sleepApplication = false
+restartPolicyType = "on_failure"
+restartPolicyMaxRetries = 10

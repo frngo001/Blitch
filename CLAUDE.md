@@ -358,8 +358,14 @@ const llmMessages = convertToLLMFormat(session.messages)
 ANTHROPIC_API_KEY=sk-ant-...
 OPENAI_API_KEY=sk-...
 GOOGLE_AI_API_KEY=...
+DEEPSEEK_API_KEY=sk-...
 OLLAMA_HOST=http://ollama:11434
 GROQ_API_KEY=gsk_...
+
+# MCP Integration
+MCP_ENABLED=true
+MCP_COMMAND=uvx
+MCP_ARGS=claude-skills-mcp
 
 # Business Model
 STRIPE_SECRET_KEY=sk_...
@@ -367,6 +373,139 @@ STRIPE_SECRET_KEY=sk_...
 # Service Config
 AI_AGENT_PORT=3020
 ```
+
+---
+
+## 🔧 Vercel AI SDK Integration (PFLICHT!)
+
+> **WICHTIG:** Bei Arbeiten am AI-Agent Service MUSS das Vercel AI SDK verwendet werden!
+
+### Installierte Packages
+
+| Package | Version | Zweck |
+|---------|---------|-------|
+| `ai` | ^4.0.0 | Vercel AI SDK Core - `generateText`, `streamText` |
+| `@ai-sdk/deepseek` | ^1.0.0 | **Native DeepSeek Provider** (NICHT OpenAI-kompatibel!) |
+| `@ai-sdk/anthropic` | ^1.0.0 | Claude Models |
+| `@ai-sdk/google` | ^1.0.0 | Gemini Models |
+| `zod` | ^3.23.0 | Schema Validation für Tool Definitions |
+
+### DeepSeek mit AI SDK (Korrekte Verwendung)
+
+```javascript
+// ✅ RICHTIG - Native DeepSeek Provider
+import { createDeepSeek } from '@ai-sdk/deepseek'
+import { generateText, streamText } from 'ai'
+import { z } from 'zod'
+
+const deepseek = createDeepSeek({
+  apiKey: process.env.DEEPSEEK_API_KEY
+})
+
+// Mit Tool Calling
+const result = await generateText({
+  model: deepseek('deepseek-chat'),
+  messages: [...],
+  tools: {
+    search: {
+      description: 'Search for information',
+      parameters: z.object({
+        query: z.string().describe('Search query')
+      })
+    }
+  },
+  toolChoice: 'auto'
+})
+
+// ❌ FALSCH - OpenAI-kompatibel funktioniert NICHT
+import { createOpenAI } from '@ai-sdk/openai'
+const deepseek = createOpenAI({ baseURL: 'https://api.deepseek.com/v1' })
+// Dies führt zu "Not Found" Fehlern!
+```
+
+### Verfügbare DeepSeek Modelle
+
+| Modell | Beschreibung | Tool Support |
+|--------|--------------|--------------|
+| `deepseek-chat` | DeepSeek V3 - Schnell & günstig | ✅ Ja |
+| `deepseek-reasoner` | DeepSeek R1 - Reasoning Model | ✅ Ja (V3.2+) |
+
+### Tool/Function Calling mit Zod
+
+```javascript
+import { z } from 'zod'
+
+// Tool Definition mit Zod Schema
+const tools = {
+  find_helpful_skills: {
+    description: 'Find relevant skills for a task',
+    parameters: z.object({
+      query: z.string().describe('What you want to accomplish'),
+      limit: z.number().optional().describe('Max results')
+    })
+  }
+}
+
+// Automatische Konvertierung von JSON Schema zu Zod
+function jsonSchemaToZod(schema) {
+  // Siehe DeepSeekAISDKAdapter.js für Implementation
+}
+```
+
+### Dokumentation & Ressourcen
+
+- **Vercel AI SDK Docs:** https://ai-sdk.dev/docs/introduction
+- **DeepSeek Provider:** https://ai-sdk.dev/providers/ai-sdk-providers/deepseek
+- **DeepSeek R1 Guide:** https://sdk.vercel.ai/docs/guides/r1
+- **npm @ai-sdk/deepseek:** https://www.npmjs.com/package/@ai-sdk/deepseek
+
+---
+
+## 🛠️ Installierte Claude Code Skills (IMMER NUTZEN!)
+
+> **KRITISCH:** Diese Skills sind installiert und MÜSSEN bei relevanten Aufgaben verwendet werden!
+
+### Skill-Verzeichnis
+```
+~/.agents/skills/
+└── ai-sdk/          # Vercel AI SDK Best Practices
+```
+
+### Pflicht-Skills
+
+| Skill | Trigger | Wann nutzen |
+|-------|---------|-------------|
+| **ai-sdk** | AI SDK, LLM Integration, Tool Calling | Bei JEDER Arbeit am AI-Agent LLM Gateway |
+
+### Skill-Nutzung
+
+```bash
+# Skills suchen
+npx skills find "vercel ai sdk"
+
+# Skill installieren
+npx skills add vercel/ai@ai-sdk -g -y
+
+# Installierte Skills prüfen
+ls ~/.agents/skills/
+```
+
+### Wann Skills nutzen?
+
+**IMMER wenn:**
+- Am LLM Gateway gearbeitet wird → `ai-sdk` Skill
+- Tool Calling implementiert wird → `ai-sdk` Skill
+- Neue Provider hinzugefügt werden → `ai-sdk` Skill
+- Streaming implementiert wird → `ai-sdk` Skill
+
+**Skills finden für andere Aufgaben:**
+```bash
+npx skills find "react performance"  # Frontend Optimierung
+npx skills find "testing"            # Test Patterns
+npx skills find "docker"             # Container Patterns
+```
+
+---
 
 ## Development Commands
 
