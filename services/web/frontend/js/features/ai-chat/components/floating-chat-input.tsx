@@ -110,6 +110,20 @@ export default function FloatingChatInput({
                 </div>
             )}
 
+            {/* Quick Action Pills */}
+            <div className="floating-input-pills">
+                {COMMANDS.map(cmd => (
+                    <button
+                        key={cmd.id}
+                        className="quick-action-pill"
+                        onClick={() => handleSlashCommand(cmd.id)}
+                    >
+                        <MaterialIcon type={cmd.icon} />
+                        <span>{t(cmd.id, cmd.label)}</span>
+                    </button>
+                ))}
+            </div>
+
             {/* Main Input Box */}
             <div className="floating-input-box">
                 {/* Context Pill - Inside Box, Top Left */}

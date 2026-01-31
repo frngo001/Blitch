@@ -1033,6 +1033,72 @@
       display: none;
     }
   }
+
+  .ai-chat-placeholder-new {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px 20px;
+    color: #fff;
+
+    .personalize-card {
+      background: #2c2c2c;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 24px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      width: 100%;
+      max-width: 300px;
+
+      .close-btn {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        background: none;
+        border: none;
+        color: #fff;
+        cursor: pointer;
+      }
+
+      .personalize-icon {
+        margin-right: 16px;
+
+        .material-symbols {
+          font-size: 24px;
+        }
+      }
+
+      .personalize-content {
+        h3 {
+          margin: 0;
+          font-size: 16px;
+        }
+
+        p {
+          margin: 0;
+          font-size: 14px;
+          color: #aaa;
+        }
+      }
+    }
+
+    .teach-dia {
+      h3 {
+        margin: 0 0 8px;
+        font-size: 18px;
+      }
+
+      p {
+        margin: 0;
+        font-size: 14px;
+        color: #aaa;
+      }
+    }
+  }
 }
 // ==========================================
 // FINAL OVERRIDES (Styles for AI Bubbles)

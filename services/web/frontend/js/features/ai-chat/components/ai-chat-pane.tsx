@@ -91,15 +91,31 @@ export default function AIChatPane() {
 
 function AIChatPlaceholder() {
   const { t } = useTranslation()
+  const [showPersonalize, setShowPersonalize] = useState(true)
 
   return (
-    <div className="ai-chat-placeholder">
-      <div className="ai-chat-placeholder-icon">
-        <MaterialIcon type="smart_toy" />
+    <div className="ai-chat-placeholder-new">
+      {showPersonalize && (
+        <div className="personalize-card">
+          <button
+            className="close-btn"
+            onClick={() => setShowPersonalize(false)}
+          >
+            <MaterialIcon type="close" />
+          </button>
+          <div className="personalize-icon">
+            <MaterialIcon type="l" />
+          </div>
+          <div className="personalize-content">
+            <h3>Personalize</h3>
+            <p>Teach Dia to respond in your preferred style.</p>
+          </div>
+        </div>
+      )}
+      <div className="teach-dia">
+        <h3>Teach Dia how to respond</h3>
+        <p>Dia can tailor its responses to you</p>
       </div>
-      <h3>{t('ai_assistant')}</h3>
-      <p>{t('ai_assistant_description') || 'Ask me to help with your scientific writing, LaTeX formatting, or research questions.'}</p>
-      {/* Quick actions are now in the input component */}
     </div>
   )
 }
