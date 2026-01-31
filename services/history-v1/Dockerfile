@@ -15,6 +15,9 @@ RUN mkdir /home/node/.config && chown node:node /home/node/.config
 # fs persistor needs a writable folder as a target for the mounted volume
 RUN mkdir /buckets && chown node:node /buckets
 
+# Railway mounts volume at /data - ensure it exists with correct permissions
+RUN mkdir -p /data && chown -R node:node /data
+
 FROM base AS app
 
 COPY package.json package-lock.json /overleaf/
@@ -52,6 +55,10 @@ COPY services/history-v1/ /overleaf/services/history-v1/
 COPY tools/migrations/ /overleaf/tools/migrations/
 
 FROM app
-USER node
 
-CMD ["node", "--expose-gc", "app.js"]
+# Copy startup script that handles volume permissions
+COPY services/history-v1/start.sh /overleaf/services/history-v1/
+RUN chmod 0755 /overleaf/services/history-v1/start.sh
+
+# Start as root to fix volume permissions, then switch to node via su-exec
+CMD ["/overleaf/services/history-v1/start.sh"]
