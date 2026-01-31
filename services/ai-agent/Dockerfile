@@ -8,10 +8,11 @@ WORKDIR /overleaf/services/ai-agent
 # Google Cloud Storage needs a writable $HOME/.config for resumable uploads
 RUN mkdir -p /home/node/.config && chown node:node /home/node/.config
 
-# Install Python and uv for MCP server support
+# Install Python, git, and uv for MCP server support
 RUN apt-get update && apt-get install -y --no-install-recommends \
     python3 \
     python3-pip \
+    git \
     && rm -rf /var/lib/apt/lists/*
 
 # Install uv (fast Python package installer) - uvx is included automatically
@@ -39,6 +40,9 @@ RUN cd /overleaf && npm install @modelcontextprotocol/sdk --save --legacy-peer-d
 # Install Vercel AI SDK with native DeepSeek provider for tool calling support
 RUN cd /overleaf && npm install ai @ai-sdk/deepseek @ai-sdk/anthropic @ai-sdk/google zod --save --legacy-peer-deps
 
+# Install Anthropic SDK for direct API access
+RUN cd /overleaf && npm install @anthropic-ai/sdk --save --legacy-peer-deps
+
 # Copy libraries
 COPY libraries/fetch-utils/ /overleaf/libraries/fetch-utils/
 COPY libraries/logger/ /overleaf/libraries/logger/
@@ -50,6 +54,11 @@ COPY libraries/settings/ /overleaf/libraries/settings/
 
 # Copy service code
 COPY services/ai-agent/ /overleaf/services/ai-agent/
+
+# Clone K-Dense scientific skills repositories (submodules not auto-cloned by Railway)
+RUN mkdir -p /overleaf/services/ai-agent/lib && \
+    git clone --depth 1 https://github.com/K-Dense-AI/claude-scientific-skills.git /overleaf/services/ai-agent/lib/claude-scientific-skills && \
+    git clone --depth 1 https://github.com/K-Dense-AI/claude-scientific-writer.git /overleaf/services/ai-agent/lib/claude-scientific-writer
 
 FROM app
 USER node

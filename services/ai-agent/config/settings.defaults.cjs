@@ -7,7 +7,7 @@
 module.exports = {
   internal: {
     aiAgent: {
-      port: parseInt(process.env.AI_AGENT_PORT, 10) || 3020,
+      port: parseInt(process.env.PORT || process.env.AI_AGENT_PORT || '3020', 10),
       host: process.env.AI_AGENT_HOST || '0.0.0.0'
     }
   },
