@@ -8,7 +8,7 @@
  * - Model selection
  */
 
-import React, { useEffect, useState, useCallback, useRef, useMemo } from 'react'
+import React, { useEffect, useState, useCallback, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useProjectContext } from '@/shared/context/project-context'
 import MaterialIcon from '@/shared/components/material-icon'
@@ -19,7 +19,7 @@ import { ChatHistoryModal } from '@/features/ai-chat/components/chat-history-mod
 import { DiffPreviewModal } from '@/features/ai-chat/components/diff-preview-modal'
 import { InlineEditPopover, useInlineEditPopover } from '@/features/ai-chat/components/inline-edit-popover'
 import { useDiffPreview } from '@/features/ai-chat/hooks/useDiffPreview'
-import { EnhancedChatInput, type EnhancedChatInputRef } from '@/features/ai-chat/components/enhanced-chat-input'
+// EnhancedChatInput removed - using custom input area
 import { getJSON } from '@/infrastructure/fetch-json'
 
 // Types
@@ -104,41 +104,21 @@ export function AIChatPane() {
 
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const messagesContainerRef = useRef<HTMLDivElement>(null)
-  const inputRef = useRef<EnhancedChatInputRef>(null)
+  const inputRef = useRef<HTMLTextAreaElement>(null)
   const eventSourceRef = useRef<EventSource | null>(null)
 
   // Scroll state for scroll-down button
   const [showScrollDown, setShowScrollDown] = useState(false)
 
-  // Transform MODELS to flat array for EnhancedChatInput
-  const availableModels = useMemo(() => {
-    const models: Array<{
-      id: string
-      name: string
-      provider: string
-      icon: string
-      tier: 'free' | 'pro' | 'enterprise'
-    }> = []
-    Object.entries(MODELS).forEach(([provider, providerModels]) => {
-      providerModels.forEach(model => {
-        models.push({
-          id: model.id,
-          name: model.name,
-          provider,
-          icon: model.icon,
-          tier: model.tier === 'pro' ? 'pro' : 'free'
-        })
-      })
-    })
-    return models
-  }, [])
-
-  // Current selected model object
-  const currentModelObj = useMemo(() => {
-    return availableModels.find(m => m.id === selectedModel) || availableModels[0]
-  }, [availableModels, selectedModel])
+  // Model selector dropdown state
+  const [showModelSelector, setShowModelSelector] = useState(false)
 
   const aiAgentEnabled = getMeta('ol-aiAgentEnabled')
+
+  // Get current model info
+  const currentModel = Object.values(MODELS)
+    .flat()
+    .find(m => m.id === selectedModel) || MODELS.deepseek[0]
 
   // Auto-scroll
   useEffect(() => {
@@ -166,12 +146,6 @@ export function AIChatPane() {
   const scrollToBottom = useCallback(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
     setShowScrollDown(false)
-  }, [])
-
-  // Handle model change from EnhancedChatInput
-  const handleModelChange = useCallback((model: { id: string; provider: string }) => {
-    setSelectedProvider(model.provider)
-    setSelectedModel(model.id)
   }, [])
 
   const sendMessage = useCallback(async () => {
@@ -417,33 +391,32 @@ export function AIChatPane() {
   }
 
   return (
-    <div className="ai-chat-container">
-      {/* Header */}
-      <div className="ai-chat-header">
-        <div className="ai-chat-header-title">
-          <MaterialIcon type="smart_toy" />
-          <span>{t('ai_assistant') || 'AI Assistant'}</span>
-        </div>
-        <div className="ai-chat-header-actions">
-          <button
-            className="ai-chat-icon-btn"
-            onClick={() => setShowHistoryModal(true)}
-            title={t('chat_history') || 'Chat history'}
-          >
-            <MaterialIcon type="history" />
+    <div className="ai-chat-rail">
+      {/* Header - Minimal Icons Only */}
+      <div className="ai-chat-rail-header">
+        <div className="header-left">
+          <button className="ai-chat-header-btn" onClick={clearChat} title="New chat">
+            <MaterialIcon type="edit_square" />
           </button>
-          <button
-            className="ai-chat-icon-btn"
-            onClick={clearChat}
-            title={t('new_chat') || 'New chat'}
-          >
-            <MaterialIcon type="add" />
+        </div>
+        <div className="header-right">
+          <button className="ai-chat-header-btn" title="Profile">
+            <MaterialIcon type="person" />
+          </button>
+          <button className="ai-chat-header-btn" onClick={() => setShowHistoryModal(true)} title="History">
+            <MaterialIcon type="crop_square" />
+          </button>
+          <button className="ai-chat-header-btn" title="Sparkle">
+            <MaterialIcon type="auto_awesome" />
+          </button>
+          <button className="ai-chat-header-btn" title="Close">
+            <MaterialIcon type="close" />
           </button>
         </div>
       </div>
 
       {/* Messages */}
-      <div className="ai-chat-messages" ref={messagesContainerRef}>
+      <div className="ai-chat-rail-messages" ref={messagesContainerRef}>
         {messages.length === 0 && !streamingMessage ? (
           <ChatPlaceholder onQuickAction={(text) => {
             setInputValue(text)
@@ -490,19 +463,92 @@ export function AIChatPane() {
         )}
       </div>
 
-      {/* Enhanced Input */}
-      <EnhancedChatInput
-        ref={inputRef}
-        value={inputValue}
-        onChange={setInputValue}
-        onSubmit={sendMessage}
-        onStop={stopStreaming}
-        isStreaming={isStreaming}
-        placeholder={t('ask_ai_placeholder') || 'Ask about your document, LaTeX, or scientific writing...'}
-        selectedModel={currentModelObj}
-        onModelChange={handleModelChange}
-        availableModels={availableModels}
-      />
+      {/* Input Area */}
+      <div className="ai-chat-input-area">
+        {/* Quick Action Pills */}
+        <div className="quick-action-pills">
+          <button className="quick-pill" onClick={() => setInputValue('Explain this: ')}>
+            <MaterialIcon type="lightbulb" />
+            <span>Explain</span>
+          </button>
+          <button className="quick-pill" onClick={() => setInputValue('Analyze this: ')}>
+            <MaterialIcon type="search" />
+            <span>Analyze</span>
+          </button>
+          <button className="quick-pill" onClick={() => setInputValue('Summarize this: ')}>
+            <MaterialIcon type="summarize" />
+            <span>Summarize</span>
+          </button>
+        </div>
+
+        {/* Input Box */}
+        <div className="chat-input-box">
+          <textarea
+            ref={inputRef}
+            className="chat-textarea"
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault()
+                sendMessage()
+              }
+            }}
+            placeholder="Ask a question about this page..."
+            rows={1}
+          />
+          <div className="input-toolbar">
+            <div className="toolbar-left">
+              {/* Model Selector */}
+              <div className="model-selector-wrapper">
+                <button
+                  className="model-selector-btn"
+                  onClick={() => setShowModelSelector(!showModelSelector)}
+                >
+                  <span className="model-icon">{currentModel.icon}</span>
+                  <span className="model-name">{currentModel.name}</span>
+                  <MaterialIcon type="expand_more" />
+                </button>
+                {showModelSelector && (
+                  <div className="model-dropdown">
+                    {Object.entries(MODELS).map(([provider, models]) => (
+                      <div key={provider} className="model-group">
+                        <div className="model-group-label">{provider}</div>
+                        {models.map(model => (
+                          <button
+                            key={model.id}
+                            className={classNames('model-option', {
+                              active: model.id === selectedModel
+                            })}
+                            onClick={() => {
+                              setSelectedProvider(provider)
+                              setSelectedModel(model.id)
+                              setShowModelSelector(false)
+                            }}
+                          >
+                            <span className="model-icon">{model.icon}</span>
+                            <span className="model-name">{model.name}</span>
+                            {model.tier === 'pro' && <span className="model-tier">PRO</span>}
+                          </button>
+                        ))}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+            <div className="toolbar-right">
+              <button
+                className={classNames('send-btn', { active: inputValue.trim() })}
+                onClick={isStreaming ? stopStreaming : sendMessage}
+                disabled={!inputValue.trim() && !isStreaming}
+              >
+                <MaterialIcon type={isStreaming ? 'stop' : 'arrow_upward'} />
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
 
       {/* Chat History Modal */}
       <ChatHistoryModal
@@ -711,39 +757,38 @@ function ToolCallBlock({ tool }: { tool: ToolCall }) {
   )
 }
 
-// Chat Placeholder
+// Chat Placeholder - Dia Style
 function ChatPlaceholder({ onQuickAction }: { onQuickAction: (text: string) => void }) {
-  const { t } = useTranslation()
+  const [showPersonalize, setShowPersonalize] = useState(true)
 
   const quickActions = [
-    { icon: '✏️', label: t('improve_text') || 'Improve text', prompt: 'Improve this text: ' },
-    { icon: '📊', label: t('generate_table') || 'Create table', prompt: 'Create a LaTeX table for: ' },
-    { icon: '📐', label: t('write_equation') || 'Write equation', prompt: 'Write an equation for: ' },
-    { icon: '📚', label: t('add_citations') || 'Add citations', prompt: 'Find citations for: ' },
+    { icon: 'lightbulb', label: 'Explain', prompt: 'Explain this: ' },
+    { icon: 'search', label: 'Analyze', prompt: 'Analyze this: ' },
+    { icon: 'summarize', label: 'Summarize', prompt: 'Summarize this: ' },
   ]
 
   return (
     <div className="ai-chat-placeholder">
-      <div className="ai-chat-placeholder-icon">
-        <MaterialIcon type="smart_toy" />
-      </div>
-      <h3 className="ai-chat-placeholder-title">
-        {t('ai_assistant') || 'AI Scientific Assistant'}
-      </h3>
-      <p className="ai-chat-placeholder-desc">
-        {t('ai_assistant_help') || 'I can help with scientific writing, LaTeX, equations, tables, and research.'}
-      </p>
-      <div className="ai-chat-quick-actions">
-        {quickActions.map(action => (
-          <button
-            key={action.label}
-            className="ai-chat-quick-action"
-            onClick={() => onQuickAction(action.prompt)}
-          >
-            <span className="icon">{action.icon}</span>
-            <span>{action.label}</span>
+      {/* Personalize Card */}
+      {showPersonalize && (
+        <div className="personalize-card">
+          <button className="close-btn" onClick={() => setShowPersonalize(false)}>
+            <MaterialIcon type="close" />
           </button>
-        ))}
+          <div className="personalize-icon">
+            <MaterialIcon type="gesture" />
+          </div>
+          <div className="personalize-content">
+            <h3>Personalize</h3>
+            <p>Teach Dia to respond in your preferred style.</p>
+          </div>
+        </div>
+      )}
+
+      {/* Teach Section */}
+      <div className="teach-section">
+        <h3>Teach Dia how to respond</h3>
+        <p>Dia can tailor its responses to you</p>
       </div>
     </div>
   )
