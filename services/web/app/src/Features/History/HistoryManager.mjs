@@ -48,9 +48,9 @@ function getFilestoreBlobURL(historyId, hash) {
 
   if (GLOBAL_BLOBS.has(hash)) {
     // Global blobs are also stored in history-v1
-    historyUrl.pathname = `/projects/global/blobs/${hash}`
+    historyUrl.pathname = `/api/projects/global/blobs/${hash}`
   } else {
-    historyUrl.pathname = `/projects/${historyId}/blobs/${hash}`
+    historyUrl.pathname = `/api/projects/${historyId}/blobs/${hash}`
   }
 
   return historyUrl.toString()
