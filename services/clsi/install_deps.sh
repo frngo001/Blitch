@@ -1,14 +1,31 @@
 #!/bin/bash
 set -ex
 
-# Cache bust: 2026-01-31-v3
+# Cache bust: 2026-01-31-v6
+echo "Building CLSI with TeX Live at $(date)"
 apt-get update
 
 # Install additional tools (TeX Live is copied from texlive/texlive image)
 apt-get install -y \
   poppler-utils \
   ghostscript \
-  qpdf
+  qpdf \
+  perl
+
+# Verify TeX Live is available
+echo "=== Checking TeX Live installation ==="
+echo "PATH is: $PATH"
+echo ""
+echo "TeX Live directory contents:"
+ls -la /usr/local/texlive/ || { echo "ERROR: /usr/local/texlive not found!"; exit 1; }
+echo ""
+echo "Checking critical binaries:"
+which latexmk && echo "✓ latexmk found" || { echo "✗ latexmk NOT found"; exit 1; }
+which pdflatex && echo "✓ pdflatex found" || { echo "✗ pdflatex NOT found"; exit 1; }
+which latex && echo "✓ latex found" || { echo "✗ latex NOT found"; exit 1; }
+which bibtex && echo "✓ bibtex found" || echo "⚠ bibtex not found (optional)"
+echo ""
+echo "=== TeX Live verification complete ==="
 
 rm -rf /var/lib/apt/lists/*
 

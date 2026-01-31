@@ -5,16 +5,32 @@ FROM texlive/texlive:latest AS texlive
 
 FROM node:22.18.0-bookworm AS base
 
-# Force cache invalidation
-ARG CACHEBUST=1
-RUN echo "Cache bust: $CACHEBUST"
+# Force cache invalidation - change this value to force rebuild
+ARG CACHEBUST=2026-01-31-v6
+RUN echo "Cache bust: $CACHEBUST at $(date)"
 
 # Copy TeX Live from the texlive image
 COPY --from=texlive /usr/local/texlive /usr/local/texlive
-ENV PATH="/usr/local/texlive/2024/bin/x86_64-linux:${PATH}"
+
+# Dynamically find and set the correct TeX Live path (handles any year version)
+RUN TEXLIVE_BIN=$(find /usr/local/texlive -type d -name "x86_64-linux" -path "*/bin/*" 2>/dev/null | head -1) && \
+    if [ -n "$TEXLIVE_BIN" ]; then \
+        echo "Found TeX Live bin at: $TEXLIVE_BIN"; \
+        echo "export PATH=$TEXLIVE_BIN:\$PATH" >> /etc/profile.d/texlive.sh; \
+        ln -sf $TEXLIVE_BIN/* /usr/local/bin/ 2>/dev/null || true; \
+    else \
+        echo "ERROR: TeX Live bin directory not found!"; \
+        ls -la /usr/local/texlive/; \
+        exit 1; \
+    fi
+
+# Set PATH for subsequent RUN commands and container runtime
+ENV PATH="/usr/local/bin:${PATH}"
 
 # Verify TeX Live installation
-RUN which latexmk && latexmk --version || echo "latexmk not found!"
+RUN echo "Verifying TeX Live..." && \
+    which latexmk && latexmk --version && \
+    which pdflatex && pdflatex --version | head -3
 
 WORKDIR /overleaf/services/clsi
 COPY services/clsi/install_deps.sh /overleaf/services/clsi/
