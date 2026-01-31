@@ -1034,3 +1034,312 @@
     }
   }
 }
+// ==========================================
+// FINAL OVERRIDES (Styles for AI Bubbles)
+// ==========================================
+.ai-chat-pane {
+  // Assistant Message (Left) - Enhanced Markdown
+  .ai-chat-message-assistant .ai-chat-message-content {
+    background: transparent !important;
+    border: none !important;
+    color: #E0E0E0 !important;
+    padding: 0 !important;
+    max-width: 100% !important;
+    
+    .ai-chat-message-text {
+      font-weight: 400;
+      font-size: 15px;
+      line-height: 1.6;
+      
+      // Markdown Elements in Dark Mode
+      p { margin-bottom: 12px; }
+      
+      strong, b { font-weight: 600; color: white; }
+      
+      code {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-family: 'SF Mono', Consolas, Menlo, monospace;
+        font-size: 0.9em;
+        color: #FF7B72; // Soft Red/Pink for code
+      }
+      
+      pre {
+        background: #161616; // Very dark block
+        padding: 16px;
+        border-radius: 12px;
+        overflow-x: auto;
+        margin: 16px 0;
+        border: 1px solid #333;
+        
+        code {
+          background: transparent;
+          padding: 0;
+          color: #E0E0E0;
+          font-size: 13px;
+        }
+      }
+      
+      ul, ol {
+        margin-left: 20px;
+        margin-bottom: 12px;
+        padding-left: 0;
+        color: #AAAAAA;
+      }
+      
+      li { margin-bottom: 4px; }
+    }
+  }
+}
+
+// ==========================================
+// GRANULAR DESIGN REFINEMENT (Buttons, Input, Caret)
+// ==========================================
+
+// Input Field Refinement
+.floating-textarea {
+  caret-color: #38bdf8 !important; // Blue Cursor
+  color: #FFFFFF !important;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
+  
+  &::placeholder {
+    color: rgba(255, 255, 255, 0.4) !important;
+  }
+}
+
+// Action Toolbar Refinement
+.floating-input-toolbar {
+  .toolbar-btn {
+    color: rgba(255,255,255,0.6) !important; // Muted Grey Icons
+    
+    &:hover:not(:disabled) {
+      color: #FFFFFF !important; // White on hover
+      background: rgba(255,255,255,0.1) !important;
+    }
+  }
+
+  // Send Button Specifics
+  .send-btn {
+    background: #38bdf8 !important; // Cyan/Blue
+    
+    .material-symbols {
+      color: #000000 !important; // Black Arrow
+      font-weight: 700 !important; // Bolder arrow
+    }
+    
+    &:hover:not(:disabled) {
+      background: #7dd3fc !important; // Lighter Cyan on hover
+    }
+  }
+}
+
+// Box borders and depth
+.floating-input-box {
+  background: #1C1C1C !important; // Specific Matte Dark
+  border: 1px solid rgba(255,255,255,0.08) !important; // Subtle border
+  box-shadow: 0 4px 24px rgba(0,0,0,0.6) !important; // Deep shadow
+}
+
+// Context Pill Specifics
+.input-context-pill {
+  background: #2A2A2A !important;
+  border: 1px solid rgba(255,255,255,0.05) !important;
+  
+  .context-icon {
+    background: #FFFFFF !important;
+    color: #000000 !important;
+  }
+}
+
+// Quick Action Pills Specifics
+.floating-input-pills {
+  .quick-action-pill {
+    background: #1E1E1E !important;
+    border: 1px solid rgba(255,255,255,0.1) !important;
+    
+    &:hover {
+      background: #2A2A2A !important;
+    }
+  }
+}
+
+// ==========================================
+// FRONTEND DESIGN SKILL: CINEMATIC DARK MODE
+// Refined Minimalism & Depth
+// ==========================================
+
+// Global Typography Refinement
+.ai-chat-pane {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// 1. Floating Input - Cinematic Depth
+.floating-input-box {
+  // Override previous flat background with subtle gradient for depth
+  background: linear-gradient(180deg, #1F1F1F 0%, #181818 100%) !important;
+  
+  // "Light Source" Top Border
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.15) !important; // Highlight
+  border-bottom: 1px solid rgba(0, 0, 0, 0.4) !important; // Shadow
+  
+  // High-end Shadow (Ambient + Direct)
+  box-shadow: 
+    0 10px 40px -10px rgba(0, 0, 0, 0.8), // Deep ambient
+    0 2px 10px rgba(0, 0, 0, 0.5), // Close shadow
+    inset 0 1px 0 rgba(255, 255, 255, 0.05) !important; // Inner light lip
+    
+  transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.2s ease;
+  
+  &:focus-within {
+    transform: translateY(-2px); // Subtle lift on focus
+    box-shadow: 
+      0 15px 50px -10px rgba(0, 0, 0, 0.9),
+      0 0 0 1px rgba(56, 189, 248, 0.1) !important; // Subtle blue glow border
+  }
+}
+
+// 2. Pills - Tactile Feel
+.floating-input-pills .quick-action-pill {
+  background: rgba(30, 30, 30, 0.8) !important;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2) !important;
+  transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  
+  // Typography
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: rgba(255, 255, 255, 0.8) !important;
+
+  &:hover {
+    background: #2A2A2A !important;
+    transform: translateY(-2px) scale(1.02);
+    border-color: rgba(255, 255, 255, 0.2) !important;
+    color: #FFF !important;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.3) !important;
+  }
+  
+  &:active {
+    transform: translateY(0) scale(0.98);
+  }
+}
+
+// 3. Context Pill - Refined
+.input-context-pill {
+  background: #232323 !important;
+  border: 1px solid rgba(255, 255, 255, 0.06) !important;
+  
+  .context-name {
+    font-weight: 600 !important;
+    letter-spacing: -0.01em;
+  }
+}
+
+// 4. Send Button - "Electric" Interaction
+.floating-input-toolbar .send-btn {
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); // Bouncy
+  box-shadow: 0 4px 12px rgba(56, 189, 248, 0.2); // Blue glow
+  
+  &:hover:not(:disabled) {
+    transform: scale(1.1) rotate(5deg) !important; // Playful trigger
+    box-shadow: 0 6px 20px rgba(56, 189, 248, 0.4) !important;
+  }
+  
+  &:active {
+    transform: scale(0.9) !important;
+  }
+}
+
+// 5. Input Typography
+.floating-textarea {
+  font-size: 15px !important;
+  line-height: 1.6 !important;
+  letter-spacing: -0.01em; // Modern tight tracking
+}
+
+// ==========================================
+// SLASH COMMAND MENU STYLES
+// ==========================================
+.slash-command-menu {
+  position: absolute;
+  bottom: 100%; // Floating above input
+  left: 0;
+  width: 280px; // Or 100% of input
+  margin-bottom: 12px;
+  background: #1E1E1E;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  z-index: 20;
+  padding: 8px;
+  animation: slideUp 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+
+  .slash-menu-header {
+    font-size: 11px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.4);
+    padding: 4px 12px;
+    margin-bottom: 4px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+  }
+
+  .slash-cmd-item {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 8px 12px;
+    border: none;
+    background: transparent;
+    color: white;
+    font-size: 14px;
+    text-align: left;
+    border-radius: 8px;
+    transition: background 0.1s ease;
+    cursor: pointer;
+
+    .cmd-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      margin-right: 10px;
+      color: rgba(255, 255, 255, 0.7);
+      
+      .material-symbols { font-size: 18px; }
+    }
+    
+    .cmd-info {
+      flex: 1;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      
+      .cmd-label {
+        font-weight: 500;
+      }
+      
+      .cmd-hint {
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.3);
+        font-family: monospace;
+      }
+    }
+
+    &:hover, &:focus {
+      background: rgba(255, 255, 255, 0.1);
+      
+      .cmd-icon { color: white; }
+    }
+  }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
