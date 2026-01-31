@@ -35,92 +35,29 @@ const PROVIDERS = [
 
 export default function AIChatHeader({ onClose }: Props) {
   const { t } = useTranslation()
-  const [showModelSelector, setShowModelSelector] = useState(false)
-
-  const {
-    selectedProvider,
-    selectedModel,
-    setProvider,
-    setModel,
-    clearSession,
-  } = useAIChatContext()
-
-  const currentModel = MODELS[selectedProvider as keyof typeof MODELS]?.find(
-    m => m.id === selectedModel
-  )
-
-  const handleProviderChange = (provider: string) => {
-    setProvider(provider)
-    // Set default model for provider
-    const models = MODELS[provider as keyof typeof MODELS]
-    if (models && models.length > 0) {
-      setModel(models[0].id)
-    }
-    setShowModelSelector(false)
-  }
-
-  const handleModelChange = (model: string) => {
-    setModel(model)
-    setShowModelSelector(false)
-  }
-
-  const handleNewChat = () => {
-    clearSession()
-  }
+  const { clearSession } = useAIChatContext()
 
   return (
     <header className="ai-chat-header">
       <div className="ai-chat-header-left">
-        <MaterialIcon type="smart_toy" className="ai-chat-icon" />
-        <span className="ai-chat-title">{t('ai_assistant')}</span>
-      </div>
-
-      <div className="ai-chat-header-center">
-        <button
-          className="ai-chat-model-selector"
-          onClick={() => setShowModelSelector(!showModelSelector)}
-        >
-          <span>{currentModel?.name || selectedModel}</span>
-          <MaterialIcon type="expand_more" />
-        </button>
-
-        {showModelSelector && (
-          <div className="ai-chat-model-dropdown">
-            {PROVIDERS.map(provider => (
-              <div key={provider.id} className="ai-chat-provider-group">
-                <div className="ai-chat-provider-label">{provider.name}</div>
-                {MODELS[provider.id as keyof typeof MODELS]?.map(model => (
-                  <button
-                    key={model.id}
-                    className={`ai-chat-model-option ${
-                      selectedProvider === provider.id && selectedModel === model.id
-                        ? 'selected'
-                        : ''
-                    }`}
-                    onClick={() => {
-                      handleProviderChange(provider.id)
-                      handleModelChange(model.id)
-                    }}
-                  >
-                    <span>{model.name}</span>
-                    {model.tier !== 'free' && (
-                      <span className="ai-chat-tier-badge">{model.tier}</span>
-                    )}
-                  </button>
-                ))}
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
-
-      <div className="ai-chat-header-right">
         <button
           className="ai-chat-header-button"
-          onClick={handleNewChat}
-          title={t('new_chat') || 'New chat'}
+          onClick={clearSession} // Assuming edit/new chat
+          title={t('new_chat')}
         >
-          <MaterialIcon type="add" />
+          <MaterialIcon type="edit_square" />
+        </button>
+      </div>
+
+      {/* Center is empty in the design */}
+      <div className="ai-chat-header-center" />
+
+      <div className="ai-chat-header-right">
+        <button className="ai-chat-header-button" title="Script">
+          <MaterialIcon type="history" />
+        </button>
+        <button className="ai-chat-header-button" title="Sidebar">
+          <MaterialIcon type="view_sidebar" />
         </button>
         <button
           className="ai-chat-header-button"

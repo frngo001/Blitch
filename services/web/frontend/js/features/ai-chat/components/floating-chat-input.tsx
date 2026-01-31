@@ -22,8 +22,8 @@ type Props = {
 
 const COMMANDS = [
     { id: 'explain', label: 'Explain', icon: 'lightbulb' },
-    { id: 'analyze', label: 'Analyze', icon: 'search' },
-    { id: 'summarize', label: 'Summarize', icon: 'segment' },
+    { id: 'analyze', label: 'Analyze', icon: 'manage_search' },
+    { id: 'summarize', label: 'Summarize', icon: 'short_text' },
 ]
 
 export default function FloatingChatInput({
@@ -38,6 +38,7 @@ export default function FloatingChatInput({
     const { t } = useTranslation()
     const [content, setContent] = useState('')
     const [showSlashMenu, setShowSlashMenu] = useState(false)
+    const [showModelMenu, setShowModelMenu] = useState(false)
     const textareaRef = useRef<HTMLTextAreaElement>(null)
 
     // Auto-resize textarea
@@ -158,6 +159,33 @@ export default function FloatingChatInput({
                         <button className="toolbar-btn" disabled={disabled} title={t('add')}>
                             <MaterialIcon type="add" />
                         </button>
+
+                        <div className="model-selector-wrapper">
+                            <button
+                                className="model-selector-btn"
+                                onClick={() => setShowModelMenu(!showModelMenu)}
+                                title="Select Model"
+                            >
+                                <span>DeepSeek V3</span>
+                                <MaterialIcon type="expand_less" />
+                            </button>
+
+                            {showModelMenu && (
+                                <div className="model-selector-menu">
+                                    <button className="model-option selected">
+                                        <span>DeepSeek V3</span>
+                                        <MaterialIcon type="check" />
+                                    </button>
+                                    <button className="model-option">
+                                        <span>Claude 3.5 Sonnet</span>
+                                    </button>
+                                    <button className="model-option">
+                                        <span>GPT-4o</span>
+                                    </button>
+                                </div>
+                            )}
+                        </div>
+
                         <button className="toolbar-btn" disabled={disabled} title={t('more')}>
                             <MaterialIcon type="more_horiz" />
                         </button>
