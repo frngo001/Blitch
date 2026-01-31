@@ -1,6 +1,6 @@
 # Modified for Railway deployment with TeX Live
 # Use texlive base image then add Node.js
-# Cache bust: 2026-01-31-v3
+# Cache bust: 2026-01-31-v4-force-rebuild
 
 FROM texlive/texlive:latest AS texlive
 
