@@ -1,7 +1,14 @@
 # Modified for Railway deployment with TeX Live
-# Original auto-generated from https://github.com/overleaf/internal/
+# Use texlive base image then add Node.js
+# Cache bust: 2026-01-31-v3
+
+FROM texlive/texlive:latest AS texlive
 
 FROM node:22.18.0-bookworm AS base
+
+# Copy TeX Live from the texlive image
+COPY --from=texlive /usr/local/texlive /usr/local/texlive
+ENV PATH="/usr/local/texlive/2024/bin/x86_64-linux:${PATH}"
 
 WORKDIR /overleaf/services/clsi
 COPY services/clsi/install_deps.sh /overleaf/services/clsi/
