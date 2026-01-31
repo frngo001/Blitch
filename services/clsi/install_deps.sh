@@ -1,14 +1,22 @@
 #!/bin/bash
 set -ex
 
-# Cache bust: 2026-01-31-v1
+# Cache bust: 2026-01-31-v2
 apt-get update
 
-# Install TeX Live and compilation tools
+# Install TeX Live (base + recommended packages for common LaTeX documents)
+# Using smaller packages instead of texlive-full to fit build time limits
 apt-get install -y \
   poppler-utils \
   ghostscript \
-  texlive-full \
+  texlive-latex-base \
+  texlive-latex-recommended \
+  texlive-latex-extra \
+  texlive-fonts-recommended \
+  texlive-fonts-extra \
+  texlive-science \
+  texlive-pictures \
+  texlive-bibtex-extra \
   latexmk \
   qpdf
 
