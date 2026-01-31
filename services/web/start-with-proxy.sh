@@ -20,10 +20,10 @@ NGINX_PID=$!
 echo "Nginx started (PID: $NGINX_PID)"
 
 # Start Node.js app on internal port
-# Override PORT for Node.js
-export PORT=$NODE_PORT
+# Override WEB_PORT for Overleaf (it uses WEB_PORT, not PORT)
+export WEB_PORT=$NODE_PORT
 export LISTEN_ADDRESS=127.0.0.1
-echo "Starting Node.js on $LISTEN_ADDRESS:$PORT..."
+echo "Starting Node.js on $LISTEN_ADDRESS:$WEB_PORT..."
 
 # Run node in foreground
 exec node --expose-gc app.mjs
