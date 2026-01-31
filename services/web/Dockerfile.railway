@@ -1,0 +1,96 @@
+# Railway-compatible Dockerfile for Overleaf Web Service (Community Edition)
+# This builds webpack assets correctly for CE deployment
+
+FROM node:22.18.0 AS base
+
+WORKDIR /overleaf/services/web
+
+# Create required directories
+RUN mkdir -p /home/node/.config && chown node:node /home/node/.config
+RUN mkdir -p /overleaf/services/web/data/dumpFolder \
+    && mkdir -p /overleaf/services/web/data/logs \
+    && mkdir -p /overleaf/services/web/data/uploads \
+    && chmod -R 0755 /overleaf/services/web/data \
+    && chown -R node:node /overleaf/services/web/data
+
+# ============================================
+# Stage: Install dependencies
+# ============================================
+FROM base AS deps
+
+# Copy root package files
+COPY package.json package-lock.json /overleaf/
+COPY patches/ /overleaf/patches/
+
+# Copy library package.json files
+COPY libraries/access-token-encryptor/package.json /overleaf/libraries/access-token-encryptor/
+COPY libraries/fetch-utils/package.json /overleaf/libraries/fetch-utils/
+COPY libraries/logger/package.json /overleaf/libraries/logger/
+COPY libraries/metrics/package.json /overleaf/libraries/metrics/
+COPY libraries/mongo-utils/package.json /overleaf/libraries/mongo-utils/
+COPY libraries/o-error/package.json /overleaf/libraries/o-error/
+COPY libraries/object-persistor/package.json /overleaf/libraries/object-persistor/
+COPY libraries/overleaf-editor-core/package.json /overleaf/libraries/overleaf-editor-core/
+COPY libraries/promise-utils/package.json /overleaf/libraries/promise-utils/
+COPY libraries/ranges-tracker/package.json /overleaf/libraries/ranges-tracker/
+COPY libraries/redis-wrapper/package.json /overleaf/libraries/redis-wrapper/
+COPY libraries/settings/package.json /overleaf/libraries/settings/
+COPY libraries/stream-utils/package.json /overleaf/libraries/stream-utils/
+
+# Copy service package.json
+COPY services/web/package.json /overleaf/services/web/
+COPY tools/migrations/package.json /overleaf/tools/migrations/
+
+# Install all dependencies (including dev for webpack build)
+ENV CYPRESS_INSTALL_BINARY=0
+RUN cd /overleaf && npm ci --legacy-peer-deps --force --quiet
+
+# ============================================
+# Stage: Copy source and build
+# ============================================
+FROM deps AS builder
+
+# Copy libraries
+COPY libraries/ /overleaf/libraries/
+
+# Copy web service source
+COPY services/web/ /overleaf/services/web/
+
+# Copy tools
+COPY tools/migrations/ /overleaf/tools/migrations/
+
+# Build lezer-latex parser
+RUN npm run lezer-latex:generate || true
+
+# Build webpack assets for production
+ENV NODE_ENV=production
+RUN npm run webpack:production
+
+# ============================================
+# Stage: Production image
+# ============================================
+FROM base AS production
+
+# Copy node_modules from deps stage
+COPY --from=deps /overleaf/node_modules /overleaf/node_modules
+COPY --from=deps /overleaf/libraries /overleaf/libraries
+COPY --from=deps /overleaf/services/web/node_modules /overleaf/services/web/node_modules
+
+# Copy source code
+COPY libraries/ /overleaf/libraries/
+COPY services/web/ /overleaf/services/web/
+COPY tools/migrations/ /overleaf/tools/migrations/
+
+# Copy built webpack assets from builder
+COPY --from=builder /overleaf/services/web/public /overleaf/services/web/public
+
+# Environment
+ENV NODE_ENV=production
+ENV PORT=3000
+
+# Run as non-root
+USER node
+
+EXPOSE 3000
+
+CMD ["node", "--expose-gc", "app.mjs"]
