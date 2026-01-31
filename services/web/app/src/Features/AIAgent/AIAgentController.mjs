@@ -117,9 +117,12 @@ async function proxyStream(req, res) {
 
   // Set SSE headers
   res.setHeader('Content-Type', 'text/event-stream')
-  res.setHeader('Cache-Control', 'no-cache')
+  res.setHeader('Cache-Control', 'no-cache, no-transform')
   res.setHeader('Connection', 'keep-alive')
   res.setHeader('X-Accel-Buffering', 'no')
+
+  // Flush headers immediately to establish SSE connection
+  res.flushHeaders()
 
   try {
     const streamUrl = AIAgentApiHandler.getStreamUrl(projectId, message, {
@@ -143,14 +146,24 @@ async function proxyStream(req, res) {
       return res.end()
     }
 
-    // Pipe the response
+    if (!response.body) {
+      res.write(`event: error\ndata: ${JSON.stringify({ error: 'No response body' })}\n\n`)
+      return res.end()
+    }
+
+    // Pipe the response with immediate flushing
     const reader = response.body.getReader()
     const decoder = new TextDecoder()
 
     while (true) {
       const { done, value } = await reader.read()
       if (done) break
-      res.write(decoder.decode(value, { stream: true }))
+      const chunk = decoder.decode(value, { stream: true })
+      res.write(chunk)
+      // Flush immediately if available (for compression middleware)
+      if (typeof res.flush === 'function') {
+        res.flush()
+      }
     }
 
     res.end()
