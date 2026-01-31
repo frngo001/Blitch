@@ -1,7 +1,7 @@
 # Modified for Railway deployment with TeX Live
 # Original auto-generated from https://github.com/overleaf/internal/
 
-FROM node:22.18.0 AS base
+FROM node:22.18.0-bookworm AS base
 
 WORKDIR /overleaf/services/clsi
 COPY services/clsi/install_deps.sh /overleaf/services/clsi/
