@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next'
 import { useAIChatContext } from '../context/ai-chat-context'
 import AIChatHeader from './ai-chat-header'
 import AIChatMessages from './ai-chat-messages'
-import AIChatInput from './ai-chat-input'
+import FloatingChatInput from './floating-chat-input'
 import { FullSizeLoadingSpinner } from '../../../shared/components/loading-spinner'
 import MaterialIcon from '@/shared/components/material-icon'
 
@@ -77,9 +77,13 @@ export default function AIChatPane() {
         />
       </div>
 
-      <AIChatInput
-        onSend={sendMessage}
+      <FloatingChatInput
+        onSend={(content) => sendMessage(content)}
+        // If we have Context support in context, we pass it here
+        isStreaming={status === 'streaming'}
+        onStop={() => { /* Implement stop logic if available or in context */ }}
         disabled={status === 'pending' || status === 'streaming'}
+        onQuickAction={(action) => sendMessage(action)}
       />
     </aside>
   )
@@ -95,40 +99,7 @@ function AIChatPlaceholder() {
       </div>
       <h3>{t('ai_assistant')}</h3>
       <p>{t('ai_assistant_description') || 'Ask me to help with your scientific writing, LaTeX formatting, or research questions.'}</p>
-
-      <div className="ai-chat-quick-actions">
-        <QuickActionButton
-          icon="edit"
-          label={t('improve_text') || 'Improve text'}
-        />
-        <QuickActionButton
-          icon="table_chart"
-          label={t('generate_table') || 'Generate table'}
-        />
-        <QuickActionButton
-          icon="functions"
-          label={t('write_equation') || 'Write equation'}
-        />
-        <QuickActionButton
-          icon="search"
-          label={t('find_citations') || 'Find citations'}
-        />
-      </div>
+      {/* Quick actions are now in the input component */}
     </div>
-  )
-}
-
-function QuickActionButton({ icon, label }: { icon: string; label: string }) {
-  const { sendMessage } = useAIChatContext()
-
-  const handleClick = () => {
-    sendMessage(label)
-  }
-
-  return (
-    <button className="ai-chat-quick-action" onClick={handleClick}>
-      <MaterialIcon type={icon} />
-      <span>{label}</span>
-    </button>
   )
 }

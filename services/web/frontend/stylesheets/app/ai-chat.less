@@ -567,6 +567,7 @@
     opacity: 0;
     transform: translateY(10px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -574,10 +575,14 @@
 }
 
 @keyframes pulse {
-  0%, 80%, 100% {
+
+  0%,
+  80%,
+  100% {
     transform: scale(0.6);
     opacity: 0.5;
   }
+
   40% {
     transform: scale(1);
     opacity: 1;
@@ -629,13 +634,403 @@
     color: white;
   }
 
-  .ai-chat-quick-action {
-    background: #252525;
-    border-color: #333;
-    color: white;
+  // Streaming/Pending Indicator - Minimal & Dark Theme
+  .ai-chat-streaming-indicator,
+  .ai-chat-message-pending {
+    display: flex;
+    gap: 6px;
+    margin-top: 4px;
+    margin-left: 2px;
+    padding: 8px 0; // Give it some breathing room
+
+    .dot {
+      width: 6px;
+      height: 6px;
+      background-color: @floating-text-primary; // White dots
+      border-radius: 50%;
+      opacity: 0.4;
+      animation: minimalPulse 1.4s ease-in-out infinite;
+
+      &:nth-child(1) {
+        animation-delay: 0s;
+      }
+
+      &:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+
+      &:nth-child(3) {
+        animation-delay: 0.4s;
+      }
+    }
+  }
+}
+
+// Minimal Pulse Animation
+@keyframes minimalPulse {
+
+  0%,
+  100% {
+    transform: scale(0.8);
+    opacity: 0.3;
+  }
+
+  50% {
+    transform: scale(1.1);
+    opacity: 0.9;
+  }
+}
+
+// ==========================================
+// Floating Input Styles (New Design)
+// ==========================================
+
+// Variables for the new dark theme design
+@floating-bg-dark: #121212; // Very dark background
+@floating-panel-bg: #2C2C2C; // Panel/Input background
+@floating-text-primary: #FFFFFF;
+@floating-text-secondary: #AAAAAA;
+@floating-accent: #3A3A3A; // Border/Hover
+@floating-blue: #3B82F6; // Send button blue
+
+.floating-input-container {
+  padding: 16px;
+  background: transparent; // Container itself is transparent, sits on pane
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  // Make sure it sits above messages
+  backdrop-filter: blur(10px);
+}
+
+// Quick Action Pills
+.floating-input-pills {
+  display: flex;
+  justify-content: center;
+  /* Center the pills */
+  gap: 8px;
+  margin-bottom: 12px;
+
+  .quick-action-pill {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 16px;
+    background: rgba(44, 44, 44, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 999px;
+    color: @floating-text-secondary;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 
     &:hover {
+      background: rgba(60, 60, 60, 0.8);
+      color: @floating-text-primary;
+      transform: translateY(-1px);
+    }
+
+    .material-symbols {
+      font-size: 16px;
+    }
+  }
+}
+
+// Main Input Box
+.floating-input-box {
+  background: @floating-panel-bg;
+  border-radius: 24px;
+  /* More rounded */
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  /* Deep shadow */
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+// Context Pill
+.input-context-pill {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  margin-bottom: 4px;
+  width: fit-content;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+
+  .context-icon {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: @floating-text-primary;
+    color: @floating-bg-dark;
+    border-radius: 50%;
+
+    .material-symbols {
+      font-size: 14px;
+      font-weight: bold;
+    }
+  }
+
+  .context-info {
+    display: flex;
+    flex-direction: column;
+
+    .context-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: @floating-text-primary;
+    }
+
+    .context-desc {
+      font-size: 11px;
+      color: @floating-text-secondary;
+    }
+  }
+}
+
+// Textarea
+.floating-textarea {
+  width: 100%;
+  border: none;
+  background: transparent;
+  color: @floating-text-primary;
+  font-size: 15px;
+  line-height: 1.5;
+  resize: none;
+  padding: 4px 0;
+  max-height: 150px;
+  overflow-y: auto;
+  font-family: inherit;
+
+  &:focus {
+    outline: none;
+  }
+
+  &::placeholder {
+    color: rgba(255, 255, 255, 0.3);
+  }
+}
+
+// Toolbar
+.floating-input-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 4px;
+
+  .toolbar-left,
+  .toolbar-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .toolbar-btn {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    color: @floating-text-secondary;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s;
+    opacity: 0.7;
+
+    &:hover:not(:disabled) {
+      background: rgba(255, 255, 255, 0.1);
+      color: @floating-text-primary;
+      opacity: 1;
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 0.3;
+    }
+
+    .material-symbols {
+      font-size: 22px;
+      font-weight: 300; // Thinner icons
+    }
+  }
+
+  .send-btn {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #38bdf8; // Lighter blue/cyan
+    color: #000;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.2s, opacity 0.2s, background 0.2s;
+    margin-left: 8px;
+
+    &:hover:not(:disabled) {
+      transform: scale(1.1);
+      background: #7dd3fc;
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      background: #444;
+    }
+
+    .material-symbols {
+      font-size: 20px;
+      color: #000000;
+      font-weight: 600;
+    }
+
+    &.stop {
+      background: #ef4444; // Red for stop
+      color: white;
+
+      .material-symbols {
+        color: white;
+      }
+    }
+  }
+}
+
+// Dark Mode Overrides for AI Chat Pane
+// We are applying these unconditionally to the pane to match design
+.ai-chat-pane {
+  background-color: @floating-bg-dark !important;
+  color: @floating-text-primary;
+  border-right: 1px solid #222;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+  .ai-chat-header {
+    background: transparent;
+    border-bottom: none; // Minimal header
+    color: @floating-text-primary;
+    height: 52px; // Slightly shorter
+
+    .ai-chat-header-button {
+      color: @floating-text-secondary;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.1);
+        color: @floating-text-primary;
+      }
+    }
+
+    .ai-chat-title {
+      display: none; // Hide title per screenshot usually
+    }
+  }
+
+  .ai-chat-messages-container {
+    padding-bottom: 240px; // Space for large floating input
+    padding-top: 0;
+
+    // Ensure scrollbar is dark
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
       background: #333;
+      border-radius: 3px;
+    }
+  }
+
+  // ==========================================
+  // 1-1 Chat History Design Refinement
+  // ==========================================
+
+  .ai-chat-messages {
+    gap: 24px; // More space between message blocks
+  }
+
+  .ai-chat-message {
+    gap: 0; // Remove gap between avatar and content as we hide avatar
+
+    .ai-chat-message-avatar {
+      display: none; // Hide avatars for cleaner look
+    }
+
+    .ai-chat-message-header,
+    .ai-chat-message-time,
+    .ai-chat-message-model {
+      display: none; // Hide meta info for cleaner look, show only on hover if needed? 
+      // For 1-1 match of "minimal" UI, usually hidden or very subtle. 
+      // Let's hide for now to match "floating ui" aesthetic.
+    }
+
+    .ai-chat-message-text {
+      font-size: 15px;
+      line-height: 1.6;
+    }
+  }
+
+  // Assistant Message (Left)
+  .ai-chat-message-assistant .ai-chat-message-content {
+    background: transparent;
+    border: none;
+    color: #E0E0E0; // Off-white for better read
+    padding: 0;
+    max-width: 100%; // Full width text
+
+    .ai-chat-message-text {
+      font-weight: 400;
+    }
+  }
+
+  // User Message (Right)
+  .ai-chat-message-user {
+    // Ensure it aligns right
+
+    .ai-chat-message-content {
+      background: #2C2C2C; // Dark grey card
+      color: white;
+      border-radius: 18px; // Rounded
+      padding: 12px 18px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+  }
+
+  // Placeholder overrides for deep dark mode
+  .ai-chat-placeholder {
+    padding-top: 20vh;
+
+    .ai-chat-placeholder-icon {
+      display: none; // Hide icon if we want purely minimal text, or keep it dark
+    }
+
+    h3 {
+      color: @floating-text-primary;
+      font-weight: 500;
+    }
+
+    p {
+      color: @floating-text-secondary;
+    }
+
+    .ai-chat-quick-actions {
+      display: none;
     }
   }
 }
