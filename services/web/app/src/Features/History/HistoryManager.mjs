@@ -36,11 +36,24 @@ async function loadGlobalBlobs() {
 // END copy from services/history-v1/storage/lib/blob_store/index.js
 
 function getFilestoreBlobURL(historyId, hash) {
-  if (GLOBAL_BLOBS.has(hash)) {
-    return `${settings.apis.filestore.url}/history/global/hash/${hash}`
-  } else {
-    return `${settings.apis.filestore.url}/history/project/${historyId}/hash/${hash}`
+  // For Railway deployment: fetch blobs directly from history-v1 instead of filestore
+  // This avoids the need for shared storage between filestore and history-v1
+  const historyUrl = new URL(HISTORY_V1_URL)
+
+  // Add basic auth credentials to URL for CLSI to authenticate
+  if (HISTORY_V1_BASIC_AUTH.user && HISTORY_V1_BASIC_AUTH.password) {
+    historyUrl.username = HISTORY_V1_BASIC_AUTH.user
+    historyUrl.password = HISTORY_V1_BASIC_AUTH.password
   }
+
+  if (GLOBAL_BLOBS.has(hash)) {
+    // Global blobs are also stored in history-v1
+    historyUrl.pathname = `/projects/global/blobs/${hash}`
+  } else {
+    historyUrl.pathname = `/projects/${historyId}/blobs/${hash}`
+  }
+
+  return historyUrl.toString()
 }
 
 async function initializeProject(projectId) {
