@@ -4,6 +4,10 @@
 
 FROM node:22.18.0 AS base
 
+# Cache bust to force fresh build on Railway
+ARG CACHEBUST=2026-01-31-v2
+RUN echo "Cache bust: $CACHEBUST"
+
 WORKDIR /overleaf/services/history-v1
 COPY services/history-v1/install_deps.sh /overleaf/services/history-v1/
 RUN chmod 0755 ./install_deps.sh && ./install_deps.sh
@@ -60,5 +64,5 @@ FROM app
 COPY services/history-v1/start.sh /overleaf/services/history-v1/
 RUN chmod 0755 /overleaf/services/history-v1/start.sh
 
-# Start as root to fix volume permissions, then switch to node via su-exec
+# Start as root to fix volume permissions, then switch to node via gosu
 CMD ["/overleaf/services/history-v1/start.sh"]
