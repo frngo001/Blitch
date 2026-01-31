@@ -1,11 +1,16 @@
 #!/bin/bash
 set -ex
 
+# Cache bust: 2026-01-31-v1
 apt-get update
 
+# Install TeX Live and compilation tools
 apt-get install -y \
   poppler-utils \
   ghostscript \
+  texlive-full \
+  latexmk \
+  qpdf
 
 rm -rf /var/lib/apt/lists/*
 

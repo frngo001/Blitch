@@ -1,23 +1,11 @@
 # Modified for Railway deployment with TeX Live
 # Original auto-generated from https://github.com/overleaf/internal/
-# Cache bust: 2026-01-31-v1
 
 FROM node:22.18.0 AS base
-
-# Force cache invalidation for TeX Live installation
-ARG CACHE_BUST=2026-01-31-v2
-RUN echo "Cache bust: $CACHE_BUST"
 
 WORKDIR /overleaf/services/clsi
 COPY services/clsi/install_deps.sh /overleaf/services/clsi/
 RUN chmod 0755 ./install_deps.sh && ./install_deps.sh
-
-# Install TeX Live and latexmk for PDF compilation
-RUN apt-get update && apt-get install -y \
-    texlive-full \
-    latexmk \
-    qpdf \
-    && rm -rf /var/lib/apt/lists/*
 
 ENTRYPOINT ["/bin/sh", "/entrypoint.sh"]
 COPY services/clsi/entrypoint.sh /
