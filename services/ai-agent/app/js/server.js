@@ -33,7 +33,8 @@ export async function createServer() {
   // Metrics endpoint
   metrics.injectMetricsRoute(app)
 
-  // Health check endpoints
+  // Health check endpoints (/ for Railway default healthcheck)
+  app.get('/', (req, res) => res.json({ status: 'ok', service: 'ai-agent' }))
   app.get('/health', HealthController.check)
   app.get('/status', HealthController.status)
 

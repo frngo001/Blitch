@@ -25,7 +25,7 @@ COPY tools/migrations/package.json /overleaf/tools/migrations/package.json
 COPY patches/ /overleaf/patches/
 COPY tools/migrations/ /overleaf/tools/migrations/
 
-RUN cd /overleaf && npm ci --quiet
+RUN cd /overleaf && npm ci --quiet --legacy-peer-deps --force
 COPY libraries/fetch-utils/ /overleaf/libraries/fetch-utils/
 COPY libraries/logger/ /overleaf/libraries/logger/
 COPY libraries/metrics/ /overleaf/libraries/metrics/

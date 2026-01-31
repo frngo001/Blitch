@@ -92,6 +92,9 @@ app.post('/project/:project_id/doc/:doc_id/archive', HttpController.archiveDoc)
 app.post('/project/:project_id/unarchive', HttpController.unArchiveAllDocs)
 app.post('/project/:project_id/destroy', HttpController.destroyProject)
 
+// Railway healthcheck endpoint
+app.get('/', (req, res) => res.json({ status: 'ok', service: 'docstore' }))
+app.get('/health', (req, res) => res.json({ status: 'ok', service: 'docstore' }))
 app.get('/health_check', HttpController.healthCheck)
 
 app.get('/status', (req, res) => res.send('docstore is alive'))

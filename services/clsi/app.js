@@ -208,6 +208,9 @@ app.get('/oops-internal', function (req, res, next) {
   }, 1)
 })
 
+// Railway healthcheck endpoint
+app.get('/', (req, res) => res.json({ status: 'ok', service: 'clsi' }))
+app.get('/health', (req, res) => res.json({ status: 'ok', service: 'clsi' }))
 app.get('/status', (req, res, next) => res.send('CLSI is alive\n'))
 
 Settings.processTooOld = false

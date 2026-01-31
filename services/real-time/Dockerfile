@@ -23,7 +23,7 @@ COPY libraries/validation-tools/package.json /overleaf/libraries/validation-tool
 COPY services/real-time/package.json /overleaf/services/real-time/package.json
 COPY patches/ /overleaf/patches/
 
-RUN cd /overleaf && npm ci --quiet
+RUN cd /overleaf && npm ci --quiet --legacy-peer-deps --force
 COPY libraries/fetch-utils/ /overleaf/libraries/fetch-utils/
 COPY libraries/logger/ /overleaf/libraries/logger/
 COPY libraries/metrics/ /overleaf/libraries/metrics/

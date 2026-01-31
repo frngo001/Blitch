@@ -20,6 +20,9 @@ app.post(
   HttpController.addContact
 )
 
+// Railway healthcheck endpoint
+app.get('/', (req, res) => res.json({ status: 'ok', service: 'contacts' }))
+app.get('/health', (req, res) => res.json({ status: 'ok', service: 'contacts' }))
 app.get('/status', (req, res) => res.send('contacts is alive'))
 
 app.use(function (error, req, res, next) {

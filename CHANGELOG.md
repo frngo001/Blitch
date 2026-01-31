@@ -8,6 +8,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Added
 
+- **Railway Healthcheck Endpoints** (2026-01-31)
+  - Added root `/` and `/health` endpoints to all services for Railway healthcheck compatibility
+  - Services updated: docstore, clsi, web, ai-agent, contacts
+  - Railway uses `/` as default healthcheck path
+  - Files modified:
+    - `services/docstore/app.js`
+    - `services/clsi/app.js`
+    - `services/web/app/src/router.mjs`
+
 - **Railway Deployment Configuration** (2026-01-30)
   - Complete Railway.app deployment setup for the entire Overleaf stack
   - Files created:

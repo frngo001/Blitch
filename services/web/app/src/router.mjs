@@ -1323,6 +1323,10 @@ async function initialize(webRouter, privateApiRouter, publicApiRouter) {
     plainTextResponse(res, 'hello')
   })
 
+  // Railway healthcheck endpoint (root path)
+  publicApiRouter.get('/', (req, res) => {
+    res.json({ status: 'ok', service: 'web' })
+  })
   publicApiRouter.get('/status', (req, res) => {
     if (Settings.shuttingDown) {
       res.sendStatus(503) // Service unavailable
