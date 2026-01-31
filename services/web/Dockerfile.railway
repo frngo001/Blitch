@@ -1,6 +1,7 @@
 # Railway-compatible Dockerfile for Overleaf Web Service (Community Edition)
 # This builds webpack assets correctly for CE deployment
 # Includes nginx proxy for WebSocket routing to real-time service
+# Cache bust: 2026-01-31-v2
 
 FROM node:22.18.0 AS base
 
