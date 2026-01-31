@@ -1,5 +1,6 @@
 # Modified for Railway deployment with TeX Live
 # Original auto-generated from https://github.com/overleaf/internal/
+# Cache bust: 2026-01-31-v1
 
 FROM node:22.18.0 AS base
 
