@@ -1,9 +1,13 @@
 # Railway-compatible Dockerfile for Overleaf Web Service (Community Edition)
 # This builds webpack assets correctly for CE deployment
+# Includes nginx proxy for WebSocket routing to real-time service
 
 FROM node:22.18.0 AS base
 
 WORKDIR /overleaf/services/web
+
+# Install nginx for WebSocket proxy
+RUN apt-get update && apt-get install -y nginx && rm -rf /var/lib/apt/lists/*
 
 # Create required directories
 RUN mkdir -p /home/node/.config && chown node:node /home/node/.config
@@ -12,6 +16,10 @@ RUN mkdir -p /overleaf/services/web/data/dumpFolder \
     && mkdir -p /overleaf/services/web/data/uploads \
     && chmod -R 0755 /overleaf/services/web/data \
     && chown -R node:node /overleaf/services/web/data
+
+# Create nginx temp directories with proper permissions
+RUN mkdir -p /tmp/nginx /var/lib/nginx /var/log/nginx \
+    && chown -R node:node /tmp/nginx /var/lib/nginx /var/log/nginx /var/cache/nginx
 
 # ============================================
 # Stage: Install dependencies
@@ -84,13 +92,17 @@ COPY tools/migrations/ /overleaf/tools/migrations/
 # Copy built webpack assets from builder
 COPY --from=builder /overleaf/services/web/public /overleaf/services/web/public
 
+# Copy nginx config and start script
+COPY services/web/nginx-proxy.conf /overleaf/services/web/nginx-proxy.conf
+COPY services/web/start-with-proxy.sh /overleaf/services/web/start-with-proxy.sh
+RUN chmod +x /overleaf/services/web/start-with-proxy.sh
+
 # Environment
 ENV NODE_ENV=production
 ENV PORT=3000
 
-# Run as non-root
-USER node
-
+# Nginx needs to run as root to bind to ports, but node runs as node
+# We use the start script to handle this
 EXPOSE 3000
 
-CMD ["node", "--expose-gc", "app.mjs"]
+CMD ["/overleaf/services/web/start-with-proxy.sh"]
