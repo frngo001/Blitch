@@ -13,4 +13,4 @@ mkdir -p /data/chunks 2>/dev/null || true
 mkdir -p /data/blobs 2>/dev/null || true
 
 # Switch to node user and start the app
-exec su-exec node node --expose-gc app.js
+exec gosu node node --expose-gc app.js
