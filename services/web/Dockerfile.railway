@@ -19,7 +19,7 @@ RUN mkdir -p /overleaf/services/web/data/dumpFolder \
     && chown -R node:node /overleaf/services/web/data
 
 # Create nginx temp directories with proper permissions
-RUN mkdir -p /tmp/nginx /var/lib/nginx /var/log/nginx \
+RUN mkdir -p /tmp/nginx /var/lib/nginx /var/log/nginx /var/cache/nginx \
     && chown -R node:node /tmp/nginx /var/lib/nginx /var/log/nginx /var/cache/nginx
 
 # ============================================
