@@ -665,8 +665,11 @@ module.exports = {
   // then set this to true to allow it to correctly detect the forwarded IP
   // address and http/https protocol information.
   behindProxy: process.env.OVERLEAF_BEHIND_PROXY !== 'false',
-  // For cloud deployments (Railway, Heroku, etc.) set to 'true' to trust all proxies
-  trustedProxyIps: process.env.TRUSTED_PROXY_IPS || 'loopback',
+  // For cloud deployments (Railway, Heroku, etc.) set TRUSTED_PROXY_IPS=all to trust all proxies
+  // Valid values: 'all' (trust all), 'loopback', 'linklocal', 'uniquelocal', or specific IP/CIDR
+  trustedProxyIps: process.env.TRUSTED_PROXY_IPS === 'all'
+    ? true
+    : (process.env.TRUSTED_PROXY_IPS || 'loopback'),
 
   // Delay before closing the http server upon receiving a SIGTERM process signal.
   gracefulShutdownDelayInMs:
