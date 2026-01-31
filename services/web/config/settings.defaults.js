@@ -351,7 +351,17 @@ module.exports = {
   // cookie domain
   // use full domain for cookies to only be accessible from that domain,
   // replace subdomain with dot to have them accessible on all subdomains
-  cookieDomain: process.env.COOKIE_DOMAIN,
+  // Note: Do not use public suffix domains like .railway.app - browsers reject these
+  // If COOKIE_DOMAIN starts with a dot followed by a public suffix, leave it undefined
+  cookieDomain: (() => {
+    const domain = process.env.COOKIE_DOMAIN
+    // Reject public suffix domains that browsers won't accept
+    if (domain && /^\.(up\.)?railway\.app$/i.test(domain)) {
+      console.warn(`Warning: COOKIE_DOMAIN "${domain}" is a public suffix and will be ignored`)
+      return undefined
+    }
+    return domain || undefined
+  })(),
   cookieName: process.env.COOKIE_NAME || 'overleaf.sid',
   cookieRollingSession: true,
 
