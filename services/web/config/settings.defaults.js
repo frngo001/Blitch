@@ -653,17 +653,19 @@ module.exports = {
 
   // If you are running Overleaf over https, set this to true to send the
   // cookie with a secure flag (recommended).
-  secureCookie: false,
+  // Set OVERLEAF_SECURE_COOKIE=true for production HTTPS deployments
+  secureCookie: process.env.OVERLEAF_SECURE_COOKIE === 'true',
 
   // 'SameSite' cookie setting. Can be set to 'lax', 'none' or 'strict'
   // 'lax' is recommended, as 'strict' will prevent people linking to projects
   // https://tools.ietf.org/html/draft-ietf-httpbis-rfc6265bis-03#section-4.1.2.7
-  sameSiteCookie: 'lax',
+  sameSiteCookie: process.env.OVERLEAF_SAMESITE_COOKIE || 'lax',
 
   // If you are running Overleaf behind a proxy (like Apache, Nginx, etc)
   // then set this to true to allow it to correctly detect the forwarded IP
   // address and http/https protocol information.
-  behindProxy: true,
+  behindProxy: process.env.OVERLEAF_BEHIND_PROXY !== 'false',
+  // For cloud deployments (Railway, Heroku, etc.) set to 'true' to trust all proxies
   trustedProxyIps: process.env.TRUSTED_PROXY_IPS || 'loopback',
 
   // Delay before closing the http server upon receiving a SIGTERM process signal.
