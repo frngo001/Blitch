@@ -10,7 +10,7 @@ import { lazy, Suspense, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import classNames from 'classnames'
 import { RailIndicator } from '../rail/rail-indicator'
-import RailPanelHeader from '../rail/rail-panel-header'
+import { useRailContext } from '../../contexts/rail-context'
 
 const MessageList = lazy(() => import('../../../chat/components/message-list'))
 
@@ -27,6 +27,7 @@ const Loading = () => <FullSizeLoadingSpinner delay={500} className="pt-4" />
 export const ChatPane = () => {
   const { t } = useTranslation()
   const user = useUserContext()
+  const { togglePane } = useRailContext()
   const {
     status,
     messages,
@@ -62,7 +63,27 @@ export const ChatPane = () => {
 
   return (
     <div className="chat-panel">
-      <RailPanelHeader title={t('collaborator_chat')} />
+      {/* Header - Minimal Icons Only (matches AI chat) */}
+      <div className="chat-rail-header">
+        <div className="header-left">
+          <button
+            className="chat-header-btn"
+            onClick={reset}
+            title={t('refresh')}
+          >
+            <MaterialIcon type="refresh" />
+          </button>
+        </div>
+        <div className="header-right">
+          <button
+            className="chat-header-btn"
+            onClick={togglePane}
+            title={t('close')}
+          >
+            <MaterialIcon type="close" />
+          </button>
+        </div>
+      </div>
       <div className="chat-wrapper">
         <aside className="chat" aria-label={t('chat')}>
           <InfiniteScroll

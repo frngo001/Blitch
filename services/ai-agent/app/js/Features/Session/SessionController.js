@@ -154,7 +154,8 @@ export const SessionController = {
         return res.status(401).json({ error: 'User ID required' })
       }
 
-      const messages = await SessionManager.getConversationHistory(
+      // Get full session with history (includes model_preference)
+      const session = await SessionManager.getSessionWithHistory(
         sessionId,
         userId,
         {
@@ -163,10 +164,16 @@ export const SessionController = {
         }
       )
 
+      if (!session) {
+        return res.status(404).json({ error: 'Session not found' })
+      }
+
       res.json({
         session_id: sessionId,
-        message_count: messages.length,
-        messages
+        title: session.title,
+        model_preference: session.model_preference,
+        message_count: session.messages?.length || 0,
+        messages: session.messages || []
       })
 
     } catch (error) {

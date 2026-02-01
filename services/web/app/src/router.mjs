@@ -1192,6 +1192,14 @@ async function initialize(webRouter, privateApiRouter, publicApiRouter) {
       AIAgentController.listSessions
     )
 
+    // AI Agent session history (conversation messages)
+    webRouter.get(
+      '/project/:project_id/agent/session/:session_id/history',
+      AuthorizationMiddleware.blockRestrictedUserFromProject,
+      AuthorizationMiddleware.ensureUserCanReadProject,
+      AIAgentController.getSessionHistory
+    )
+
     // AI Agent skills
     webRouter.get(
       '/project/:project_id/agent/skills',

@@ -106,7 +106,7 @@ async function proxyStream(req, res) {
   }
 
   const { project_id: projectId } = req.params
-  const { message, sessionId, model, provider, context } = req.query
+  const { message, sessionId, model, provider, context, attachments } = req.query
   const userId = SessionManager.getLoggedInUserId(req.session)
 
   if (!userId) {
@@ -129,7 +129,8 @@ async function proxyStream(req, res) {
       sessionId,
       model,
       provider,
-      context: context ? JSON.parse(context) : null
+      context: context ? JSON.parse(context) : null,
+      attachments: attachments ? JSON.parse(attachments) : null
     })
 
     // Add user ID header to the stream request
@@ -291,6 +292,37 @@ async function listSessions(req, res) {
 }
 
 /**
+ * Get session history (messages)
+ * GET /project/:project_id/agent/session/:session_id/history
+ */
+async function getSessionHistory(req, res) {
+  if (!_isAIAgentEnabled()) {
+    return res.status(503).json({ error: 'AI Agent not enabled' })
+  }
+
+  const { project_id: projectId, session_id: sessionId } = req.params
+  const { limit, includeToolCalls } = req.query
+  const userId = SessionManager.getLoggedInUserId(req.session)
+
+  if (!userId) {
+    return res.status(401).json({ error: 'Not authenticated' })
+  }
+
+  try {
+    const response = await AIAgentApiHandler.promises.getSessionHistory(
+      projectId,
+      userId,
+      sessionId,
+      { limit: parseInt(limit), includeToolCalls: includeToolCalls !== 'false' }
+    )
+    res.json(response)
+  } catch (error) {
+    logger.error({ error, projectId, userId, sessionId }, 'Get session history failed')
+    res.status(500).json({ error: 'Failed to get session history' })
+  }
+}
+
+/**
  * Get skills
  * GET /project/:project_id/agent/skills
  */
@@ -417,6 +449,7 @@ export default {
   createSession: expressify(createSession),
   deleteSession: expressify(deleteSession),
   listSessions: expressify(listSessions),
+  getSessionHistory: expressify(getSessionHistory),
   getSkills: expressify(getSkills),
   executeSkill: expressify(executeSkill),
   getProviders: expressify(getProviders),

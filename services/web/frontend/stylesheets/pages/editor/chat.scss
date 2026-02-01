@@ -1,33 +1,31 @@
 /**
  * Team Chat Styles
  *
- * Redesigned to match AI Agent Chat dark theme
- * Premium dark UI with gradient accents
+ * Elegant monochrome dark theme
+ * Clean black/white/gray design
  */
 
 // ============================================
-// AI Agent Theme Variables (Exact Match)
+// Monochrome Theme Variables
 // ============================================
 $chat-bg-dark: #0D0D0D;
 $chat-bg-panel: #1C1C1C;
 $chat-bg-input: #2C2C2C;
 $chat-bg-elevated: #1f1f23;
 $chat-bg-hover: #2e2e33;
+$chat-bg-message: #2A2A2A;
 $chat-text-primary: #FFFFFF;
-$chat-text-secondary: #888888;
+$chat-text-secondary: #A0A0A0;
 $chat-text-muted: #666666;
 $chat-border-subtle: rgba(255, 255, 255, 0.08);
-$chat-border-default: rgba(255, 255, 255, 0.1);
-$chat-accent-blue: #38bdf8;
-$chat-accent-purple: #8b5cf6;
-$chat-gradient-primary: linear-gradient(135deg, #3b82f6, #8b5cf6);
+$chat-border-default: rgba(255, 255, 255, 0.12);
 
-// Shimmer colors (exact match)
+// Shimmer colors (monochrome)
 $shimmer-dark: #1a1a1a;
 $shimmer-light: #2a2a2a;
 
 // ============================================
-// CSS Custom Properties (Dark Theme Override)
+// CSS Custom Properties (Dark Theme)
 // ============================================
 :root {
   --chat-bg: #{$chat-bg-dark};
@@ -56,7 +54,6 @@ $shimmer-light: #2a2a2a;
   --chat-date-align: center;
 }
 
-// Light theme override (keeping for compatibility but dark by default)
 @include theme('light') {
   --chat-bg: #{$chat-bg-dark};
   --chat-color: #{$chat-text-primary};
@@ -85,20 +82,9 @@ $shimmer-light: #2a2a2a;
 }
 
 // ============================================
-// Animations (Exact Match to AI Chat)
+// Animations
 // ============================================
 @keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes messageSlideIn {
   from {
     opacity: 0;
     transform: translateY(8px);
@@ -109,31 +95,38 @@ $shimmer-light: #2a2a2a;
   }
 }
 
-// Typing dots animation (exact match)
-@keyframes pulse-dot {
-  0%, 80%, 100% {
-    transform: scale(0.6);
-    opacity: 0.4;
+@keyframes messageSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
   }
-  40% {
-    transform: scale(1);
+  to {
     opacity: 1;
+    transform: translateY(0);
   }
 }
 
-// Shimmer loading animation (exact match)
+@keyframes pulse-dot {
+  0%, 80%, 100% {
+    transform: scale(0.6);
+    opacity: 0.3;
+  }
+  40% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+}
+
 @keyframes shimmer {
   0% { background-position: 200% 0; }
   100% { background-position: -200% 0; }
 }
 
-// Cursor blink animation
 @keyframes blink {
   0%, 50% { opacity: 1; }
   51%, 100% { opacity: 0; }
 }
 
-// Spin animation
 @keyframes spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
@@ -176,7 +169,7 @@ $shimmer-light: #2a2a2a;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    color: #ef4444;
+    color: #888;
   }
 
   // ============================================
@@ -191,7 +184,6 @@ $shimmer-light: #2a2a2a;
     background-color: var(--chat-bg);
     padding: 16px;
 
-    // Custom Scrollbar
     &::-webkit-scrollbar {
       width: 6px;
     }
@@ -205,7 +197,7 @@ $shimmer-light: #2a2a2a;
 
     li.message {
       margin: 8px 0;
-      animation: fadeInUp 0.3s ease-out;
+      animation: fadeInUp 0.25s ease-out;
 
       .date {
         font-size: 11px;
@@ -237,7 +229,7 @@ $shimmer-light: #2a2a2a;
             gap: 8px;
 
             &.pending-message {
-              opacity: 0.6;
+              opacity: 0.5;
             }
           }
 
@@ -245,42 +237,43 @@ $shimmer-light: #2a2a2a;
             visibility: hidden;
           }
 
-          // Other users' messages (assistant-style: no bubble)
+          // Other users' messages
           .message-content {
             padding: 0;
             overflow-x: auto;
-            color: #E0E0E0;
+            color: $chat-text-secondary;
             font-weight: normal;
             background: transparent;
             border-radius: 0;
             max-width: 100%;
-            font-size: 15px;
+            font-size: 14px;
             line-height: 1.6;
             border: none;
 
             a {
-              color: $chat-accent-blue;
-              text-decoration: none;
+              color: $chat-text-primary;
+              text-decoration: underline;
+              text-decoration-color: rgba(255, 255, 255, 0.3);
 
               &:hover {
-                text-decoration: underline;
+                text-decoration-color: rgba(255, 255, 255, 0.6);
               }
             }
 
             code {
-              background: rgba(255, 255, 255, 0.1);
+              background: rgba(255, 255, 255, 0.08);
               padding: 2px 6px;
               border-radius: 4px;
-              font-family: 'SF Mono', monospace;
+              font-family: 'SF Mono', Consolas, monospace;
               font-size: 0.9em;
             }
 
             pre {
               background: #161616;
               padding: 14px;
-              border-radius: 10px;
+              border-radius: 8px;
               overflow-x: auto;
-              margin: 12px 0;
+              margin: 8px 0;
 
               code {
                 background: transparent;
@@ -297,22 +290,22 @@ $shimmer-light: #2a2a2a;
           }
 
           .arrow {
-            display: none; // Hide arrows in modern design
+            display: none;
           }
 
           .message-dropdown-menu {
             min-width: var(--bs-dropdown-min-width);
             background: $chat-bg-panel;
             border: 1px solid $chat-border-default;
-            border-radius: 12px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            border-radius: 10px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
           }
 
           .message-dropdown-menu-btn {
             @include reset-button;
             @include action-button;
 
-            color: $chat-text-secondary;
+            color: $chat-text-muted;
             padding: 0;
             width: 28px;
             height: 28px;
@@ -320,8 +313,8 @@ $shimmer-light: #2a2a2a;
             transition: all 0.15s;
 
             &:hover {
-              background: rgba(255, 255, 255, 0.08);
-              color: $chat-text-primary;
+              background: rgba(255, 255, 255, 0.06);
+              color: $chat-text-secondary;
             }
           }
         }
@@ -341,7 +334,7 @@ $shimmer-light: #2a2a2a;
         }
       }
 
-      // Other users' messages - no bubble background (like assistant)
+      // Other users' messages
       &:not(.self) {
         .message {
           .message-content {
@@ -353,7 +346,7 @@ $shimmer-light: #2a2a2a;
         }
       }
 
-      // Own messages - Gradient style (EXACT match to AI Chat)
+      // Own messages - Clean white bubble
       &.self {
         margin-top: 12px;
 
@@ -374,22 +367,20 @@ $shimmer-light: #2a2a2a;
               justify-content: flex-end;
             }
 
-            // Exact match to .ai-chat-user-bubble
             .message-content {
-              background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-              color: white;
+              background: $chat-text-primary;
+              color: $chat-bg-dark;
               border-radius: 18px 18px 4px 18px;
-              padding: 12px 16px;
+              padding: 10px 14px;
               max-width: 85%;
               width: fit-content;
               font-size: 14px;
               line-height: 1.5;
               border: none;
-              box-shadow: none;
               font-weight: normal;
 
               a {
-                color: white;
+                color: $chat-bg-dark;
                 text-decoration: underline;
               }
             }
@@ -404,7 +395,7 @@ $shimmer-light: #2a2a2a;
   }
 
   // ============================================
-  // Input Area - Modern Style
+  // Input Area
   // ============================================
   .new-message {
     @extend .full-size;
@@ -420,21 +411,20 @@ $shimmer-light: #2a2a2a;
     textarea {
       overflow: auto;
       resize: none;
-      border-radius: 24px;
+      border-radius: 20px;
       border: 1px solid var(--chat-new-message-textarea-border);
-      height: 48px;
+      height: 44px;
       width: 100%;
       color: var(--chat-new-message-textarea-color);
       font-size: 14px;
-      padding: 12px 18px;
+      padding: 10px 16px;
       background-color: var(--chat-new-message-textarea-bg);
       font-family: inherit;
-      transition: border-color 0.15s, box-shadow 0.15s;
+      transition: border-color 0.15s;
 
       &:focus {
         outline: none;
-        border-color: rgba(56, 189, 248, 0.5);
-        box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.1);
+        border-color: rgba(255, 255, 255, 0.2);
       }
 
       &::placeholder {
@@ -445,7 +435,7 @@ $shimmer-light: #2a2a2a;
 }
 
 // ============================================
-// Empty State - Premium Design
+// Empty State
 // ============================================
 .chat-empty-state-placeholder {
   display: flex;
@@ -454,53 +444,53 @@ $shimmer-light: #2a2a2a;
   align-items: center;
   text-align: center;
   height: 100%;
-  gap: 20px;
+  gap: 16px;
   padding: 40px 24px;
   background: $chat-bg-dark;
 
   .chat-empty-state-icon {
-    padding: 20px;
-    font-size: 32px;
-    height: 80px;
-    width: 80px;
+    padding: 18px;
+    font-size: 28px;
+    height: 72px;
+    width: 72px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(180deg, #1F1F1F 0%, #181818 100%);
+    background: $chat-bg-panel;
     border: 1px solid $chat-border-subtle;
-    color: $chat-text-primary;
+    color: $chat-text-secondary;
 
     .material-symbols {
-      font-size: 32px;
+      font-size: 28px;
     }
   }
 
   .chat-empty-state-title {
     color: $chat-text-primary;
-    font-size: 18px;
+    font-size: 16px;
     line-height: 1.4;
     font-weight: 600;
     margin: 0;
   }
 
   .chat-empty-state-body {
-    font-size: 14px;
-    line-height: 1.6;
-    color: $chat-text-secondary;
-    max-width: 280px;
+    font-size: 13px;
+    line-height: 1.5;
+    color: $chat-text-muted;
+    max-width: 260px;
     margin: 0;
   }
 }
 
 // ============================================
-// Message Redesign - Modern Bubbles
+// Message Redesign
 // ============================================
 .chat-message-redesign {
   display: flex;
   flex-direction: column;
   gap: 4px;
-  animation: messageSlideIn 0.3s ease-out;
+  animation: messageSlideIn 0.25s ease-out;
 
   .message-row {
     display: flex;
@@ -519,11 +509,12 @@ $shimmer-light: #2a2a2a;
     line-height: 28px;
     border-radius: 50%;
     text-align: center;
-    color: white;
+    color: $chat-text-primary;
     text-transform: uppercase;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 600;
-    background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+    background: $chat-bg-message;
+    border: 1px solid $chat-border-subtle;
   }
 
   .message-avatar .message-avatar-deleted-user-icon {
@@ -547,7 +538,7 @@ $shimmer-light: #2a2a2a;
     }
 
     &.pending-message {
-      opacity: 0.6;
+      opacity: 0.5;
     }
 
     &:hover {
@@ -560,7 +551,7 @@ $shimmer-light: #2a2a2a;
       @include reset-button;
       @include action-button;
 
-      color: $chat-text-secondary;
+      color: $chat-text-muted;
       padding: 0;
       width: 28px;
       height: 28px;
@@ -568,20 +559,20 @@ $shimmer-light: #2a2a2a;
       transition: all 0.15s;
 
       &:hover {
-        background: rgba(255, 255, 255, 0.08);
-        color: $chat-text-primary;
+        background: rgba(255, 255, 255, 0.06);
+        color: $chat-text-secondary;
       }
     }
   }
 
   .message-author {
-    color: $chat-text-secondary;
+    color: $chat-text-muted;
     font-size: 12px;
     line-height: 1.4;
     font-weight: 500;
   }
 
-  // Other users' messages (similar to assistant style)
+  // Other users' messages
   .message-content {
     background-color: transparent;
     border: none;
@@ -590,28 +581,28 @@ $shimmer-light: #2a2a2a;
     width: fit-content;
     max-width: 100%;
     overflow-x: auto;
-    font-size: 15px;
+    font-size: 14px;
     line-height: 1.6;
-    color: #E0E0E0;
+    color: $chat-text-secondary;
 
     p {
       margin: 0;
     }
 
     code {
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.08);
       padding: 2px 6px;
       border-radius: 4px;
-      font-family: 'SF Mono', monospace;
+      font-family: 'SF Mono', Consolas, monospace;
       font-size: 0.9em;
     }
 
     pre {
       background: #161616;
       padding: 14px;
-      border-radius: 10px;
+      border-radius: 8px;
       overflow-x: auto;
-      margin: 12px 0;
+      margin: 8px 0;
 
       code {
         background: transparent;
@@ -626,23 +617,23 @@ $shimmer-light: #2a2a2a;
     }
   }
 
-  // Own messages - Gradient style (EXACT match to .ai-chat-user-bubble)
+  // Own messages - Clean white bubble
   .message-container.message-from-self {
     justify-content: flex-end;
 
     .message-content {
-      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-      color: white;
+      background: $chat-text-primary;
+      color: $chat-bg-dark;
       border: none;
       border-radius: 18px 18px 4px 18px;
-      padding: 12px 16px;
+      padding: 10px 14px;
       max-width: 85%;
       font-size: 14px;
       line-height: 1.5;
       font-weight: normal;
 
       a {
-        color: white;
+        color: $chat-bg-dark;
         text-decoration: underline;
       }
     }
@@ -683,23 +674,70 @@ $shimmer-light: #2a2a2a;
 }
 
 // ============================================
-// Typing Indicator (Exact Match to AI Chat)
+// Chat Rail Header (matches AI Chat style)
+// ============================================
+.chat-rail-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: transparent;
+  border: none;
+
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+}
+
+.chat-header-btn {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  color: $chat-text-secondary;
+  cursor: pointer;
+  transition: all 0.15s;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: $chat-text-primary;
+  }
+
+  .material-symbols {
+    font-size: 20px;
+  }
+}
+
+// ============================================
+// Typing Indicator (Monochrome)
 // ============================================
 .chat-typing-indicator {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 12px 16px;
+  gap: 10px;
+  padding: 10px 14px;
   margin: 8px 16px;
-  background: rgba(56, 189, 248, 0.1);
-  border-radius: 12px;
-  border: 1px solid rgba(56, 189, 248, 0.15);
-  animation: fadeInUp 0.3s ease-out;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 10px;
+  border: 1px solid $chat-border-subtle;
+  animation: fadeInUp 0.25s ease-out;
 
   .typing-text {
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 500;
-    color: $chat-accent-blue;
+    color: $chat-text-muted;
   }
 
   .typing-dots {
@@ -708,9 +746,9 @@ $shimmer-light: #2a2a2a;
   }
 
   .typing-dot {
-    width: 6px;
-    height: 6px;
-    background: $chat-accent-blue;
+    width: 5px;
+    height: 5px;
+    background: $chat-text-muted;
     border-radius: 50%;
     animation: pulse-dot 1.4s ease-in-out infinite;
 
@@ -720,7 +758,7 @@ $shimmer-light: #2a2a2a;
 }
 
 // ============================================
-// Shimmer Loading (Exact Match to AI Chat)
+// Shimmer Loading (Monochrome)
 // ============================================
 .chat-shimmer-container {
   padding: 0 16px;
@@ -729,19 +767,19 @@ $shimmer-light: #2a2a2a;
 .chat-shimmer-content {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
 }
 
 .chat-shimmer-line {
-  height: 14px;
+  height: 12px;
   background: linear-gradient(90deg, $shimmer-dark 0%, $shimmer-light 50%, $shimmer-dark 100%);
   background-size: 200% 100%;
   animation: shimmer 1.5s ease-in-out infinite;
-  border-radius: 6px;
+  border-radius: 4px;
 
-  &-1 { width: 90%; }
-  &-2 { width: 75%; }
-  &-3 { width: 60%; }
+  &-1 { width: 85%; }
+  &-2 { width: 70%; }
+  &-3 { width: 55%; }
 }
 
 // ============================================
@@ -749,10 +787,10 @@ $shimmer-light: #2a2a2a;
 // ============================================
 .chat-message-streaming {
   &::after {
-    content: '▊';
-    animation: blink 1s step-end infinite;
-    color: $chat-accent-blue;
-    margin-left: 2px;
+    content: '|';
+    animation: blink 0.8s step-end infinite;
+    color: $chat-text-muted;
+    margin-left: 1px;
   }
 }
 

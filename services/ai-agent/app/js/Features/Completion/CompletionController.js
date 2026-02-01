@@ -323,7 +323,7 @@ export const CompletionController = {
    */
   async stream(req, res) {
     const { projectId } = req.params
-    const { message, sessionId, model, provider, context } = req.query
+    const { message, sessionId, model, provider, context, attachments } = req.query
     const userId = req.headers['x-user-id']
 
     // Set SSE headers
@@ -338,11 +338,16 @@ export const CompletionController = {
         return res.end()
       }
 
+      // Parse attachments if provided
+      const parsedAttachments = attachments ? JSON.parse(attachments) : null
+
       logger.info({
         projectId,
         userId,
         provider,
-        model
+        model,
+        hasAttachments: !!parsedAttachments,
+        attachmentCount: parsedAttachments?.length || 0
       }, 'Starting agent stream')
 
       // Get or create session
@@ -350,10 +355,21 @@ export const CompletionController = {
 
       // Add user message (persisted)
       const parsedContext = context ? JSON.parse(context) : null
+
+      // Build message content with attachments
+      let messageContent = message
+      if (parsedAttachments && parsedAttachments.length > 0) {
+        // Add attachment descriptions to the message
+        const attachmentDescriptions = parsedAttachments.map(att =>
+          `[Attached file: ${att.name} (${att.type}, ${Math.round(att.size / 1024)}KB)]`
+        ).join('\n')
+        messageContent = `${attachmentDescriptions}\n\n${message}`
+      }
+
       const userMessage = await SessionManager.addUserMessage(
         session._id,
-        message,
-        parsedContext
+        messageContent,
+        { ...parsedContext, attachments: parsedAttachments }
       )
 
       // Auto-generate title from first message
@@ -761,10 +777,42 @@ ${context.doc_content.substring(0, 3000)}${context.doc_content.length > 3000 ? '
   // Convert session messages to LLM format (handles tool calls/results)
   for (const msg of recentMessages) {
     if (msg.role === MessageRole.USER) {
-      messages.push({
-        role: 'user',
-        content: msg.content
-      })
+      // Check for image attachments in context
+      const msgAttachments = msg.metadata?.document_context?.attachments
+      if (msgAttachments && msgAttachments.some(a => a.type?.startsWith('image/'))) {
+        // Build multimodal content with images
+        const content = []
+
+        // Add images first
+        for (const att of msgAttachments) {
+          if (att.type?.startsWith('image/') && att.data) {
+            content.push({
+              type: 'image',
+              source: {
+                type: 'base64',
+                media_type: att.type,
+                data: att.data
+              }
+            })
+          }
+        }
+
+        // Add text content
+        content.push({
+          type: 'text',
+          text: msg.content
+        })
+
+        messages.push({
+          role: 'user',
+          content
+        })
+      } else {
+        messages.push({
+          role: 'user',
+          content: msg.content
+        })
+      }
     } else if (msg.role === MessageRole.ASSISTANT) {
       // Handle assistant messages with potential tool calls
       const content = []

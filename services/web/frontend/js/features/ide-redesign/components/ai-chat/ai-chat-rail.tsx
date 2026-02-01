@@ -8,7 +8,7 @@
  * - Model selection
  */
 
-import React, { useEffect, useState, useCallback, useRef } from 'react'
+import React, { useEffect, useState, useCallback, useRef, ChangeEvent } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useProjectContext } from '@/shared/context/project-context'
 import { useRailContext } from '../../contexts/rail-context'
@@ -37,11 +37,21 @@ type ThinkingBlock = {
   content: string
 }
 
+type FileAttachment = {
+  id: string
+  name: string
+  type: string
+  size: number
+  data: string // base64
+  preview?: string // for images
+}
+
 type AIMessage = {
   id: string
   role: 'user' | 'assistant' | 'system'
   content: string
   timestamp: Date
+  attachments?: FileAttachment[]
   thinking?: ThinkingBlock[]
   toolCalls?: ToolCall[]
   metadata?: {
@@ -108,9 +118,13 @@ export function AIChatPane() {
   const messagesContainerRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLTextAreaElement>(null)
   const eventSourceRef = useRef<EventSource | null>(null)
+  const fileInputRef = useRef<HTMLInputElement>(null)
 
   // Scroll state for scroll-down button
   const [showScrollDown, setShowScrollDown] = useState(false)
+
+  // File attachment state
+  const [attachments, setAttachments] = useState<FileAttachment[]>([])
 
   // Model selector dropdown state
   const [showModelSelector, setShowModelSelector] = useState(false)
@@ -150,18 +164,64 @@ export function AIChatPane() {
     setShowScrollDown(false)
   }, [])
 
+  // File handling functions
+  const handleFileSelect = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files
+    if (!files || files.length === 0) return
+
+    Array.from(files).forEach(file => {
+      // Max 10MB per file
+      if (file.size > 10 * 1024 * 1024) {
+        console.warn('File too large:', file.name)
+        return
+      }
+
+      const reader = new FileReader()
+      reader.onload = () => {
+        const base64 = (reader.result as string).split(',')[1]
+        const attachment: FileAttachment = {
+          id: `file-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+          name: file.name,
+          type: file.type,
+          size: file.size,
+          data: base64,
+          preview: file.type.startsWith('image/') ? reader.result as string : undefined
+        }
+        setAttachments(prev => [...prev, attachment])
+      }
+      reader.readAsDataURL(file)
+    })
+
+    // Reset input
+    if (fileInputRef.current) {
+      fileInputRef.current.value = ''
+    }
+  }, [])
+
+  const removeAttachment = useCallback((id: string) => {
+    setAttachments(prev => prev.filter(a => a.id !== id))
+  }, [])
+
+  const formatFileSize = (bytes: number): string => {
+    if (bytes < 1024) return `${bytes} B`
+    if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`
+    return `${(bytes / (1024 * 1024)).toFixed(1)} MB`
+  }
+
   const sendMessage = useCallback(async () => {
-    if (!inputValue.trim() || isStreaming || !projectId) return
+    if ((!inputValue.trim() && attachments.length === 0) || isStreaming || !projectId) return
 
     const userMessage: AIMessage = {
       id: `user-${Date.now()}`,
       role: 'user',
       content: inputValue.trim(),
       timestamp: new Date(),
+      attachments: attachments.length > 0 ? [...attachments] : undefined,
     }
 
     setMessages(prev => [...prev, userMessage])
     setInputValue('')
+    setAttachments([]) // Clear attachments after adding to message
     setIsStreaming(true)
     setStreamingMessage({
       id: `assistant-${Date.now()}`,
@@ -177,6 +237,16 @@ export function AIChatPane() {
     if (sessionId) params.set('sessionId', sessionId)
     params.set('provider', selectedProvider)
     params.set('model', selectedModel)
+
+    // Include attachments as context
+    if (userMessage.attachments && userMessage.attachments.length > 0) {
+      params.set('attachments', JSON.stringify(userMessage.attachments.map(a => ({
+        name: a.name,
+        type: a.type,
+        size: a.size,
+        data: a.data
+      }))))
+    }
 
     const url = `/project/${projectId}/agent/stream/proxy?${params.toString()}`
 
@@ -461,6 +531,48 @@ export function AIChatPane() {
 
       {/* Input Area */}
       <div className="ai-chat-input-area">
+        {/* Hidden File Input */}
+        <input
+          ref={fileInputRef}
+          type="file"
+          multiple
+          accept="image/*,.pdf,.txt,.tex,.md,.json,.csv"
+          onChange={handleFileSelect}
+          style={{ display: 'none' }}
+        />
+
+        {/* Attachment Preview */}
+        {attachments.length > 0 && (
+          <div className="attachment-preview-area">
+            {attachments.map(attachment => (
+              <div key={attachment.id} className="attachment-preview-item">
+                {attachment.preview ? (
+                  <img src={attachment.preview} alt={attachment.name} className="attachment-thumbnail" />
+                ) : (
+                  <div className="attachment-icon">
+                    <MaterialIcon type={
+                      attachment.type.includes('pdf') ? 'picture_as_pdf' :
+                      attachment.type.includes('text') ? 'description' :
+                      'insert_drive_file'
+                    } />
+                  </div>
+                )}
+                <div className="attachment-info">
+                  <span className="attachment-name">{attachment.name}</span>
+                  <span className="attachment-size">{formatFileSize(attachment.size)}</span>
+                </div>
+                <button
+                  className="attachment-remove"
+                  onClick={() => removeAttachment(attachment.id)}
+                  title={t('remove')}
+                >
+                  <MaterialIcon type="close" />
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
+
         {/* Quick Action Pills */}
         <div className="quick-action-pills">
           <button className="quick-pill" onClick={() => setInputValue('Explain this: ')}>
@@ -490,7 +602,7 @@ export function AIChatPane() {
                 sendMessage()
               }
             }}
-            placeholder="Ask a question about this page..."
+            placeholder={attachments.length > 0 ? "Add a message or send the file..." : "Ask a question about this page..."}
             rows={1}
           />
           <div className="input-toolbar">
@@ -534,10 +646,19 @@ export function AIChatPane() {
               </div>
             </div>
             <div className="toolbar-right">
+              {/* Attachment Button */}
               <button
-                className={classNames('send-btn', { active: inputValue.trim() })}
+                className="toolbar-btn attachment-btn"
+                onClick={() => fileInputRef.current?.click()}
+                title={t('attach_file') || 'Attach file'}
+                disabled={isStreaming}
+              >
+                <MaterialIcon type="attach_file" />
+              </button>
+              <button
+                className={classNames('send-btn', { active: inputValue.trim() || attachments.length > 0 })}
                 onClick={isStreaming ? stopStreaming : sendMessage}
-                disabled={!inputValue.trim() && !isStreaming}
+                disabled={(!inputValue.trim() && attachments.length === 0) && !isStreaming}
               >
                 <MaterialIcon type={isStreaming ? 'stop' : 'arrow_upward'} />
               </button>
@@ -597,10 +718,46 @@ function MessageBubble({ message, isStreaming, onCopy, onApply, isCopied }: Mess
   const { t } = useTranslation()
   const isUser = message.role === 'user'
 
+  const formatFileSize = (bytes: number): string => {
+    if (bytes < 1024) return `${bytes} B`
+    if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`
+    return `${(bytes / (1024 * 1024)).toFixed(1)} MB`
+  }
+
   if (isUser) {
     return (
       <div className="ai-chat-message ai-chat-message-user">
-        <div className="ai-chat-user-bubble">{message.content}</div>
+        <div className="ai-chat-user-bubble">
+          {/* Display attachments */}
+          {message.attachments && message.attachments.length > 0 && (
+            <div className="message-attachments">
+              {message.attachments.map(attachment => (
+                <div key={attachment.id} className="message-attachment-item">
+                  {attachment.preview ? (
+                    <img
+                      src={attachment.preview}
+                      alt={attachment.name}
+                      className="message-attachment-thumb"
+                    />
+                  ) : (
+                    <div className="message-attachment-icon">
+                      <MaterialIcon type={
+                        attachment.type.includes('pdf') ? 'picture_as_pdf' :
+                        attachment.type.includes('text') ? 'description' :
+                        'insert_drive_file'
+                      } />
+                    </div>
+                  )}
+                  <div className="message-attachment-info">
+                    <span className="message-attachment-name">{attachment.name}</span>
+                    <span className="message-attachment-size">{formatFileSize(attachment.size)}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+          {message.content}
+        </div>
       </div>
     )
   }

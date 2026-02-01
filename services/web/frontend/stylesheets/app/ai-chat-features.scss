@@ -76,72 +76,71 @@ $modal-gradient-primary: linear-gradient(135deg, #3b82f6, #8b5cf6);
 }
 
 // ============================================
-// Chat History Modal
+// Chat History Modal - Minimalist Design
 // ============================================
 
 .chat-history-modal {
   .modal-dialog {
-    max-width: 600px;
+    max-width: 480px;
   }
 
   .modal-content {
     background: $modal-bg-dark;
-    border: 1px solid $modal-border-default;
-    border-radius: 16px;
-    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.5);
+    border: none;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
     overflow: hidden;
   }
 
   .modal-header {
-    background: $modal-bg-panel;
-    border-bottom: 1px solid $modal-border-subtle;
-    padding: 16px 20px;
+    background: transparent;
+    border: none;
+    padding: 20px 24px 0;
 
     .modal-title {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
       color: $modal-text-primary;
-      font-size: 16px;
+      font-size: 18px;
       font-weight: 600;
+      letter-spacing: -0.3px;
 
       .material-symbols {
-        color: $modal-accent-blue;
-        font-size: 22px;
+        color: $modal-text-secondary;
+        font-size: 24px;
       }
     }
 
     .btn-close {
-      color: $modal-text-secondary;
-      opacity: 0.8;
+      color: $modal-text-muted;
+      opacity: 1;
       filter: invert(1);
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      transition: all 0.15s;
 
       &:hover {
-        opacity: 1;
+        background: rgba(255, 255, 255, 0.08);
       }
     }
   }
 
   .modal-body {
-    background: $modal-bg-dark;
-    padding: 20px;
+    background: transparent;
+    padding: 20px 24px 24px;
   }
 }
 
+// Search - Clean minimal input
 .chat-history-search {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 12px 16px;
-  background: $modal-bg-input;
-  border: 1px solid $modal-border-subtle;
-  border-radius: 12px;
-  margin-bottom: 20px;
-  transition: border-color 0.15s;
-
-  &:focus-within {
-    border-color: rgba($modal-accent-blue, 0.5);
-  }
+  gap: 12px;
+  padding: 0 0 16px;
+  border-bottom: 1px solid $modal-border-subtle;
+  margin-bottom: 16px;
 
   .material-symbols {
     color: $modal-text-muted;
@@ -153,7 +152,7 @@ $modal-gradient-primary: linear-gradient(135deg, #3b82f6, #8b5cf6);
     border: none;
     background: transparent;
     outline: none;
-    font-size: 14px;
+    font-size: 15px;
     color: $modal-text-primary;
     font-family: inherit;
 
@@ -166,27 +165,31 @@ $modal-gradient-primary: linear-gradient(135deg, #3b82f6, #8b5cf6);
 .chat-history-search-clear {
   background: none;
   border: none;
-  padding: 4px;
+  padding: 6px;
   cursor: pointer;
   color: $modal-text-muted;
-  border-radius: 4px;
+  border-radius: 6px;
   transition: all 0.15s;
 
   &:hover {
     color: $modal-text-primary;
     background: rgba(255, 255, 255, 0.08);
   }
+
+  .material-symbols {
+    font-size: 18px;
+  }
 }
 
+// Error state
 .chat-history-error {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 12px 16px;
-  background: rgba($modal-accent-red, 0.15);
-  border: 1px solid rgba($modal-accent-red, 0.3);
-  border-radius: 10px;
-  margin-bottom: 20px;
+  gap: 12px;
+  padding: 14px 16px;
+  background: rgba($modal-accent-red, 0.1);
+  border-radius: 12px;
+  margin-bottom: 16px;
   color: $modal-accent-red;
   font-size: 13px;
 
@@ -200,74 +203,79 @@ $modal-gradient-primary: linear-gradient(135deg, #3b82f6, #8b5cf6);
     border: none;
     cursor: pointer;
     color: $modal-accent-red;
-    padding: 4px;
-    border-radius: 4px;
+    padding: 6px;
+    border-radius: 6px;
     transition: background 0.15s;
 
     &:hover {
-      background: rgba($modal-accent-red, 0.2);
+      background: rgba($modal-accent-red, 0.15);
     }
   }
 }
 
+// Loading & Empty states
 .chat-history-loading,
 .chat-history-empty {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 60px 24px;
+  padding: 48px 24px;
   color: $modal-text-secondary;
 
   .material-symbols {
-    font-size: 56px;
-    margin-bottom: 20px;
-    opacity: 0.4;
+    font-size: 48px;
+    margin-bottom: 16px;
+    opacity: 0.3;
     color: $modal-text-muted;
   }
 
   p {
-    margin: 0 0 16px 0;
+    margin: 0 0 20px 0;
     text-align: center;
     font-size: 14px;
     line-height: 1.5;
+    color: $modal-text-muted;
   }
 
   button {
-    background: $modal-bg-elevated;
+    background: transparent;
     border: 1px solid $modal-border-subtle;
-    color: $modal-text-primary;
-    padding: 8px 16px;
-    border-radius: 8px;
+    color: $modal-text-secondary;
+    padding: 10px 20px;
+    border-radius: 10px;
     font-size: 13px;
+    font-weight: 500;
     cursor: pointer;
     transition: all 0.15s;
 
     &:hover {
-      background: $modal-bg-hover;
+      background: rgba(255, 255, 255, 0.05);
       border-color: $modal-border-default;
+      color: $modal-text-primary;
     }
   }
 }
 
+// Session list - Clean cards
 .chat-history-list {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  max-height: 400px;
+  gap: 2px;
+  max-height: 380px;
   overflow-y: auto;
-  padding-right: 4px;
+  margin: 0 -8px;
+  padding: 0 8px;
 
-  // Custom Scrollbar
   &::-webkit-scrollbar {
-    width: 6px;
+    width: 4px;
   }
   &::-webkit-scrollbar-track {
     background: transparent;
   }
   &::-webkit-scrollbar-thumb {
-    background: #333;
-    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
   }
 }
 
@@ -276,30 +284,18 @@ $modal-gradient-primary: linear-gradient(135deg, #3b82f6, #8b5cf6);
   align-items: center;
   justify-content: space-between;
   padding: 14px 16px;
-  background: $modal-bg-elevated;
-  border: 1px solid $modal-border-subtle;
+  background: transparent;
+  border: none;
   border-radius: 12px;
   cursor: pointer;
-  transition: all 0.2s;
-  animation: fadeInUp 0.3s ease-out;
+  transition: all 0.15s;
 
   &:hover {
-    background: $modal-bg-hover;
-    border-color: $modal-border-default;
-    transform: translateY(-1px);
-  }
-
-  &:active {
-    transform: scale(0.99);
+    background: rgba(255, 255, 255, 0.04);
   }
 
   &.current {
-    background: rgba($modal-accent-blue, 0.15);
-    border-color: rgba($modal-accent-blue, 0.3);
-
-    &:hover {
-      background: rgba($modal-accent-blue, 0.2);
-    }
+    background: rgba(255, 255, 255, 0.06);
   }
 }
 
@@ -314,51 +310,55 @@ $modal-gradient-primary: linear-gradient(135deg, #3b82f6, #8b5cf6);
   gap: 10px;
   font-weight: 500;
   font-size: 14px;
-  margin-bottom: 8px;
+  margin-bottom: 4px;
   color: $modal-text-primary;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+
+  // Text truncation
+  > span:first-child,
+  > :first-child:not(.chat-history-current-badge) {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }
 
 .chat-history-current-badge {
-  font-size: 10px;
-  font-weight: 700;
+  font-size: 9px;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  padding: 3px 8px;
-  background: $modal-gradient-primary;
-  color: white;
-  border-radius: 6px;
+  padding: 3px 6px;
+  background: rgba(255, 255, 255, 0.1);
+  color: $modal-text-secondary;
+  border-radius: 4px;
   flex-shrink: 0;
 }
 
 .chat-history-item-meta {
   display: flex;
-  gap: 16px;
+  gap: 12px;
   font-size: 12px;
   color: $modal-text-muted;
 
   span {
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 4px;
   }
 
   .material-symbols {
     font-size: 14px;
-    opacity: 0.7;
+    opacity: 0.6;
   }
 }
 
 .chat-history-item-model {
-  font-weight: 600;
+  font-weight: 500;
   font-size: 10px;
-  padding: 3px 7px;
-  background: $modal-gradient-primary;
-  color: white;
-  border-radius: 5px;
-  letter-spacing: 0.5px;
+  padding: 2px 6px;
+  background: rgba(255, 255, 255, 0.08);
+  color: $modal-text-secondary;
+  border-radius: 4px;
 }
 
 .chat-history-item-actions {
@@ -380,12 +380,12 @@ $modal-gradient-primary: linear-gradient(135deg, #3b82f6, #8b5cf6);
   transition: all 0.15s;
 
   &:hover {
-    background: rgba($modal-accent-red, 0.15);
+    background: rgba($modal-accent-red, 0.1);
     color: $modal-accent-red;
   }
 
   &:disabled {
-    opacity: 0.5;
+    opacity: 0.4;
     cursor: not-allowed;
   }
 
@@ -395,7 +395,7 @@ $modal-gradient-primary: linear-gradient(135deg, #3b82f6, #8b5cf6);
 }
 
 .chat-history-footer {
-  margin-top: 20px;
+  margin-top: 16px;
   padding-top: 16px;
   border-top: 1px solid $modal-border-subtle;
   font-size: 12px;

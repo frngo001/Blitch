@@ -111,6 +111,25 @@ async function listSessions(projectId, userId, options = {}) {
 }
 
 /**
+ * Get session history (messages) for a specific session
+ * @param {string} projectId
+ * @param {string} userId
+ * @param {string} sessionId
+ * @param {Object} options
+ */
+async function getSessionHistory(projectId, userId, sessionId, options = {}) {
+  const { limit, includeToolCalls } = options
+
+  const url = aiAgentApiUrl(`/project/${projectId}/agent/session/${sessionId}/history`)
+  if (limit) url.searchParams.set('limit', limit.toString())
+  if (includeToolCalls === false) url.searchParams.set('includeToolCalls', 'false')
+
+  return await fetchJson(url, {
+    headers: { 'x-user-id': userId }
+  })
+}
+
+/**
  * Get available skills
  * @param {string} projectId
  * @param {string} userId
@@ -192,7 +211,7 @@ async function healthCheck() {
  * @param {Object} options
  */
 function getStreamUrl(projectId, message, options = {}) {
-  const { sessionId, model, provider, context } = options
+  const { sessionId, model, provider, context, attachments } = options
 
   const url = aiAgentApiUrl(`/project/${projectId}/agent/stream`)
   url.searchParams.set('message', message)
@@ -200,6 +219,7 @@ function getStreamUrl(projectId, message, options = {}) {
   if (model) url.searchParams.set('model', model)
   if (provider) url.searchParams.set('provider', provider)
   if (context) url.searchParams.set('context', JSON.stringify(context))
+  if (attachments) url.searchParams.set('attachments', JSON.stringify(attachments))
 
   return url.toString()
 }
@@ -216,6 +236,7 @@ export default {
   createSession: callbackify(createSession),
   deleteSession: callbackify(deleteSession),
   listSessions: callbackify(listSessions),
+  getSessionHistory: callbackify(getSessionHistory),
   getSkills: callbackify(getSkills),
   executeSkill: callbackify(executeSkill),
   getProviders: callbackify(getProviders),
@@ -229,6 +250,7 @@ export default {
     createSession,
     deleteSession,
     listSessions,
+    getSessionHistory,
     getSkills,
     executeSkill,
     getProviders,
