@@ -132,72 +132,50 @@
 }
 
 // ============================================
-// Dark Theme Override - AI Chat Style
-// Premium glassmorphism, smooth animations
-// Green accents preserved for primary actions
+// Clean Dark Theme - Minimal & Simple
+// No unnecessary backgrounds, clean lines
+// Green accents preserved
 // ============================================
 
-$settings-bg-dark: #0f0f10;
-$settings-bg-panel: #18181b;
-$settings-bg-elevated: #1f1f23;
-$settings-bg-surface: #27272a;
-$settings-bg-hover: #2e2e33;
-$settings-text-primary: #fafafa;
-$settings-text-secondary: #a1a1aa;
-$settings-text-muted: #71717a;
-$settings-border-subtle: rgba(255, 255, 255, 0.06);
-$settings-border-default: rgba(255, 255, 255, 0.1);
-$settings-border-strong: rgba(255, 255, 255, 0.15);
+$settings-bg-base: #111111;
+$settings-bg-sidebar: #161616;
+$settings-bg-input: #1e1e1e;
+$settings-bg-hover: #252525;
+$settings-text-primary: #ffffff;
+$settings-text-secondary: #888888;
+$settings-text-muted: #555555;
+$settings-border: rgba(255, 255, 255, 0.08);
+$settings-green: #22c55e;
+$settings-green-hover: #16a34a;
 
-// AI Chat style transitions
-$settings-transition-fast: 0.15s ease;
-$settings-transition-normal: 0.2s ease;
-$settings-transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+$settings-transition: 0.15s ease;
 
-// Modal Container Override - AI Chat Glassmorphism Style
-// Using body:has() to target modals rendered via React Portal outside .ide-redesign-main
+// Modal Container - Clean dark style
 body:has(.ide-redesign-main) .modal-content:has(.ide-settings-modal-body) {
-  background: rgba($settings-bg-panel, 0.95);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid $settings-border-default;
-  border-radius: 20px;
-  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.6), 0 0 40px rgba(0, 0, 0, 0.2);
+  background: $settings-bg-base;
+  border: 1px solid $settings-border;
+  border-radius: 12px;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
   overflow: hidden;
 
   .modal-header {
-    background: rgba($settings-bg-elevated, 0.5);
-    border-bottom: 1px solid $settings-border-subtle;
-    padding: 20px 24px;
-    position: relative;
-
-    // Subtle bottom glow like AI Chat
-    &::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 40%;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(34, 197, 94, 0.3), transparent);
-    }
+    background: transparent;
+    border-bottom: 1px solid $settings-border;
+    padding: 16px 20px;
 
     .modal-title {
       color: $settings-text-primary;
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 600;
-      letter-spacing: -0.02em;
     }
 
     .btn-close {
       filter: invert(1);
-      opacity: 0.5;
-      transition: all $settings-transition-fast;
+      opacity: 0.4;
+      transition: opacity $settings-transition;
 
       &:hover {
-        opacity: 1;
-        transform: scale(1.1);
+        opacity: 0.8;
       }
     }
   }
@@ -207,19 +185,18 @@ body:has(.ide-redesign-main) .modal-content:has(.ide-settings-modal-body) {
   }
 }
 
-// Tab Navigation - AI Chat Dark Sidebar
+// Tab Navigation - Clean sidebar
 body:has(.ide-redesign-main) .ide-settings-tab-nav.nav {
-  background: rgba($settings-bg-elevated, 0.6);
-  border-right: 1px solid $settings-border-subtle;
-  padding: 16px 12px;
+  background: $settings-bg-sidebar;
+  border-right: 1px solid $settings-border;
+  padding: 8px;
 
   .ide-settings-tab-link {
     color: $settings-text-secondary;
-    padding: 12px 14px;
-    border-radius: 10px;
-    transition: all $settings-transition-smooth;
-    position: relative;
-    border: 1px solid transparent;
+    padding: 10px 12px;
+    border-radius: 6px;
+    transition: all $settings-transition;
+    border: none;
 
     &:visited {
       color: $settings-text-secondary;
@@ -227,69 +204,49 @@ body:has(.ide-redesign-main) .ide-settings-tab-nav.nav {
 
     &:hover {
       color: $settings-text-primary;
-      background: rgba(255, 255, 255, 0.04);
-      transform: translateX(2px);
+      background: $settings-bg-hover;
     }
 
     &.active {
       color: $settings-text-primary;
-      background: rgba(34, 197, 94, 0.1);
-      border-color: rgba(34, 197, 94, 0.2);
+      background: $settings-bg-hover;
       font-weight: 500;
-
-      // Green indicator like AI Chat accent
-      &::before {
-        content: '';
-        position: absolute;
-        left: 0;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 3px;
-        height: 50%;
-        background: var(--green-50);
-        border-radius: 0 3px 3px 0;
-      }
     }
 
     .material-symbols {
-      color: $settings-text-muted;
-      transition: color $settings-transition-fast;
+      color: inherit;
+      opacity: 0.7;
     }
 
-    &:hover .material-symbols,
     &.active .material-symbols {
-      color: var(--green-50);
+      color: $settings-green;
+      opacity: 1;
     }
   }
 }
 
-// Tab Content Area
+// Tab Content Area - Clean
 body:has(.ide-redesign-main) .ide-settings-tab-content {
-  background: $settings-bg-dark;
+  background: $settings-bg-base;
   color: $settings-text-primary;
-  padding: 0 var(--spacing-08);
+  padding: 0 24px;
 
   &::-webkit-scrollbar {
-    width: 8px;
+    width: 6px;
   }
   &::-webkit-scrollbar-track {
     background: transparent;
   }
   &::-webkit-scrollbar-thumb {
-    background: $settings-bg-surface;
-    border-radius: 4px;
-    border: 2px solid $settings-bg-dark;
-
-    &:hover {
-      background: $settings-bg-hover;
-    }
+    background: #333;
+    border-radius: 3px;
   }
 }
 
-// Section Styling
+// Section Styling - Minimal dividers
 body:has(.ide-redesign-main) .ide-settings-section {
-  border-bottom: 1px solid $settings-border-subtle;
-  padding: var(--spacing-08) 0;
+  border-bottom: 1px solid $settings-border;
+  padding: 20px 0;
 
   &:last-child {
     border-bottom: none;
@@ -302,26 +259,22 @@ body:has(.ide-redesign-main) .ide-settings-section-title {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  border-bottom-color: $settings-border-subtle;
-  padding-bottom: var(--spacing-04);
+  border-bottom: none;
+  padding-bottom: 12px;
 }
 
-// Individual Settings - AI Chat Card Style
+// Individual Settings - No card backgrounds
 body:has(.ide-redesign-main) .ide-setting {
-  padding: 16px;
-  margin: 8px 0;
-  border-radius: 12px;
-  border: 1px solid transparent;
-  background: rgba(255, 255, 255, 0.02);
-  transition: all $settings-transition-smooth;
+  padding: 12px 0;
+  margin: 0;
+  border-radius: 0;
+  border: none;
+  background: transparent;
+  transition: none;
 
   &:hover {
-    background: rgba(255, 255, 255, 0.04);
-    border-color: $settings-border-subtle;
-  }
-
-  &:last-child {
-    margin-bottom: 0;
+    background: transparent;
+    border-color: transparent;
   }
 }
 
@@ -332,66 +285,62 @@ body:has(.ide-redesign-main) .ide-setting-title {
 }
 
 body:has(.ide-redesign-main) .ide-setting-description {
-  color: $settings-text-muted;
-  font-size: 12px;
-  line-height: 1.5;
-  margin-top: 4px;
+  color: $settings-text-secondary;
+  font-size: 13px;
+  line-height: 1.4;
+  margin-top: 2px;
 }
 
-// Dropdown Selects - AI Chat Style
+// Dropdown Selects - Simple style
 body:has(.ide-redesign-main) .ide-dropdown-setting,
 body:has(.ide-redesign-main) .ide-dropdown-setting-wide {
   .form-select,
   select {
-    background: $settings-bg-surface;
-    border: 1px solid $settings-border-default;
+    background: $settings-bg-input;
+    border: 1px solid $settings-border;
     color: $settings-text-primary;
-    border-radius: 10px;
-    padding: 10px 14px;
+    border-radius: 6px;
+    padding: 8px 12px;
     font-size: 13px;
     font-weight: 500;
-    transition: all $settings-transition-smooth;
+    transition: border-color $settings-transition;
     cursor: pointer;
 
     &:hover {
-      border-color: $settings-border-strong;
-      transform: translateY(-1px);
+      border-color: rgba(255, 255, 255, 0.15);
     }
 
     &:focus {
-      border-color: rgba(34, 197, 94, 0.5);
+      border-color: $settings-green;
       outline: none;
-      box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1);
+      box-shadow: none;
     }
 
     option {
-      background: $settings-bg-elevated;
+      background: $settings-bg-input;
       color: $settings-text-primary;
-      padding: 10px;
     }
   }
 }
 
-// Radio Options - AI Chat Card Style
+// Radio Options - Simple style
 body:has(.ide-redesign-main) .ide-radio-option {
-  padding: 14px 16px;
-  border-radius: 10px;
-  border: 1px solid $settings-border-subtle;
-  background: rgba(255, 255, 255, 0.02);
-  transition: all $settings-transition-smooth;
+  padding: 10px 0;
+  border-radius: 0;
+  border: none;
+  background: transparent;
+  transition: none;
   cursor: pointer;
 
   &:hover {
-    background: rgba(255, 255, 255, 0.04);
-    border-color: $settings-border-default;
-    transform: translateY(-1px);
+    background: transparent;
   }
 }
 
 body:has(.ide-redesign-main) .ide-radio-input {
-  accent-color: var(--green-50);
-  width: 18px;
-  height: 18px;
+  accent-color: $settings-green;
+  width: 16px;
+  height: 16px;
 }
 
 body:has(.ide-redesign-main) .ide-radio-text {
@@ -401,189 +350,163 @@ body:has(.ide-redesign-main) .ide-radio-text {
   }
 
   .ide-setting-description {
-    color: $settings-text-muted;
+    color: $settings-text-secondary;
     font-size: 12px;
   }
 }
 
-// Beta Note - AI Chat Info Card
+// Beta Note - Subtle info
 body:has(.ide-redesign-main) .project-notifications-beta-note {
-  background: rgba(59, 130, 246, 0.08);
-  border: 1px solid rgba(59, 130, 246, 0.15);
-  border-radius: 12px;
-  padding: 14px 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid $settings-border;
+  border-radius: 6px;
+  padding: 12px;
 
   .beta-note-text {
     color: $settings-text-secondary;
     font-size: 13px;
-    line-height: 1.6;
+    line-height: 1.5;
   }
 }
 
-// Form Controls Override - AI Chat Style
+// Form Controls - Simple style
 body:has(.ide-redesign-main) .ide-settings-modal-body {
   input[type="text"],
   input[type="number"],
   input[type="email"],
   textarea {
-    background: $settings-bg-surface;
-    border: 1px solid $settings-border-default;
+    background: $settings-bg-input;
+    border: 1px solid $settings-border;
     color: $settings-text-primary;
-    border-radius: 10px;
-    padding: 12px 16px;
+    border-radius: 6px;
+    padding: 10px 12px;
     font-size: 14px;
-    transition: all $settings-transition-smooth;
+    transition: border-color $settings-transition;
 
     &::placeholder {
       color: $settings-text-muted;
     }
 
     &:hover {
-      border-color: $settings-border-strong;
+      border-color: rgba(255, 255, 255, 0.15);
     }
 
     &:focus {
-      border-color: rgba(34, 197, 94, 0.5);
+      border-color: $settings-green;
       outline: none;
-      box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1);
+      box-shadow: none;
     }
   }
 
-  // Checkboxes and Switches - Green accent
   input[type="checkbox"] {
-    accent-color: var(--green-50);
-    width: 18px;
-    height: 18px;
+    accent-color: $settings-green;
+    width: 16px;
+    height: 16px;
   }
 
-  // Toggle Switches
   .form-check-input {
-    background-color: $settings-bg-surface;
-    border-color: $settings-border-default;
+    background-color: $settings-bg-input;
+    border-color: $settings-border;
 
     &:checked {
-      background-color: var(--green-50);
-      border-color: var(--green-50);
+      background-color: $settings-green;
+      border-color: $settings-green;
     }
 
     &:focus {
-      box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.15);
+      box-shadow: none;
     }
   }
 
-  // Primary Button - Green with AI Chat effects
   .btn-primary {
-    background: var(--green-50);
-    color: #FFFFFF;
+    background: $settings-green;
+    color: #ffffff;
     border: none;
-    border-radius: 10px;
+    border-radius: 6px;
     font-weight: 500;
-    padding: 12px 20px;
-    box-shadow: 0 2px 8px rgba(34, 197, 94, 0.25);
-    transition: all $settings-transition-smooth;
+    padding: 10px 16px;
+    transition: background $settings-transition;
 
     &:hover {
-      background: var(--green-40);
-      transform: translateY(-2px);
-      box-shadow: 0 4px 16px rgba(34, 197, 94, 0.35);
-    }
-
-    &:active {
-      transform: translateY(0);
+      background: $settings-green-hover;
     }
 
     &:disabled {
       background: $settings-text-muted;
-      box-shadow: none;
-      transform: none;
     }
   }
 
-  // Secondary Button - AI Chat ghost style
   .btn-secondary {
-    background: $settings-bg-surface;
+    background: transparent;
     color: $settings-text-secondary;
-    border: 1px solid $settings-border-default;
-    border-radius: 10px;
-    padding: 12px 20px;
+    border: 1px solid $settings-border;
+    border-radius: 6px;
+    padding: 10px 16px;
     font-weight: 500;
-    transition: all $settings-transition-smooth;
+    transition: all $settings-transition;
 
     &:hover {
       background: $settings-bg-hover;
       color: $settings-text-primary;
-      border-color: $settings-border-strong;
-      transform: translateY(-2px);
-    }
-
-    &:active {
-      transform: translateY(0);
     }
   }
 
-  // Danger Button
   .btn-danger {
-    background: rgba(239, 68, 68, 0.15);
+    background: transparent;
     color: #ef4444;
     border: 1px solid rgba(239, 68, 68, 0.3);
-    border-radius: 10px;
-    padding: 12px 20px;
+    border-radius: 6px;
+    padding: 10px 16px;
     font-weight: 500;
-    transition: all $settings-transition-smooth;
+    transition: all $settings-transition;
 
     &:hover {
-      background: rgba(239, 68, 68, 0.25);
-      border-color: rgba(239, 68, 68, 0.5);
-      transform: translateY(-2px);
+      background: rgba(239, 68, 68, 0.1);
     }
   }
 }
 
-// Toggle in settings - AI Chat style
+// Toggle switches - Clean green
 body:has(.ide-redesign-main) .ide-settings-modal-body .form-switch {
   .form-check-input {
-    width: 44px;
-    height: 24px;
-    background-color: $settings-bg-surface;
-    border: 1px solid $settings-border-default;
-    border-radius: 12px;
-    transition: all $settings-transition-fast;
+    width: 40px;
+    height: 22px;
+    background-color: $settings-bg-input;
+    border: 1px solid $settings-border;
+    border-radius: 11px;
+    transition: all $settings-transition;
 
     &:checked {
-      background-color: var(--green-50);
-      border-color: var(--green-50);
+      background-color: $settings-green;
+      border-color: $settings-green;
     }
 
     &:focus {
-      box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.15);
-      border-color: var(--green-50);
+      box-shadow: none;
     }
   }
 }
 
-// Keyboard shortcuts section
+// Keyboard shortcuts
 body:has(.ide-redesign-main) .ide-settings-modal-body {
   kbd {
-    background: $settings-bg-surface;
-    border: 1px solid $settings-border-default;
-    border-radius: 6px;
-    padding: 4px 8px;
+    background: $settings-bg-input;
+    border: 1px solid $settings-border;
+    border-radius: 4px;
+    padding: 3px 6px;
     font-size: 12px;
-    font-family: 'Fira Code', 'Monaco', monospace;
+    font-family: monospace;
     color: $settings-text-primary;
-    box-shadow: 0 2px 0 $settings-border-subtle;
   }
 }
 
-// Links in settings
+// Links
 body:has(.ide-redesign-main) .ide-settings-modal-body {
   a:not(.btn) {
-    color: var(--green-50);
+    color: $settings-green;
     text-decoration: none;
-    transition: color $settings-transition-fast;
 
     &:hover {
-      color: var(--green-40);
       text-decoration: underline;
     }
   }

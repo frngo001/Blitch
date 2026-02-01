@@ -443,53 +443,39 @@ $toolbar-transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 // Dropdown Menus from Toolbar - Simple dark style (no glassmorphism)
 .ide-redesign-main .ide-redesign-toolbar .dropdown-menu,
 .ide-redesign-main .toolbar-menu-dropdown {
-  background: $toolbar-bg-secondary !important;
-  border: 1px solid $toolbar-border-default !important;
-  border-radius: $toolbar-radius-sm !important;
+  background: $toolbar-bg-secondary;
+  border: 1px solid $toolbar-border-default;
+  border-radius: $toolbar-radius-sm;
   box-shadow: $toolbar-shadow-md;
-  padding: 6px !important;
-  margin-top: 0 !important;
-
-  // Ensure dropdown is visible when shown
-  &.show {
-    display: block !important;
-    opacity: 1 !important;
-    visibility: visible !important;
-    pointer-events: auto !important;
-  }
+  padding: 6px;
 
   // Menu items
   .dropdown-item,
   button.dropdown-item,
   a.dropdown-item {
-    color: $toolbar-text-secondary !important;
-    background: transparent !important;
-    border-radius: 6px !important;
-    padding: 8px 12px !important;
-    margin: 2px 0 !important;
+    color: $toolbar-text-secondary;
+    border-radius: 6px;
+    padding: 8px 12px;
+    margin: 2px 0;
     transition: all $toolbar-transition-fast;
-    font-weight: 500;
 
     .material-symbols {
       color: $toolbar-text-tertiary;
-      font-size: 18px;
-      transition: color $toolbar-transition-fast;
     }
 
     // Keyboard shortcuts
     .dropdown-item-shortcut,
     kbd,
     .shortcut {
-      color: $toolbar-text-tertiary !important;
-      background: transparent !important;
+      color: $toolbar-text-tertiary;
       font-size: 12px;
       margin-left: auto;
     }
 
     &:hover,
     &:focus {
-      color: $toolbar-text-primary !important;
-      background: $toolbar-bg-hover !important;
+      color: $toolbar-text-primary;
+      background: $toolbar-bg-hover;
 
       .material-symbols {
         color: $toolbar-text-primary;
@@ -498,8 +484,7 @@ $toolbar-transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
     &.active,
     &[aria-checked='true'] {
-      color: $toolbar-accent-green !important;
-      background: transparent !important;
+      color: $toolbar-accent-green;
 
       .material-symbols {
         color: $toolbar-accent-green;
@@ -508,26 +493,21 @@ $toolbar-transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
     &:disabled,
     &.disabled {
-      color: $toolbar-text-tertiary !important;
+      color: $toolbar-text-tertiary;
       opacity: 0.5;
-      cursor: not-allowed;
-
-      &:hover {
-        background: transparent !important;
-      }
     }
   }
 
   // Dividers
   .dropdown-divider,
   hr {
-    border-color: $toolbar-border-subtle !important;
-    margin: 6px 0 !important;
+    border-color: $toolbar-border-subtle;
+    margin: 6px 0;
   }
 
   // Headers in dropdown
   .dropdown-header {
-    color: $toolbar-text-tertiary !important;
+    color: $toolbar-text-tertiary;
     font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -537,32 +517,31 @@ $toolbar-transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
   // Nested submenus
   .dropdown-menu {
-    background: $toolbar-bg-secondary !important;
-    border: 1px solid $toolbar-border-default !important;
-    border-radius: $toolbar-radius-sm !important;
-    box-shadow: $toolbar-shadow-md !important;
+    background: $toolbar-bg-secondary;
+    border: 1px solid $toolbar-border-default;
+    border-radius: $toolbar-radius-sm;
+    box-shadow: $toolbar-shadow-md;
   }
 }
 
 // Menu Bar Toggle Buttons (File, Edit, etc.)
 .ide-redesign-main .menu-bar-toggle {
-  color: $toolbar-text-secondary !important;
-  background: transparent !important;
-  border: none !important;
-  border-radius: $toolbar-radius-sm !important;
+  color: $toolbar-text-secondary;
+  background: transparent;
+  border: none;
+  border-radius: $toolbar-radius-sm;
   transition: all $toolbar-transition-fast;
-  font-weight: 500;
 
   &:hover,
   &:focus {
-    color: $toolbar-text-primary !important;
-    background: $toolbar-bg-hover !important;
+    color: $toolbar-text-primary;
+    background: $toolbar-bg-hover;
   }
 
   &.show,
   &[aria-expanded='true'] {
-    color: $toolbar-text-primary !important;
-    background: $toolbar-bg-surface !important;
+    color: $toolbar-text-primary;
+    background: $toolbar-bg-surface;
   }
 }
 
