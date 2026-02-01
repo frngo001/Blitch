@@ -479,115 +479,116 @@ $toolbar-transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 // ============================================
 // Dropdown Menus - Global fix for portals
 // Uses body:has() to target dropdowns rendered outside toolbar
+// These dropdowns are rendered via React portals in the body
 // ============================================
 
-// Target ALL dropdowns when ide-redesign is active (including portals)
-body:has(.ide-redesign-main) .dropdown-menu {
-  background: #1a1a1a !important;
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
-  border-radius: 8px !important;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6) !important;
-  padding: 6px !important;
-  z-index: 1050 !important;
+// Portal dropdowns need CSS variables set at body level
+body:has(.ide-redesign-main) {
+  // Set CSS variables for portal dropdowns
+  --dropdown-background: #1c1c1c;
+  --dropdown-background-hover: #2a2a2a;
+  --dropdown-background-danger-hover: rgba(239, 68, 68, 0.2);
+  --dropdown-text-color: #a0a0a0;
+  --dropdown-text-danger: #ef4444;
+  --dropdown-text-danger-hover: #f87171;
+  --dropdown-text-secondary: #666666;
+  --dropdown-header-text-color: #666666;
+  --dropdown-text-hover: #ffffff;
+  --dropdown-background-active: var(--green-50, #22c55e);
+  --dropdown-text-active: #ffffff;
+  --dropdown-border-divider: rgba(255, 255, 255, 0.08);
+  --dropdown-border-width: 1px;
+  --dropdown-border-color: rgba(255, 255, 255, 0.12);
 
-  // Dropdown items - all types
-  .dropdown-item,
-  button.dropdown-item,
-  a.dropdown-item {
-    display: flex !important;
-    align-items: center !important;
-    gap: 8px !important;
-    color: #a0a0a0 !important;
-    background: transparent !important;
-    border-radius: 4px !important;
-    padding: 8px 12px !important;
-    font-size: 13px !important;
-    transition: all 0.1s ease !important;
+  // Style the portal dropdowns directly
+  & > .dropdown-menu,
+  .dropdown-menu[data-popper-placement] {
+    background: var(--dropdown-background);
+    border: var(--dropdown-border-width) solid var(--dropdown-border-color);
+    border-radius: 10px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
 
-    &:hover,
-    &:focus {
-      color: #ffffff !important;
-      background: #2a2a2a !important;
+    .dropdown-item {
+      color: var(--dropdown-text-color);
+      background: transparent;
+      border-radius: 6px;
+      margin: 2px var(--spacing-02, 4px);
+      transition: all 0.15s;
+
+      &:hover:not(.active),
+      &:focus-visible:not(.active),
+      &.nested-dropdown-toggle-shown {
+        color: var(--dropdown-text-hover);
+        background: var(--dropdown-background-hover);
+      }
+
+      &.active {
+        background: var(--dropdown-background-active);
+        color: var(--dropdown-text-active);
+      }
+
+      &[variant='danger'] {
+        color: var(--dropdown-text-danger);
+
+        &:hover:not(.active),
+        &:focus-visible:not(.active) {
+          color: var(--dropdown-text-danger-hover);
+          background: var(--dropdown-background-danger-hover);
+        }
+      }
     }
 
-    &.active,
-    &[aria-checked='true'] {
-      color: #22c55e !important;
-      background: transparent !important;
+    .dropdown-header {
+      color: var(--dropdown-header-text-color);
+      border-bottom: 1px solid var(--dropdown-border-divider);
+      margin-bottom: var(--spacing-02, 4px);
+      padding-bottom: var(--spacing-03, 8px);
     }
 
-    &:disabled,
-    &.disabled {
-      color: #555 !important;
-      opacity: 0.5 !important;
-      pointer-events: none !important;
+    .dropdown-divider {
+      border-top-color: var(--dropdown-border-divider);
+      margin: var(--spacing-02, 4px) var(--spacing-03, 8px);
     }
-  }
 
-  // Leading icons (left side)
-  .dropdown-item-leading-icon,
-  .material-symbols {
-    color: inherit !important;
-    opacity: 0.7 !important;
-    font-size: 18px !important;
-    width: 18px !important;
-    height: 18px !important;
-  }
-
-  // Trailing icons and keyboard shortcuts (right side)
-  .dropdown-item-trailing-icon {
-    margin-left: auto !important;
-    color: inherit !important;
-    opacity: 0.5 !important;
-  }
-
-  // Keyboard shortcuts
-  kbd,
-  .dropdown-item-shortcut,
-  .shortcut {
-    margin-left: auto !important;
-    color: #666 !important;
-    font-size: 11px !important;
-    font-family: system-ui, -apple-system, sans-serif !important;
-    background: transparent !important;
-    border: none !important;
-    padding: 0 !important;
-  }
-
-  // Nested dropdown toggle (submenu arrow)
-  .nested-dropdown-toggle {
-    &::after,
-    .material-symbols[data-type="chevron_right"],
-    .chevron-right {
-      margin-left: auto !important;
-      color: #666 !important;
+    .dropdown-item-description {
+      color: var(--dropdown-text-secondary);
     }
-  }
 
-  // Dividers
-  .dropdown-divider,
-  hr {
-    border-color: rgba(255, 255, 255, 0.08) !important;
-    margin: 6px 0 !important;
-    opacity: 1 !important;
-  }
+    .dropdown-item-leading-icon,
+    .dropdown-item-trailing-icon {
+      color: var(--dropdown-text-secondary);
+    }
 
-  // Headers
-  .dropdown-header {
-    color: #555 !important;
-    font-size: 11px !important;
-    font-weight: 600 !important;
-    text-transform: uppercase !important;
-    letter-spacing: 0.5px !important;
-    padding: 8px 12px 4px !important;
-  }
+    .dropdown-item:hover:not(.active) {
+      .dropdown-item-leading-icon,
+      .dropdown-item-trailing-icon {
+        color: var(--dropdown-text-color);
+      }
+    }
 
-  // Nested dropdown menus (submenus)
-  .dropdown-menu {
-    background: #1a1a1a !important;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
-    border-radius: 8px !important;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6) !important;
+    .dropdown-item.active {
+      .dropdown-item-description,
+      .dropdown-item-leading-icon,
+      .dropdown-item-trailing-icon {
+        color: rgba(255, 255, 255, 0.8);
+      }
+    }
+
+    .nested-dropdown-toggle {
+      color: var(--dropdown-text-color);
+
+      &:hover {
+        color: var(--dropdown-text-hover);
+      }
+    }
+
+    // Nested submenus
+    .dropdown-menu {
+      background: var(--dropdown-background);
+      border: var(--dropdown-border-width) solid var(--dropdown-border-color);
+      border-radius: 10px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    }
   }
 }
 
