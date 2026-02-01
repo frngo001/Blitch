@@ -40,11 +40,15 @@ services:
       - DOCSTORE_HOST=docstore.railway.internal
       - DOCUMENT_UPDATER_HOST=document-updater.railway.internal
       - FILESTORE_HOST=filestore.railway.internal
-      - HISTORY_V1_HOST=history-v1.railway.internal
+      - V1_HISTORY_HOST=history-v1.railway.internal
+      - V1_HISTORY_PORT=3100
       - NOTIFICATIONS_HOST=notifications.railway.internal
       - PROJECT_HISTORY_HOST=project-history.railway.internal
       - REALTIME_HOST=real-time.railway.internal
       - AI_AGENT_HOST=ai-agent.railway.internal
+      # Blob storage bucket paths (for URL construction) - must match history-v1 paths
+      - OVERLEAF_EDITOR_BLOBS_BUCKET=/data/blobs
+      - OVERLEAF_EDITOR_PROJECT_BLOBS_BUCKET=/data/project_blobs
       # Features
       - AI_AGENT_ENABLED=true
       - AI_AGENT_PORT=3020
@@ -147,6 +151,8 @@ services:
       - LISTEN_ADDRESS=0.0.0.0
       - MONGO_URL=${MONGO_URL}
       - REDIS_HOST=${REDIS_HOST}
+      # Project history connection
+      - PROJECT_HISTORY_HOST=project-history.railway.internal
 
   filestore:
     build:
@@ -156,8 +162,12 @@ services:
       - NODE_ENV=production
       - LISTEN_ADDRESS=0.0.0.0
       - MONGO_URL=${MONGO_URL}
+      - PERSISTOR_BACKEND=fs
+      # Bucket paths for URL generation (matches history-v1)
+      - OVERLEAF_EDITOR_BLOBS_BUCKET=/data/blobs
+      - OVERLEAF_EDITOR_PROJECT_BLOBS_BUCKET=/data/project_blobs
     volumes:
-      - filestore-data:/overleaf/services/filestore/user_files
+      - filestore-data:/data/user_files
 
   history-v1:
     build:
@@ -169,8 +179,14 @@ services:
       - MONGO_URL=${MONGO_URL}
       - PERSISTOR_BACKEND=fs
       - USE_SUBDIRECTORIES=true
+      # Blob storage bucket paths - using /data to match Railway volume mount
+      - OVERLEAF_EDITOR_ANALYTICS_BUCKET=/data/analytics
+      - OVERLEAF_EDITOR_BLOBS_BUCKET=/data/blobs
+      - OVERLEAF_EDITOR_CHUNKS_BUCKET=/data/chunks
+      - OVERLEAF_EDITOR_PROJECT_BLOBS_BUCKET=/data/project_blobs
+      - OVERLEAF_EDITOR_ZIPS_BUCKET=/data/zips
     volumes:
-      - history-data:/buckets
+      - history-data:/data
 
   notifications:
     build:
@@ -190,6 +206,9 @@ services:
       - LISTEN_ADDRESS=0.0.0.0
       - MONGO_URL=${MONGO_URL}
       - REDIS_HOST=${REDIS_HOST}
+      # History-v1 connection
+      - V1_HISTORY_HOST=history-v1.railway.internal
+      - V1_HISTORY_PORT=3100
 
   real-time:
     build:
