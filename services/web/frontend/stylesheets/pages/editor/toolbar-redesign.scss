@@ -477,38 +477,129 @@ $toolbar-transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 // ============================================
-// Toolbar Dropdown Fix - Prevent clipping
+// Dropdown Menus - Global fix for portals
+// Uses body:has() to target dropdowns rendered outside toolbar
 // ============================================
 
-// Body element must allow dropdown overflow when dropdown is open
+// Overflow fix for dropdown containers
 .ide-redesign-body:has(.dropdown.show) {
   overflow: visible !important;
 }
 
-// Ensure ALL parent containers don't clip dropdowns
-.ide-redesign-main,
 .ide-redesign-main .ide-redesign-toolbar,
 .ide-redesign-main .ide-redesign-toolbar-menu-bar,
 .ide-redesign-main .ide-redesign-toolbar-menu {
   overflow: visible !important;
 }
 
-// Dropdown container - static position so dropdown positions relative to toolbar
-.ide-redesign-main .ide-redesign-toolbar .dropdown {
-  overflow: visible !important;
-  position: static;
-}
+// Target ALL dropdowns when ide-redesign is active (including portals)
+body:has(.ide-redesign-main) .dropdown-menu {
+  background: #1a1a1a !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6) !important;
+  padding: 6px !important;
+  z-index: 1050 !important;
 
-// Dropdown menu - Very high z-index and proper positioning
-.ide-redesign-main .ide-redesign-toolbar .dropdown-menu,
-.ide-redesign-main .dropdown-menu.show {
-  position: absolute !important;
-  z-index: 99999 !important;
-  top: 40px !important; // Height of toolbar
-  left: auto !important;
-  margin-top: 0 !important;
-  min-width: 220px !important;
-  display: block !important;
+  // Dropdown items - all types
+  .dropdown-item,
+  button.dropdown-item,
+  a.dropdown-item {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    color: #a0a0a0 !important;
+    background: transparent !important;
+    border-radius: 4px !important;
+    padding: 8px 12px !important;
+    font-size: 13px !important;
+    transition: all 0.1s ease !important;
+
+    &:hover,
+    &:focus {
+      color: #ffffff !important;
+      background: #2a2a2a !important;
+    }
+
+    &.active,
+    &[aria-checked='true'] {
+      color: #22c55e !important;
+      background: transparent !important;
+    }
+
+    &:disabled,
+    &.disabled {
+      color: #555 !important;
+      opacity: 0.5 !important;
+      pointer-events: none !important;
+    }
+  }
+
+  // Leading icons (left side)
+  .dropdown-item-leading-icon,
+  .material-symbols {
+    color: inherit !important;
+    opacity: 0.7 !important;
+    font-size: 18px !important;
+    width: 18px !important;
+    height: 18px !important;
+  }
+
+  // Trailing icons and keyboard shortcuts (right side)
+  .dropdown-item-trailing-icon {
+    margin-left: auto !important;
+    color: inherit !important;
+    opacity: 0.5 !important;
+  }
+
+  // Keyboard shortcuts
+  kbd,
+  .dropdown-item-shortcut,
+  .shortcut {
+    margin-left: auto !important;
+    color: #666 !important;
+    font-size: 11px !important;
+    font-family: system-ui, -apple-system, sans-serif !important;
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+  }
+
+  // Nested dropdown toggle (submenu arrow)
+  .nested-dropdown-toggle {
+    &::after,
+    .material-symbols[data-type="chevron_right"],
+    .chevron-right {
+      margin-left: auto !important;
+      color: #666 !important;
+    }
+  }
+
+  // Dividers
+  .dropdown-divider,
+  hr {
+    border-color: rgba(255, 255, 255, 0.08) !important;
+    margin: 6px 0 !important;
+    opacity: 1 !important;
+  }
+
+  // Headers
+  .dropdown-header {
+    color: #555 !important;
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    padding: 8px 12px 4px !important;
+  }
+
+  // Nested dropdown menus (submenus)
+  .dropdown-menu {
+    background: #1a1a1a !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 8px !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6) !important;
+  }
 }
 
 // Menu Bar Toggle Buttons (File, Edit, etc.)
