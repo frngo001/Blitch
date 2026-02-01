@@ -442,9 +442,9 @@ $ds-border-default: rgba(255, 255, 255, 0.12);
 $ds-transition-fast: 0.15s ease;
 $ds-transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
-.ide-redesign-main .project-ds-nav-page,
-.ide-redesign-main.project-ds-nav-page {
-  background: $ds-bg-dark;
+// Apply dark theme directly to project page (no .ide-redesign-main required)
+.project-ds-nav-page {
+  background: $ds-bg-dark !important;
   color: $ds-text-secondary;
 
   // Navbar Override
@@ -727,6 +727,7 @@ $ds-transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 // Theme Toggle - Dark version
+.project-ds-nav-page .theme-toggle,
 .ide-redesign-main .theme-toggle {
   color: $ds-text-secondary;
 
@@ -739,11 +740,13 @@ $ds-transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 }
 
+.project-ds-nav-page .theme-toggle-radios,
 .ide-redesign-main .theme-toggle-radios {
   background: $ds-bg-surface;
   border: 1px solid $ds-border-subtle;
 }
 
+.project-ds-nav-page .theme-toggle-radio,
 .ide-redesign-main .theme-toggle-radio {
   label {
     color: $ds-text-secondary;
@@ -757,5 +760,300 @@ $ds-transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   input:checked + label {
     background: var(--green-50);
     color: #FFFFFF;
+  }
+}
+
+// ============================================
+// Additional Dark Theme Styles for Project Page
+// Notification Banner, Search, Inputs, Buttons
+// ============================================
+
+.project-ds-nav-page {
+  // Notification/Alert Banner
+  .user-notifications,
+  .notification,
+  .alert {
+    background: $ds-bg-panel !important;
+    border: 1px solid $ds-border-subtle !important;
+    border-radius: 12px;
+    color: $ds-text-secondary;
+
+    a {
+      color: var(--green-50);
+
+      &:hover {
+        color: var(--green-40);
+      }
+    }
+
+    &.alert-warning {
+      background: rgba(234, 179, 8, 0.1) !important;
+      border-color: rgba(234, 179, 8, 0.2) !important;
+      color: #F59E0B;
+    }
+
+    &.alert-info {
+      background: rgba(34, 197, 94, 0.1) !important;
+      border-color: rgba(34, 197, 94, 0.2) !important;
+      color: var(--green-50);
+    }
+
+    &.alert-danger {
+      background: rgba(239, 68, 68, 0.1) !important;
+      border-color: rgba(239, 68, 68, 0.2) !important;
+      color: #EF4444;
+    }
+
+    &.alert-success {
+      background: rgba(34, 197, 94, 0.1) !important;
+      border-color: rgba(34, 197, 94, 0.2) !important;
+      color: var(--green-50);
+    }
+
+    .btn {
+      border-radius: 8px;
+      transition: all $ds-transition-smooth;
+
+      &:hover {
+        transform: translateY(-1px);
+      }
+    }
+
+    .btn-secondary {
+      background: $ds-bg-surface;
+      border: 1px solid $ds-border-default;
+      color: $ds-text-secondary;
+
+      &:hover {
+        background: $ds-bg-hover;
+        color: $ds-text-primary;
+      }
+    }
+  }
+
+  // Search Input
+  input[type="text"],
+  input[type="search"],
+  .form-control {
+    background: $ds-bg-surface !important;
+    border: 1px solid $ds-border-subtle !important;
+    color: $ds-text-primary !important;
+    border-radius: 8px;
+    transition: border-color $ds-transition-fast;
+
+    &::placeholder {
+      color: $ds-text-muted !important;
+    }
+
+    &:focus {
+      border-color: var(--green-50) !important;
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.2) !important;
+    }
+  }
+
+  // Page Title
+  h1, h2, h3, h4, h5, h6 {
+    color: $ds-text-primary;
+  }
+
+  // Table
+  table {
+    background: transparent;
+
+    thead {
+      background: $ds-bg-surface;
+
+      th {
+        background: $ds-bg-surface !important;
+        color: $ds-text-primary !important;
+        border-color: $ds-border-subtle !important;
+        font-weight: 600;
+      }
+    }
+
+    tbody {
+      tr {
+        background: transparent;
+        border-color: $ds-border-subtle;
+        transition: background $ds-transition-fast;
+
+        &:hover {
+          background: rgba(255, 255, 255, 0.02) !important;
+        }
+      }
+
+      td {
+        background: transparent !important;
+        color: $ds-text-secondary !important;
+        border-color: $ds-border-subtle !important;
+      }
+    }
+
+    // Project name links
+    a {
+      color: $ds-text-primary !important;
+
+      &:hover {
+        color: var(--green-50) !important;
+      }
+    }
+  }
+
+  // Checkboxes
+  input[type="checkbox"] {
+    accent-color: var(--green-50);
+  }
+
+  // Action Buttons in Table
+  .dropdown-menu {
+    background: $ds-bg-panel !important;
+    border: 1px solid $ds-border-subtle !important;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+
+    .dropdown-item {
+      color: $ds-text-secondary;
+      border-radius: 8px;
+      transition: all $ds-transition-fast;
+
+      &:hover {
+        background: $ds-bg-hover;
+        color: $ds-text-primary;
+      }
+
+      &.active {
+        background: var(--green-50);
+        color: #FFFFFF;
+      }
+    }
+
+    .dropdown-divider {
+      border-color: $ds-border-subtle;
+    }
+  }
+
+  // Buttons
+  .btn {
+    border-radius: 10px;
+    transition: all $ds-transition-smooth;
+    font-weight: 500;
+
+    &:hover:not(:disabled) {
+      transform: translateY(-2px);
+    }
+  }
+
+  .btn-primary {
+    background: var(--green-50) !important;
+    border-color: var(--green-50) !important;
+    color: #FFFFFF !important;
+    box-shadow: 0 2px 8px rgba(34, 197, 94, 0.25);
+
+    &:hover {
+      background: var(--green-40) !important;
+      border-color: var(--green-40) !important;
+      box-shadow: 0 4px 16px rgba(34, 197, 94, 0.35);
+    }
+  }
+
+  .btn-secondary,
+  .btn-outline-primary {
+    background: transparent !important;
+    border: 1px solid $ds-border-default !important;
+    color: $ds-text-secondary !important;
+
+    &:hover {
+      background: $ds-bg-hover !important;
+      border-color: rgba(255, 255, 255, 0.2) !important;
+      color: $ds-text-primary !important;
+    }
+  }
+
+  .btn-link {
+    color: $ds-text-secondary;
+
+    &:hover {
+      color: var(--green-50);
+    }
+  }
+
+  // Pagination
+  .pagination {
+    .page-item {
+      .page-link {
+        background: transparent;
+        border-color: $ds-border-subtle;
+        color: $ds-text-secondary;
+        border-radius: 8px;
+        transition: all $ds-transition-fast;
+
+        &:hover {
+          background: $ds-bg-hover;
+          color: $ds-text-primary;
+        }
+      }
+
+      &.active .page-link {
+        background: var(--green-50);
+        border-color: var(--green-50);
+        color: #FFFFFF;
+      }
+
+      &.disabled .page-link {
+        background: transparent;
+        color: $ds-text-muted;
+      }
+    }
+  }
+
+  // Text colors
+  p, span, label {
+    color: $ds-text-secondary;
+  }
+
+  // Links
+  a:not(.btn):not(.dropdown-item):not(.nav-link) {
+    color: var(--green-50);
+
+    &:hover {
+      color: var(--green-40);
+    }
+  }
+
+  // Empty state / No projects message
+  .empty-state,
+  .no-projects {
+    color: $ds-text-muted;
+
+    h3, h4 {
+      color: $ds-text-primary;
+    }
+
+    p {
+      color: $ds-text-secondary;
+    }
+  }
+
+  // Cards
+  .card {
+    background: $ds-bg-panel !important;
+    border: 1px solid $ds-border-subtle !important;
+    border-radius: 16px;
+
+    .card-header {
+      background: transparent;
+      border-bottom-color: $ds-border-subtle;
+      color: $ds-text-primary;
+    }
+
+    .card-body {
+      color: $ds-text-secondary;
+    }
+
+    .card-footer {
+      background: transparent;
+      border-top-color: $ds-border-subtle;
+    }
   }
 }

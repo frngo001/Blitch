@@ -323,15 +323,37 @@
 // ============================================
 // Dark Theme Override - Blitch Monochrome Style
 // Consistent with AI Chat, Team Chat, Settings, and Rail
-// Green accents preserved
+// Green accents preserved - ALL BLUE REPLACED WITH GREEN
 // ============================================
 
 $navbar-bg-dark: #0D0D0D;
+$navbar-bg-panel: #1C1C1C;
 $navbar-bg-hover: #2A2A2A;
 $navbar-text-primary: #FFFFFF;
 $navbar-text-secondary: #A0A0A0;
 $navbar-text-muted: #666666;
 $navbar-border-subtle: rgba(255, 255, 255, 0.08);
+$navbar-border-default: rgba(255, 255, 255, 0.12);
+
+// AI Chat style transitions
+$navbar-transition-fast: 0.15s ease;
+$navbar-transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+// Override CSS Variables - Replace Blue with Green
+.ide-redesign-main {
+  // Replace ALL blue info colors with green
+  --bg-info-01: var(--green-50);
+  --bg-info-02: var(--green-60);
+  --bg-info-03: var(--green-10);
+  --content-info: var(--green-50);
+  --border-active: var(--green-50);
+
+  // Navbar specific overrides
+  --navbar-link-hover-bg: var(--green-50);
+  --navbar-link-hover-border-color: var(--green-50);
+  --navbar-toggler-expanded-bg: var(--green-50);
+  --navbar-hamburger-submenu-item-hover-bg: var(--green-50);
+}
 
 // Main Navbar Override
 .ide-redesign-main .navbar-default {
@@ -342,6 +364,7 @@ $navbar-border-subtle: rgba(255, 255, 255, 0.08);
   .navbar-brand {
     .navbar-title {
       color: $navbar-text-primary;
+      transition: color $navbar-transition-fast;
 
       &:hover,
       &:active,
@@ -357,15 +380,16 @@ $navbar-border-subtle: rgba(255, 255, 255, 0.08);
     > .dropdown-toggle {
       color: $navbar-text-secondary;
       border-color: $navbar-border-subtle;
-      border-radius: 8px;
-      transition: all 0.15s;
+      border-radius: 10px;
+      transition: all $navbar-transition-smooth;
 
       &.show,
       &:hover,
       &:focus {
         color: $navbar-text-primary;
         background: $navbar-bg-hover;
-        border-color: rgba(255, 255, 255, 0.12);
+        border-color: $navbar-border-default;
+        transform: translateY(-1px);
       }
     }
 
@@ -382,17 +406,20 @@ $navbar-border-subtle: rgba(255, 255, 255, 0.08);
       }
     }
 
-    // Primary buttons - Keep green
+    // Primary buttons - Keep green with AI Chat effects
     &.primary > .nav-link {
       background: var(--green-50);
       color: #FFFFFF;
       border-color: var(--green-50);
+      box-shadow: 0 2px 8px rgba(34, 197, 94, 0.25);
 
       &.show,
       &:hover,
       &:focus {
         background: var(--green-40);
         border-color: var(--green-40);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 16px rgba(34, 197, 94, 0.35);
       }
     }
   }
@@ -400,10 +427,11 @@ $navbar-border-subtle: rgba(255, 255, 255, 0.08);
   // Toggler
   .navbar-toggler {
     color: $navbar-text-secondary;
+    transition: all $navbar-transition-fast;
 
     &:not(.collapsed) {
-      color: $navbar-text-primary;
-      background: $navbar-bg-hover;
+      color: #FFFFFF;
+      background: var(--green-50);
     }
   }
 
@@ -413,17 +441,25 @@ $navbar-border-subtle: rgba(255, 255, 255, 0.08);
 
     .navbar-nav > li {
       .dropdown-menu.show {
-        background: rgba(255, 255, 255, 0.03);
-        border-radius: 8px;
+        background: $navbar-bg-panel;
+        border: 1px solid $navbar-border-subtle;
+        border-radius: 12px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
 
         .dropdown-item {
           color: $navbar-text-secondary;
-          border-radius: 6px;
+          border-radius: 8px;
+          transition: all $navbar-transition-fast;
 
           &:hover,
           &:focus {
             color: $navbar-text-primary;
             background: $navbar-bg-hover;
+          }
+
+          &.active {
+            background: var(--green-50);
+            color: #FFFFFF;
           }
         }
       }
@@ -435,9 +471,32 @@ $navbar-border-subtle: rgba(255, 255, 255, 0.08);
 .ide-redesign-main .skip-to-content {
   color: $navbar-text-primary;
   background: $navbar-bg-dark;
+  transition: all $navbar-transition-fast;
 
   &:focus {
-    background: $navbar-bg-hover;
-    border-color: $navbar-text-primary;
+    background: var(--green-50);
+    border-color: var(--green-50);
+    color: #FFFFFF;
+  }
+}
+
+// Nav links with active state - use green instead of blue
+.ide-redesign-main .nav > li > a {
+  transition: all $navbar-transition-fast;
+
+  &:hover,
+  &:focus {
+    background-color: var(--green-50) !important;
+    color: #FFFFFF;
+  }
+}
+
+// Open dropdowns - use green
+.ide-redesign-main .nav .open > a {
+  &,
+  &:hover,
+  &:focus {
+    background-color: var(--green-50) !important;
+    border-color: var(--green-50);
   }
 }

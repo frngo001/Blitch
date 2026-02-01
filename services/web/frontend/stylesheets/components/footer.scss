@@ -548,3 +548,165 @@ footer.site-footer {
     }
   }
 }
+
+// ============================================
+// Dark Theme Override - Blitch Monochrome Style
+// Footer - Community Edition Pages
+// Green accents preserved
+// ============================================
+
+$footer-bg-dark: #0D0D0D;
+$footer-bg-panel: #1C1C1C;
+$footer-text-primary: #FFFFFF;
+$footer-text-secondary: #A0A0A0;
+$footer-text-muted: #666666;
+$footer-border-subtle: rgba(255, 255, 255, 0.08);
+
+$footer-transition-fast: 0.15s ease;
+
+// Apply to ide-redesign context
+.ide-redesign-main footer.site-footer,
+body:has(.ide-redesign-main) footer.site-footer {
+  background: $footer-bg-dark;
+  border-top-color: $footer-border-subtle;
+  color: $footer-text-secondary;
+
+  a {
+    color: $footer-text-secondary;
+    transition: color $footer-transition-fast;
+
+    &:hover {
+      color: var(--green-50);
+    }
+  }
+
+  #language-picker-toggle {
+    color: $footer-text-secondary;
+
+    &:hover {
+      color: $footer-text-primary;
+    }
+  }
+
+  .language-picker .dropdown-menu {
+    background: $footer-bg-panel;
+    border: 1px solid $footer-border-subtle;
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+
+    .dropdown-item {
+      color: $footer-text-secondary;
+      border-radius: 6px;
+      transition: all $footer-transition-fast;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.05);
+        color: $footer-text-primary;
+      }
+
+      &.active {
+        color: var(--green-50);
+        background: rgba(34, 197, 94, 0.1);
+      }
+    }
+  }
+}
+
+.ide-redesign-main .fat-footer,
+body:has(.ide-redesign-main) .fat-footer {
+  --footer-background-color: #{$footer-bg-dark};
+  --footer-text-color: #{$footer-text-secondary};
+
+  background: $footer-bg-dark;
+  color: $footer-text-secondary;
+
+  .footer-section-heading {
+    color: $footer-text-primary;
+  }
+
+  .footer-section {
+    li a {
+      color: $footer-text-secondary;
+      transition: color $footer-transition-fast;
+
+      &:hover {
+        color: var(--green-50);
+      }
+    }
+  }
+
+  .fat-footer-base {
+    color: $footer-text-muted;
+
+    a {
+      color: $footer-text-muted;
+      transition: color $footer-transition-fast;
+
+      &:hover {
+        color: $footer-text-secondary;
+      }
+    }
+
+    #language-picker-toggle {
+      color: $footer-text-secondary;
+
+      &:hover {
+        color: $footer-text-primary;
+      }
+    }
+  }
+
+  .fat-footer-social svg path {
+    fill: $footer-text-secondary;
+    transition: fill $footer-transition-fast;
+  }
+
+  .fat-footer-social:hover svg path {
+    fill: $footer-text-primary;
+  }
+}
+
+// Cookie Banner - Dark Override
+.ide-redesign-main .cookie-banner,
+body:has(.ide-redesign-main) .cookie-banner {
+  background: $footer-bg-panel;
+  border-top: 1px solid $footer-border-subtle;
+  color: $footer-text-secondary;
+  box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.4);
+
+  a {
+    color: var(--green-50);
+
+    &:hover {
+      color: var(--green-40);
+    }
+  }
+
+  .btn {
+    border-radius: 8px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover {
+      transform: translateY(-1px);
+    }
+  }
+
+  .btn-primary {
+    background: var(--green-50);
+    border-color: var(--green-50);
+    color: #FFFFFF;
+
+    &:hover {
+      background: var(--green-40);
+      border-color: var(--green-40);
+    }
+  }
+
+  .btn-link {
+    color: $footer-text-secondary;
+
+    &:hover {
+      color: $footer-text-primary;
+    }
+  }
+}

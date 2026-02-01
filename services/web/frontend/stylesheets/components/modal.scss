@@ -133,8 +133,13 @@ $modal-text-muted: #666666;
 $modal-border-subtle: rgba(255, 255, 255, 0.08);
 $modal-border-default: rgba(255, 255, 255, 0.12);
 
+// AI Chat style transitions
+$modal-transition-fast: 0.15s ease;
+$modal-transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
 // Global Modal Container Override for Dark Theme
-.ide-redesign-main .modal-content {
+// Using body:has() to target modals rendered via React Portal outside .ide-redesign-main
+body:has(.ide-redesign-main) .modal-content {
   background: $modal-bg-dark;
   border: 1px solid $modal-border-subtle;
   border-radius: 16px;
@@ -358,7 +363,7 @@ $modal-border-default: rgba(255, 255, 255, 0.12);
 }
 
 // Git Bridge Modal - Dark Override
-.ide-redesign-main .git-bridge-copy {
+body:has(.ide-redesign-main) .git-bridge-copy {
   background: $modal-bg-input;
   border: 1px solid $modal-border-subtle;
   border-radius: 10px;
@@ -369,18 +374,18 @@ $modal-border-default: rgba(255, 255, 255, 0.12);
   }
 }
 
-.ide-redesign-main .git-bridge-optional-tokens {
+body:has(.ide-redesign-main) .git-bridge-optional-tokens {
   background: rgba(255, 255, 255, 0.02);
   border: 1px solid $modal-border-subtle;
   border-radius: 10px;
 }
 
-.ide-redesign-main .git-bridge-optional-tokens-header {
+body:has(.ide-redesign-main) .git-bridge-optional-tokens-header {
   color: $modal-text-primary;
 }
 
 // Upgrade Track Changes Modal - Dark Override
-.ide-redesign-main .upgrade-track-changes-modal {
+body:has(.ide-redesign-main) .upgrade-track-changes-modal {
   .teaser-title {
     color: $modal-text-secondary;
   }
@@ -395,14 +400,13 @@ $modal-border-default: rgba(255, 255, 255, 0.12);
 }
 
 // Modal Backdrop - Darker
-.ide-redesign-main ~ .modal-backdrop,
-.ide-redesign-main + .modal-backdrop {
+body:has(.ide-redesign-main) .modal-backdrop {
   background: rgba(0, 0, 0, 0.7);
   backdrop-filter: blur(4px);
 }
 
 // Dropdown menus inside modals
-.ide-redesign-main .modal-content .dropdown-menu {
+body:has(.ide-redesign-main) .modal-content .dropdown-menu {
   background: $modal-bg-panel;
   border: 1px solid $modal-border-subtle;
   border-radius: 10px;
@@ -413,7 +417,7 @@ $modal-border-default: rgba(255, 255, 255, 0.12);
     color: $modal-text-secondary;
     border-radius: 6px;
     padding: 8px 12px;
-    transition: all 0.15s;
+    transition: all $modal-transition-fast;
 
     &:hover {
       background: $modal-bg-hover;
@@ -432,7 +436,7 @@ $modal-border-default: rgba(255, 255, 255, 0.12);
 }
 
 // Tabs inside modals
-.ide-redesign-main .modal-content .nav-tabs {
+body:has(.ide-redesign-main) .modal-content .nav-tabs {
   border-bottom-color: $modal-border-subtle;
 
   .nav-link {
@@ -441,7 +445,7 @@ $modal-border-default: rgba(255, 255, 255, 0.12);
     border-bottom: 2px solid transparent;
     border-radius: 0;
     padding: 10px 16px;
-    transition: all 0.15s;
+    transition: all $modal-transition-fast;
 
     &:hover {
       color: $modal-text-primary;
@@ -458,7 +462,7 @@ $modal-border-default: rgba(255, 255, 255, 0.12);
 }
 
 // Lists inside modals
-.ide-redesign-main .modal-content {
+body:has(.ide-redesign-main) .modal-content {
   ul, ol {
     color: $modal-text-secondary;
   }
@@ -469,7 +473,7 @@ $modal-border-default: rgba(255, 255, 255, 0.12);
 }
 
 // Tables inside modals
-.ide-redesign-main .modal-content table {
+body:has(.ide-redesign-main) .modal-content table {
   color: $modal-text-primary;
 
   th {

@@ -155,7 +155,8 @@ $settings-transition-normal: 0.2s ease;
 $settings-transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
 // Modal Container Override - AI Chat Glassmorphism Style
-.ide-redesign-main .modal-content:has(.ide-settings-modal-body) {
+// Using body:has() to target modals rendered via React Portal outside .ide-redesign-main
+body:has(.ide-redesign-main) .modal-content:has(.ide-settings-modal-body) {
   background: rgba($settings-bg-panel, 0.95);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
@@ -207,7 +208,7 @@ $settings-transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 // Tab Navigation - AI Chat Dark Sidebar
-.ide-redesign-main .ide-settings-tab-nav.nav {
+body:has(.ide-redesign-main) .ide-settings-tab-nav.nav {
   background: rgba($settings-bg-elevated, 0.6);
   border-right: 1px solid $settings-border-subtle;
   padding: 16px 12px;
@@ -263,7 +264,7 @@ $settings-transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 // Tab Content Area
-.ide-redesign-main .ide-settings-tab-content {
+body:has(.ide-redesign-main) .ide-settings-tab-content {
   background: $settings-bg-dark;
   color: $settings-text-primary;
   padding: 0 var(--spacing-08);
@@ -286,7 +287,7 @@ $settings-transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 // Section Styling
-.ide-redesign-main .ide-settings-section {
+body:has(.ide-redesign-main) .ide-settings-section {
   border-bottom: 1px solid $settings-border-subtle;
   padding: var(--spacing-08) 0;
 
@@ -295,7 +296,7 @@ $settings-transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 }
 
-.ide-redesign-main .ide-settings-section-title {
+body:has(.ide-redesign-main) .ide-settings-section-title {
   color: $settings-text-muted;
   font-size: 11px;
   font-weight: 600;
@@ -306,7 +307,7 @@ $settings-transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 // Individual Settings - AI Chat Card Style
-.ide-redesign-main .ide-setting {
+body:has(.ide-redesign-main) .ide-setting {
   padding: 16px;
   margin: 8px 0;
   border-radius: 12px;
@@ -324,13 +325,13 @@ $settings-transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 }
 
-.ide-redesign-main .ide-setting-title {
+body:has(.ide-redesign-main) .ide-setting-title {
   color: $settings-text-primary;
   font-weight: 500;
   font-size: 14px;
 }
 
-.ide-redesign-main .ide-setting-description {
+body:has(.ide-redesign-main) .ide-setting-description {
   color: $settings-text-muted;
   font-size: 12px;
   line-height: 1.5;
@@ -338,8 +339,8 @@ $settings-transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 // Dropdown Selects - AI Chat Style
-.ide-redesign-main .ide-dropdown-setting,
-.ide-redesign-main .ide-dropdown-setting-wide {
+body:has(.ide-redesign-main) .ide-dropdown-setting,
+body:has(.ide-redesign-main) .ide-dropdown-setting-wide {
   .form-select,
   select {
     background: $settings-bg-surface;
@@ -372,7 +373,7 @@ $settings-transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 // Radio Options - AI Chat Card Style
-.ide-redesign-main .ide-radio-option {
+body:has(.ide-redesign-main) .ide-radio-option {
   padding: 14px 16px;
   border-radius: 10px;
   border: 1px solid $settings-border-subtle;
@@ -387,13 +388,13 @@ $settings-transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 }
 
-.ide-redesign-main .ide-radio-input {
+body:has(.ide-redesign-main) .ide-radio-input {
   accent-color: var(--green-50);
   width: 18px;
   height: 18px;
 }
 
-.ide-redesign-main .ide-radio-text {
+body:has(.ide-redesign-main) .ide-radio-text {
   .ide-setting-title {
     color: $settings-text-primary;
     font-weight: 500;
@@ -406,7 +407,7 @@ $settings-transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 // Beta Note - AI Chat Info Card
-.ide-redesign-main .project-notifications-beta-note {
+body:has(.ide-redesign-main) .project-notifications-beta-note {
   background: rgba(59, 130, 246, 0.08);
   border: 1px solid rgba(59, 130, 246, 0.15);
   border-radius: 12px;
@@ -420,7 +421,7 @@ $settings-transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 // Form Controls Override - AI Chat Style
-.ide-redesign-main .ide-settings-modal-body {
+body:has(.ide-redesign-main) .ide-settings-modal-body {
   input[type="text"],
   input[type="number"],
   input[type="email"],
@@ -539,7 +540,7 @@ $settings-transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 // Toggle in settings - AI Chat style
-.ide-redesign-main .ide-settings-modal-body .form-switch {
+body:has(.ide-redesign-main) .ide-settings-modal-body .form-switch {
   .form-check-input {
     width: 44px;
     height: 24px;
@@ -561,7 +562,7 @@ $settings-transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 // Keyboard shortcuts section
-.ide-redesign-main .ide-settings-modal-body {
+body:has(.ide-redesign-main) .ide-settings-modal-body {
   kbd {
     background: $settings-bg-surface;
     border: 1px solid $settings-border-default;
@@ -575,7 +576,7 @@ $settings-transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 // Links in settings
-.ide-redesign-main .ide-settings-modal-body {
+body:has(.ide-redesign-main) .ide-settings-modal-body {
   a:not(.btn) {
     color: var(--green-50);
     text-decoration: none;

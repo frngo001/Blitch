@@ -576,3 +576,65 @@ $btn-transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
   }
 }
+
+// ============================================
+// Button styles for React Portal Modals
+// These render outside .ide-redesign-main
+// ============================================
+body:has(.ide-redesign-main) .modal {
+  .btn {
+    border-radius: 10px;
+    font-weight: 500;
+    transition: all $btn-transition-smooth;
+
+    &:hover:not(:disabled):not([disabled]) {
+      transform: translateY(-2px);
+    }
+
+    &:active:not(:disabled):not([disabled]) {
+      transform: translateY(0);
+    }
+
+    // Primary Button in Modals
+    &.btn-primary {
+      background: var(--green-50);
+      border-color: var(--green-50);
+      color: #FFFFFF;
+      box-shadow: 0 2px 8px rgba(34, 197, 94, 0.25);
+
+      &:hover,
+      &:focus {
+        background: var(--green-40);
+        border-color: var(--green-40);
+        box-shadow: 0 4px 16px rgba(34, 197, 94, 0.35);
+      }
+    }
+
+    // Secondary Button in Modals
+    &.btn-secondary {
+      background: $btn-bg-surface;
+      border: 1px solid $btn-border-default;
+      color: $btn-text-secondary;
+
+      &:hover,
+      &:focus {
+        background: $btn-bg-hover;
+        border-color: rgba(255, 255, 255, 0.2);
+        color: $btn-text-primary;
+      }
+    }
+
+    // Danger Button in Modals
+    &.btn-danger {
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      color: #ef4444;
+
+      &:hover,
+      &:focus {
+        background: rgba(239, 68, 68, 0.25);
+        border-color: rgba(239, 68, 68, 0.5);
+      }
+    }
+  }
+}

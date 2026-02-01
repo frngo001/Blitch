@@ -550,7 +550,7 @@
 // ============================================
 // Dark Theme Override - Blitch Monochrome Style
 // Consistent with AI Chat, Team Chat, Settings
-// Green accents preserved for primary actions
+// Green accents preserved - ALL BLUE REPLACED WITH GREEN
 // ============================================
 
 $toolbar-bg-dark: #0D0D0D;
@@ -563,12 +563,24 @@ $toolbar-text-muted: #666666;
 $toolbar-border-subtle: rgba(255, 255, 255, 0.08);
 $toolbar-border-default: rgba(255, 255, 255, 0.12);
 
+// AI Chat style transitions
+$toolbar-transition-fast: 0.15s ease;
+$toolbar-transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+// Override CSS Variables in ide-redesign-main scope
+// Replace ALL blue colors with green
+.ide-redesign-main {
+  --bg-info-01: var(--green-50);
+  --bg-info-02: var(--green-60);
+  --toolbar-btn-active-bg-color: var(--green-50);
+}
+
 // Main Toolbar Override
 .ide-redesign-main .toolbar {
   background: $toolbar-bg-dark;
   border-bottom: 1px solid $toolbar-border-subtle;
 
-  // Toolbar Buttons
+  // Toolbar Buttons with AI Chat transitions
   > a:not(.btn),
   > button,
   .toolbar-left > a:not(.btn),
@@ -576,21 +588,24 @@ $toolbar-border-default: rgba(255, 255, 255, 0.12);
   .toolbar-right > a:not(.btn),
   .toolbar-right > button:not(.back-to-editor-btn, .toolbar-experiment-button) {
     color: $toolbar-text-secondary;
-    border-radius: 8px;
-    transition: all 0.15s;
+    border-radius: 10px;
+    transition: all $toolbar-transition-smooth;
 
     &:hover {
       color: $toolbar-text-primary;
       background: $toolbar-bg-hover;
+      transform: translateY(-1px);
     }
 
     &.active,
     &:active {
       color: #FFFFFF;
-      background: var(--green-50);
+      background: var(--green-50) !important;
+      box-shadow: 0 2px 8px rgba(34, 197, 94, 0.25);
 
       &:hover {
-        background: var(--green-40);
+        background: var(--green-40) !important;
+        box-shadow: 0 4px 12px rgba(34, 197, 94, 0.35);
       }
     }
   }
@@ -649,16 +664,17 @@ $toolbar-border-default: rgba(255, 255, 255, 0.12);
   }
 }
 
-// Toggle Switch
+// Toggle Switch with AI Chat style
 .ide-redesign-main .toggle-switch {
   background: $toolbar-bg-panel;
   border: 1px solid $toolbar-border-subtle;
   border-radius: 20px;
+  transition: all $toolbar-transition-fast;
 }
 
 .ide-redesign-main .toggle-switch-label {
   color: $toolbar-text-muted;
-  transition: all 0.15s;
+  transition: all $toolbar-transition-smooth;
 
   &:hover {
     color: $toolbar-text-secondary;
@@ -667,7 +683,8 @@ $toolbar-border-default: rgba(255, 255, 255, 0.12);
 
 .ide-redesign-main .toggle-switch-input:checked + .toggle-switch-label {
   color: #FFFFFF;
-  background: var(--green-50);
+  background: var(--green-50) !important;
+  box-shadow: 0 2px 8px rgba(34, 197, 94, 0.3);
 }
 
 // Project Name

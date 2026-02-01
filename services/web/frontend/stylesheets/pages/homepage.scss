@@ -327,3 +327,237 @@
     margin-bottom: var(--spacing-05);
   }
 }
+
+// ============================================
+// Dark Theme Override - Blitch Monochrome Style
+// Homepage - Community Edition
+// Green accents preserved
+// ============================================
+
+$home-bg-dark: #0D0D0D;
+$home-bg-panel: #1C1C1C;
+$home-bg-surface: #27272a;
+$home-bg-hover: #2e2e33;
+$home-text-primary: #FFFFFF;
+$home-text-secondary: #A0A0A0;
+$home-text-muted: #666666;
+$home-border-subtle: rgba(255, 255, 255, 0.08);
+$home-border-default: rgba(255, 255, 255, 0.12);
+
+$home-transition-fast: 0.15s ease;
+$home-transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+.ide-redesign-main .homepage-container,
+.ide-redesign-main.homepage-container {
+  background: $home-bg-dark;
+  color: $home-text-secondary;
+
+  // Animation Text - Keep color scheme but improve contrast
+  .home-animation-text-container {
+    .home-begin-text {
+      color: var(--green-50);
+    }
+
+    .home-parenthesis-text {
+      color: var(--green-40);
+
+      #home-animation-text {
+        color: $home-text-primary;
+      }
+    }
+  }
+
+  // Top Text
+  .home-top-text {
+    color: $home-text-secondary;
+  }
+
+  // Registration Section
+  .home-registration {
+    .home-registration-sso .btn {
+      background: $home-bg-surface;
+      border: 1px solid $home-border-default;
+      color: $home-text-secondary;
+      border-radius: 10px;
+      transition: all $home-transition-smooth;
+
+      &:hover {
+        background: $home-bg-hover;
+        color: $home-text-primary;
+        transform: translateY(-2px);
+      }
+    }
+
+    .home-registration-separator {
+      color: $home-text-muted;
+
+      > span::before,
+      > span::after {
+        background-color: $home-border-subtle;
+      }
+    }
+
+    .home-registration-password {
+      input {
+        background: $home-bg-surface;
+        border: 1px solid $home-border-subtle;
+        color: $home-text-primary;
+        border-radius: 8px;
+        transition: border-color $home-transition-fast;
+
+        &::placeholder {
+          color: $home-text-muted;
+        }
+
+        &:focus {
+          border-color: var(--green-50);
+          outline: none;
+          box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.2);
+        }
+      }
+    }
+
+    .home-registration-sign-up > button {
+      background: var(--green-50);
+      border-color: var(--green-50);
+      color: #FFFFFF;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(34, 197, 94, 0.25);
+      transition: all $home-transition-smooth;
+
+      &:hover {
+        background: var(--green-40);
+        border-color: var(--green-40);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 16px rgba(34, 197, 94, 0.35);
+      }
+    }
+
+    .tos-agreement-notice {
+      color: $home-text-muted;
+
+      a {
+        color: var(--green-50);
+
+        &:hover {
+          color: var(--green-40);
+        }
+      }
+    }
+  }
+
+  // Editor PDF Video
+  .editor-pdf-video video {
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    border: 1px solid $home-border-subtle;
+    border-radius: 12px;
+  }
+
+  // Million Users Text
+  .home-millions-user-text {
+    color: $home-text-secondary;
+  }
+
+  // Organization Logos
+  .organization-logos-container .organization-logo {
+    filter: brightness(0) invert(0.7);
+    opacity: 0.7;
+    transition: all $home-transition-fast;
+
+    &:hover {
+      opacity: 1;
+      filter: brightness(0) invert(1);
+    }
+  }
+
+  // Header Description
+  .header-description {
+    color: $home-text-secondary;
+  }
+
+  // Template Cards
+  .template-card {
+    > img.img-responsive {
+      border: 1px solid $home-border-subtle;
+      transition: all $home-transition-smooth;
+    }
+
+    &:hover > img.img-responsive {
+      border-color: $home-border-default;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    }
+
+    .template-card-title {
+      color: $home-text-primary;
+
+      a {
+        color: var(--green-50);
+
+        &:hover {
+          color: var(--green-40);
+        }
+      }
+    }
+  }
+
+  // Plans Cards
+  .plans-card {
+    background: $home-bg-panel;
+    border: 1px solid $home-border-subtle;
+    border-radius: 16px;
+    transition: all $home-transition-smooth;
+
+    &:hover {
+      border-color: $home-border-default;
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .card-body {
+      color: $home-text-secondary;
+    }
+
+    .card-title {
+      color: $home-text-primary;
+    }
+
+    .plans-card-footer {
+      .btn-primary {
+        background: var(--green-50);
+        border-color: var(--green-50);
+        color: #FFFFFF;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(34, 197, 94, 0.25);
+        transition: all $home-transition-smooth;
+
+        &:hover {
+          background: var(--green-40);
+          border-color: var(--green-40);
+          box-shadow: 0 4px 16px rgba(34, 197, 94, 0.35);
+        }
+      }
+
+      .btn-secondary,
+      .btn-link {
+        color: $home-text-secondary;
+
+        &:hover {
+          color: var(--green-50);
+        }
+      }
+    }
+  }
+
+  // Customer Story Cards
+  .customer-story-card-title {
+    color: $home-text-primary;
+
+    a {
+      color: var(--green-50);
+
+      &:hover {
+        color: var(--green-40);
+      }
+    }
+  }
+}
