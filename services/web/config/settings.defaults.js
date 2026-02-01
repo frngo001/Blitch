@@ -351,13 +351,13 @@ module.exports = {
   // cookie domain
   // use full domain for cookies to only be accessible from that domain,
   // replace subdomain with dot to have them accessible on all subdomains
-  // Note: Do not use public suffix domains like .railway.app - browsers reject these
-  // If COOKIE_DOMAIN starts with a dot followed by a public suffix, leave it undefined
+  // Note: For Railway deployments, do NOT set COOKIE_DOMAIN - let Express handle it automatically
+  // Setting COOKIE_DOMAIN on railway.app domains causes CSRF issues
   cookieDomain: (() => {
     const domain = process.env.COOKIE_DOMAIN
-    // Reject public suffix domains that browsers won't accept
-    if (domain && /^\.(up\.)?railway\.app$/i.test(domain)) {
-      console.warn(`Warning: COOKIE_DOMAIN "${domain}" is a public suffix and will be ignored`)
+    // For Railway deployments: ignore COOKIE_DOMAIN entirely - let browser handle it
+    if (domain && /railway\.app/i.test(domain)) {
+      console.warn(`Warning: COOKIE_DOMAIN "${domain}" contains railway.app - ignoring to prevent CSRF issues`)
       return undefined
     }
     return domain || undefined
