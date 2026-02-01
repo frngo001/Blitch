@@ -200,3 +200,191 @@ body {
   background-color: black;
   border-radius: var(--border-radius-base);
 }
+
+// ============================================
+// Dark Theme Override - Blitch Monochrome Style
+// Consistent with AI Chat, Team Chat, and Settings
+// ============================================
+
+$rail-bg-dark: #0D0D0D;
+$rail-bg-panel: #1C1C1C;
+$rail-bg-hover: #2A2A2A;
+$rail-text-primary: #FFFFFF;
+$rail-text-secondary: #A0A0A0;
+$rail-text-muted: #666666;
+$rail-border-subtle: rgba(255, 255, 255, 0.08);
+
+// Override CSS Variables for Dark Theme
+.ide-redesign-main {
+  --ide-rail-background: #{$rail-bg-dark};
+  --ide-rail-color: #{$rail-text-secondary};
+  --ide-rail-link-hover-color: #{$rail-text-primary};
+  --ide-rail-link-background: transparent;
+  --ide-rail-link-hover-background: #{$rail-bg-hover};
+  --ide-rail-border-colour: #{$rail-border-subtle};
+  --ide-rail-header-subdued-button-color: #{$rail-text-secondary};
+  --ide-rail-header-subdued-button-hover-background: #{$rail-bg-hover};
+  // Monochrome active state - white instead of green
+  --ide-rail-link-active-color: #{$rail-text-primary};
+  --ide-rail-link-active-background: rgba(255, 255, 255, 0.1);
+}
+
+// Main Rail Container
+.ide-redesign-main .ide-rail {
+  background: $rail-bg-dark;
+  border-right: 1px solid $rail-border-subtle;
+  padding: 8px;
+}
+
+// Rail Tab Links - Clean Icon Buttons
+.ide-redesign-main .ide-rail-tab-link {
+  color: $rail-text-muted;
+  background: transparent;
+  border-radius: 8px;
+  width: 36px;
+  height: 36px;
+  transition: all 0.15s ease;
+
+  &:hover {
+    color: $rail-text-primary;
+    background: $rail-bg-hover;
+  }
+
+  &:visited,
+  &:focus {
+    color: $rail-text-muted;
+  }
+
+  // Active/Open state - White highlight
+  &.open-rail {
+    color: $rail-text-primary;
+    background: rgba(255, 255, 255, 0.1);
+
+    // White bottom indicator instead of green
+    &::after {
+      background-color: $rail-text-primary;
+      height: 2px;
+      left: 6px;
+      width: 24px;
+      border-radius: 2px;
+    }
+  }
+
+  .ide-rail-tab-link-icon {
+    line-height: 36px;
+    font-size: 20px;
+  }
+
+  // Badge styling
+  .badge {
+    background: $rail-text-primary;
+    color: $rail-bg-dark;
+    font-size: 10px;
+    font-weight: 600;
+    min-width: 16px;
+    height: 16px;
+    line-height: 16px;
+    padding: 0 4px;
+  }
+}
+
+// Rail Panel Header
+.ide-redesign-main .rail-panel-header {
+  background: $rail-bg-dark;
+  border-bottom: 1px solid $rail-border-subtle;
+  padding: 12px 16px;
+
+  .rail-panel-title {
+    color: $rail-text-primary;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: -0.2px;
+  }
+}
+
+// Rail Panel Header Buttons
+.ide-redesign-main .rail-panel-header-button-subdued {
+  color: $rail-text-muted !important;
+  background: transparent !important;
+  border: none !important;
+  border-radius: 6px;
+  padding: 6px;
+  transition: all 0.15s;
+
+  &:hover {
+    color: $rail-text-primary !important;
+    background: $rail-bg-hover !important;
+  }
+
+  .material-symbols {
+    font-size: 18px;
+  }
+}
+
+// Rail Content Area
+.ide-redesign-main .ide-rail-content {
+  background: $rail-bg-dark;
+}
+
+// Rail Tab Content
+.ide-redesign-main .ide-rail-tab-content {
+  background: $rail-bg-dark;
+}
+
+// Rail Navigation
+.ide-redesign-main .ide-rail-tabs-nav {
+  padding: 4px 0;
+}
+
+// Overflow Dropdown
+.ide-redesign-main .ide-rail-overflow-dropdown {
+  background: $rail-bg-panel;
+  border: 1px solid $rail-border-subtle;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  padding: 6px;
+
+  .ide-rail-tab-link {
+    margin: 0;
+    width: 100%;
+    height: auto;
+    padding: 8px 12px;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    &:hover {
+      background: $rail-bg-hover;
+    }
+
+    .ide-rail-tab-link-icon {
+      line-height: 1;
+    }
+  }
+}
+
+// Rail Divider (if any)
+.ide-redesign-main .ide-rail-divider {
+  background: $rail-border-subtle;
+  height: 1px;
+  margin: 8px 4px;
+}
+
+// Tooltip Override for Rail
+.ide-redesign-main .ide-rail [data-bs-toggle="tooltip"] + .tooltip,
+.ide-redesign-main .ide-rail .tooltip {
+  .tooltip-inner {
+    background: $rail-bg-panel;
+    color: $rail-text-primary;
+    border: 1px solid $rail-border-subtle;
+    border-radius: 6px;
+    font-size: 12px;
+    padding: 6px 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+
+  .tooltip-arrow::before {
+    border-top-color: $rail-bg-panel;
+  }
+}
