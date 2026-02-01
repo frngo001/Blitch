@@ -661,16 +661,22 @@ $accent-blue-chat: #38bdf8;
   }
 }
 
-// User Bubble
+// User Bubble - Clean white like Team Chat
 .ai-chat-user-bubble {
-  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-  color: white;
+  background: $text-primary-chat;
+  color: $bg-dark;
   border-radius: 18px 18px 4px 18px;
-  padding: 12px 16px;
+  padding: 10px 14px;
   max-width: 85%;
   width: fit-content;
   font-size: 14px;
   line-height: 1.5;
+  font-weight: normal;
+
+  a {
+    color: $bg-dark;
+    text-decoration: underline;
+  }
 }
 
 // Assistant Content
@@ -680,9 +686,10 @@ $accent-blue-chat: #38bdf8;
   line-height: 1.6;
 
   &.is-streaming::after {
-    content: '▊';
-    animation: blink 1s step-end infinite;
-    color: $accent-blue-chat;
+    content: '|';
+    animation: blink 0.8s step-end infinite;
+    color: $text-muted-chat;
+    margin-left: 1px;
   }
 
   code {
@@ -886,21 +893,22 @@ $accent-blue-chat: #38bdf8;
   }
 }
 
-// Typing Indicator
+// Typing Indicator - Monochrome like Team Chat
 .ai-chat-typing-indicator {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 12px 16px;
-  background: rgba(56, 189, 248, 0.1);
-  border-radius: 12px;
-  border: 1px solid rgba(56, 189, 248, 0.15);
+  gap: 10px;
+  padding: 10px 14px;
+  margin: 8px 16px;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 10px;
+  border: 1px solid $border-subtle-chat;
 }
 
 .ai-chat-typing-text {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 500;
-  color: $accent-blue-chat;
+  color: $text-muted-chat;
 }
 
 .ai-chat-typing-dots {
@@ -909,9 +917,9 @@ $accent-blue-chat: #38bdf8;
 }
 
 .ai-chat-typing-dot {
-  width: 6px;
-  height: 6px;
-  background: $accent-blue-chat;
+  width: 5px;
+  height: 5px;
+  background: $text-muted-chat;
   border-radius: 50%;
   animation: pulse-dot 1.4s ease-in-out infinite;
 
@@ -922,11 +930,11 @@ $accent-blue-chat: #38bdf8;
 @keyframes pulse-dot {
   0%, 80%, 100% {
     transform: scale(0.6);
-    opacity: 0.4;
+    opacity: 0.3;
   }
   40% {
     transform: scale(1);
-    opacity: 1;
+    opacity: 0.8;
   }
 }
 

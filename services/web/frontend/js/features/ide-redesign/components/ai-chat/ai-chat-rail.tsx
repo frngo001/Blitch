@@ -602,7 +602,7 @@ export function AIChatPane() {
                 sendMessage()
               }
             }}
-            placeholder={attachments.length > 0 ? "Add a message or send the file..." : "Ask a question about this page..."}
+            placeholder={attachments.length > 0 ? "Add a message or send the file..." : "Ask about your LaTeX document..."}
             rows={1}
           />
           <div className="input-toolbar">
@@ -910,7 +910,7 @@ function ToolCallBlock({ tool }: { tool: ToolCall }) {
   )
 }
 
-// Chat Placeholder - Dia Style
+// Chat Placeholder - Blitch Style
 function ChatPlaceholder({ onQuickAction }: { onQuickAction: (text: string) => void }) {
   const [showPersonalize, setShowPersonalize] = useState(true)
 
@@ -933,15 +933,15 @@ function ChatPlaceholder({ onQuickAction }: { onQuickAction: (text: string) => v
           </div>
           <div className="personalize-content">
             <h3>Personalize</h3>
-            <p>Teach Dia to respond in your preferred style.</p>
+            <p>Teach Blitch your writing style and preferences.</p>
           </div>
         </div>
       )}
 
       {/* Teach Section */}
       <div className="teach-section">
-        <h3>Teach Dia how to respond</h3>
-        <p>Dia can tailor its responses to you</p>
+        <h3>Your AI Scientific Writing Assistant</h3>
+        <p>Blitch helps you write, edit and improve your LaTeX documents</p>
       </div>
     </div>
   )
