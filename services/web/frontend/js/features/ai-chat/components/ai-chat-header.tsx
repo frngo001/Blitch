@@ -53,8 +53,8 @@ export default function AIChatHeader({ onClose }: Props) {
       <div className="ai-chat-header-center" />
 
       <div className="ai-chat-header-right">
-        <button className="ai-chat-header-button" title="Script">
-          <MaterialIcon type="history" />
+        <button className="ai-chat-header-button" title="Chat History">
+          <MaterialIcon type="forum" />
         </button>
         <button className="ai-chat-header-button" title="Sidebar">
           <MaterialIcon type="view_sidebar" />

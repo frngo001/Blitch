@@ -11,6 +11,7 @@
 import React, { useEffect, useState, useCallback, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useProjectContext } from '@/shared/context/project-context'
+import { useRailContext } from '../../contexts/rail-context'
 import MaterialIcon from '@/shared/components/material-icon'
 import getMeta from '@/utils/meta'
 import classNames from 'classnames'
@@ -70,6 +71,7 @@ const MODELS = {
 export function AIChatPane() {
   const { t } = useTranslation()
   const { projectId } = useProjectContext()
+  const { togglePane } = useRailContext()
 
   const [messages, setMessages] = useState<AIMessage[]>([])
   const [inputValue, setInputValue] = useState('')
@@ -400,16 +402,10 @@ export function AIChatPane() {
           </button>
         </div>
         <div className="header-right">
-          <button className="ai-chat-header-btn" title="Profile">
-            <MaterialIcon type="person" />
-          </button>
           <button className="ai-chat-header-btn" onClick={() => setShowHistoryModal(true)} title="History">
-            <MaterialIcon type="crop_square" />
+            <MaterialIcon type="forum" />
           </button>
-          <button className="ai-chat-header-btn" title="Sparkle">
-            <MaterialIcon type="auto_awesome" />
-          </button>
-          <button className="ai-chat-header-btn" title="Close">
+          <button className="ai-chat-header-btn" onClick={togglePane} title="Close">
             <MaterialIcon type="close" />
           </button>
         </div>

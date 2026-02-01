@@ -151,7 +151,7 @@ export function ChatHistoryModal({
     <OLModal show={show} onHide={onHide} size="lg" className="chat-history-modal">
       <OLModalHeader closeButton>
         <OLModalTitle>
-          <MaterialIcon type="history" />
+          <MaterialIcon type="forum" />
           <span style={{ marginLeft: '8px' }}>
             {t('chat_history', 'Chat History')}
           </span>
