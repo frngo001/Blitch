@@ -237,3 +237,401 @@
 .ide-redesign-beta-button.btn.btn-secondary {
   @include editor-switcher-button;
 }
+
+// ============================================
+// Premium Dark Theme - AI Chat Design Style
+// Editor Toolbar - Community Edition
+// Glassmorphism, animations, green accents
+// ============================================
+
+$toolbar-bg-primary: #0f0f10;
+$toolbar-bg-secondary: #18181b;
+$toolbar-bg-elevated: #1f1f23;
+$toolbar-bg-surface: #27272a;
+$toolbar-bg-hover: #2e2e33;
+
+$toolbar-border-subtle: rgba(255, 255, 255, 0.06);
+$toolbar-border-default: rgba(255, 255, 255, 0.1);
+
+$toolbar-text-primary: #fafafa;
+$toolbar-text-secondary: #a1a1aa;
+$toolbar-text-tertiary: #71717a;
+
+$toolbar-accent-green: #22c55e;
+$toolbar-accent-green-light: #4ade80;
+$toolbar-accent-green-dark: #16a34a;
+
+$toolbar-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+$toolbar-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+
+$toolbar-radius-sm: 8px;
+$toolbar-radius-md: 12px;
+$toolbar-radius-full: 9999px;
+
+$toolbar-transition-fast: 0.15s ease;
+$toolbar-transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+// Override CSS Variables for AI Chat design
+.ide-redesign-main {
+  --redesign-toolbar-background: #{$toolbar-bg-primary};
+  --redesign-toolbar-border-divider: #{$toolbar-border-subtle};
+  --redesign-toolbar-home-button-hover-background: #{$toolbar-bg-hover};
+  --redesign-toolbar-home-link-color: #{$toolbar-text-primary};
+  --redesign-subdued-button-color: #{$toolbar-text-secondary};
+  --redesign-subdued-button-hover-background: #{$toolbar-bg-hover};
+  --redesign-toolbar-feedback-link-color: #{$toolbar-accent-green};
+}
+
+// Main Toolbar Container - Premium glassmorphism
+.ide-redesign-main .ide-redesign-toolbar {
+  background: $toolbar-bg-primary !important;
+  border-bottom: 1px solid $toolbar-border-subtle !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  // Home Button with hover effect
+  .ide-redesign-toolbar-home-button {
+    .ide-redesign-toolbar-home-link {
+      color: $toolbar-text-primary;
+      transition: all $toolbar-transition-fast;
+
+      &:hover {
+        background: $toolbar-bg-hover;
+      }
+    }
+  }
+
+  // Menu Bar (File, Edit, Insert, View, Format, Help)
+  .ide-redesign-toolbar-menu-bar {
+    .dropdown {
+      .dropdown-toggle,
+      .ide-redesign-toolbar-dropdown-toggle-subdued {
+        color: $toolbar-text-secondary !important;
+        background: transparent !important;
+        border: none !important;
+        border-radius: $toolbar-radius-sm;
+        transition: all $toolbar-transition-fast;
+        font-weight: 500;
+
+        &:hover,
+        &:focus {
+          color: $toolbar-text-primary !important;
+          background: $toolbar-bg-hover !important;
+        }
+
+        &.show,
+        &[aria-expanded='true'] {
+          color: $toolbar-text-primary !important;
+          background: $toolbar-bg-surface !important;
+        }
+      }
+    }
+  }
+
+  // Subdued Buttons in toolbar
+  .ide-redesign-toolbar-button-subdued {
+    color: $toolbar-text-secondary !important;
+    background: transparent !important;
+    border-radius: $toolbar-radius-sm;
+    transition: all $toolbar-transition-fast;
+
+    &:hover,
+    &:focus {
+      color: $toolbar-text-primary !important;
+      background: $toolbar-bg-hover !important;
+    }
+
+    &.ide-redesign-toolbar-button-icon {
+      color: $toolbar-text-tertiary !important;
+
+      &:hover {
+        color: $toolbar-text-primary !important;
+        background: $toolbar-bg-hover !important;
+      }
+    }
+  }
+
+  // Project Name Dropdown
+  .ide-redesign-toolbar-project-dropdown {
+    .dropdown-toggle {
+      color: $toolbar-text-primary !important;
+      background: transparent !important;
+      border-radius: $toolbar-radius-sm;
+      transition: all $toolbar-transition-fast;
+      font-weight: 600;
+
+      &:hover {
+        background: $toolbar-bg-hover !important;
+      }
+
+      .ide-redesign-toolbar-project-name {
+        color: $toolbar-text-primary;
+      }
+
+      .material-symbols {
+        color: $toolbar-text-tertiary;
+      }
+    }
+  }
+
+  // Actions section (right side)
+  .ide-redesign-toolbar-actions {
+    .btn {
+      border-radius: $toolbar-radius-sm;
+      transition: all $toolbar-transition-smooth;
+      font-weight: 500;
+
+      &:hover:not(:disabled) {
+        transform: translateY(-1px);
+      }
+    }
+
+    // Secondary buttons
+    .btn-secondary,
+    .btn-outline-secondary {
+      color: $toolbar-text-secondary !important;
+      background: transparent !important;
+      border: 1px solid $toolbar-border-default !important;
+
+      &:hover {
+        color: $toolbar-text-primary !important;
+        background: $toolbar-bg-hover !important;
+        border-color: $toolbar-border-default !important;
+      }
+    }
+
+    // Primary buttons (Share, etc) - Keep green
+    .btn-primary {
+      background: linear-gradient(135deg, $toolbar-accent-green 0%, $toolbar-accent-green-dark 100%) !important;
+      border: none !important;
+      color: #FFFFFF !important;
+      box-shadow: $toolbar-shadow-md, 0 0 16px rgba($toolbar-accent-green, 0.25);
+
+      &:hover {
+        box-shadow: $toolbar-shadow-md, 0 0 24px rgba($toolbar-accent-green, 0.35);
+      }
+    }
+  }
+
+  // Cobranding separator
+  .ide-redesign-toolbar-cobranding-separator {
+    background: $toolbar-border-subtle !important;
+  }
+
+  // Online users
+  .ide-redesign-online-users {
+    .online-user {
+      border-color: $toolbar-bg-primary;
+    }
+  }
+
+  // Beta button
+  .ide-redesign-beta-button {
+    color: $toolbar-text-secondary !important;
+    background: $toolbar-bg-surface !important;
+    border: 1px solid $toolbar-border-subtle !important;
+
+    &:hover {
+      color: $toolbar-text-primary !important;
+      background: $toolbar-bg-hover !important;
+    }
+  }
+}
+
+// Dropdown Menus from Toolbar - Premium glassmorphism
+.ide-redesign-main .ide-redesign-toolbar .dropdown-menu,
+.ide-redesign-main .toolbar-menu-dropdown {
+  background: rgba($toolbar-bg-secondary, 0.95) !important;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid $toolbar-border-default !important;
+  border-radius: $toolbar-radius-md !important;
+  box-shadow: $toolbar-shadow-md, 0 0 40px rgba(0, 0, 0, 0.3);
+  padding: 8px !important;
+  margin-top: 4px !important;
+  animation: toolbarDropdownFadeIn 0.15s ease-out;
+
+  @keyframes toolbarDropdownFadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  // Menu items
+  .dropdown-item,
+  button.dropdown-item,
+  a.dropdown-item {
+    color: $toolbar-text-secondary !important;
+    background: transparent !important;
+    border-radius: $toolbar-radius-sm !important;
+    padding: 10px 14px !important;
+    margin: 2px 0 !important;
+    transition: all $toolbar-transition-fast;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    .material-symbols {
+      color: $toolbar-text-tertiary;
+      font-size: 18px;
+      transition: color $toolbar-transition-fast;
+    }
+
+    // Keyboard shortcuts
+    .dropdown-item-shortcut,
+    kbd,
+    .shortcut {
+      color: $toolbar-text-tertiary !important;
+      background: transparent !important;
+      font-size: 12px;
+      margin-left: auto;
+    }
+
+    &:hover,
+    &:focus {
+      color: $toolbar-text-primary !important;
+      background: $toolbar-bg-hover !important;
+      transform: translateX(4px);
+
+      .material-symbols {
+        color: $toolbar-accent-green;
+      }
+    }
+
+    &.active,
+    &[aria-checked='true'] {
+      color: $toolbar-accent-green !important;
+      background: rgba($toolbar-accent-green, 0.1) !important;
+
+      .material-symbols {
+        color: $toolbar-accent-green;
+      }
+    }
+
+    &:disabled,
+    &.disabled {
+      color: $toolbar-text-tertiary !important;
+      opacity: 0.5;
+      cursor: not-allowed;
+
+      &:hover {
+        background: transparent !important;
+        transform: none;
+      }
+    }
+  }
+
+  // Dividers
+  .dropdown-divider,
+  hr {
+    border-color: $toolbar-border-subtle !important;
+    margin: 8px 0 !important;
+  }
+
+  // Headers in dropdown
+  .dropdown-header {
+    color: $toolbar-text-tertiary !important;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+    padding: 8px 14px;
+  }
+
+  // Nested submenus
+  .dropdown-menu {
+    background: rgba($toolbar-bg-secondary, 0.95) !important;
+    border: 1px solid $toolbar-border-default !important;
+    border-radius: $toolbar-radius-md !important;
+    box-shadow: $toolbar-shadow-md !important;
+  }
+}
+
+// Menu Bar Toggle Buttons (File, Edit, etc.)
+.ide-redesign-main .menu-bar-toggle {
+  color: $toolbar-text-secondary !important;
+  background: transparent !important;
+  border: none !important;
+  border-radius: $toolbar-radius-sm !important;
+  transition: all $toolbar-transition-fast;
+  font-weight: 500;
+
+  &:hover,
+  &:focus {
+    color: $toolbar-text-primary !important;
+    background: $toolbar-bg-hover !important;
+  }
+
+  &.show,
+  &[aria-expanded='true'] {
+    color: $toolbar-text-primary !important;
+    background: $toolbar-bg-surface !important;
+  }
+}
+
+// Editor Toolbar in general (both old and new)
+.ide-redesign-main .toolbar {
+  background: $toolbar-bg-primary !important;
+  border-bottom-color: $toolbar-border-subtle !important;
+}
+
+// Chat button styling
+.ide-redesign-main .ide-redesign-toolbar-actions .chat-button,
+.ide-redesign-main .toolbar-chat-button {
+  color: $toolbar-text-secondary !important;
+  background: transparent !important;
+  border: 1px solid $toolbar-border-subtle !important;
+  border-radius: $toolbar-radius-sm;
+  transition: all $toolbar-transition-fast;
+
+  &:hover {
+    color: $toolbar-text-primary !important;
+    background: $toolbar-bg-hover !important;
+    border-color: $toolbar-border-default !important;
+  }
+
+  // Badge for unread messages
+  .badge,
+  .notification-badge {
+    background: $toolbar-accent-green !important;
+    color: #FFFFFF !important;
+  }
+}
+
+// History button
+.ide-redesign-main .toolbar-history-button,
+.ide-redesign-main .ide-redesign-toolbar-actions [aria-label*="history" i] {
+  color: $toolbar-text-secondary !important;
+
+  &:hover {
+    color: $toolbar-text-primary !important;
+    background: $toolbar-bg-hover !important;
+  }
+}
+
+// Share button - Premium green gradient
+.ide-redesign-main .toolbar-share-button,
+.ide-redesign-main .ide-redesign-toolbar-actions .btn-primary {
+  background: linear-gradient(135deg, $toolbar-accent-green 0%, $toolbar-accent-green-dark 100%) !important;
+  border: none !important;
+  color: #FFFFFF !important;
+  font-weight: 600;
+  border-radius: $toolbar-radius-sm !important;
+  box-shadow: $toolbar-shadow-sm, 0 0 16px rgba($toolbar-accent-green, 0.25);
+  transition: all $toolbar-transition-smooth;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: $toolbar-shadow-md, 0 0 24px rgba($toolbar-accent-green, 0.35);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}

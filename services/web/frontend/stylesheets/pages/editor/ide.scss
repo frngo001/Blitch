@@ -354,81 +354,123 @@ $editor-toggler-bg-dark-color: color.adjust(
 }
 
 // ============================================
-// Dark Theme Override - Blitch Monochrome Style
-// Consistent with AI Chat, Team Chat, Settings, and Rail
-// Green accents preserved
+// Premium Dark Theme - AI Chat Design Style
+// IDE / Editor - Community Edition
+// Glassmorphism, animations, green accents
 // ============================================
 
-$ide-bg-dark: #0D0D0D;
-$ide-bg-panel: #1C1C1C;
-$ide-bg-hover: #2A2A2A;
-$ide-text-primary: #FFFFFF;
-$ide-text-secondary: #A0A0A0;
-$ide-text-muted: #666666;
-$ide-border-subtle: rgba(255, 255, 255, 0.08);
+// Exact AI Chat Design Tokens
+$ide-bg-primary: #0f0f10;
+$ide-bg-secondary: #18181b;
+$ide-bg-elevated: #1f1f23;
+$ide-bg-surface: #27272a;
+$ide-bg-hover: #2e2e33;
+
+$ide-border-subtle: rgba(255, 255, 255, 0.06);
+$ide-border-default: rgba(255, 255, 255, 0.1);
+
+$ide-text-primary: #fafafa;
+$ide-text-secondary: #a1a1aa;
+$ide-text-tertiary: #71717a;
+
+$ide-accent-green: #22c55e;
+
+$ide-transition-fast: 0.15s ease;
+$ide-transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+// Override CSS Variables
+.ide-redesign-main {
+  --editor-toggler-bg-color: #{$ide-text-tertiary};
+  --editor-resizer-bg-color: #{$ide-bg-secondary};
+}
 
 // Editor Sidebar
 .ide-redesign-main .ide-react-editor-sidebar {
-  background: $ide-bg-dark;
+  background: $ide-bg-primary;
   border-right: 1px solid $ide-border-subtle;
   color: $ide-text-secondary;
 }
 
 // Main Body
 .ide-redesign-main .ide-react-body {
-  background: $ide-bg-dark;
+  background: $ide-bg-primary;
+}
+
+// IDE React Main
+.ide-redesign-main .ide-react-main {
+  .toolbar.toolbar-header {
+    background: $ide-bg-primary !important;
+    color: $ide-text-secondary;
+    border-bottom: 1px solid $ide-border-subtle;
+  }
 }
 
 // Symbol Palette
 .ide-redesign-main .ide-react-symbol-palette {
-  background: $ide-bg-panel;
+  background: $ide-bg-secondary;
   border-right: 1px solid $ide-border-subtle;
   color: $ide-text-secondary;
 }
 
-// Resize Handles
+// Resize Handles - Updated with premium styling
 .ide-redesign-main .horizontal-resize-handle {
-  background: $ide-bg-panel;
+  background: $ide-bg-secondary !important;
 
   &::before,
   &::after {
-    // Override the dots color to match dark theme
-    content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='7' height='18' viewBox='0 0 7 18'%3E%3Cpath d='M2 0h3v3H2zM2 5h3v3H2zM2 10h3v3H2zM2 15h3v3H2z' style='fill:%23444444'/%3E%3C/svg%3E");
+    // Subtle dots matching dark theme
+    content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='7' height='18' viewBox='0 0 7 18'%3E%3Cpath d='M2 0h3v3H2zM2 5h3v3H2zM2 10h3v3H2zM2 15h3v3H2z' style='fill:%233f3f46'/%3E%3C/svg%3E");
+  }
+
+  &:hover {
+    background: $ide-bg-surface !important;
   }
 }
 
 .ide-redesign-main .vertical-resize-handle {
-  background: $ide-bg-panel;
+  background: $ide-bg-secondary !important;
 
   &::after {
-    // Override the dots color to match dark theme
-    content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='6' viewBox='0 0 18 6'%3E%3Cpath d='M0 1.5h3v3H0zM5 1.5h3v3H5zM10 1.5h3v3h-3zM15 1.5h3v3h-3z' style='fill:%23444444'/%3E%3C/svg%3E");
-  }
-}
-
-// Panel Toggler
-.ide-redesign-main .custom-toggler {
-  background: $ide-text-muted;
-
-  .material-symbols {
-    color: $ide-text-primary;
+    // Subtle dots matching dark theme
+    content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='6' viewBox='0 0 18 6'%3E%3Cpath d='M0 1.5h3v3H0zM5 1.5h3v3H5zM10 1.5h3v3h-3zM15 1.5h3v3h-3z' style='fill:%233f3f46'/%3E%3C/svg%3E");
   }
 
   &:hover {
-    // Keep green for hover
-    background: var(--green-50);
+    background: $ide-bg-surface !important;
   }
 }
 
-// Synctex Controls
+// Panel Toggler - Premium style
+.ide-redesign-main .custom-toggler {
+  background: $ide-bg-surface;
+  border-radius: 4px;
+  transition: all $ide-transition-fast;
+
+  .material-symbols {
+    color: $ide-text-secondary;
+  }
+
+  &:hover {
+    background: $ide-accent-green;
+
+    .material-symbols {
+      color: #FFFFFF;
+    }
+  }
+}
+
+// Synctex Controls - Premium glassmorphism
 .ide-redesign-main .synctex-controls {
-  background: $ide-bg-panel;
-  border: 1px solid $ide-border-subtle;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  background: rgba($ide-bg-secondary, 0.9) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid $ide-border-subtle !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
 }
 
 .ide-redesign-main .synctex-control:not(.detach-synctex-control) {
   color: $ide-text-secondary;
+  transition: all $ide-transition-fast;
 
   &:hover,
   &:active,
@@ -440,27 +482,52 @@ $ide-border-subtle: rgba(255, 255, 255, 0.08);
 
 // Loading Panel
 .ide-redesign-main .loading-panel {
-  background: $ide-bg-dark;
+  background: $ide-bg-primary;
   color: $ide-text-secondary;
 
   &.loading-panel-dark {
-    background: $ide-bg-dark;
+    background: $ide-bg-primary;
     color: $ide-text-secondary;
+  }
+
+  // Spinner color
+  .loading-spinner,
+  .spinner-border {
+    color: $ide-accent-green;
   }
 }
 
 // Panel Resizing State
 .ide-redesign-main .ide-panel-group-resizing {
-  background: $ide-bg-dark;
+  background: $ide-bg-primary;
 }
 
-// Global Alerts
+// Global Alerts - Premium glassmorphism
 .ide-redesign-main .global-alerts [role='alert'] {
-  background: $ide-bg-panel;
-  border: 1px solid $ide-border-subtle;
-  border-radius: 10px;
+  background: rgba($ide-bg-secondary, 0.9) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid $ide-border-subtle !important;
+  border-radius: 12px;
   color: $ide-text-primary;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+
+  a {
+    color: $ide-accent-green;
+
+    &:hover {
+      color: #4ade80;
+    }
+  }
+
+  .btn-close {
+    filter: invert(1);
+    opacity: 0.5;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
 }
 
 // Teaser Elements
@@ -483,13 +550,25 @@ $ide-border-subtle: rgba(255, 255, 255, 0.08);
 // Out of Sync Modal
 .ide-redesign-main .out-of-sync-modal {
   .text-preview .scroll-container {
-    background: $ide-bg-panel;
+    background: $ide-bg-secondary;
     border: 1px solid $ide-border-subtle;
     color: $ide-text-primary;
+    border-radius: 8px;
   }
 }
 
 // Lock Editor Modal
 .ide-redesign-main .modal.lock-editor-modal {
   background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+}
+
+// IDE React Panel
+.ide-redesign-main .ide-react-panel {
+  background: $ide-bg-primary;
+}
+
+// Editor Panel
+.ide-redesign-main .ide-react-editor-panel {
+  background: $ide-bg-primary;
 }

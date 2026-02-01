@@ -134,3 +134,101 @@
     color: var(--content-primary);
   }
 }
+
+// ============================================
+// Dark Theme Override - Blitch Monochrome Style
+// Online Users - Consistent with Toolbar design
+// ============================================
+
+$online-bg-dark: #0f0f10;
+$online-bg-panel: #1C1C1C;
+$online-bg-hover: #2A2A2A;
+$online-text-primary: #FFFFFF;
+$online-text-secondary: #A0A0A0;
+$online-border-subtle: rgba(255, 255, 255, 0.08);
+$online-border-default: rgba(255, 255, 255, 0.1);
+
+$online-transition-fast: 0.15s ease;
+
+// Override CSS Variables
+.ide-redesign-main {
+  --toolbar-btn-color: #{$online-text-secondary};
+  --online-users-border-color: #{$online-bg-dark};
+  --online-users-text-color: #{$online-text-primary};
+  --online-users-overflow-button-background-color: #{$online-bg-panel};
+}
+
+// Main Online Users Container
+.ide-redesign-main .online-users {
+  .online-user {
+    transition: transform $online-transition-fast;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+
+  .online-user-multi {
+    color: $online-text-secondary;
+
+    &:hover {
+      color: $online-text-primary;
+    }
+  }
+}
+
+// Online Users Row
+.ide-redesign-main .online-users-row {
+  .online-users-row-button {
+    color: $online-text-primary;
+
+    .online-user-circle {
+      transition: all $online-transition-fast;
+    }
+
+    &:hover .online-user-circle {
+      transform: scale(1.1);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    }
+  }
+
+  .online-user-overflow-toggle {
+    .online-user-circle {
+      background: $online-bg-panel;
+      border: 1px solid $online-border-default;
+      color: $online-text-secondary;
+    }
+
+    &:hover .online-user-circle {
+      background: $online-bg-hover;
+      color: $online-text-primary;
+    }
+  }
+}
+
+// Online User Dropdown
+.ide-redesign-main .online-user-overflow-dropdown {
+  background: rgba($online-bg-panel, 0.95) !important;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid $online-border-default !important;
+  border-radius: 12px !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  padding: 8px !important;
+
+  .dropdown-item {
+    color: $online-text-secondary;
+    border-radius: 8px;
+    padding: 10px 14px;
+    transition: all $online-transition-fast;
+
+    &:hover {
+      background: $online-bg-hover;
+      color: $online-text-primary;
+    }
+
+    .online-user-circle {
+      margin-right: 10px;
+    }
+  }
+}

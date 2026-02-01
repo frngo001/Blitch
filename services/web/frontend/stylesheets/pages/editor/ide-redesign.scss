@@ -78,3 +78,144 @@
 .ide-redesign-labs-user-beta-promo-button {
   margin-top: var(--spacing-05);
 }
+
+// ============================================
+// Premium Dark Theme - AI Chat Design Style
+// IDE Redesign Base - Community Edition
+// Ensures consistent dark theme across entire IDE
+// ============================================
+
+$ide-redesign-bg-primary: #0f0f10;
+$ide-redesign-bg-secondary: #18181b;
+$ide-redesign-bg-elevated: #1f1f23;
+$ide-redesign-bg-surface: #27272a;
+$ide-redesign-bg-hover: #2e2e33;
+
+$ide-redesign-text-primary: #fafafa;
+$ide-redesign-text-secondary: #a1a1aa;
+$ide-redesign-text-tertiary: #71717a;
+
+$ide-redesign-border-subtle: rgba(255, 255, 255, 0.06);
+$ide-redesign-border-default: rgba(255, 255, 255, 0.1);
+
+$ide-redesign-accent-green: #22c55e;
+$ide-redesign-accent-green-light: #4ade80;
+
+$ide-redesign-transition-fast: 0.15s ease;
+$ide-redesign-transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+// Override CSS Variables for AI Chat Design
+.ide-redesign-main {
+  --ide-redesign-background: #{$ide-redesign-bg-primary};
+  --ide-redesign-color: #{$ide-redesign-text-secondary};
+  --ide-redesign-resizing-background: #{$ide-redesign-bg-primary};
+  --ide-redesign-color-scheme: dark;
+}
+
+// IDE Redesign Body - Pure black background
+.ide-redesign-main .ide-redesign-body {
+  background: $ide-redesign-bg-primary !important;
+  color: $ide-redesign-text-secondary;
+}
+
+// Editor Container
+.ide-redesign-main .ide-redesign-editor-container {
+  background: $ide-redesign-bg-primary;
+}
+
+// Editor Content
+.ide-redesign-main .ide-redesign-editor-content {
+  background: $ide-redesign-bg-primary;
+}
+
+// PDF Container
+.ide-redesign-main .ide-redesign-pdf-container {
+  background: $ide-redesign-bg-primary;
+}
+
+// Full Height Elements
+.ide-redesign-main .ide-redesign-full-height {
+  background: $ide-redesign-bg-primary;
+}
+
+// Skeleton Block (Loading placeholder)
+.ide-redesign-main .ide-skeleton-block {
+  background: $ide-redesign-bg-secondary;
+  border: 1px solid $ide-redesign-border-subtle;
+  border-radius: 8px;
+}
+
+// Labs User Beta Promo - Glassmorphism notification
+.ide-redesign-main .ide-redesign-labs-user-beta-promo {
+  background: rgba($ide-redesign-bg-secondary, 0.9) !important;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid $ide-redesign-border-default !important;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  color: $ide-redesign-text-primary;
+
+  .notification-content {
+    color: $ide-redesign-text-secondary;
+
+    a {
+      color: $ide-redesign-accent-green;
+      transition: color $ide-redesign-transition-fast;
+
+      &:hover {
+        color: $ide-redesign-accent-green-light;
+      }
+    }
+  }
+
+  .ide-redesign-labs-user-beta-promo-title {
+    color: $ide-redesign-text-primary;
+    font-weight: 600;
+  }
+
+  // Button styling - Green primary
+  .ide-redesign-labs-user-beta-promo-button {
+    .btn-primary {
+      background: linear-gradient(135deg, $ide-redesign-accent-green 0%, #16a34a 100%) !important;
+      border: none !important;
+      color: #FFFFFF !important;
+      border-radius: 10px;
+      font-weight: 600;
+      box-shadow: 0 2px 8px rgba($ide-redesign-accent-green, 0.25);
+      transition: all $ide-redesign-transition-smooth;
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 16px rgba($ide-redesign-accent-green, 0.35);
+      }
+    }
+
+    .btn-secondary,
+    .btn-link {
+      color: $ide-redesign-text-secondary;
+      background: transparent;
+      border: 1px solid $ide-redesign-border-default;
+      border-radius: 10px;
+      transition: all $ide-redesign-transition-fast;
+
+      &:hover {
+        color: $ide-redesign-text-primary;
+        background: $ide-redesign-bg-hover;
+        border-color: $ide-redesign-border-default;
+      }
+    }
+  }
+
+  // Close button
+  .btn-close,
+  [aria-label="Close"],
+  .close {
+    filter: invert(1);
+    opacity: 0.5;
+    transition: opacity $ide-redesign-transition-fast;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
