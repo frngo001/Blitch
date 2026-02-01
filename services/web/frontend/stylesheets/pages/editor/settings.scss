@@ -170,21 +170,32 @@ body:has(.ide-redesign-main) .modal-content:has(.ide-settings-modal-body) {
     }
 
     .btn-close {
-      filter: invert(1);
-      opacity: 0.4;
-      border: none;
-      background: transparent;
-      box-shadow: none;
-      outline: none;
-      transition: opacity $settings-transition;
+      width: 32px;
+      height: 32px;
+      padding: 0;
+      border: none !important;
+      border-radius: 6px;
+      background: transparent !important;
+      box-shadow: none !important;
+      outline: none !important;
+      opacity: 1;
+      transition: background $settings-transition;
+
+      // Custom X icon
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23888888' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='18' y1='6' x2='6' y2='18'%3E%3C/line%3E%3Cline x1='6' y1='6' x2='18' y2='18'%3E%3C/line%3E%3C/svg%3E") !important;
+      background-repeat: no-repeat !important;
+      background-position: center !important;
+      background-size: 14px !important;
+      filter: none !important;
 
       &:hover {
-        opacity: 0.8;
+        background-color: $settings-bg-hover !important;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='18' y1='6' x2='6' y2='18'%3E%3C/line%3E%3Cline x1='6' y1='6' x2='18' y2='18'%3E%3C/line%3E%3C/svg%3E") !important;
       }
 
       &:focus {
-        box-shadow: none;
-        outline: none;
+        box-shadow: none !important;
+        outline: none !important;
       }
     }
   }
@@ -305,7 +316,11 @@ body:has(.ide-redesign-main) .ide-dropdown-setting,
 body:has(.ide-redesign-main) .ide-dropdown-setting-wide {
   .form-select,
   select {
-    background: $settings-bg-input;
+    background-color: $settings-bg-input !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23888888' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E") !important;
+    background-repeat: no-repeat !important;
+    background-position: right 10px center !important;
+    background-size: 12px !important;
     border: 1px solid $settings-border;
     color: $settings-text-primary;
     border-radius: 6px;
@@ -314,12 +329,9 @@ body:has(.ide-redesign-main) .ide-dropdown-setting-wide {
     font-weight: 500;
     transition: border-color $settings-transition;
     cursor: pointer;
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23888888' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 10px center;
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
 
     &:hover {
       border-color: rgba(255, 255, 255, 0.15);

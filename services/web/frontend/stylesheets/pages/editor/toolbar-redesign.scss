@@ -280,6 +280,22 @@ $toolbar-transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   --redesign-subdued-button-color: #{$toolbar-text-secondary};
   --redesign-subdued-button-hover-background: #{$toolbar-bg-hover};
   --redesign-toolbar-feedback-link-color: #{$toolbar-accent-green};
+
+  // Remove ALL green focus shadows from buttons
+  --bs-btn-focus-box-shadow: none;
+
+  .btn,
+  button,
+  [role="button"] {
+    --bs-btn-focus-box-shadow: none !important;
+
+    &:focus,
+    &:focus-visible,
+    &:active {
+      box-shadow: none !important;
+      outline: none !important;
+    }
+  }
 }
 
 // Main Toolbar Container - Premium glassmorphism
@@ -328,21 +344,26 @@ $toolbar-transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
   }
 
-  // Subdued Buttons in toolbar
+  // Subdued Buttons in toolbar (icons, dropdowns)
   .ide-redesign-toolbar-button-subdued {
     color: $toolbar-text-secondary !important;
     background: transparent !important;
+    border: none !important;
     border-radius: $toolbar-radius-sm;
+    box-shadow: none !important;
     transition: all $toolbar-transition-fast;
 
     &:hover,
     &:focus {
       color: $toolbar-text-primary !important;
       background: $toolbar-bg-hover !important;
+      border: none !important;
+      box-shadow: none !important;
     }
 
     &.ide-redesign-toolbar-button-icon {
       color: $toolbar-text-tertiary !important;
+      border: none !important;
 
       &:hover {
         color: $toolbar-text-primary !important;
@@ -377,17 +398,27 @@ $toolbar-transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
   // Actions section (right side)
   .ide-redesign-toolbar-actions {
-    .btn {
+    // Universal button reset - NO BORDERS on any button
+    .btn,
+    button,
+    [role="button"] {
+      border: none !important;
+      box-shadow: none !important;
+      outline: none !important;
       border-radius: $toolbar-radius-sm;
       font-weight: 500;
+
+      &:focus {
+        box-shadow: none !important;
+        outline: none !important;
+      }
     }
 
-    // Secondary buttons - no border
+    // Secondary buttons
     .btn-secondary,
     .btn-outline-secondary {
       color: $toolbar-text-secondary !important;
       background: transparent !important;
-      border: none !important;
 
       &:hover {
         color: $toolbar-text-primary !important;
@@ -395,10 +426,21 @@ $toolbar-transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       }
     }
 
-    // Primary buttons (Share, etc) - Green text, no border
+    // Primary buttons (Share, etc) - Green text
     .btn-primary {
       background: transparent !important;
-      border: none !important;
+      color: $toolbar-accent-green !important;
+      font-weight: 600;
+
+      &:hover {
+        background: $toolbar-bg-hover !important;
+        color: $toolbar-accent-green-light !important;
+      }
+    }
+
+    // Premium/Upgrade button - Green text like primary
+    .btn-premium {
+      background: transparent !important;
       color: $toolbar-accent-green !important;
       font-weight: 600;
 
@@ -434,46 +476,118 @@ $toolbar-transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 }
 
-// Dropdown Menus - Clean minimal dark style
-.ide-redesign-main .ide-redesign-toolbar .dropdown-menu,
-.ide-redesign-main .toolbar-menu-dropdown {
-  background: #1a1a1a;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 6px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-  padding: 4px;
-  z-index: 1050;
+// ============================================
+// Dropdown Menus - Global fix for portals
+// Uses body:has() to target dropdowns rendered outside toolbar
+// ============================================
 
-  .dropdown-item {
-    color: #999;
-    padding: 6px 12px;
+// Target ALL dropdowns when ide-redesign is active (including portals)
+body:has(.ide-redesign-main) .dropdown-menu {
+  background: #1a1a1a !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6) !important;
+  padding: 6px !important;
+  z-index: 1050 !important;
+
+  // Dropdown items - all types
+  .dropdown-item,
+  button.dropdown-item,
+  a.dropdown-item {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    color: #a0a0a0 !important;
+    background: transparent !important;
+    border-radius: 4px !important;
+    padding: 8px 12px !important;
+    font-size: 13px !important;
+    transition: all 0.1s ease !important;
 
     &:hover,
     &:focus {
-      color: #fff;
-      background: #2a2a2a;
+      color: #ffffff !important;
+      background: #2a2a2a !important;
     }
 
-    &.active {
-      color: #22c55e;
-      background: transparent;
+    &.active,
+    &[aria-checked='true'] {
+      color: #22c55e !important;
+      background: transparent !important;
     }
 
     &:disabled,
     &.disabled {
-      color: #555;
+      color: #555 !important;
+      opacity: 0.5 !important;
+      pointer-events: none !important;
     }
   }
 
-  .dropdown-divider {
-    border-color: rgba(255, 255, 255, 0.08);
-    margin: 4px 0;
+  // Leading icons (left side)
+  .dropdown-item-leading-icon,
+  .material-symbols {
+    color: inherit !important;
+    opacity: 0.7 !important;
+    font-size: 18px !important;
+    width: 18px !important;
+    height: 18px !important;
   }
 
+  // Trailing icons and keyboard shortcuts (right side)
+  .dropdown-item-trailing-icon {
+    margin-left: auto !important;
+    color: inherit !important;
+    opacity: 0.5 !important;
+  }
+
+  // Keyboard shortcuts
+  kbd,
+  .dropdown-item-shortcut,
+  .shortcut {
+    margin-left: auto !important;
+    color: #666 !important;
+    font-size: 11px !important;
+    font-family: system-ui, -apple-system, sans-serif !important;
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+  }
+
+  // Nested dropdown toggle (submenu arrow)
+  .nested-dropdown-toggle {
+    &::after,
+    .material-symbols[data-type="chevron_right"],
+    .chevron-right {
+      margin-left: auto !important;
+      color: #666 !important;
+    }
+  }
+
+  // Dividers
+  .dropdown-divider,
+  hr {
+    border-color: rgba(255, 255, 255, 0.08) !important;
+    margin: 6px 0 !important;
+    opacity: 1 !important;
+  }
+
+  // Headers
   .dropdown-header {
-    color: #666;
-    font-size: 11px;
-    padding: 6px 12px;
+    color: #555 !important;
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    padding: 8px 12px 4px !important;
+  }
+
+  // Nested dropdown menus (submenus)
+  .dropdown-menu {
+    background: #1a1a1a !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 8px !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6) !important;
   }
 }
 
@@ -548,7 +662,7 @@ $toolbar-transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 }
 
-// Global Dropdown Fix
-.ide-redesign-main .dropdown-menu {
-  z-index: 1050;
+// Ensure dropdown visibility
+.ide-redesign-main .dropdown.show > .dropdown-menu {
+  display: block !important;
 }
