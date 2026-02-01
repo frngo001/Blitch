@@ -130,3 +130,279 @@
 .beta-note-text {
   color: var(--content-secondary);
 }
+
+// ============================================
+// Dark Theme Override - Blitch Style
+// Matches AI Chat and Team Chat monochrome design
+// ============================================
+
+$settings-bg-dark: #0D0D0D;
+$settings-bg-panel: #1C1C1C;
+$settings-bg-input: #2C2C2C;
+$settings-bg-hover: #2e2e33;
+$settings-text-primary: #FFFFFF;
+$settings-text-secondary: #A0A0A0;
+$settings-text-muted: #666666;
+$settings-border-subtle: rgba(255, 255, 255, 0.08);
+$settings-border-default: rgba(255, 255, 255, 0.12);
+
+// Modal Container Override
+.ide-redesign-main .modal-content:has(.ide-settings-modal-body) {
+  background: $settings-bg-dark;
+  border: 1px solid $settings-border-subtle;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+
+  .modal-header {
+    background: transparent;
+    border-bottom: 1px solid $settings-border-subtle;
+    padding: 20px 24px;
+
+    .modal-title {
+      color: $settings-text-primary;
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: -0.3px;
+    }
+
+    .btn-close {
+      filter: invert(1);
+      opacity: 0.6;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+
+  .modal-body {
+    background: transparent;
+  }
+}
+
+// Tab Navigation - Dark Sidebar
+.ide-redesign-main .ide-settings-tab-nav.nav {
+  background: $settings-bg-panel;
+  border-right: 1px solid $settings-border-subtle;
+  padding: 12px;
+
+  .ide-settings-tab-link {
+    color: $settings-text-secondary;
+    padding: 10px 12px;
+    border-radius: 8px;
+    transition: all 0.15s;
+
+    &:visited {
+      color: $settings-text-secondary;
+    }
+
+    &:hover {
+      color: $settings-text-primary;
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    &.active {
+      color: $settings-text-primary;
+      background: rgba(255, 255, 255, 0.08);
+      font-weight: 500;
+
+      // White indicator instead of green
+      &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 3px;
+        height: 60%;
+        background: $settings-text-primary;
+        border-radius: 0 2px 2px 0;
+      }
+    }
+
+    .material-symbols {
+      color: $settings-text-muted;
+    }
+  }
+}
+
+// Tab Content Area
+.ide-redesign-main .ide-settings-tab-content {
+  background: $settings-bg-dark;
+  color: $settings-text-primary;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 3px;
+  }
+}
+
+// Section Styling
+.ide-redesign-main .ide-settings-section {
+  border-bottom: 1px solid $settings-border-subtle;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.ide-redesign-main .ide-settings-section-title {
+  color: $settings-text-muted;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom-color: $settings-border-subtle;
+}
+
+// Individual Settings
+.ide-redesign-main .ide-setting {
+  padding: 12px 0;
+  border-bottom: 1px solid $settings-border-subtle;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.ide-redesign-main .ide-setting-title {
+  color: $settings-text-primary;
+  font-weight: 500;
+}
+
+.ide-redesign-main .ide-setting-description {
+  color: $settings-text-muted;
+  font-size: 12px;
+}
+
+// Dropdown Selects - Dark Style
+.ide-redesign-main .ide-dropdown-setting,
+.ide-redesign-main .ide-dropdown-setting-wide {
+  .form-select,
+  select {
+    background: $settings-bg-input;
+    border: 1px solid $settings-border-subtle;
+    color: $settings-text-primary;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 13px;
+    transition: all 0.15s;
+
+    &:hover {
+      border-color: $settings-border-default;
+    }
+
+    &:focus {
+      border-color: rgba(255, 255, 255, 0.2);
+      outline: none;
+      box-shadow: none;
+    }
+
+    option {
+      background: $settings-bg-panel;
+      color: $settings-text-primary;
+    }
+  }
+}
+
+// Radio Options - Clean Style
+.ide-redesign-main .ide-radio-option {
+  padding: 12px;
+  border-radius: 8px;
+  transition: background 0.15s;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.03);
+  }
+}
+
+.ide-redesign-main .ide-radio-input {
+  accent-color: $settings-text-primary;
+}
+
+.ide-redesign-main .ide-radio-text {
+  .ide-setting-title {
+    color: $settings-text-primary;
+  }
+
+  .ide-setting-description {
+    color: $settings-text-muted;
+  }
+}
+
+// Beta Note - Subtle Card
+.ide-redesign-main .project-notifications-beta-note {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid $settings-border-subtle;
+  border-radius: 8px;
+
+  .beta-note-text {
+    color: $settings-text-muted;
+  }
+}
+
+// Form Controls Override
+.ide-redesign-main .ide-settings-modal-body {
+  input[type="text"],
+  input[type="number"],
+  input[type="email"],
+  textarea {
+    background: $settings-bg-input;
+    border: 1px solid $settings-border-subtle;
+    color: $settings-text-primary;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 13px;
+    transition: border-color 0.15s;
+
+    &::placeholder {
+      color: $settings-text-muted;
+    }
+
+    &:focus {
+      border-color: rgba(255, 255, 255, 0.2);
+      outline: none;
+      box-shadow: none;
+    }
+  }
+
+  // Checkboxes and Switches
+  input[type="checkbox"] {
+    accent-color: $settings-text-primary;
+  }
+
+  // Buttons
+  .btn-primary {
+    background: $settings-text-primary;
+    color: $settings-bg-dark;
+    border: none;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.15s;
+
+    &:hover {
+      background: #E0E0E0;
+      transform: translateY(-1px);
+    }
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: $settings-text-secondary;
+    border: 1px solid $settings-border-subtle;
+    border-radius: 8px;
+    transition: all 0.15s;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.04);
+      color: $settings-text-primary;
+      border-color: $settings-border-default;
+    }
+  }
+}
