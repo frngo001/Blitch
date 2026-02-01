@@ -145,14 +145,12 @@ $ide-redesign-transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   border-radius: 8px;
 }
 
-// Labs User Beta Promo - Glassmorphism notification
+// Labs User Beta Promo - Simple dark style (no glassmorphism)
 .ide-redesign-main .ide-redesign-labs-user-beta-promo {
-  background: rgba($ide-redesign-bg-secondary, 0.9) !important;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background: $ide-redesign-bg-secondary !important;
   border: 1px solid $ide-redesign-border-default !important;
-  border-radius: 16px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
   color: $ide-redesign-text-primary;
 
   .notification-content {
@@ -173,20 +171,19 @@ $ide-redesign-transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     font-weight: 600;
   }
 
-  // Button styling - Green primary
+  // Button styling - Green text only
   .ide-redesign-labs-user-beta-promo-button {
     .btn-primary {
-      background: linear-gradient(135deg, $ide-redesign-accent-green 0%, #16a34a 100%) !important;
-      border: none !important;
-      color: #FFFFFF !important;
-      border-radius: 10px;
+      background: transparent !important;
+      border: 1px solid $ide-redesign-border-default !important;
+      color: $ide-redesign-accent-green !important;
+      border-radius: 8px;
       font-weight: 600;
-      box-shadow: 0 2px 8px rgba($ide-redesign-accent-green, 0.25);
-      transition: all $ide-redesign-transition-smooth;
+      transition: all $ide-redesign-transition-fast;
 
       &:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 16px rgba($ide-redesign-accent-green, 0.35);
+        background: $ide-redesign-bg-hover !important;
+        color: $ide-redesign-accent-green-light !important;
       }
     }
 
@@ -195,13 +192,12 @@ $ide-redesign-transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       color: $ide-redesign-text-secondary;
       background: transparent;
       border: 1px solid $ide-redesign-border-default;
-      border-radius: 10px;
+      border-radius: 8px;
       transition: all $ide-redesign-transition-fast;
 
       &:hover {
         color: $ide-redesign-text-primary;
         background: $ide-redesign-bg-hover;
-        border-color: $ide-redesign-border-default;
       }
     }
   }

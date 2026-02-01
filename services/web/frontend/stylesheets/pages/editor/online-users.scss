@@ -206,20 +206,18 @@ $online-transition-fast: 0.15s ease;
   }
 }
 
-// Online User Dropdown
+// Online User Dropdown - Simple dark style (no glassmorphism)
 .ide-redesign-main .online-user-overflow-dropdown {
-  background: rgba($online-bg-panel, 0.95) !important;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background: $online-bg-panel !important;
   border: 1px solid $online-border-default !important;
-  border-radius: 12px !important;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-  padding: 8px !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  padding: 6px !important;
 
   .dropdown-item {
     color: $online-text-secondary;
-    border-radius: 8px;
-    padding: 10px 14px;
+    border-radius: 6px;
+    padding: 8px 12px;
     transition: all $online-transition-fast;
 
     &:hover {

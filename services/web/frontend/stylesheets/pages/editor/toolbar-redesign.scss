@@ -400,15 +400,17 @@ $toolbar-transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       }
     }
 
-    // Primary buttons (Share, etc) - Keep green
+    // Primary buttons (Share, etc) - Green text only
     .btn-primary {
-      background: linear-gradient(135deg, $toolbar-accent-green 0%, $toolbar-accent-green-dark 100%) !important;
-      border: none !important;
-      color: #FFFFFF !important;
-      box-shadow: $toolbar-shadow-md, 0 0 16px rgba($toolbar-accent-green, 0.25);
+      background: transparent !important;
+      border: 1px solid $toolbar-border-default !important;
+      color: $toolbar-accent-green !important;
+      font-weight: 600;
 
       &:hover {
-        box-shadow: $toolbar-shadow-md, 0 0 24px rgba($toolbar-accent-green, 0.35);
+        background: $toolbar-bg-hover !important;
+        color: $toolbar-accent-green-light !important;
+        border-color: $toolbar-border-default !important;
       }
     }
   }
@@ -438,28 +440,22 @@ $toolbar-transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 }
 
-// Dropdown Menus from Toolbar - Premium glassmorphism
+// Dropdown Menus from Toolbar - Simple dark style (no glassmorphism)
 .ide-redesign-main .ide-redesign-toolbar .dropdown-menu,
 .ide-redesign-main .toolbar-menu-dropdown {
-  background: rgba($toolbar-bg-secondary, 0.95) !important;
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background: $toolbar-bg-secondary !important;
   border: 1px solid $toolbar-border-default !important;
-  border-radius: $toolbar-radius-md !important;
-  box-shadow: $toolbar-shadow-md, 0 0 40px rgba(0, 0, 0, 0.3);
-  padding: 8px !important;
-  margin-top: 4px !important;
-  animation: toolbarDropdownFadeIn 0.15s ease-out;
+  border-radius: $toolbar-radius-sm !important;
+  box-shadow: $toolbar-shadow-md;
+  padding: 6px !important;
+  margin-top: 0 !important;
 
-  @keyframes toolbarDropdownFadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(-8px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+  // Ensure dropdown is visible when shown
+  &.show {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
   }
 
   // Menu items
@@ -468,14 +464,11 @@ $toolbar-transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   a.dropdown-item {
     color: $toolbar-text-secondary !important;
     background: transparent !important;
-    border-radius: $toolbar-radius-sm !important;
-    padding: 10px 14px !important;
+    border-radius: 6px !important;
+    padding: 8px 12px !important;
     margin: 2px 0 !important;
     transition: all $toolbar-transition-fast;
     font-weight: 500;
-    display: flex;
-    align-items: center;
-    gap: 10px;
 
     .material-symbols {
       color: $toolbar-text-tertiary;
@@ -497,17 +490,16 @@ $toolbar-transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     &:focus {
       color: $toolbar-text-primary !important;
       background: $toolbar-bg-hover !important;
-      transform: translateX(4px);
 
       .material-symbols {
-        color: $toolbar-accent-green;
+        color: $toolbar-text-primary;
       }
     }
 
     &.active,
     &[aria-checked='true'] {
       color: $toolbar-accent-green !important;
-      background: rgba($toolbar-accent-green, 0.1) !important;
+      background: transparent !important;
 
       .material-symbols {
         color: $toolbar-accent-green;
@@ -522,7 +514,6 @@ $toolbar-transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
       &:hover {
         background: transparent !important;
-        transform: none;
       }
     }
   }
@@ -531,7 +522,7 @@ $toolbar-transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   .dropdown-divider,
   hr {
     border-color: $toolbar-border-subtle !important;
-    margin: 8px 0 !important;
+    margin: 6px 0 !important;
   }
 
   // Headers in dropdown
@@ -541,14 +532,14 @@ $toolbar-transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     text-transform: uppercase;
     letter-spacing: 0.05em;
     font-weight: 600;
-    padding: 8px 14px;
+    padding: 8px 12px;
   }
 
   // Nested submenus
   .dropdown-menu {
-    background: rgba($toolbar-bg-secondary, 0.95) !important;
+    background: $toolbar-bg-secondary !important;
     border: 1px solid $toolbar-border-default !important;
-    border-radius: $toolbar-radius-md !important;
+    border-radius: $toolbar-radius-sm !important;
     box-shadow: $toolbar-shadow-md !important;
   }
 }
@@ -615,23 +606,19 @@ $toolbar-transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 }
 
-// Share button - Premium green gradient
+// Share button - Green text only (no green background)
 .ide-redesign-main .toolbar-share-button,
 .ide-redesign-main .ide-redesign-toolbar-actions .btn-primary {
-  background: linear-gradient(135deg, $toolbar-accent-green 0%, $toolbar-accent-green-dark 100%) !important;
-  border: none !important;
-  color: #FFFFFF !important;
+  background: transparent !important;
+  border: 1px solid $toolbar-border-default !important;
+  color: $toolbar-accent-green !important;
   font-weight: 600;
   border-radius: $toolbar-radius-sm !important;
-  box-shadow: $toolbar-shadow-sm, 0 0 16px rgba($toolbar-accent-green, 0.25);
-  transition: all $toolbar-transition-smooth;
+  transition: all $toolbar-transition-fast;
 
   &:hover {
-    transform: translateY(-2px);
-    box-shadow: $toolbar-shadow-md, 0 0 24px rgba($toolbar-accent-green, 0.35);
-  }
-
-  &:active {
-    transform: translateY(0);
+    background: $toolbar-bg-hover !important;
+    color: $toolbar-accent-green-light !important;
+    border-color: $toolbar-border-default !important;
   }
 }
