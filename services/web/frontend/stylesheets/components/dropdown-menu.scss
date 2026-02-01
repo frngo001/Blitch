@@ -293,3 +293,175 @@ $dropdown-item-min-height: 36px;
 .dropdown-item-wide {
   min-width: 264px;
 }
+
+// ============================================
+// Dark Theme Override - Blitch Monochrome Style
+// Consistent with AI Chat, Team Chat, Settings
+// Green accents preserved for active states
+// ============================================
+
+$dropdown-bg-dark: #0D0D0D;
+$dropdown-bg-panel: #1C1C1C;
+$dropdown-bg-hover: #2A2A2A;
+$dropdown-text-primary: #FFFFFF;
+$dropdown-text-secondary: #A0A0A0;
+$dropdown-text-muted: #666666;
+$dropdown-border-subtle: rgba(255, 255, 255, 0.08);
+$dropdown-border-default: rgba(255, 255, 255, 0.12);
+
+.ide-redesign-main {
+  // Override dropdown CSS variables for dark theme
+  --dropdown-background: #{$dropdown-bg-panel};
+  --dropdown-background-hover: #{$dropdown-bg-hover};
+  --dropdown-background-danger-hover: rgba(239, 68, 68, 0.2);
+  --dropdown-text-color: #{$dropdown-text-secondary};
+  --dropdown-text-danger: #ef4444;
+  --dropdown-text-danger-hover: #f87171;
+  --dropdown-text-secondary: #{$dropdown-text-muted};
+  --dropdown-header-text-color: #{$dropdown-text-muted};
+  --dropdown-text-hover: #{$dropdown-text-primary};
+  --dropdown-background-active: var(--green-50);
+  --dropdown-text-active: #FFFFFF;
+  --dropdown-border-divider: #{$dropdown-border-subtle};
+  --dropdown-border-width: 1px;
+  --dropdown-border-color: #{$dropdown-border-default};
+
+  .dropdown-menu {
+    background: $dropdown-bg-panel;
+    border: 1px solid $dropdown-border-default;
+    border-radius: 10px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+
+    &.dropdown-menu-sm-width {
+      border-radius: 8px;
+    }
+
+    .subdued {
+      color: $dropdown-text-muted;
+    }
+  }
+
+  .dropdown-header {
+    color: $dropdown-text-muted;
+    border-bottom: 1px solid $dropdown-border-subtle;
+    margin-bottom: var(--spacing-02);
+    padding-bottom: var(--spacing-03);
+  }
+
+  .dropdown-item {
+    color: $dropdown-text-secondary;
+    background: transparent;
+    border-radius: 6px;
+    margin: 2px var(--spacing-02);
+    transition: all 0.15s;
+
+    &,
+    &:active,
+    &:visited {
+      color: $dropdown-text-secondary;
+    }
+
+    &:hover:not(.active),
+    &:focus-visible:not(.active),
+    &.nested-dropdown-toggle-shown {
+      color: $dropdown-text-primary;
+      background: $dropdown-bg-hover;
+    }
+
+    // Keep green for active
+    &.active {
+      background: var(--green-50);
+      color: #FFFFFF;
+    }
+
+    &[variant='danger'] {
+      color: #ef4444;
+
+      &:hover:not(.active),
+      &:focus-visible:not(.active) {
+        color: #f87171;
+        background: rgba(239, 68, 68, 0.15);
+      }
+    }
+  }
+
+  .dropdown-divider {
+    border-top-color: $dropdown-border-subtle;
+    margin: var(--spacing-02) var(--spacing-03);
+  }
+
+  .dropdown-item-description {
+    color: $dropdown-text-muted;
+  }
+
+  .dropdown-item-leading-icon,
+  .dropdown-item-trailing-icon {
+    color: $dropdown-text-muted;
+
+    .material-symbols {
+      color: inherit;
+    }
+  }
+
+  .dropdown-item:hover:not(.active) {
+    .dropdown-item-leading-icon,
+    .dropdown-item-trailing-icon {
+      color: $dropdown-text-secondary;
+    }
+  }
+
+  .dropdown-item.active {
+    .dropdown-item-description,
+    .dropdown-item-leading-icon,
+    .dropdown-item-trailing-icon {
+      color: rgba(255, 255, 255, 0.8);
+    }
+  }
+
+  .dropdown-button-toggle {
+    &.btn-primary,
+    &.btn-danger {
+      border-left-color: rgba(255, 255, 255, 0.2);
+    }
+
+    &.btn-secondary {
+      border-left-color: $dropdown-border-subtle;
+    }
+  }
+
+  .select-dropdown-menu {
+    background: $dropdown-bg-panel;
+    border: 1px solid $dropdown-border-default;
+    border-radius: 10px;
+
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #333;
+      border-radius: 3px;
+    }
+  }
+
+  .dropdown-item-highlighted {
+    background: $dropdown-bg-hover;
+    color: $dropdown-text-primary;
+  }
+
+  .nested-dropdown-toggle {
+    color: $dropdown-text-secondary;
+
+    &:hover {
+      color: $dropdown-text-primary;
+    }
+  }
+
+  .dropdown-shortcut-char {
+    color: $dropdown-text-muted;
+  }
+}

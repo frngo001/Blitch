@@ -534,3 +534,279 @@
   display: flex;
   gap: 20px;
 }
+
+// ============================================
+// Dark Theme Override - Blitch Monochrome Style
+// Consistent with AI Chat, Team Chat, Settings
+// Green accents preserved for primary actions
+// ============================================
+
+$pdf-bg-dark: #0D0D0D;
+$pdf-bg-panel: #1C1C1C;
+$pdf-bg-hover: #2A2A2A;
+$pdf-bg-input: #2C2C2C;
+$pdf-text-primary: #FFFFFF;
+$pdf-text-secondary: #A0A0A0;
+$pdf-text-muted: #666666;
+$pdf-border-subtle: rgba(255, 255, 255, 0.08);
+$pdf-border-default: rgba(255, 255, 255, 0.12);
+
+// PDF Container
+.ide-redesign-main .pdf {
+  background: $pdf-bg-dark;
+
+  // PDF Toolbar
+  &.toolbar.toolbar-pdf,
+  .toolbar.toolbar-pdf {
+    background: $pdf-bg-dark;
+    border-bottom: 1px solid $pdf-border-subtle;
+  }
+}
+
+// PDF Toolbar Override
+.ide-redesign-main .pdf .toolbar.toolbar-pdf {
+  background: $pdf-bg-dark;
+
+  .btn.disabled,
+  .btn[disabled] {
+    color: $pdf-text-muted;
+    opacity: 0.5;
+  }
+}
+
+// Toolbar PDF Sections
+.ide-redesign-main .toolbar-pdf-left,
+.ide-redesign-main .toolbar-pdf-right,
+.ide-redesign-main .toolbar-pdf-controls,
+.ide-redesign-main .toolbar-pdf-orphan {
+  color: $pdf-text-secondary;
+}
+
+// Compile Button Group - Keep Green
+.ide-redesign-main .toolbar-pdf-left .compile-button-group {
+  background: var(--green-50);
+  border-radius: 12px;
+  overflow: hidden;
+
+  .btn-primary {
+    background: var(--green-50);
+    border: none;
+    color: #FFFFFF;
+
+    &:hover {
+      background: var(--green-40);
+    }
+
+    &[disabled],
+    &[disabled]:active {
+      background: var(--green-50);
+      opacity: 0.6;
+    }
+  }
+
+  .compile-dropdown-toggle {
+    background: var(--green-50);
+    border-left: 1px solid rgba(255, 255, 255, 0.2);
+    color: #FFFFFF;
+
+    &:hover {
+      background: var(--green-40);
+    }
+  }
+}
+
+// PDF Toolbar Buttons
+.ide-redesign-main .btn.pdf-toolbar-btn {
+  color: $pdf-text-secondary;
+  background: transparent;
+  border-radius: 8px;
+  transition: all 0.15s;
+
+  &:hover,
+  &:active,
+  &:focus {
+    color: $pdf-text-primary;
+  }
+
+  &:hover:not(:disabled) {
+    background: $pdf-bg-hover;
+  }
+
+  // Log Button
+  &.log-btn {
+    &.active {
+      background: var(--green-50);
+      color: #FFFFFF;
+
+      &:hover:not(:disabled) {
+        background: var(--green-40);
+      }
+    }
+  }
+
+  // Theme Toggle - Keep Green
+  &.theme-toggle-btn {
+    &.active {
+      background: var(--green-50);
+      color: #FFFFFF;
+
+      &:hover {
+        background: var(--green-40);
+      }
+    }
+  }
+}
+
+// PDF Viewer
+.ide-redesign-main .pdf-viewer {
+  background: $pdf-bg-dark;
+
+  .pdfjs-viewer {
+    background: transparent;
+
+    .page {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    }
+  }
+
+  .progress-thin .progress-bar {
+    background: var(--green-50);
+  }
+}
+
+// PDFJS Viewer Controls
+.ide-redesign-main .pdfjs-viewer-controls {
+  color: $pdf-text-secondary;
+}
+
+.ide-redesign-main .pdfjs-zoom-controls {
+  border-left-color: $pdf-border-subtle;
+}
+
+.ide-redesign-main .pdfjs-toolbar-buttons {
+  .btn {
+    color: $pdf-text-secondary;
+    background: transparent;
+    border-radius: 8px;
+
+    &:hover {
+      color: $pdf-text-primary;
+      background: $pdf-bg-hover;
+    }
+  }
+}
+
+.ide-redesign-main .pdfjs-zoom-dropdown-button {
+  color: $pdf-text-secondary;
+}
+
+// Page Number Input
+.ide-redesign-main .pdfjs-page-number-input {
+  color: $pdf-text-secondary;
+
+  input {
+    background: $pdf-bg-input;
+    border: 1px solid $pdf-border-default;
+    color: $pdf-text-primary;
+    border-radius: 6px;
+
+    &:focus {
+      border-color: var(--green-50);
+      outline: none;
+    }
+  }
+}
+
+// Toolbar Popover
+.ide-redesign-main .pdfjs-toolbar-popover {
+  background: $pdf-bg-panel;
+  border: 1px solid $pdf-border-subtle;
+  border-radius: 10px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+
+  button {
+    background: transparent;
+    color: $pdf-text-secondary;
+
+    &:hover {
+      color: $pdf-text-primary;
+      background: $pdf-bg-hover;
+    }
+  }
+
+  .popover-body {
+    padding: var(--spacing-04);
+  }
+}
+
+// Synctex Controls
+.ide-redesign-main .synctex-controls {
+  .synctex-control:not(.detach-synctex-control) {
+    background: rgba($pdf-bg-panel, 0.9);
+    border: 1px solid $pdf-border-subtle;
+    color: $pdf-text-secondary;
+    transition: all 0.15s;
+
+    &:hover {
+      background: $pdf-bg-hover;
+      color: $pdf-text-primary;
+    }
+
+    &:active {
+      background: $pdf-bg-hover;
+    }
+  }
+}
+
+// PDF Code Check Failed Banner
+.ide-redesign-main .pdf-code-check-failed-banner {
+  background: $pdf-bg-panel;
+  border: 1px solid $pdf-border-default;
+  color: $pdf-text-primary;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+// PDF Errors and Uncompiled
+.ide-redesign-main .pdf-errors,
+.ide-redesign-main .pdf-uncompiled {
+  background: $pdf-bg-dark;
+  color: $pdf-text-secondary;
+}
+
+// PDF Preview Messages
+.ide-redesign-main .pdf-preview-messages {
+  color: $pdf-text-secondary;
+}
+
+// Dropdown Files Logs Pane
+.ide-redesign-main #dropdown-files-logs-pane-list {
+  background: $pdf-bg-panel;
+  border: 1px solid $pdf-border-subtle;
+  border-radius: 10px;
+
+  .dropdown-header {
+    color: $pdf-text-muted;
+    border-bottom: 1px solid $pdf-border-subtle;
+  }
+
+  .dropdown-item {
+    color: $pdf-text-secondary;
+    border-radius: 6px;
+    margin: 2px var(--spacing-02);
+
+    &:hover {
+      color: $pdf-text-primary;
+      background: $pdf-bg-hover;
+    }
+  }
+}
+
+// Keyboard Tooltip
+.ide-redesign-main .keyboard-tooltip {
+  .tooltip-inner {
+    background: $pdf-bg-panel;
+    border: 1px solid $pdf-border-subtle;
+    color: $pdf-text-primary;
+    border-radius: 8px;
+  }
+}

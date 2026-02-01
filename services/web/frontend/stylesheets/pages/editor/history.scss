@@ -646,3 +646,233 @@ history-root {
 .doc-container {
   background: var(--bg-light-primary);
 }
+
+// ============================================
+// Dark Theme Override - Blitch Monochrome Style
+// Consistent with AI Chat, Team Chat, Settings
+// Green accents preserved for selected states
+// ============================================
+
+$history-bg-dark: #0D0D0D;
+$history-bg-panel: #1C1C1C;
+$history-bg-hover: #2A2A2A;
+$history-text-primary: #FFFFFF;
+$history-text-secondary: #A0A0A0;
+$history-text-muted: #666666;
+$history-border-subtle: rgba(255, 255, 255, 0.08);
+$history-border-default: rgba(255, 255, 255, 0.12);
+
+.ide-redesign-main {
+  // Override history CSS variables for dark theme
+  --history-react-header-bg: #{$history-bg-dark};
+  --history-react-header-color: #{$history-text-primary};
+  --history-react-separator-color: #{$history-border-subtle};
+  --history-change-list-bg: #{$history-bg-dark};
+  --history-change-entry-color: #{$history-text-primary};
+  --history-change-entry-metadata-color: #{$history-text-secondary};
+  --history-change-list-divider: #{$history-border-subtle};
+  --history-change-entry-hover-bg: #{$history-bg-hover};
+  --history-loading-bg: #{$history-bg-panel};
+  --history-change-entry-dropdown-button-bg: #{$history-bg-hover};
+  --history-change-entry-within-selected-bg: #{$history-bg-panel};
+  --history-change-entry-within-selected-hover-bg: #{$history-bg-hover};
+  --history-react-icon-color: #{$history-text-secondary};
+
+  // History React container
+  .history-react {
+    background: $history-bg-dark;
+
+    .history-header {
+      background: $history-bg-dark;
+      color: $history-text-primary;
+      border-bottom: 1px solid $history-border-subtle;
+    }
+
+    .doc-panel {
+      background: $history-bg-dark;
+
+      .toolbar-container {
+        border-bottom-color: $history-border-subtle;
+      }
+    }
+
+    .change-list {
+      background: $history-bg-dark;
+      border-left-color: $history-border-subtle;
+    }
+
+    .history-version-day {
+      background: $history-bg-dark;
+      color: $history-text-muted;
+    }
+
+    .history-version-details {
+      color: $history-text-primary;
+
+      &:hover {
+        background: $history-bg-hover;
+      }
+
+      // Keep green for selected states
+      &.history-version-selected {
+        background: rgba(var(--green-50), 0.2);
+        border-left-color: var(--green-50);
+      }
+
+      &.history-version-within-selected {
+        background: $history-bg-panel;
+        border-left-color: var(--green-50);
+      }
+    }
+
+    .history-version-main-details {
+      color: $history-text-primary;
+    }
+
+    .history-version-metadata-time {
+      color: $history-text-secondary;
+    }
+
+    .history-version-change-action,
+    .history-version-metadata-users,
+    .history-version-origin,
+    .history-version-saved-by {
+      color: $history-text-muted;
+    }
+
+    .history-version-change-doc {
+      color: $history-text-primary;
+    }
+
+    .history-version-divider {
+      border-color: $history-border-subtle;
+    }
+
+    .history-compare-btn,
+    .history-version-dropdown-menu-btn {
+      color: $history-text-secondary;
+      border-radius: 6px;
+      transition: all 0.15s;
+
+      &:hover {
+        color: $history-text-primary;
+        background: $history-bg-hover;
+      }
+    }
+
+    .history-loading-panel,
+    .history-all-versions-loading {
+      background: $history-bg-panel;
+      color: $history-text-secondary;
+    }
+
+    .history-paywall-prompt {
+      background: $history-bg-panel;
+      border-radius: 10px;
+    }
+
+    .history-paywall-heading {
+      color: $history-text-primary;
+    }
+  }
+
+  // History File Tree
+  .history-file-tree {
+    background: $history-bg-dark;
+
+    ul.history-file-tree-list {
+      li {
+        .history-file-tree-item {
+          color: $history-text-secondary;
+          border-radius: 6px;
+
+          &:hover {
+            background: $history-bg-hover;
+          }
+        }
+
+        .material-symbols {
+          color: $history-text-muted;
+        }
+      }
+
+      li.selected > .history-file-tree-item {
+        color: #FFFFFF;
+        background: var(--green-50);
+
+        .material-symbols {
+          color: #FFFFFF;
+        }
+      }
+    }
+  }
+
+  // Doc container
+  .doc-container {
+    background: $history-bg-dark;
+  }
+
+  // History Error
+  .history-error {
+    background: $history-bg-panel;
+    color: $history-text-secondary;
+    border-radius: 10px;
+  }
+
+  // History Popover
+  .history-popover {
+    background: $history-bg-panel;
+    border: 1px solid $history-border-default;
+    border-radius: 10px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+
+    .popover-body {
+      color: $history-text-primary;
+    }
+  }
+
+  // History Version Label Tooltip
+  .history-version-label-tooltip {
+    background: $history-bg-panel;
+    color: $history-text-primary;
+    border: 1px solid $history-border-subtle;
+    border-radius: 8px;
+
+    .history-version-label-tooltip-row-comment {
+      color: $history-text-secondary;
+    }
+  }
+
+  // Document Diff Container
+  .document-diff-container {
+    background: $history-bg-dark;
+
+    .previous-highlight-button,
+    .next-highlight-button {
+      background: $history-bg-panel;
+      border: 1px solid $history-border-subtle;
+      color: $history-text-secondary;
+      border-radius: 8px;
+
+      &:hover {
+        background: $history-bg-hover;
+        color: $history-text-primary;
+      }
+    }
+  }
+
+  // Toggle Switch in History
+  .history-react .toggle-switch {
+    background: $history-bg-panel;
+    border: 1px solid $history-border-subtle;
+  }
+
+  .history-react .toggle-switch-label {
+    color: $history-text-muted;
+  }
+
+  .history-react .toggle-switch-input:checked + .toggle-switch-label {
+    background: var(--green-50);
+    color: #FFFFFF;
+  }
+}

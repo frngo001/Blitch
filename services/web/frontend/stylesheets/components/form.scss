@@ -483,3 +483,219 @@ input.form-control[type='text'] {
     border-color: var(--input-border-hover);
   }
 }
+
+// ============================================
+// Dark Theme Override - Blitch Monochrome Style
+// Consistent with AI Chat, Team Chat, Settings
+// Green accents preserved for focus/checked states
+// ============================================
+
+$form-bg-dark: #0D0D0D;
+$form-bg-input: #2C2C2C;
+$form-bg-hover: #2A2A2A;
+$form-text-primary: #FFFFFF;
+$form-text-secondary: #A0A0A0;
+$form-text-muted: #666666;
+$form-border-subtle: rgba(255, 255, 255, 0.08);
+$form-border-default: rgba(255, 255, 255, 0.12);
+$form-border-focus: rgba(255, 255, 255, 0.24);
+
+.ide-redesign-main {
+  // Override form CSS variables
+  --input-field-color: #{$form-text-primary};
+  --input-field-bg: #{$form-bg-input};
+  --input-field-border-color: #{$form-border-default};
+  --input-placeholder-content: #{$form-text-muted};
+  --input-border-hover: #{$form-border-focus};
+  --input-field-content-disabled: #{$form-text-muted};
+
+  // Checkbox variables
+  --checkbox-label-color: #{$form-text-secondary};
+  --checkbox-border-color: #{$form-border-default};
+  --checkbox-bg: #{$form-bg-input};
+  --checkbox-hover-border-color: #{$form-border-focus};
+  --checkbox-checked-bg: var(--green-50);
+  --checkbox-checked-border-color: var(--green-50);
+  --checkbox-hover-checked-bg: var(--green-40);
+  --checkbox-hover-checked-border-color: var(--green-40);
+  --checkbox-focus-border-color: var(--green-50);
+  --checkbox-disabled-bg: #{$form-bg-hover};
+  --checkbox-disabled-border-color: #{$form-border-subtle};
+
+  // Form controls
+  .form-control,
+  .form-select {
+    background: $form-bg-input;
+    border: 1px solid $form-border-default;
+    color: $form-text-primary;
+    border-radius: 8px;
+    transition: all 0.15s;
+
+    &::placeholder {
+      color: $form-text-muted;
+    }
+
+    &:hover:not(:disabled):not(:focus) {
+      border-color: $form-border-focus;
+    }
+
+    &:focus,
+    &:focus-visible {
+      background: $form-bg-input;
+      border-color: var(--green-50);
+      box-shadow: 0 0 0 2px rgba(var(--green-50), 0.2);
+      outline: none;
+    }
+
+    &:disabled,
+    &[disabled] {
+      background: $form-bg-hover;
+      color: $form-text-muted;
+      opacity: 0.6;
+    }
+  }
+
+  // Form labels
+  .form-label,
+  label {
+    color: $form-text-secondary;
+  }
+
+  // Form text/hints
+  .form-text {
+    color: $form-text-muted;
+
+    .form-text-inner {
+      color: $form-text-muted;
+    }
+  }
+
+  // Form groups
+  .form-group {
+    .form-control:focus + .form-text,
+    .form-control:focus-visible + .form-text {
+      color: $form-text-secondary;
+    }
+  }
+
+  // Form control wrapper
+  .form-control-wrapper {
+    .form-control-start-icon,
+    .form-control-end-icon {
+      color: $form-text-muted;
+
+      & > * {
+        color: inherit;
+      }
+    }
+
+    .form-control-search-clear-btn {
+      color: $form-text-muted;
+      border-radius: 4px;
+
+      &:hover {
+        color: $form-text-primary;
+        background: $form-bg-hover;
+      }
+    }
+  }
+
+  // Checkboxes
+  .form-check-input {
+    background: $form-bg-input;
+    border: 1px solid $form-border-default;
+    border-radius: 4px;
+
+    &:hover:not(:disabled) {
+      border-color: $form-border-focus;
+    }
+
+    &:checked {
+      background-color: var(--green-50);
+      border-color: var(--green-50);
+    }
+
+    &:focus-visible {
+      border-color: var(--green-50);
+      box-shadow: 0 0 0 2px rgba(var(--green-50), 0.2);
+    }
+  }
+
+  .form-check-label {
+    color: $form-text-secondary;
+  }
+
+  // Switch
+  .form-switch {
+    .form-check-input {
+      background-color: $form-bg-hover;
+      border: none;
+
+      &:checked {
+        background-color: var(--green-50);
+      }
+    }
+  }
+
+  // Validation states
+  .has-error {
+    .form-control {
+      border-color: #ef4444;
+
+      &:focus {
+        border-color: #ef4444;
+        box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.2);
+      }
+    }
+
+    .form-text,
+    .help-block {
+      color: #ef4444;
+    }
+  }
+
+  .has-success {
+    .form-control {
+      border-color: var(--green-50);
+
+      &:focus {
+        box-shadow: 0 0 0 2px rgba(var(--green-50), 0.2);
+      }
+    }
+  }
+
+  .has-warning {
+    .form-control {
+      border-color: #f59e0b;
+
+      &:focus {
+        border-color: #f59e0b;
+        box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.2);
+      }
+    }
+  }
+
+  // Range input
+  input[type='range'] {
+    background: transparent;
+
+    &::-webkit-slider-track {
+      background: $form-bg-hover;
+      border-radius: 4px;
+    }
+
+    &::-webkit-slider-thumb {
+      background: var(--green-50);
+      border: none;
+    }
+  }
+
+  // Select dropdown
+  .form-select {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23A0A0A0' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+
+    &:focus {
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23FFFFFF' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+    }
+  }
+}

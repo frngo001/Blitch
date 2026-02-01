@@ -208,3 +208,186 @@
     }
   }
 }
+
+// ============================================
+// Dark Theme Override - Blitch Monochrome Style
+// Share Modal - Consistent with other modals
+// Green accents preserved for primary actions
+// ============================================
+
+$share-bg-dark: #0D0D0D;
+$share-bg-panel: #1C1C1C;
+$share-bg-hover: #2A2A2A;
+$share-bg-input: #2C2C2C;
+$share-text-primary: #FFFFFF;
+$share-text-secondary: #A0A0A0;
+$share-text-muted: #666666;
+$share-border-subtle: rgba(255, 255, 255, 0.08);
+$share-border-default: rgba(255, 255, 255, 0.12);
+
+.ide-redesign-main .modal-body-share {
+  background: $share-bg-dark;
+  color: $share-text-primary;
+
+  h3 {
+    border-bottom-color: $share-border-subtle;
+    color: $share-text-primary;
+  }
+
+  .project-member,
+  .project-invite {
+    border-bottom-color: $share-border-subtle;
+
+    &:hover {
+      background: $share-bg-hover;
+    }
+  }
+
+  .project-member {
+    .select-wrapper {
+      .select-trigger {
+        color: $share-text-secondary;
+        background: transparent;
+
+        &:hover {
+          color: $share-text-primary;
+        }
+      }
+
+      .dropdown-menu {
+        background: $share-bg-panel;
+        border: 1px solid $share-border-default;
+        border-radius: 10px;
+
+        .dropdown-item {
+          color: $share-text-secondary;
+          border-radius: 6px;
+
+          &:hover {
+            background: $share-bg-hover;
+            color: $share-text-primary;
+          }
+        }
+
+        li:last-child .dropdown-item {
+          color: var(--content-danger);
+        }
+      }
+    }
+
+    .project-member-email-icon {
+      color: $share-text-secondary;
+
+      .subtitle {
+        color: $share-text-muted;
+      }
+    }
+
+    .project-member-warning {
+      color: var(--content-warning);
+    }
+  }
+
+  .public-access-level {
+    border-bottom-color: $share-border-subtle;
+
+    .access-token-display-area {
+      .access-token-wrapper {
+        .access-token {
+          background: $share-bg-input;
+          border: 1px solid $share-border-default;
+          color: $share-text-primary;
+          border-radius: 8px;
+        }
+      }
+    }
+
+    .btn-chevron {
+      color: $share-text-secondary;
+
+      &:hover {
+        color: $share-text-primary;
+      }
+    }
+  }
+
+  .public-access-level-notice {
+    background: $share-bg-panel;
+    border-radius: 8px;
+  }
+
+  .invite-controls {
+    background: $share-bg-panel;
+    border-radius: 10px;
+
+    form {
+      .form-group {
+        input,
+        select {
+          background: $share-bg-input;
+          border: 1px solid $share-border-default;
+          color: $share-text-primary;
+          border-radius: 8px;
+
+          &:focus {
+            border-color: var(--green-50);
+            outline: none;
+          }
+
+          &::placeholder {
+            color: $share-text-muted;
+          }
+        }
+
+        .privileges {
+          background: $share-bg-input;
+          color: $share-text-secondary;
+        }
+      }
+    }
+
+    .add-collaborators-upgrade {
+      background: $share-bg-dark;
+      padding: var(--spacing-06);
+      border-radius: 10px;
+      border: 1px solid $share-border-subtle;
+    }
+  }
+
+  .project-member .remove-button {
+    color: $share-text-muted;
+    transition: all 0.15s;
+
+    &:hover {
+      color: var(--content-danger);
+    }
+  }
+}
+
+.ide-redesign-main .modal-link-share {
+  .invite-controls {
+    background: transparent;
+  }
+
+  .invite-warning {
+    background: rgba(var(--content-warning-dark), 0.1);
+    border: 1px solid var(--content-warning);
+    border-radius: 8px;
+    padding: var(--spacing-04);
+    color: var(--content-warning);
+  }
+}
+
+.ide-redesign-main .copy-button {
+  background: $share-bg-hover;
+  color: $share-text-secondary;
+  border: 1px solid $share-border-subtle;
+  border-radius: 6px;
+  transition: all 0.15s;
+
+  &:hover {
+    background: var(--green-50);
+    color: #FFFFFF;
+    border-color: var(--green-50);
+  }
+}

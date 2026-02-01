@@ -329,3 +329,138 @@
   font-size: 17px;
   text-align: center;
 }
+
+// ============================================
+// Dark Theme Override - Blitch Monochrome Style
+// Consistent with AI Chat, Team Chat, Settings
+// Green accents preserved for highlights
+// ============================================
+
+$outline-bg-dark: #0D0D0D;
+$outline-bg-panel: #1C1C1C;
+$outline-bg-hover: #2A2A2A;
+$outline-text-primary: #FFFFFF;
+$outline-text-secondary: #A0A0A0;
+$outline-text-muted: #666666;
+$outline-border-subtle: rgba(255, 255, 255, 0.08);
+
+.ide-redesign-main {
+  // Override outline CSS variables
+  --outline-bg-color: #{$outline-bg-dark};
+  --outline-border-color: #{$outline-border-subtle};
+  --outline-header-hover-bg: #{$outline-bg-hover};
+  --outline-item-hover-bg: #{$outline-bg-hover};
+  --outline-line-guide-color: #{$outline-border-subtle};
+  --outline-container-color-bg: #{$outline-bg-dark};
+  --outline-content-color: #{$outline-text-secondary};
+  --outline-item-carat-color: #{$outline-text-muted};
+
+  .outline-container {
+    background: $outline-bg-dark;
+  }
+
+  .outline-pane {
+    background: $outline-bg-dark;
+    color: $outline-text-secondary;
+  }
+
+  .documentation-btn-container {
+    background: $outline-bg-dark;
+    border-bottom: 1px solid $outline-border-subtle;
+
+    &,
+    & *,
+    & :hover {
+      color: $outline-text-secondary;
+    }
+
+    &:hover {
+      background: $outline-bg-hover;
+      color: $outline-text-primary;
+    }
+  }
+
+  .outline-header {
+    background: $outline-bg-dark;
+    border-bottom: 1px solid $outline-border-subtle;
+    border-top: 1px solid $outline-border-subtle;
+  }
+
+  .outline-header-expand-collapse-btn {
+    color: $outline-text-secondary;
+    box-shadow: none;
+
+    &:hover {
+      background: $outline-bg-hover;
+      color: $outline-text-primary;
+    }
+  }
+
+  .outline-header-name {
+    color: $outline-text-primary;
+  }
+
+  .outline-body {
+    background: $outline-bg-dark;
+  }
+
+  .outline-body-no-elements {
+    color: $outline-text-muted;
+  }
+
+  .outline-body-link {
+    color: $outline-text-secondary;
+
+    &:hover,
+    &:focus {
+      color: $outline-text-primary;
+    }
+  }
+
+  .outline-item-list {
+    &::before {
+      background: $outline-border-subtle;
+    }
+  }
+
+  .outline-item-expand-collapse-btn {
+    background: transparent;
+    color: $outline-text-muted;
+    border-radius: 6px;
+    transition: all 0.15s;
+
+    &:hover {
+      background: $outline-bg-hover;
+      color: $outline-text-secondary;
+    }
+  }
+
+  .outline-item-link {
+    color: $outline-text-secondary;
+    border-radius: 6px;
+    transition: all 0.15s;
+
+    &:hover,
+    &:focus {
+      background: $outline-bg-hover;
+      color: $outline-text-primary;
+    }
+  }
+
+  // Keep green for highlighted items
+  .outline-item-link-highlight {
+    background: var(--green-50);
+    color: #FFFFFF;
+    font-weight: bold;
+
+    &:hover,
+    &:focus {
+      background: var(--green-40);
+      color: #FFFFFF;
+    }
+  }
+
+  .outline-caret-icon {
+    color: $outline-text-muted;
+  }
+}

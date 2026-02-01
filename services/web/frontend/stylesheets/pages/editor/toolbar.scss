@@ -546,3 +546,256 @@
     gap: var(--spacing-02);
   }
 }
+
+// ============================================
+// Dark Theme Override - Blitch Monochrome Style
+// Consistent with AI Chat, Team Chat, Settings
+// Green accents preserved for primary actions
+// ============================================
+
+$toolbar-bg-dark: #0D0D0D;
+$toolbar-bg-panel: #1C1C1C;
+$toolbar-bg-hover: #2A2A2A;
+$toolbar-bg-input: #2C2C2C;
+$toolbar-text-primary: #FFFFFF;
+$toolbar-text-secondary: #A0A0A0;
+$toolbar-text-muted: #666666;
+$toolbar-border-subtle: rgba(255, 255, 255, 0.08);
+$toolbar-border-default: rgba(255, 255, 255, 0.12);
+
+// Main Toolbar Override
+.ide-redesign-main .toolbar {
+  background: $toolbar-bg-dark;
+  border-bottom: 1px solid $toolbar-border-subtle;
+
+  // Toolbar Buttons
+  > a:not(.btn),
+  > button,
+  .toolbar-left > a:not(.btn),
+  .toolbar-left > button,
+  .toolbar-right > a:not(.btn),
+  .toolbar-right > button:not(.back-to-editor-btn, .toolbar-experiment-button) {
+    color: $toolbar-text-secondary;
+    border-radius: 8px;
+    transition: all 0.15s;
+
+    &:hover {
+      color: $toolbar-text-primary;
+      background: $toolbar-bg-hover;
+    }
+
+    &.active,
+    &:active {
+      color: #FFFFFF;
+      background: var(--green-50);
+
+      &:hover {
+        background: var(--green-40);
+      }
+    }
+  }
+
+  // Full Height Buttons
+  a.btn-full-height,
+  button.btn-full-height {
+    border-color: $toolbar-border-subtle;
+    color: $toolbar-text-secondary;
+
+    &:hover {
+      background: $toolbar-bg-hover;
+      color: $toolbar-text-primary;
+    }
+
+    &.active,
+    &:active {
+      background: var(--green-50);
+      color: #FFFFFF;
+    }
+  }
+
+  // Toolbar Header
+  &.toolbar-header {
+    background: $toolbar-bg-dark;
+    border-bottom: 1px solid $toolbar-border-subtle;
+  }
+
+  // Toolbar Sections
+  .toolbar-left,
+  .toolbar-right {
+    button:not(.back-to-editor-btn, .toolbar-experiment-button) {
+      background: transparent;
+    }
+  }
+
+  .toolbar-right {
+    a.btn-full-height,
+    button.btn-full-height {
+      border-left-color: $toolbar-border-subtle;
+    }
+
+    .back-to-editor-btn {
+      background: var(--green-50);
+      color: #FFFFFF;
+      border-radius: 8px;
+
+      &:hover {
+        background: var(--green-40);
+      }
+    }
+  }
+
+  .toolbar-center {
+    color: $toolbar-text-primary;
+  }
+}
+
+// Toggle Switch
+.ide-redesign-main .toggle-switch {
+  background: $toolbar-bg-panel;
+  border: 1px solid $toolbar-border-subtle;
+  border-radius: 20px;
+}
+
+.ide-redesign-main .toggle-switch-label {
+  color: $toolbar-text-muted;
+  transition: all 0.15s;
+
+  &:hover {
+    color: $toolbar-text-secondary;
+  }
+}
+
+.ide-redesign-main .toggle-switch-input:checked + .toggle-switch-label {
+  color: #FFFFFF;
+  background: var(--green-50);
+}
+
+// Project Name
+.ide-redesign-main .project-name {
+  .name {
+    color: $toolbar-text-primary;
+  }
+
+  a.rename {
+    color: $toolbar-text-muted;
+    border-radius: 6px;
+
+    &:hover {
+      color: $toolbar-text-primary;
+      background: $toolbar-bg-hover;
+    }
+  }
+
+  input {
+    background: $toolbar-bg-input;
+    border: 1px solid $toolbar-border-default;
+    color: $toolbar-text-primary;
+    border-radius: 8px;
+
+    &:focus {
+      border-color: var(--green-50);
+      outline: none;
+    }
+  }
+}
+
+// Formatting Buttons
+.ide-redesign-main .formatting-btn {
+  color: $toolbar-text-secondary;
+  background: transparent;
+  border-color: $toolbar-border-subtle;
+  transition: all 0.15s;
+
+  &:hover {
+    color: $toolbar-text-primary;
+    background: $toolbar-bg-hover;
+  }
+
+  &:focus {
+    color: $toolbar-text-secondary;
+  }
+
+  &.active {
+    color: #FFFFFF;
+    background: var(--green-50);
+
+    &:focus {
+      color: #FFFFFF;
+    }
+
+    &:hover {
+      background: var(--green-40);
+    }
+  }
+}
+
+.ide-redesign-main .formatting-btn-icon:last-of-type {
+  border-right-color: $toolbar-border-subtle;
+}
+
+// Toolbar Editor
+.ide-redesign-main .toolbar-editor {
+  background: $toolbar-bg-dark;
+  border-bottom: 1px solid $toolbar-border-subtle;
+}
+
+// Toolbar Filetree
+.ide-redesign-main .toolbar-filetree {
+  background: $toolbar-bg-dark;
+  border-bottom: 1px solid $toolbar-border-subtle;
+}
+
+// Editor Menu Icon
+.ide-redesign-main .editor-menu-icon.material-symbols {
+  color: $toolbar-text-secondary;
+
+  &:hover {
+    color: $toolbar-text-primary;
+  }
+}
+
+// Experiment Button (keep green)
+.ide-redesign-main .toolbar-experiment-button.btn-secondary {
+  background: var(--green-50);
+  color: #FFFFFF;
+  border: none;
+  border-radius: 8px;
+
+  &:hover {
+    background: var(--green-40);
+  }
+}
+
+// Editor Toggle Switch
+.ide-redesign-main .editor-toggle-switch {
+  color: $toolbar-text-secondary;
+
+  .toggle-switch {
+    background: $toolbar-bg-panel;
+    border: 1px solid $toolbar-border-subtle;
+  }
+
+  .toggle-switch-label span {
+    color: $toolbar-text-muted;
+  }
+
+  .toggle-switch-input:checked + .toggle-switch-label span {
+    color: #FFFFFF;
+  }
+}
+
+// Layout Dropdown
+.ide-redesign-main .layout-dropdown .dropdown-item {
+  color: $toolbar-text-secondary;
+  border-radius: 6px;
+
+  &:hover {
+    color: $toolbar-text-primary;
+    background: $toolbar-bg-hover;
+  }
+}
+
+// Header Cobranding
+.ide-redesign-main .header-cobranding-logo-container {
+  border-color: $toolbar-border-subtle;
+}

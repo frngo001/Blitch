@@ -276,3 +276,188 @@ a.btn:visited {
     color: inherit !important;
   }
 }
+
+// ============================================
+// Dark Theme Override - Blitch Monochrome Style
+// Consistent with AI Chat, Team Chat, Settings
+// Green accents preserved for primary buttons
+// ============================================
+
+$btn-bg-dark: #0D0D0D;
+$btn-bg-panel: #1C1C1C;
+$btn-bg-hover: #2A2A2A;
+$btn-text-primary: #FFFFFF;
+$btn-text-secondary: #A0A0A0;
+$btn-text-muted: #666666;
+$btn-border-subtle: rgba(255, 255, 255, 0.08);
+$btn-border-default: rgba(255, 255, 255, 0.12);
+
+.ide-redesign-main {
+  .btn {
+    border-radius: 8px;
+    transition: all 0.15s;
+
+    // Primary Button - Keep Green
+    &.btn-primary {
+      background: var(--green-50);
+      border-color: var(--green-50);
+      color: #FFFFFF;
+
+      &:hover,
+      &:focus {
+        background: var(--green-40);
+        border-color: var(--green-40);
+      }
+
+      &:active {
+        background: var(--green-60);
+        border-color: var(--green-60);
+      }
+
+      &[disabled],
+      &:disabled {
+        background: var(--green-50);
+        opacity: 0.5;
+      }
+    }
+
+    // Secondary Button - Dark theme
+    &.btn-secondary {
+      background: $btn-bg-panel;
+      border: 1px solid $btn-border-default;
+      color: $btn-text-secondary;
+
+      &:hover,
+      &:focus {
+        background: $btn-bg-hover;
+        border-color: $btn-border-default;
+        color: $btn-text-primary;
+      }
+
+      &:active {
+        background: #333;
+      }
+
+      &[disabled],
+      &:disabled {
+        opacity: 0.5;
+        color: $btn-text-muted;
+      }
+    }
+
+    // Ghost Button
+    &.btn-ghost {
+      background: transparent;
+      color: $btn-text-secondary;
+      border: none;
+
+      &:hover,
+      &:focus {
+        background: $btn-bg-hover;
+        color: $btn-text-primary;
+      }
+    }
+
+    // Danger Button - Keep red
+    &.btn-danger {
+      background: #ef4444;
+      border-color: #ef4444;
+      color: #FFFFFF;
+
+      &:hover,
+      &:focus {
+        background: #dc2626;
+        border-color: #dc2626;
+      }
+    }
+
+    // Danger Ghost
+    &.btn-danger-ghost {
+      background: transparent;
+      color: #ef4444;
+
+      &:hover,
+      &:focus {
+        background: rgba(239, 68, 68, 0.15);
+        color: #f87171;
+      }
+    }
+  }
+
+  // Link buttons
+  .btn-link {
+    color: $btn-text-secondary;
+    text-decoration: underline;
+    text-decoration-color: rgba(255, 255, 255, 0.3);
+
+    &:hover,
+    &:focus {
+      color: $btn-text-primary;
+      text-decoration-color: rgba(255, 255, 255, 0.6);
+    }
+
+    &.btn-danger {
+      color: #ef4444;
+
+      &:hover {
+        color: #f87171;
+      }
+    }
+  }
+
+  .btn-inline-link {
+    color: $btn-text-secondary;
+
+    &:hover,
+    &:focus {
+      color: $btn-text-primary;
+    }
+  }
+
+  // Icon buttons
+  .icon-button,
+  .icon-button-small,
+  .icon-button-large {
+    color: $btn-text-secondary;
+    background: transparent;
+    border: none;
+    border-radius: 8px;
+
+    &:hover {
+      background: $btn-bg-hover;
+      color: $btn-text-primary;
+    }
+  }
+
+  // Copy button
+  .copy-button {
+    background: $btn-bg-panel;
+    color: $btn-text-secondary;
+    border: 1px solid $btn-border-subtle;
+    border-radius: 6px;
+
+    &:hover {
+      background: var(--green-50);
+      color: #FFFFFF;
+      border-color: var(--green-50);
+    }
+  }
+
+  // Button loading state
+  .button-loading {
+    .spinner-container {
+      .loading-spinner-small,
+      .loading-spinner-large {
+        border-color: rgba(255, 255, 255, 0.2);
+        border-top-color: #FFFFFF;
+      }
+    }
+  }
+
+  // Button content icons
+  .button-content {
+    .material-symbols {
+      color: inherit;
+    }
+  }
+}

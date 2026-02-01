@@ -486,3 +486,223 @@
     padding: var(--spacing-04) var(--spacing-06);
   }
 }
+
+// ============================================
+// Dark Theme Override - Blitch Monochrome Style
+// Consistent with AI Chat, Team Chat, Settings
+// Colored status indicators preserved
+// ============================================
+
+$logs-bg-dark: #0D0D0D;
+$logs-bg-panel: #1C1C1C;
+$logs-bg-hover: #2A2A2A;
+$logs-bg-card: #252525;
+$logs-text-primary: #FFFFFF;
+$logs-text-secondary: #A0A0A0;
+$logs-text-muted: #666666;
+$logs-border-subtle: rgba(255, 255, 255, 0.08);
+$logs-border-default: rgba(255, 255, 255, 0.12);
+
+.ide-redesign-main {
+  --logs-pane-bg: #{$logs-bg-dark};
+
+  .logs-pane,
+  .new-logs-pane {
+    background: $logs-bg-dark;
+  }
+
+  .error-logs {
+    background: $logs-bg-dark;
+    color: $logs-text-primary;
+
+    .logs-pane-content {
+      background: $logs-bg-dark;
+    }
+
+    .log-entry {
+      background: $logs-bg-panel;
+      border: 1px solid $logs-border-subtle;
+      border-radius: 10px;
+    }
+
+    .log-entry-content {
+      background: $logs-bg-panel;
+      color: $logs-text-primary;
+    }
+
+    .log-entry-content-raw {
+      background: $logs-bg-dark;
+      color: $logs-text-secondary;
+    }
+
+    .log-entry-content-raw-container {
+      background: $logs-bg-dark;
+      border: 1px solid $logs-border-subtle;
+      border-radius: 8px;
+    }
+
+    .log-entry-header-card {
+      background: transparent;
+    }
+
+    .log-entry-header-button {
+      &:hover,
+      &:focus-visible,
+      &:active {
+        background: $logs-bg-hover;
+      }
+    }
+
+    .log-entry-header-content {
+      color: $logs-text-primary;
+    }
+
+    .log-entry-header-text {
+      color: $logs-text-primary;
+    }
+
+    .log-entry-location {
+      color: $logs-text-muted;
+    }
+
+    .log-entry-content-button-container {
+      background-image: linear-gradient(
+        0deg,
+        $logs-bg-dark 0%,
+        transparent 100%
+      );
+    }
+
+    .icon-button,
+    .icon-button-small {
+      color: $logs-text-secondary;
+      border-radius: 6px;
+
+      &:hover {
+        background: $logs-bg-hover;
+        color: $logs-text-primary;
+      }
+    }
+  }
+
+  .error-logs-tabs {
+    background: $logs-bg-dark;
+    border-bottom: 1px solid $logs-border-subtle;
+  }
+
+  .error-logs-tab-header {
+    color: $logs-text-muted;
+    border-bottom-color: transparent;
+    border-radius: 6px 6px 0 0;
+    transition: all 0.15s;
+
+    &:hover {
+      color: $logs-text-secondary;
+      background: $logs-bg-hover;
+    }
+
+    &[aria-selected='true'] {
+      color: $logs-text-primary;
+      border-bottom-color: var(--green-50);
+    }
+  }
+
+  .error-logs-tab-count {
+    background: $logs-bg-hover;
+    color: $logs-text-secondary;
+  }
+
+  // Standard logs pane
+  .logs-pane {
+    background: $logs-bg-dark;
+
+    .logs-pane-content {
+      background: $logs-bg-dark;
+    }
+
+    .log-entry {
+      background: $logs-bg-panel;
+      border: 1px solid $logs-border-subtle;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .log-entry-header {
+      color: $logs-text-primary;
+    }
+
+    // Keep colored status headers
+    .log-entry-header-raw,
+    .log-entry-header-info {
+      background: $logs-bg-card;
+    }
+
+    .log-entry-header-title {
+      color: $logs-text-primary;
+    }
+
+    .log-entry-content {
+      background: $logs-bg-panel;
+      color: $logs-text-primary;
+    }
+
+    .log-entry-content-raw {
+      color: $logs-text-secondary;
+    }
+
+    .log-entry-content-raw-container {
+      background: $logs-bg-dark;
+      border: 1px solid $logs-border-subtle;
+    }
+  }
+
+  .logs-pane-actions {
+    .btn {
+      color: $logs-text-secondary;
+
+      &:hover {
+        color: $logs-text-primary;
+      }
+    }
+
+    .btn-primary,
+    .btn-success {
+      background: var(--green-50);
+      color: #FFFFFF;
+
+      &:hover {
+        background: var(--green-40);
+      }
+    }
+  }
+
+  .log-entry-content-button-container {
+    background-image: linear-gradient(
+      0deg,
+      $logs-bg-panel 0%,
+      transparent 100%
+    );
+  }
+
+  .log-location-tooltip .tooltip-inner {
+    background: $logs-bg-panel;
+    color: $logs-text-primary;
+    border: 1px solid $logs-border-subtle;
+  }
+
+  .timeout-upgrade-paywall-prompt {
+    background: $logs-bg-panel;
+    border: 1px solid $logs-border-subtle;
+    border-radius: 10px;
+    padding: var(--spacing-06);
+    color: $logs-text-primary;
+
+    h3 {
+      color: $logs-text-primary;
+    }
+
+    p {
+      color: $logs-text-secondary;
+    }
+  }
+}
