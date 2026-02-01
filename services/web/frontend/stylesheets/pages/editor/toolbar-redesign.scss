@@ -372,45 +372,39 @@ $toolbar-transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         color: $toolbar-text-tertiary;
       }
     }
+
   }
 
   // Actions section (right side)
   .ide-redesign-toolbar-actions {
     .btn {
       border-radius: $toolbar-radius-sm;
-      transition: all $toolbar-transition-smooth;
       font-weight: 500;
-
-      &:hover:not(:disabled) {
-        transform: translateY(-1px);
-      }
     }
 
-    // Secondary buttons
+    // Secondary buttons - no border
     .btn-secondary,
     .btn-outline-secondary {
       color: $toolbar-text-secondary !important;
       background: transparent !important;
-      border: 1px solid $toolbar-border-default !important;
+      border: none !important;
 
       &:hover {
         color: $toolbar-text-primary !important;
         background: $toolbar-bg-hover !important;
-        border-color: $toolbar-border-default !important;
       }
     }
 
-    // Primary buttons (Share, etc) - Green text only
+    // Primary buttons (Share, etc) - Green text, no border
     .btn-primary {
       background: transparent !important;
-      border: 1px solid $toolbar-border-default !important;
+      border: none !important;
       color: $toolbar-accent-green !important;
       font-weight: 600;
 
       &:hover {
         background: $toolbar-bg-hover !important;
         color: $toolbar-accent-green-light !important;
-        border-color: $toolbar-border-default !important;
       }
     }
   }
@@ -427,11 +421,11 @@ $toolbar-transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
   }
 
-  // Beta button
+  // Beta button - no border
   .ide-redesign-beta-button {
     color: $toolbar-text-secondary !important;
-    background: $toolbar-bg-surface !important;
-    border: 1px solid $toolbar-border-subtle !important;
+    background: transparent !important;
+    border: none !important;
 
     &:hover {
       color: $toolbar-text-primary !important;
@@ -440,87 +434,46 @@ $toolbar-transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 }
 
-// Dropdown Menus from Toolbar - Simple dark style (no glassmorphism)
+// Dropdown Menus - Clean minimal dark style
 .ide-redesign-main .ide-redesign-toolbar .dropdown-menu,
 .ide-redesign-main .toolbar-menu-dropdown {
-  background: $toolbar-bg-secondary;
-  border: 1px solid $toolbar-border-default;
-  border-radius: $toolbar-radius-sm;
-  box-shadow: $toolbar-shadow-md;
-  padding: 6px;
+  background: #1a1a1a;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  padding: 4px;
+  z-index: 1050;
 
-  // Menu items
-  .dropdown-item,
-  button.dropdown-item,
-  a.dropdown-item {
-    color: $toolbar-text-secondary;
-    border-radius: 6px;
-    padding: 8px 12px;
-    margin: 2px 0;
-    transition: all $toolbar-transition-fast;
-
-    .material-symbols {
-      color: $toolbar-text-tertiary;
-    }
-
-    // Keyboard shortcuts
-    .dropdown-item-shortcut,
-    kbd,
-    .shortcut {
-      color: $toolbar-text-tertiary;
-      font-size: 12px;
-      margin-left: auto;
-    }
+  .dropdown-item {
+    color: #999;
+    padding: 6px 12px;
 
     &:hover,
     &:focus {
-      color: $toolbar-text-primary;
-      background: $toolbar-bg-hover;
-
-      .material-symbols {
-        color: $toolbar-text-primary;
-      }
+      color: #fff;
+      background: #2a2a2a;
     }
 
-    &.active,
-    &[aria-checked='true'] {
-      color: $toolbar-accent-green;
-
-      .material-symbols {
-        color: $toolbar-accent-green;
-      }
+    &.active {
+      color: #22c55e;
+      background: transparent;
     }
 
     &:disabled,
     &.disabled {
-      color: $toolbar-text-tertiary;
-      opacity: 0.5;
+      color: #555;
     }
   }
 
-  // Dividers
-  .dropdown-divider,
-  hr {
-    border-color: $toolbar-border-subtle;
-    margin: 6px 0;
+  .dropdown-divider {
+    border-color: rgba(255, 255, 255, 0.08);
+    margin: 4px 0;
   }
 
-  // Headers in dropdown
   .dropdown-header {
-    color: $toolbar-text-tertiary;
+    color: #666;
     font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    font-weight: 600;
-    padding: 8px 12px;
-  }
-
-  // Nested submenus
-  .dropdown-menu {
-    background: $toolbar-bg-secondary;
-    border: 1px solid $toolbar-border-default;
-    border-radius: $toolbar-radius-sm;
-    box-shadow: $toolbar-shadow-md;
+    padding: 6px 12px;
   }
 }
 
@@ -551,22 +504,18 @@ $toolbar-transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   border-bottom-color: $toolbar-border-subtle !important;
 }
 
-// Chat button styling
+// Chat button styling - no border
 .ide-redesign-main .ide-redesign-toolbar-actions .chat-button,
 .ide-redesign-main .toolbar-chat-button {
   color: $toolbar-text-secondary !important;
   background: transparent !important;
-  border: 1px solid $toolbar-border-subtle !important;
-  border-radius: $toolbar-radius-sm;
-  transition: all $toolbar-transition-fast;
+  border: none !important;
 
   &:hover {
     color: $toolbar-text-primary !important;
     background: $toolbar-bg-hover !important;
-    border-color: $toolbar-border-default !important;
   }
 
-  // Badge for unread messages
   .badge,
   .notification-badge {
     background: $toolbar-accent-green !important;
@@ -585,19 +534,21 @@ $toolbar-transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 }
 
-// Share button - Green text only (no green background)
+// Share button - Green text, no border
 .ide-redesign-main .toolbar-share-button,
 .ide-redesign-main .ide-redesign-toolbar-actions .btn-primary {
   background: transparent !important;
-  border: 1px solid $toolbar-border-default !important;
+  border: none !important;
   color: $toolbar-accent-green !important;
   font-weight: 600;
-  border-radius: $toolbar-radius-sm !important;
-  transition: all $toolbar-transition-fast;
 
   &:hover {
     background: $toolbar-bg-hover !important;
     color: $toolbar-accent-green-light !important;
-    border-color: $toolbar-border-default !important;
   }
+}
+
+// Global Dropdown Fix
+.ide-redesign-main .dropdown-menu {
+  z-index: 1050;
 }
