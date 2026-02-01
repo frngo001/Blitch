@@ -319,3 +319,125 @@
     }
   }
 }
+
+// ============================================
+// Dark Theme Override - Blitch Monochrome Style
+// Consistent with AI Chat, Team Chat, Settings, and Rail
+// Green accents preserved
+// ============================================
+
+$navbar-bg-dark: #0D0D0D;
+$navbar-bg-hover: #2A2A2A;
+$navbar-text-primary: #FFFFFF;
+$navbar-text-secondary: #A0A0A0;
+$navbar-text-muted: #666666;
+$navbar-border-subtle: rgba(255, 255, 255, 0.08);
+
+// Main Navbar Override
+.ide-redesign-main .navbar-default {
+  background: $navbar-bg-dark;
+  border-bottom: 1px solid $navbar-border-subtle;
+
+  // Brand/Logo
+  .navbar-brand {
+    .navbar-title {
+      color: $navbar-text-primary;
+
+      &:hover,
+      &:active,
+      &:focus {
+        color: $navbar-text-secondary;
+      }
+    }
+  }
+
+  // Navigation Items
+  .navbar-nav > li {
+    > .nav-link,
+    > .dropdown-toggle {
+      color: $navbar-text-secondary;
+      border-color: $navbar-border-subtle;
+      border-radius: 8px;
+      transition: all 0.15s;
+
+      &.show,
+      &:hover,
+      &:focus {
+        color: $navbar-text-primary;
+        background: $navbar-bg-hover;
+        border-color: rgba(255, 255, 255, 0.12);
+      }
+    }
+
+    // Subdued items
+    &.subdued > .nav-link,
+    &.subdued > .dropdown-toggle {
+      color: $navbar-text-muted;
+
+      &.show,
+      &:hover,
+      &:focus {
+        color: $navbar-text-primary;
+        background: $navbar-bg-hover;
+      }
+    }
+
+    // Primary buttons - Keep green
+    &.primary > .nav-link {
+      background: var(--green-50);
+      color: #FFFFFF;
+      border-color: var(--green-50);
+
+      &.show,
+      &:hover,
+      &:focus {
+        background: var(--green-40);
+        border-color: var(--green-40);
+      }
+    }
+  }
+
+  // Toggler
+  .navbar-toggler {
+    color: $navbar-text-secondary;
+
+    &:not(.collapsed) {
+      color: $navbar-text-primary;
+      background: $navbar-bg-hover;
+    }
+  }
+
+  // Collapsed menu
+  .navbar-collapse {
+    background: $navbar-bg-dark;
+
+    .navbar-nav > li {
+      .dropdown-menu.show {
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 8px;
+
+        .dropdown-item {
+          color: $navbar-text-secondary;
+          border-radius: 6px;
+
+          &:hover,
+          &:focus {
+            color: $navbar-text-primary;
+            background: $navbar-bg-hover;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Skip to content link
+.ide-redesign-main .skip-to-content {
+  color: $navbar-text-primary;
+  background: $navbar-bg-dark;
+
+  &:focus {
+    background: $navbar-bg-hover;
+    border-color: $navbar-text-primary;
+  }
+}

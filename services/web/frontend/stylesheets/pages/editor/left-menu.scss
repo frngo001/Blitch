@@ -198,3 +198,204 @@
     width: 100%;
   }
 }
+
+// ============================================
+// Dark Theme Override - Blitch Monochrome Style
+// Consistent with AI Chat, Team Chat, Settings, and Rail
+// Green buttons preserved for primary actions
+// ============================================
+
+$leftmenu-bg-dark: #0D0D0D;
+$leftmenu-bg-panel: #1C1C1C;
+$leftmenu-bg-hover: #2A2A2A;
+$leftmenu-bg-input: #2C2C2C;
+$leftmenu-text-primary: #FFFFFF;
+$leftmenu-text-secondary: #A0A0A0;
+$leftmenu-text-muted: #666666;
+$leftmenu-border-subtle: rgba(255, 255, 255, 0.08);
+$leftmenu-border-default: rgba(255, 255, 255, 0.12);
+
+// Main Left Menu Container
+.ide-redesign-main .left-menu {
+  background: $leftmenu-bg-dark;
+  border-right: 1px solid $leftmenu-border-subtle;
+
+  // Section Headers
+  h4 {
+    color: $leftmenu-text-muted;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom-color: $leftmenu-border-subtle;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+  }
+
+  // Navigation Items
+  ul.nav {
+    .left-menu-button {
+      color: $leftmenu-text-secondary;
+      border-radius: 8px;
+      margin: 2px 0;
+      transition: all 0.15s;
+
+      .material-symbols {
+        color: $leftmenu-text-muted;
+        transition: color 0.15s;
+      }
+
+      &:hover,
+      &:active {
+        background: $leftmenu-bg-hover;
+        // Keep green for active state
+        color: var(--green-50);
+
+        .material-symbols {
+          color: var(--green-50);
+        }
+      }
+    }
+
+    a {
+      color: $leftmenu-text-secondary;
+      border-radius: 8px;
+      margin: 2px 0;
+      transition: all 0.15s;
+
+      .material-symbols {
+        color: $leftmenu-text-muted;
+        transition: color 0.15s;
+      }
+
+      &:hover,
+      &:active,
+      &:focus {
+        background: $leftmenu-bg-hover;
+        // Keep green for active state
+        color: var(--green-50);
+
+        .material-symbols {
+          color: var(--green-50);
+        }
+      }
+    }
+
+    .link-disabled {
+      color: $leftmenu-text-muted;
+      opacity: 0.5;
+    }
+  }
+
+  // Downloads Section
+  ul.nav-downloads li {
+    a {
+      color: $leftmenu-text-secondary;
+
+      &:hover {
+        color: var(--green-50);
+        background: transparent;
+      }
+    }
+
+    .material-symbols {
+      color: $leftmenu-text-muted;
+    }
+  }
+
+  // Settings Form
+  form.settings {
+    label {
+      color: $leftmenu-text-secondary;
+    }
+
+    select {
+      background: $leftmenu-bg-input;
+      border: 1px solid $leftmenu-border-subtle;
+      color: $leftmenu-text-primary;
+      border-radius: 8px;
+      transition: border-color 0.15s;
+
+      &:focus {
+        border-color: rgba(255, 255, 255, 0.2);
+        outline: none;
+      }
+
+      option {
+        background: $leftmenu-bg-panel;
+        color: $leftmenu-text-primary;
+      }
+    }
+
+    // Keep green for primary buttons
+    button.btn-primary {
+      background: var(--green-50);
+      color: #FFFFFF;
+      border: none;
+      border-radius: 8px;
+
+      &:hover {
+        background: var(--green-40);
+      }
+    }
+  }
+
+  // Setting Rows
+  .left-menu-setting {
+    border-bottom-color: $leftmenu-border-subtle;
+    transition: background 0.15s;
+
+    &:hover,
+    &:focus-within {
+      background: $leftmenu-bg-hover;
+
+      label {
+        color: $leftmenu-text-primary;
+      }
+    }
+
+    .form-select {
+      background: $leftmenu-bg-input;
+      border: 1px solid $leftmenu-border-subtle;
+      color: $leftmenu-text-primary;
+      border-radius: 6px;
+
+      &:focus {
+        border-color: rgba(255, 255, 255, 0.2);
+      }
+    }
+  }
+}
+
+// Left Menu Mask
+.ide-redesign-main #left-menu-mask {
+  background: rgba(0, 0, 0, 0.7);
+  opacity: 0.8;
+}
+
+// Reference Manager Search
+.ide-redesign-main .reference-manager-search-group {
+  .dropdown-menu {
+    background: $leftmenu-bg-panel;
+    border: 1px solid $leftmenu-border-subtle;
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+
+    .dropdown-item {
+      color: $leftmenu-text-secondary;
+      border-radius: 6px;
+      transition: all 0.15s;
+
+      &:hover {
+        background: $leftmenu-bg-hover;
+        color: $leftmenu-text-primary;
+      }
+    }
+  }
+}
+
+// Loading Spinner
+.ide-redesign-main .loading-spinner-container,
+.ide-redesign-main .full-size-loading-spinner-container {
+  color: $leftmenu-text-muted;
+}

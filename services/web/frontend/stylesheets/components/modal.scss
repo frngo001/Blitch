@@ -116,3 +116,374 @@
     padding-top: 2px;
   }
 }
+
+// ============================================
+// Dark Theme Override - Blitch Monochrome Style
+// Consistent with AI Chat, Team Chat, Settings, and Rail
+// Green buttons preserved for primary actions
+// ============================================
+
+$modal-bg-dark: #0D0D0D;
+$modal-bg-panel: #1C1C1C;
+$modal-bg-input: #2C2C2C;
+$modal-bg-hover: #2A2A2A;
+$modal-text-primary: #FFFFFF;
+$modal-text-secondary: #A0A0A0;
+$modal-text-muted: #666666;
+$modal-border-subtle: rgba(255, 255, 255, 0.08);
+$modal-border-default: rgba(255, 255, 255, 0.12);
+
+// Global Modal Container Override for Dark Theme
+.ide-redesign-main .modal-content {
+  background: $modal-bg-dark;
+  border: 1px solid $modal-border-subtle;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+
+  // Modal Header
+  .modal-header {
+    background: transparent;
+    border-bottom: 1px solid $modal-border-subtle;
+    padding: 20px 24px;
+
+    .modal-title {
+      color: $modal-text-primary;
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: -0.3px;
+    }
+
+    .btn-close {
+      filter: invert(1);
+      opacity: 0.6;
+      transition: opacity 0.15s;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+
+  // Modal Body
+  .modal-body {
+    background: transparent;
+    color: $modal-text-primary;
+    padding: 24px;
+
+    // Text colors
+    p, span, label {
+      color: $modal-text-secondary;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      color: $modal-text-primary;
+    }
+
+    // Form inputs
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="number"],
+    input[type="url"],
+    textarea,
+    select,
+    .form-control,
+    .form-select {
+      background: $modal-bg-input;
+      border: 1px solid $modal-border-subtle;
+      color: $modal-text-primary;
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 14px;
+      transition: border-color 0.15s;
+
+      &::placeholder {
+        color: $modal-text-muted;
+      }
+
+      &:focus {
+        border-color: rgba(255, 255, 255, 0.2);
+        outline: none;
+        box-shadow: none;
+      }
+
+      option {
+        background: $modal-bg-panel;
+        color: $modal-text-primary;
+      }
+    }
+
+    // Checkboxes and Radio
+    input[type="checkbox"],
+    input[type="radio"] {
+      accent-color: var(--green-50);
+    }
+
+    // Links
+    a {
+      color: var(--green-50);
+
+      &:hover {
+        color: var(--green-40);
+      }
+    }
+
+    // Alerts and notices
+    .alert {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid $modal-border-subtle;
+      border-radius: 8px;
+      color: $modal-text-secondary;
+
+      &.alert-info {
+        background: rgba(59, 130, 246, 0.1);
+        border-color: rgba(59, 130, 246, 0.2);
+        color: #60A5FA;
+      }
+
+      &.alert-warning {
+        background: rgba(234, 179, 8, 0.1);
+        border-color: rgba(234, 179, 8, 0.2);
+        color: #F59E0B;
+      }
+
+      &.alert-danger {
+        background: rgba(239, 68, 68, 0.1);
+        border-color: rgba(239, 68, 68, 0.2);
+        color: #EF4444;
+      }
+
+      &.alert-success {
+        background: rgba(34, 197, 94, 0.1);
+        border-color: rgba(34, 197, 94, 0.2);
+        color: var(--green-50);
+      }
+    }
+
+    // Code blocks
+    code {
+      background: $modal-bg-input;
+      color: $modal-text-primary;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    pre {
+      background: $modal-bg-input;
+      border: 1px solid $modal-border-subtle;
+      border-radius: 8px;
+      color: $modal-text-primary;
+      padding: 12px;
+    }
+  }
+
+  // Modal Footer
+  .modal-footer {
+    background: transparent;
+    border-top: 1px solid $modal-border-subtle;
+    padding: 16px 24px;
+
+    // Keep green for primary action buttons
+    .btn-primary {
+      background: var(--green-50);
+      color: #FFFFFF;
+      border: none;
+      border-radius: 8px;
+      font-weight: 500;
+      padding: 10px 20px;
+      transition: all 0.15s;
+
+      &:hover {
+        background: var(--green-40);
+        transform: translateY(-1px);
+      }
+
+      &:disabled {
+        background: $modal-text-muted;
+        color: $modal-bg-dark;
+        transform: none;
+      }
+    }
+
+    .btn-secondary,
+    .btn-outline-primary {
+      background: transparent;
+      color: $modal-text-secondary;
+      border: 1px solid $modal-border-subtle;
+      border-radius: 8px;
+      padding: 10px 20px;
+      transition: all 0.15s;
+
+      &:hover {
+        background: $modal-bg-hover;
+        color: $modal-text-primary;
+        border-color: $modal-border-default;
+      }
+    }
+
+    .btn-danger {
+      background: rgba(239, 68, 68, 0.15);
+      color: #EF4444;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      border-radius: 8px;
+      padding: 10px 20px;
+      transition: all 0.15s;
+
+      &:hover {
+        background: rgba(239, 68, 68, 0.25);
+        border-color: rgba(239, 68, 68, 0.5);
+      }
+    }
+
+    .btn-link {
+      color: $modal-text-secondary;
+
+      &:hover {
+        color: $modal-text-primary;
+      }
+    }
+  }
+
+  // Scrollbar styling
+  .modal-body::-webkit-scrollbar {
+    width: 6px;
+  }
+  .modal-body::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .modal-body::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 3px;
+  }
+}
+
+// Git Bridge Modal - Dark Override
+.ide-redesign-main .git-bridge-copy {
+  background: $modal-bg-input;
+  border: 1px solid $modal-border-subtle;
+  border-radius: 10px;
+
+  code {
+    color: $modal-text-primary;
+    background: transparent;
+  }
+}
+
+.ide-redesign-main .git-bridge-optional-tokens {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid $modal-border-subtle;
+  border-radius: 10px;
+}
+
+.ide-redesign-main .git-bridge-optional-tokens-header {
+  color: $modal-text-primary;
+}
+
+// Upgrade Track Changes Modal - Dark Override
+.ide-redesign-main .upgrade-track-changes-modal {
+  .teaser-title {
+    color: $modal-text-secondary;
+  }
+
+  ul.list-unstyled li {
+    color: $modal-text-secondary;
+
+    .check-icon {
+      color: var(--green-50);
+    }
+  }
+}
+
+// Modal Backdrop - Darker
+.ide-redesign-main ~ .modal-backdrop,
+.ide-redesign-main + .modal-backdrop {
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+}
+
+// Dropdown menus inside modals
+.ide-redesign-main .modal-content .dropdown-menu {
+  background: $modal-bg-panel;
+  border: 1px solid $modal-border-subtle;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  padding: 6px;
+
+  .dropdown-item {
+    color: $modal-text-secondary;
+    border-radius: 6px;
+    padding: 8px 12px;
+    transition: all 0.15s;
+
+    &:hover {
+      background: $modal-bg-hover;
+      color: $modal-text-primary;
+    }
+
+    &.active {
+      background: var(--green-50);
+      color: #FFFFFF;
+    }
+  }
+
+  .dropdown-divider {
+    border-color: $modal-border-subtle;
+  }
+}
+
+// Tabs inside modals
+.ide-redesign-main .modal-content .nav-tabs {
+  border-bottom-color: $modal-border-subtle;
+
+  .nav-link {
+    color: $modal-text-secondary;
+    border: none;
+    border-bottom: 2px solid transparent;
+    border-radius: 0;
+    padding: 10px 16px;
+    transition: all 0.15s;
+
+    &:hover {
+      color: $modal-text-primary;
+      border-bottom-color: $modal-text-muted;
+    }
+
+    &.active {
+      color: $modal-text-primary;
+      background: transparent;
+      // Keep green accent for active tab
+      border-bottom-color: var(--green-50);
+    }
+  }
+}
+
+// Lists inside modals
+.ide-redesign-main .modal-content {
+  ul, ol {
+    color: $modal-text-secondary;
+  }
+
+  li {
+    color: $modal-text-secondary;
+  }
+}
+
+// Tables inside modals
+.ide-redesign-main .modal-content table {
+  color: $modal-text-primary;
+
+  th {
+    color: $modal-text-primary;
+    background: $modal-bg-panel;
+    border-color: $modal-border-subtle;
+  }
+
+  td {
+    color: $modal-text-secondary;
+    border-color: $modal-border-subtle;
+  }
+
+  tr:hover td {
+    background: rgba(255, 255, 255, 0.02);
+  }
+}

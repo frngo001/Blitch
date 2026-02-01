@@ -352,3 +352,144 @@ $editor-toggler-bg-dark-color: color.adjust(
   padding-top: var(--spacing-16);
   background-color: var(--bg-light-secondary);
 }
+
+// ============================================
+// Dark Theme Override - Blitch Monochrome Style
+// Consistent with AI Chat, Team Chat, Settings, and Rail
+// Green accents preserved
+// ============================================
+
+$ide-bg-dark: #0D0D0D;
+$ide-bg-panel: #1C1C1C;
+$ide-bg-hover: #2A2A2A;
+$ide-text-primary: #FFFFFF;
+$ide-text-secondary: #A0A0A0;
+$ide-text-muted: #666666;
+$ide-border-subtle: rgba(255, 255, 255, 0.08);
+
+// Editor Sidebar
+.ide-redesign-main .ide-react-editor-sidebar {
+  background: $ide-bg-dark;
+  border-right: 1px solid $ide-border-subtle;
+  color: $ide-text-secondary;
+}
+
+// Main Body
+.ide-redesign-main .ide-react-body {
+  background: $ide-bg-dark;
+}
+
+// Symbol Palette
+.ide-redesign-main .ide-react-symbol-palette {
+  background: $ide-bg-panel;
+  border-right: 1px solid $ide-border-subtle;
+  color: $ide-text-secondary;
+}
+
+// Resize Handles
+.ide-redesign-main .horizontal-resize-handle {
+  background: $ide-bg-panel;
+
+  &::before,
+  &::after {
+    // Override the dots color to match dark theme
+    content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='7' height='18' viewBox='0 0 7 18'%3E%3Cpath d='M2 0h3v3H2zM2 5h3v3H2zM2 10h3v3H2zM2 15h3v3H2z' style='fill:%23444444'/%3E%3C/svg%3E");
+  }
+}
+
+.ide-redesign-main .vertical-resize-handle {
+  background: $ide-bg-panel;
+
+  &::after {
+    // Override the dots color to match dark theme
+    content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='6' viewBox='0 0 18 6'%3E%3Cpath d='M0 1.5h3v3H0zM5 1.5h3v3H5zM10 1.5h3v3h-3zM15 1.5h3v3h-3z' style='fill:%23444444'/%3E%3C/svg%3E");
+  }
+}
+
+// Panel Toggler
+.ide-redesign-main .custom-toggler {
+  background: $ide-text-muted;
+
+  .material-symbols {
+    color: $ide-text-primary;
+  }
+
+  &:hover {
+    // Keep green for hover
+    background: var(--green-50);
+  }
+}
+
+// Synctex Controls
+.ide-redesign-main .synctex-controls {
+  background: $ide-bg-panel;
+  border: 1px solid $ide-border-subtle;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.ide-redesign-main .synctex-control:not(.detach-synctex-control) {
+  color: $ide-text-secondary;
+
+  &:hover,
+  &:active,
+  &:focus {
+    background: $ide-bg-hover;
+    color: $ide-text-primary;
+  }
+}
+
+// Loading Panel
+.ide-redesign-main .loading-panel {
+  background: $ide-bg-dark;
+  color: $ide-text-secondary;
+
+  &.loading-panel-dark {
+    background: $ide-bg-dark;
+    color: $ide-text-secondary;
+  }
+}
+
+// Panel Resizing State
+.ide-redesign-main .ide-panel-group-resizing {
+  background: $ide-bg-dark;
+}
+
+// Global Alerts
+.ide-redesign-main .global-alerts [role='alert'] {
+  background: $ide-bg-panel;
+  border: 1px solid $ide-border-subtle;
+  border-radius: 10px;
+  color: $ide-text-primary;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+// Teaser Elements
+.ide-redesign-main .teaser-title {
+  color: $ide-text-primary;
+}
+
+.ide-redesign-main .teaser-refresh-label {
+  color: $ide-text-secondary;
+}
+
+.ide-redesign-main .teaser-video-container {
+  border-color: $ide-border-subtle;
+}
+
+.ide-redesign-main .teaser-video {
+  border-bottom-color: $ide-border-subtle;
+}
+
+// Out of Sync Modal
+.ide-redesign-main .out-of-sync-modal {
+  .text-preview .scroll-container {
+    background: $ide-bg-panel;
+    border: 1px solid $ide-border-subtle;
+    color: $ide-text-primary;
+  }
+}
+
+// Lock Editor Modal
+.ide-redesign-main .modal.lock-editor-modal {
+  background: rgba(0, 0, 0, 0.7);
+}

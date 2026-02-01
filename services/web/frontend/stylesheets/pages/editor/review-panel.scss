@@ -783,3 +783,371 @@ del.review-panel-content-highlight {
     }
   }
 }
+
+// ============================================
+// Dark Theme Override - Blitch Monochrome Style
+// Consistent with AI Chat, Team Chat, Settings, and Rail
+// Green buttons preserved for primary actions
+// ============================================
+
+$review-bg-dark: #0D0D0D;
+$review-bg-panel: #1C1C1C;
+$review-bg-entry: #161616;
+$review-bg-hover: #2A2A2A;
+$review-bg-input: #2C2C2C;
+$review-text-primary: #FFFFFF;
+$review-text-secondary: #A0A0A0;
+$review-text-muted: #666666;
+$review-border-subtle: rgba(255, 255, 255, 0.08);
+$review-border-default: rgba(255, 255, 255, 0.12);
+
+// Override CSS Variables for Dark Theme
+.ide-redesign-main {
+  --review-panel-bg-color: #{$review-bg-dark};
+  --review-panel-color: #{$review-text-primary};
+  --review-panel-color-secondary: #{$review-text-secondary};
+  --review-panel-header-bg-color: #{$review-bg-dark};
+  --review-panel-footer-bg-color: #{$review-bg-dark};
+  --review-panel-entry-bg-color: #{$review-bg-entry};
+  --review-panel-empty-state-bg-color: #{$review-bg-panel};
+  --review-panel-button-hover-bg-color: #{$review-bg-hover};
+  --review-panel-border-color: #{$review-border-subtle};
+}
+
+// Review Panel Container
+.ide-redesign-main .review-panel-inner {
+  background: $review-bg-dark;
+  border-color: $review-border-subtle;
+}
+
+// Review Panel Header
+.ide-redesign-main .review-panel-header {
+  background: $review-bg-dark;
+  border-bottom-color: $review-border-subtle;
+}
+
+// Review Panel Entries
+.ide-redesign-main .review-panel-entry {
+  background: $review-bg-entry;
+  border: 1px solid $review-border-subtle;
+  border-radius: 10px;
+
+  &:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+    border-color: $review-border-default;
+  }
+}
+
+// Entry Header
+.ide-redesign-main .review-panel-entry-header {
+  .review-panel-entry-user {
+    color: $review-text-primary;
+    font-weight: 500;
+  }
+
+  .review-panel-entry-time {
+    color: $review-text-muted;
+  }
+
+  .review-panel-entry-actions .btn {
+    color: $review-text-muted;
+    border-radius: 6px;
+    transition: all 0.15s;
+
+    &:hover,
+    &:focus {
+      background: $review-bg-hover;
+      color: $review-text-primary;
+    }
+  }
+}
+
+// Change Body
+.ide-redesign-main .review-panel-change-body {
+  color: $review-text-secondary;
+}
+
+// Content Highlight
+.ide-redesign-main .review-panel-content-highlight {
+  color: $review-text-primary;
+}
+
+// Comment Input
+.ide-redesign-main .review-panel-comment-input {
+  background: $review-bg-input;
+  border: 1px solid $review-border-subtle;
+  color: $review-text-primary;
+  border-radius: 8px;
+  transition: border-color 0.15s;
+
+  &::placeholder {
+    color: $review-text-muted;
+  }
+
+  &:focus {
+    border-color: rgba(255, 255, 255, 0.2);
+    outline: none;
+  }
+}
+
+// Comment Body
+.ide-redesign-main .review-panel-comment-body {
+  color: $review-text-primary;
+}
+
+// Comment Reply Divider
+.ide-redesign-main .review-panel-comment-reply-divider {
+  border-left-color: $review-text-muted;
+}
+
+// Empty State
+.ide-redesign-main .review-panel-empty-state-inner {
+  p {
+    color: $review-text-muted;
+  }
+}
+
+.ide-redesign-main .review-panel-empty-state-comment-icon {
+  background: $review-bg-panel;
+  border: 1px solid $review-border-subtle;
+
+  .material-symbols {
+    color: $review-text-muted;
+  }
+}
+
+// Footer Tabs
+.ide-redesign-main .review-panel-footer {
+  background: $review-bg-dark;
+  border-top-color: $review-border-subtle;
+
+  .review-panel-tab {
+    color: $review-text-muted;
+    transition: all 0.15s;
+
+    &:hover,
+    &:focus {
+      color: $review-text-primary;
+    }
+
+    &-active {
+      color: $review-text-primary;
+      // Keep green accent for active tab
+      border-top-color: var(--green-50);
+    }
+  }
+}
+
+// Resolved Comments Popover
+.ide-redesign-main .review-panel-resolved-comments {
+  --bs-popover-bg: #{$review-bg-panel};
+  --bs-popover-border-width: 1px;
+
+  background: $review-bg-panel;
+  border: 1px solid $review-border-subtle;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+
+  .popover-body {
+    color: $review-text-primary;
+  }
+}
+
+.ide-redesign-main .review-panel-resolved-comments-header {
+  color: $review-text-primary;
+}
+
+.ide-redesign-main .review-panel-resolved-comments-label {
+  color: $review-text-primary;
+}
+
+.ide-redesign-main .review-panel-resolved-comment {
+  background: $review-bg-entry;
+  border-radius: 10px;
+  border: 1px solid $review-border-subtle;
+}
+
+.ide-redesign-main .review-panel-resolved-comment-header {
+  color: $review-text-muted;
+}
+
+.ide-redesign-main .review-panel-resolved-comment-filename {
+  color: $review-text-primary;
+}
+
+.ide-redesign-main .review-panel-resolved-comment-quoted-text {
+  background: $review-bg-hover;
+  border-radius: 6px;
+}
+
+.ide-redesign-main .review-panel-resolved-comment-quoted-text-label {
+  color: $review-text-muted;
+}
+
+.ide-redesign-main .review-panel-resolved-comment-quoted-text-quote {
+  color: $review-text-primary;
+}
+
+.ide-redesign-main .review-panel-resolved-comment-buttons .btn {
+  color: $review-text-muted;
+
+  &:hover,
+  &:focus {
+    background: $review-bg-hover;
+    color: $review-text-primary;
+  }
+}
+
+// Toggle Button
+.ide-redesign-main .review-panel-resolved-comments-toggle {
+  color: $review-text-muted;
+
+  &:hover,
+  &:focus {
+    background: $review-bg-hover;
+    color: $review-text-primary;
+  }
+}
+
+// Overview Panel
+.ide-redesign-main .review-panel-overview {
+  background: $review-bg-dark;
+}
+
+.ide-redesign-main .review-panel-overfile-divider {
+  border-bottom-color: $review-border-subtle;
+}
+
+// Mini Panel
+.ide-redesign-main .review-panel-mini {
+  .review-panel-entry-content {
+    background: $review-bg-panel;
+    border: 1px solid $review-border-subtle;
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  }
+
+  .review-panel-entry-indicator {
+    color: $review-text-muted;
+
+    &:hover {
+      color: $review-text-primary;
+    }
+  }
+}
+
+// Tooltip Menu
+.ide-redesign-main .review-tooltip-menu {
+  background: $review-bg-panel;
+  border: 1px solid $review-border-subtle;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.ide-redesign-main .review-tooltip-menu-button {
+  color: $review-text-secondary;
+  border-radius: 6px;
+  transition: all 0.15s;
+
+  &:hover {
+    background: $review-bg-hover;
+    color: $review-text-primary;
+  }
+}
+
+.ide-redesign-main .review-tooltip-menu-divider {
+  background: $review-border-subtle;
+}
+
+// Add Comment Buttons - Keep Green for Primary Action
+.ide-redesign-main .review-panel-add-comment-buttons {
+  .btn-primary {
+    // Keep green for submit button
+    background: var(--green-50);
+    color: #FFFFFF;
+    border: none;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.15s;
+
+    &:hover {
+      background: var(--green-40);
+      transform: translateY(-1px);
+    }
+  }
+
+  .btn-secondary,
+  .review-panel-add-comment-cancel-button {
+    background: transparent;
+    color: $review-text-secondary;
+    border: 1px solid $review-border-subtle;
+    border-radius: 8px;
+    transition: all 0.15s;
+
+    &:hover,
+    &:focus {
+      background: $review-bg-hover;
+      color: $review-text-primary;
+      border-color: $review-border-default;
+    }
+  }
+}
+
+// Mode Switcher Dark Theme
+.ide-redesign-main .review-mode-switcher-toggle-button {
+  &.editing {
+    background: $review-bg-hover;
+    color: $review-text-primary;
+  }
+
+  &.reviewing {
+    background: rgba(234, 179, 8, 0.15);
+    color: #F59E0B;
+  }
+
+  &.viewing {
+    background: rgba(59, 130, 246, 0.15);
+    color: #60A5FA;
+  }
+}
+
+// Entry Icons - Keep colored for meaning
+.ide-redesign-main .review-panel-entry-icon-accept {
+  background: rgba(34, 197, 94, 0.15);
+  color: var(--green-50);
+}
+
+.ide-redesign-main .review-panel-entry-icon-reject {
+  background: rgba(239, 68, 68, 0.15);
+  color: #EF4444;
+}
+
+.ide-redesign-main .review-panel-entry-icon-changed {
+  background: $review-bg-hover;
+  color: $review-text-secondary;
+}
+
+// Dropdown Menu
+.ide-redesign-main .review-panel-inner .dropdown-menu {
+  background: $review-bg-panel;
+  border: 1px solid $review-border-subtle;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  padding: 6px;
+
+  .dropdown-item {
+    color: $review-text-secondary;
+    border-radius: 6px;
+    padding: 8px 12px;
+    transition: all 0.15s;
+
+    &:hover {
+      background: $review-bg-hover;
+      color: $review-text-primary;
+    }
+  }
+
+  .dropdown-divider {
+    border-color: $review-border-subtle;
+  }
+}

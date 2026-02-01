@@ -824,3 +824,451 @@
     font-size: var(--font-size-03);
   }
 }
+
+// ============================================
+// Dark Theme Override - Blitch Monochrome Style
+// Consistent with AI Chat, Team Chat, Settings, and Rail
+// Green buttons preserved
+// ============================================
+
+$filetree-bg-dark: #0D0D0D;
+$filetree-bg-panel: #1C1C1C;
+$filetree-bg-hover: #2A2A2A;
+$filetree-text-primary: #FFFFFF;
+$filetree-text-secondary: #A0A0A0;
+$filetree-text-muted: #666666;
+$filetree-border-subtle: rgba(255, 255, 255, 0.08);
+// Keep green for selected items and buttons
+$filetree-green-accent: var(--green-70);
+$filetree-green-light: var(--green-10);
+
+// Override CSS Variables for Dark Theme
+.ide-redesign-main {
+  --file-tree-item-hover-bg: #{$filetree-bg-hover};
+  --file-tree-item-color: #{$filetree-text-secondary};
+  --file-tree-bg: #{$filetree-bg-dark};
+  --file-tree-icon-colour: #{$filetree-text-muted};
+  --file-tree-expand-button-color: #{$filetree-text-primary};
+  --file-tree-item-dragging-bg: #{$filetree-bg-hover};
+  --file-tree-item-dragging-color: #{$filetree-text-primary};
+  --file-tree-item-dragging-preview-bg: rgba(42, 42, 42, 0.8);
+  --file-tree-item-dragging-preview-colour: #{$filetree-text-primary};
+  // Keep green for selection (preserved as requested)
+  --file-tree-item-selected-bg: var(--green-70);
+  --file-tree-item-selected-color: var(--green-10);
+}
+
+// File Tree Container
+.ide-redesign-main .file-tree {
+  background: $filetree-bg-dark;
+}
+
+// File Tree Inner
+.ide-redesign-main .file-tree-inner {
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 3px;
+  }
+}
+
+// Editor Sidebar
+.ide-redesign-main .editor-sidebar {
+  background: $filetree-bg-dark;
+  border-right: 1px solid $filetree-border-subtle;
+}
+
+// Outline Panel Group
+.ide-redesign-main .file-tree-outline-panel-group {
+  background: $filetree-bg-dark;
+}
+
+// Toolbar
+.ide-redesign-main .file-tree-toolbar {
+  background: transparent;
+}
+
+// Expand/Collapse Button
+.ide-redesign-main .file-tree-expand-collapse-button {
+  color: $filetree-text-primary;
+
+  &:hover {
+    background: $filetree-bg-hover;
+  }
+
+  h4 {
+    color: $filetree-text-primary;
+    font-weight: 600;
+  }
+}
+
+// Toolbar Action Buttons
+.ide-redesign-main .file-tree-toolbar-action-button {
+  color: $filetree-text-muted;
+  transition: all 0.15s;
+
+  &:hover {
+    background: $filetree-bg-hover;
+    color: $filetree-text-primary;
+  }
+}
+
+// Entity Names
+.ide-redesign-main .entity-name {
+  color: $filetree-text-secondary;
+  transition: all 0.15s;
+
+  &:hover {
+    color: $filetree-text-primary;
+  }
+}
+
+// Folder List Border
+.ide-redesign-main .file-tree-folder-list {
+  border-left-color: $filetree-border-subtle;
+}
+
+// Context Menu - Dark Style
+.ide-redesign-main .context-menu {
+  .dropdown-menu {
+    background: $filetree-bg-panel;
+    border: 1px solid $filetree-border-subtle;
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    padding: 6px;
+
+    .dropdown-item {
+      color: $filetree-text-secondary;
+      border-radius: 6px;
+      padding: 8px 12px;
+      transition: all 0.15s;
+
+      &:hover {
+        background: $filetree-bg-hover;
+        color: $filetree-text-primary;
+      }
+
+      .material-symbols {
+        color: $filetree-text-muted;
+      }
+
+      &:hover .material-symbols {
+        color: $filetree-text-primary;
+      }
+    }
+
+    .dropdown-divider {
+      border-color: $filetree-border-subtle;
+    }
+  }
+}
+
+// New File Modal - Dark Style
+.ide-redesign-main .modal-new-file {
+  .modal-content {
+    background: $filetree-bg-dark;
+    border: 1px solid $filetree-border-subtle;
+    border-radius: 16px;
+  }
+
+  .modal-header {
+    background: transparent;
+    border-bottom: 1px solid $filetree-border-subtle;
+
+    .modal-title {
+      color: $filetree-text-primary;
+    }
+
+    .btn-close {
+      filter: invert(1);
+      opacity: 0.6;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+
+  .modal-body {
+    background: transparent;
+  }
+}
+
+// New File List Sidebar
+.ide-redesign-main .modal-new-file-list {
+  background: $filetree-bg-panel;
+  border-right: 1px solid $filetree-border-subtle;
+
+  ul li {
+    a, .btn {
+      color: $filetree-text-secondary;
+      transition: all 0.15s;
+
+      &:hover {
+        color: $filetree-text-primary;
+        background: $filetree-bg-hover;
+      }
+    }
+
+    &.active {
+      background: rgba(255, 255, 255, 0.08);
+
+      a, .btn {
+        // Keep green for active state
+        color: var(--green-50);
+      }
+    }
+  }
+}
+
+// New File Body
+.ide-redesign-main .modal-new-file-body {
+  background: $filetree-bg-dark;
+  color: $filetree-text-primary;
+
+  input[type="text"] {
+    background: #2C2C2C;
+    border: 1px solid $filetree-border-subtle;
+    color: $filetree-text-primary;
+    border-radius: 8px;
+
+    &::placeholder {
+      color: $filetree-text-muted;
+    }
+
+    &:focus {
+      border-color: rgba(255, 255, 255, 0.2);
+      outline: none;
+    }
+  }
+}
+
+// File Tree Error
+.ide-redesign-main .file-tree-error {
+  color: $filetree-text-muted;
+}
+
+// Rename Input - Dark Style
+.ide-redesign-main .rename-input {
+  input {
+    background: #2C2C2C;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: $filetree-text-primary;
+    border-radius: 4px;
+    padding: 4px 8px;
+
+    &:focus {
+      border-color: rgba(255, 255, 255, 0.3);
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.1);
+    }
+  }
+}
+
+// File Upload Area - Dark Style
+.ide-redesign-main .modal-new-file-body-upload {
+  .uppy-Root {
+    color: $filetree-text-primary;
+  }
+
+  .uppy-Dashboard-inner {
+    background: $filetree-bg-dark;
+    border: none;
+  }
+
+  .uppy-Dashboard-AddFiles {
+    background: transparent;
+    border: 1px dashed $filetree-border-subtle;
+    border-radius: 12px;
+    transition: all 0.15s;
+
+    &:hover {
+      border-color: rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.02);
+    }
+  }
+
+  .uppy-Dashboard-AddFiles-title {
+    color: $filetree-text-secondary;
+
+    .uppy-Dashboard-browse {
+      // Keep green for the browse link
+      color: var(--green-50);
+
+      &:hover {
+        color: var(--green-40);
+      }
+    }
+  }
+
+  .uppy-Dashboard-note {
+    color: $filetree-text-muted;
+  }
+
+  .uppy-Dashboard-dropFilesHereHint {
+    background: rgba(var(--green-50), 0.1);
+    border: 2px dashed var(--green-50);
+    border-radius: 12px;
+    color: var(--green-50);
+  }
+
+  .uppy-Dashboard-Item {
+    background: $filetree-bg-panel;
+    border: 1px solid $filetree-border-subtle;
+    border-radius: 8px;
+  }
+
+  .uppy-Dashboard-Item-name {
+    color: $filetree-text-primary;
+  }
+
+  .uppy-Dashboard-Item-statusSize {
+    color: $filetree-text-muted;
+  }
+
+  .uppy-Dashboard-Item-action--remove {
+    color: $filetree-text-muted;
+
+    &:hover {
+      color: #EF4444;
+    }
+  }
+
+  .uppy-StatusBar {
+    background: $filetree-bg-panel;
+    border-top: 1px solid $filetree-border-subtle;
+  }
+
+  .uppy-StatusBar-progress {
+    background: var(--green-50);
+  }
+
+  .uppy-StatusBar-status {
+    color: $filetree-text-secondary;
+  }
+
+  .uppy-Informer p {
+    background: $filetree-bg-panel;
+    border: 1px solid $filetree-border-subtle;
+    color: $filetree-text-primary;
+    border-radius: 8px;
+  }
+}
+
+// File Conflict Body - Dark Style
+.ide-redesign-main .modal-new-file-body-conflict {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px dashed rgba(239, 68, 68, 0.3);
+  color: $filetree-text-primary;
+
+  .btn-danger {
+    background: rgba(239, 68, 68, 0.15);
+    color: #EF4444;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+
+    &:hover {
+      background: rgba(239, 68, 68, 0.25);
+    }
+  }
+}
+
+// Toggle File Type Button
+.ide-redesign-main .toggle-file-type-button {
+  color: $filetree-text-secondary;
+
+  .btn {
+    color: var(--green-50);
+
+    &:hover {
+      color: var(--green-40);
+    }
+  }
+}
+
+// Modal New File Buttons - Keep Green for Primary
+.ide-redesign-main .modal-new-file {
+  .modal-footer {
+    background: transparent;
+    border-top: 1px solid $filetree-border-subtle;
+
+    .btn-primary {
+      // Keep green for create/upload button
+      background: var(--green-50);
+      color: #FFFFFF;
+      border: none;
+      border-radius: 8px;
+      font-weight: 500;
+      transition: all 0.15s;
+
+      &:hover {
+        background: var(--green-40);
+        transform: translateY(-1px);
+      }
+
+      &:disabled {
+        background: $filetree-text-muted;
+        color: $filetree-bg-dark;
+        transform: none;
+      }
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: $filetree-text-secondary;
+      border: 1px solid $filetree-border-subtle;
+      border-radius: 8px;
+      transition: all 0.15s;
+
+      &:hover {
+        background: $filetree-bg-hover;
+        color: $filetree-text-primary;
+      }
+    }
+  }
+}
+
+// File Tree Alert
+.ide-redesign-main .file-tree-modal-alert {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid $filetree-border-subtle;
+  border-radius: 8px;
+  color: $filetree-text-secondary;
+
+  &.alert-danger {
+    background: rgba(239, 68, 68, 0.1);
+    border-color: rgba(239, 68, 68, 0.2);
+    color: #EF4444;
+  }
+
+  &.alert-warning {
+    background: rgba(234, 179, 8, 0.1);
+    border-color: rgba(234, 179, 8, 0.2);
+    color: #F59E0B;
+  }
+}
+
+// Dropdown Toggle in File Tree
+.ide-redesign-main .file-tree-dropdown-toggle {
+  color: $filetree-text-muted;
+
+  &:hover {
+    color: $filetree-text-primary;
+  }
+}
+
+// Entity Menu Toggle
+.ide-redesign-main .entity-menu-toggle {
+  .material-symbols {
+    color: $filetree-text-muted !important;
+    transition: color 0.15s;
+  }
+
+  &:hover .material-symbols {
+    color: $filetree-text-primary !important;
+  }
+}

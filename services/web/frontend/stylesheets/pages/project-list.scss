@@ -769,3 +769,405 @@ form.project-search {
     inset: 0;
   }
 }
+
+// ============================================
+// Dark Theme Override - Blitch Monochrome Style
+// Consistent with AI Chat, Team Chat, Settings, and Rail
+// Green accents preserved for primary actions
+// ============================================
+
+$projlist-bg-dark: #0D0D0D;
+$projlist-bg-panel: #1C1C1C;
+$projlist-bg-hover: #2A2A2A;
+$projlist-bg-input: #2C2C2C;
+$projlist-text-primary: #FFFFFF;
+$projlist-text-secondary: #A0A0A0;
+$projlist-text-muted: #666666;
+$projlist-border-subtle: rgba(255, 255, 255, 0.08);
+$projlist-border-default: rgba(255, 255, 255, 0.12);
+
+// Main Page Background
+.ide-redesign-main #project-list-root,
+body.ide-redesign-main .project-list-page {
+  background: $projlist-bg-dark;
+  color: $projlist-text-primary;
+}
+
+// Sidebar Wrapper
+.ide-redesign-main .project-list-sidebar-wrapper-react {
+  background: $projlist-bg-panel;
+  border-right: 1px solid $projlist-border-subtle;
+
+  // New Project Dropdown
+  .new-project-dropdown {
+    .new-project-button {
+      // Keep green for new project button
+      background: var(--green-50);
+      color: #FFFFFF;
+      border: none;
+      border-radius: 8px;
+      font-weight: 500;
+      transition: all 0.15s;
+
+      &:hover {
+        background: var(--green-40);
+        transform: translateY(-1px);
+      }
+    }
+
+    .dropdown-menu {
+      background: $projlist-bg-panel;
+      border: 1px solid $projlist-border-subtle;
+      border-radius: 10px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+      padding: 6px;
+
+      .dropdown-item {
+        color: $projlist-text-secondary;
+        border-radius: 6px;
+        padding: 10px 14px;
+        transition: all 0.15s;
+
+        &:hover {
+          background: $projlist-bg-hover;
+          color: $projlist-text-primary;
+        }
+      }
+
+      .dropdown-divider {
+        border-color: $projlist-border-subtle;
+      }
+    }
+  }
+}
+
+// Project List Filters (Sidebar Navigation)
+.ide-redesign-main ul.project-list-filters {
+  .subdued {
+    color: $projlist-text-muted;
+  }
+
+  > li {
+    > button {
+      color: $projlist-text-secondary;
+      transition: all 0.15s;
+
+      &:hover,
+      &:focus {
+        color: $projlist-text-primary;
+      }
+    }
+
+    &.separator {
+      border-bottom: 1px solid $projlist-border-subtle;
+    }
+  }
+
+  .dropdown-header {
+    color: $projlist-text-muted;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  > li.active {
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+
+    > button {
+      color: $projlist-text-primary;
+    }
+  }
+
+  h2 {
+    color: $projlist-text-muted;
+  }
+
+  // Tags
+  > li.tag {
+    button.tag-name {
+      color: $projlist-text-secondary;
+      border-radius: 6px;
+      transition: all 0.15s;
+
+      .tag-list-icon {
+        color: $projlist-text-muted;
+      }
+
+      &:hover {
+        background: $projlist-bg-hover;
+        color: $projlist-text-primary;
+      }
+    }
+
+    &.active button.tag-name {
+      color: $projlist-text-primary;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .tag-menu {
+      button.dropdown-toggle {
+        color: $projlist-text-muted;
+
+        &:hover {
+          color: $projlist-text-primary;
+        }
+      }
+
+      button.tag-action {
+        color: $projlist-text-secondary;
+
+        &:hover {
+          background: $projlist-bg-hover;
+          color: $projlist-text-primary;
+        }
+      }
+    }
+  }
+}
+
+// Project Dashboard Table
+.ide-redesign-main .project-dash-table {
+  color: $projlist-text-primary;
+
+  .table-header-sort-btn {
+    color: $projlist-text-secondary;
+
+    &:hover,
+    &:focus {
+      color: $projlist-text-primary;
+    }
+  }
+
+  tbody tr {
+    border-bottom-color: $projlist-border-subtle;
+
+    &:hover td {
+      background: $projlist-bg-hover;
+    }
+  }
+
+  td {
+    color: $projlist-text-secondary;
+    border-bottom-color: $projlist-border-subtle;
+  }
+
+  .dash-cell-name a {
+    color: $projlist-text-primary;
+
+    &:hover {
+      color: var(--green-50);
+    }
+  }
+
+  .dash-cell-owner,
+  .dash-cell-date {
+    color: $projlist-text-muted;
+  }
+}
+
+// Project List Header
+.ide-redesign-main .project-list-header-row {
+  .project-list-title {
+    color: $projlist-text-primary;
+  }
+}
+
+// Project Tools
+.ide-redesign-main .project-tools {
+  .btn {
+    color: $projlist-text-secondary;
+    background: transparent;
+    border: 1px solid $projlist-border-subtle;
+    border-radius: 8px;
+    transition: all 0.15s;
+
+    &:hover {
+      background: $projlist-bg-hover;
+      color: $projlist-text-primary;
+      border-color: $projlist-border-default;
+    }
+  }
+}
+
+// Projects Toolbar
+.ide-redesign-main .projects-toolbar {
+  .dropdown-toggle {
+    color: $projlist-text-secondary;
+    background: $projlist-bg-input;
+    border: 1px solid $projlist-border-subtle;
+    border-radius: 8px;
+
+    &:hover {
+      border-color: $projlist-border-default;
+    }
+  }
+
+  .dropdown-menu {
+    background: $projlist-bg-panel;
+    border: 1px solid $projlist-border-subtle;
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+
+    .dropdown-item {
+      color: $projlist-text-secondary;
+      border-radius: 6px;
+
+      &:hover {
+        background: $projlist-bg-hover;
+        color: $projlist-text-primary;
+      }
+
+      &.active {
+        background: var(--green-50);
+        color: #FFFFFF;
+      }
+    }
+  }
+}
+
+// Welcome Section
+.ide-redesign-main .project-list-welcome-wrapper {
+  .welcome-new-wrapper {
+    .welcome-title {
+      color: $projlist-text-primary;
+    }
+
+    .welcome-message-card {
+      background: $projlist-bg-panel;
+      border: 1px solid $projlist-border-subtle;
+      border-radius: 12px;
+      transition: all 0.15s;
+
+      &:hover {
+        background: $projlist-bg-hover;
+        border-color: $projlist-border-default;
+        transform: translateY(-2px);
+      }
+    }
+
+    .welcome-message-card-link {
+      color: $projlist-text-primary;
+
+      &:hover {
+        color: $projlist-text-primary;
+      }
+    }
+  }
+}
+
+// Current Plan
+.ide-redesign-main .current-plan {
+  a.current-plan-label {
+    color: $projlist-text-secondary;
+  }
+
+  .current-plan-label-icon {
+    color: var(--green-50);
+  }
+}
+
+// Survey Notification
+.ide-redesign-main .survey-notification {
+  background: $projlist-bg-panel;
+  border: 1px solid $projlist-border-subtle;
+  color: $projlist-text-primary;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+
+  button.close {
+    color: $projlist-text-muted;
+
+    &:hover {
+      color: $projlist-text-primary;
+    }
+  }
+}
+
+// Search Form
+.ide-redesign-main form.project-search {
+  input {
+    background: $projlist-bg-input;
+    border: 1px solid $projlist-border-subtle;
+    color: $projlist-text-primary;
+    border-radius: 8px;
+    transition: border-color 0.15s;
+
+    &::placeholder {
+      color: $projlist-text-muted;
+    }
+
+    &:focus {
+      border-color: rgba(255, 255, 255, 0.2);
+      outline: none;
+    }
+  }
+}
+
+// Add Affiliation
+.ide-redesign-main .add-affiliation {
+  p {
+    color: $projlist-text-secondary;
+  }
+
+  .progress {
+    background: $projlist-bg-hover;
+
+    .progress-bar {
+      background: var(--green-50);
+    }
+  }
+}
+
+// Color Picker
+.ide-redesign-main .color-picker-item {
+  &.more-button {
+    border-color: $projlist-border-subtle;
+
+    .color-picker-more,
+    .color-picker-more-open {
+      color: $projlist-text-muted;
+    }
+  }
+}
+
+// Upload Modal
+.ide-redesign-main .project-list-upload-project-modal-uppy-dashboard {
+  .uppy-Root {
+    background: $projlist-bg-dark;
+    color: $projlist-text-primary;
+
+    .uppy-Dashboard-AddFiles-title {
+      color: $projlist-text-secondary;
+
+      button.uppy-Dashboard-browse {
+        // Keep green for upload button
+        background: var(--green-50);
+        color: #FFFFFF;
+        border: none;
+
+        &:hover {
+          background: var(--green-40);
+        }
+      }
+    }
+  }
+}
+
+// Project Empty Column
+.ide-redesign-main .project-list-empty-col {
+  background: $projlist-bg-dark;
+
+  .card-body {
+    background: $projlist-bg-panel;
+    border: 1px solid $projlist-border-subtle;
+    border-radius: 12px;
+  }
+}
+
+// Clone Project Tag
+.ide-redesign-main .clone-project-tag {
+  .form-label {
+    color: $projlist-text-secondary;
+  }
+}
