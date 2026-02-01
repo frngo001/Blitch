@@ -132,45 +132,71 @@
 }
 
 // ============================================
-// Dark Theme Override - Blitch Style
-// Matches AI Chat and Team Chat monochrome design
+// Dark Theme Override - AI Chat Style
+// Premium glassmorphism, smooth animations
+// Green accents preserved for primary actions
 // ============================================
 
-$settings-bg-dark: #0D0D0D;
-$settings-bg-panel: #1C1C1C;
-$settings-bg-input: #2C2C2C;
+$settings-bg-dark: #0f0f10;
+$settings-bg-panel: #18181b;
+$settings-bg-elevated: #1f1f23;
+$settings-bg-surface: #27272a;
 $settings-bg-hover: #2e2e33;
-$settings-text-primary: #FFFFFF;
-$settings-text-secondary: #A0A0A0;
-$settings-text-muted: #666666;
-$settings-border-subtle: rgba(255, 255, 255, 0.08);
-$settings-border-default: rgba(255, 255, 255, 0.12);
+$settings-text-primary: #fafafa;
+$settings-text-secondary: #a1a1aa;
+$settings-text-muted: #71717a;
+$settings-border-subtle: rgba(255, 255, 255, 0.06);
+$settings-border-default: rgba(255, 255, 255, 0.1);
+$settings-border-strong: rgba(255, 255, 255, 0.15);
 
-// Modal Container Override
+// AI Chat style transitions
+$settings-transition-fast: 0.15s ease;
+$settings-transition-normal: 0.2s ease;
+$settings-transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+// Modal Container Override - AI Chat Glassmorphism Style
 .ide-redesign-main .modal-content:has(.ide-settings-modal-body) {
-  background: $settings-bg-dark;
-  border: 1px solid $settings-border-subtle;
-  border-radius: 16px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+  background: rgba($settings-bg-panel, 0.95);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid $settings-border-default;
+  border-radius: 20px;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.6), 0 0 40px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
 
   .modal-header {
-    background: transparent;
+    background: rgba($settings-bg-elevated, 0.5);
     border-bottom: 1px solid $settings-border-subtle;
     padding: 20px 24px;
+    position: relative;
+
+    // Subtle bottom glow like AI Chat
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 40%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(34, 197, 94, 0.3), transparent);
+    }
 
     .modal-title {
       color: $settings-text-primary;
       font-size: 18px;
       font-weight: 600;
-      letter-spacing: -0.3px;
+      letter-spacing: -0.02em;
     }
 
     .btn-close {
       filter: invert(1);
-      opacity: 0.6;
+      opacity: 0.5;
+      transition: all $settings-transition-fast;
 
       &:hover {
         opacity: 1;
+        transform: scale(1.1);
       }
     }
   }
@@ -180,17 +206,19 @@ $settings-border-default: rgba(255, 255, 255, 0.12);
   }
 }
 
-// Tab Navigation - Dark Sidebar
+// Tab Navigation - AI Chat Dark Sidebar
 .ide-redesign-main .ide-settings-tab-nav.nav {
-  background: $settings-bg-panel;
+  background: rgba($settings-bg-elevated, 0.6);
   border-right: 1px solid $settings-border-subtle;
-  padding: 12px;
+  padding: 16px 12px;
 
   .ide-settings-tab-link {
     color: $settings-text-secondary;
-    padding: 10px 12px;
-    border-radius: 8px;
-    transition: all 0.15s;
+    padding: 12px 14px;
+    border-radius: 10px;
+    transition: all $settings-transition-smooth;
+    position: relative;
+    border: 1px solid transparent;
 
     &:visited {
       color: $settings-text-secondary;
@@ -199,14 +227,16 @@ $settings-border-default: rgba(255, 255, 255, 0.12);
     &:hover {
       color: $settings-text-primary;
       background: rgba(255, 255, 255, 0.04);
+      transform: translateX(2px);
     }
 
     &.active {
       color: $settings-text-primary;
-      background: rgba(255, 255, 255, 0.08);
+      background: rgba(34, 197, 94, 0.1);
+      border-color: rgba(34, 197, 94, 0.2);
       font-weight: 500;
 
-      // White indicator instead of green
+      // Green indicator like AI Chat accent
       &::before {
         content: '';
         position: absolute;
@@ -214,14 +244,20 @@ $settings-border-default: rgba(255, 255, 255, 0.12);
         top: 50%;
         transform: translateY(-50%);
         width: 3px;
-        height: 60%;
-        background: $settings-text-primary;
-        border-radius: 0 2px 2px 0;
+        height: 50%;
+        background: var(--green-50);
+        border-radius: 0 3px 3px 0;
       }
     }
 
     .material-symbols {
       color: $settings-text-muted;
+      transition: color $settings-transition-fast;
+    }
+
+    &:hover .material-symbols,
+    &.active .material-symbols {
+      color: var(--green-50);
     }
   }
 }
@@ -230,22 +266,29 @@ $settings-border-default: rgba(255, 255, 255, 0.12);
 .ide-redesign-main .ide-settings-tab-content {
   background: $settings-bg-dark;
   color: $settings-text-primary;
+  padding: 0 var(--spacing-08);
 
   &::-webkit-scrollbar {
-    width: 6px;
+    width: 8px;
   }
   &::-webkit-scrollbar-track {
     background: transparent;
   }
   &::-webkit-scrollbar-thumb {
-    background: #333;
-    border-radius: 3px;
+    background: $settings-bg-surface;
+    border-radius: 4px;
+    border: 2px solid $settings-bg-dark;
+
+    &:hover {
+      background: $settings-bg-hover;
+    }
   }
 }
 
 // Section Styling
 .ide-redesign-main .ide-settings-section {
   border-bottom: 1px solid $settings-border-subtle;
+  padding: var(--spacing-08) 0;
 
   &:last-child {
     border-bottom: none;
@@ -259,150 +302,288 @@ $settings-border-default: rgba(255, 255, 255, 0.12);
   text-transform: uppercase;
   letter-spacing: 0.5px;
   border-bottom-color: $settings-border-subtle;
+  padding-bottom: var(--spacing-04);
 }
 
-// Individual Settings
+// Individual Settings - AI Chat Card Style
 .ide-redesign-main .ide-setting {
-  padding: 12px 0;
-  border-bottom: 1px solid $settings-border-subtle;
+  padding: 16px;
+  margin: 8px 0;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  background: rgba(255, 255, 255, 0.02);
+  transition: all $settings-transition-smooth;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: $settings-border-subtle;
+  }
 
   &:last-child {
-    border-bottom: none;
+    margin-bottom: 0;
   }
 }
 
 .ide-redesign-main .ide-setting-title {
   color: $settings-text-primary;
   font-weight: 500;
+  font-size: 14px;
 }
 
 .ide-redesign-main .ide-setting-description {
   color: $settings-text-muted;
   font-size: 12px;
+  line-height: 1.5;
+  margin-top: 4px;
 }
 
-// Dropdown Selects - Dark Style
+// Dropdown Selects - AI Chat Style
 .ide-redesign-main .ide-dropdown-setting,
 .ide-redesign-main .ide-dropdown-setting-wide {
   .form-select,
   select {
-    background: $settings-bg-input;
-    border: 1px solid $settings-border-subtle;
+    background: $settings-bg-surface;
+    border: 1px solid $settings-border-default;
     color: $settings-text-primary;
-    border-radius: 8px;
-    padding: 8px 12px;
+    border-radius: 10px;
+    padding: 10px 14px;
     font-size: 13px;
-    transition: all 0.15s;
+    font-weight: 500;
+    transition: all $settings-transition-smooth;
+    cursor: pointer;
 
     &:hover {
-      border-color: $settings-border-default;
+      border-color: $settings-border-strong;
+      transform: translateY(-1px);
     }
 
     &:focus {
-      border-color: rgba(255, 255, 255, 0.2);
+      border-color: rgba(34, 197, 94, 0.5);
       outline: none;
-      box-shadow: none;
+      box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1);
     }
 
     option {
-      background: $settings-bg-panel;
+      background: $settings-bg-elevated;
       color: $settings-text-primary;
+      padding: 10px;
     }
   }
 }
 
-// Radio Options - Clean Style
+// Radio Options - AI Chat Card Style
 .ide-redesign-main .ide-radio-option {
-  padding: 12px;
-  border-radius: 8px;
-  transition: background 0.15s;
+  padding: 14px 16px;
+  border-radius: 10px;
+  border: 1px solid $settings-border-subtle;
+  background: rgba(255, 255, 255, 0.02);
+  transition: all $settings-transition-smooth;
+  cursor: pointer;
 
   &:hover {
-    background: rgba(255, 255, 255, 0.03);
+    background: rgba(255, 255, 255, 0.04);
+    border-color: $settings-border-default;
+    transform: translateY(-1px);
   }
 }
 
 .ide-redesign-main .ide-radio-input {
-  accent-color: $settings-text-primary;
+  accent-color: var(--green-50);
+  width: 18px;
+  height: 18px;
 }
 
 .ide-redesign-main .ide-radio-text {
   .ide-setting-title {
     color: $settings-text-primary;
+    font-weight: 500;
   }
 
   .ide-setting-description {
     color: $settings-text-muted;
+    font-size: 12px;
   }
 }
 
-// Beta Note - Subtle Card
+// Beta Note - AI Chat Info Card
 .ide-redesign-main .project-notifications-beta-note {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid $settings-border-subtle;
-  border-radius: 8px;
+  background: rgba(59, 130, 246, 0.08);
+  border: 1px solid rgba(59, 130, 246, 0.15);
+  border-radius: 12px;
+  padding: 14px 16px;
 
   .beta-note-text {
-    color: $settings-text-muted;
+    color: $settings-text-secondary;
+    font-size: 13px;
+    line-height: 1.6;
   }
 }
 
-// Form Controls Override
+// Form Controls Override - AI Chat Style
 .ide-redesign-main .ide-settings-modal-body {
   input[type="text"],
   input[type="number"],
   input[type="email"],
   textarea {
-    background: $settings-bg-input;
-    border: 1px solid $settings-border-subtle;
+    background: $settings-bg-surface;
+    border: 1px solid $settings-border-default;
     color: $settings-text-primary;
-    border-radius: 8px;
-    padding: 8px 12px;
-    font-size: 13px;
-    transition: border-color 0.15s;
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 14px;
+    transition: all $settings-transition-smooth;
 
     &::placeholder {
       color: $settings-text-muted;
     }
 
+    &:hover {
+      border-color: $settings-border-strong;
+    }
+
     &:focus {
-      border-color: rgba(255, 255, 255, 0.2);
+      border-color: rgba(34, 197, 94, 0.5);
       outline: none;
-      box-shadow: none;
+      box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1);
     }
   }
 
-  // Checkboxes and Switches
+  // Checkboxes and Switches - Green accent
   input[type="checkbox"] {
-    accent-color: $settings-text-primary;
+    accent-color: var(--green-50);
+    width: 18px;
+    height: 18px;
   }
 
-  // Buttons
-  .btn-primary {
-    background: $settings-text-primary;
-    color: $settings-bg-dark;
-    border: none;
-    border-radius: 8px;
-    font-weight: 500;
-    transition: all 0.15s;
+  // Toggle Switches
+  .form-check-input {
+    background-color: $settings-bg-surface;
+    border-color: $settings-border-default;
 
-    &:hover {
-      background: #E0E0E0;
-      transform: translateY(-1px);
+    &:checked {
+      background-color: var(--green-50);
+      border-color: var(--green-50);
+    }
+
+    &:focus {
+      box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.15);
     }
   }
 
-  .btn-secondary {
-    background: transparent;
-    color: $settings-text-secondary;
-    border: 1px solid $settings-border-subtle;
-    border-radius: 8px;
-    transition: all 0.15s;
+  // Primary Button - Green with AI Chat effects
+  .btn-primary {
+    background: var(--green-50);
+    color: #FFFFFF;
+    border: none;
+    border-radius: 10px;
+    font-weight: 500;
+    padding: 12px 20px;
+    box-shadow: 0 2px 8px rgba(34, 197, 94, 0.25);
+    transition: all $settings-transition-smooth;
 
     &:hover {
-      background: rgba(255, 255, 255, 0.04);
+      background: var(--green-40);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(34, 197, 94, 0.35);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+
+    &:disabled {
+      background: $settings-text-muted;
+      box-shadow: none;
+      transform: none;
+    }
+  }
+
+  // Secondary Button - AI Chat ghost style
+  .btn-secondary {
+    background: $settings-bg-surface;
+    color: $settings-text-secondary;
+    border: 1px solid $settings-border-default;
+    border-radius: 10px;
+    padding: 12px 20px;
+    font-weight: 500;
+    transition: all $settings-transition-smooth;
+
+    &:hover {
+      background: $settings-bg-hover;
       color: $settings-text-primary;
-      border-color: $settings-border-default;
+      border-color: $settings-border-strong;
+      transform: translateY(-2px);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+  }
+
+  // Danger Button
+  .btn-danger {
+    background: rgba(239, 68, 68, 0.15);
+    color: #ef4444;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    border-radius: 10px;
+    padding: 12px 20px;
+    font-weight: 500;
+    transition: all $settings-transition-smooth;
+
+    &:hover {
+      background: rgba(239, 68, 68, 0.25);
+      border-color: rgba(239, 68, 68, 0.5);
+      transform: translateY(-2px);
+    }
+  }
+}
+
+// Toggle in settings - AI Chat style
+.ide-redesign-main .ide-settings-modal-body .form-switch {
+  .form-check-input {
+    width: 44px;
+    height: 24px;
+    background-color: $settings-bg-surface;
+    border: 1px solid $settings-border-default;
+    border-radius: 12px;
+    transition: all $settings-transition-fast;
+
+    &:checked {
+      background-color: var(--green-50);
+      border-color: var(--green-50);
+    }
+
+    &:focus {
+      box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.15);
+      border-color: var(--green-50);
+    }
+  }
+}
+
+// Keyboard shortcuts section
+.ide-redesign-main .ide-settings-modal-body {
+  kbd {
+    background: $settings-bg-surface;
+    border: 1px solid $settings-border-default;
+    border-radius: 6px;
+    padding: 4px 8px;
+    font-size: 12px;
+    font-family: 'Fira Code', 'Monaco', monospace;
+    color: $settings-text-primary;
+    box-shadow: 0 2px 0 $settings-border-subtle;
+  }
+}
+
+// Links in settings
+.ide-redesign-main .ide-settings-modal-body {
+  a:not(.btn) {
+    color: var(--green-50);
+    text-decoration: none;
+    transition: color $settings-transition-fast;
+
+    &:hover {
+      color: var(--green-40);
+      text-decoration: underline;
     }
   }
 }

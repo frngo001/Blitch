@@ -421,3 +421,341 @@ body {
     background-color: var(--theme-toggle-selected-background);
   }
 }
+
+// ============================================
+// Dark Theme Override - Blitch Monochrome Style
+// Project List / Dashboard - Community Edition
+// Green accents preserved for actions
+// ============================================
+
+$ds-bg-dark: #0D0D0D;
+$ds-bg-panel: #1C1C1C;
+$ds-bg-surface: #27272a;
+$ds-bg-hover: #2e2e33;
+$ds-text-primary: #FFFFFF;
+$ds-text-secondary: #A0A0A0;
+$ds-text-muted: #666666;
+$ds-border-subtle: rgba(255, 255, 255, 0.08);
+$ds-border-default: rgba(255, 255, 255, 0.12);
+
+// Transition timing like AI Chat
+$ds-transition-fast: 0.15s ease;
+$ds-transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+.ide-redesign-main .project-ds-nav-page,
+.ide-redesign-main.project-ds-nav-page {
+  background: $ds-bg-dark;
+  color: $ds-text-secondary;
+
+  // Navbar Override
+  .navbar-default {
+    background: $ds-bg-dark;
+    border-bottom: 1px solid $ds-border-subtle;
+
+    .navbar-brand .navbar-title {
+      color: $ds-text-primary;
+
+      &:hover {
+        color: $ds-text-secondary;
+      }
+    }
+
+    .navbar-nav > li {
+      > .nav-link,
+      > .dropdown-toggle {
+        color: $ds-text-secondary;
+        border-color: $ds-border-subtle;
+        border-radius: 10px;
+        transition: all $ds-transition-smooth;
+
+        &:hover,
+        &:focus,
+        &.show {
+          color: $ds-text-primary;
+          background: $ds-bg-hover;
+          transform: translateY(-1px);
+        }
+      }
+
+      &.subdued > .nav-link,
+      &.subdued > .dropdown-toggle {
+        color: $ds-text-muted;
+
+        &:hover {
+          color: $ds-text-primary;
+          background: $ds-bg-hover;
+        }
+      }
+
+      &.primary > .nav-link {
+        background: var(--green-50);
+        color: #FFFFFF;
+        border-color: var(--green-50);
+        box-shadow: 0 2px 8px rgba(34, 197, 94, 0.25);
+
+        &:hover {
+          background: var(--green-40);
+          border-color: var(--green-40);
+          box-shadow: 0 4px 16px rgba(34, 197, 94, 0.35);
+        }
+      }
+    }
+
+    // Mobile menu
+    .navbar-collapse {
+      background: $ds-bg-dark;
+
+      .navbar-nav > li .dropdown-menu.show {
+        background: $ds-bg-panel;
+        border-radius: 10px;
+
+        .dropdown-item {
+          color: $ds-text-secondary;
+          border-radius: 8px;
+          transition: all $ds-transition-fast;
+
+          &:hover {
+            color: $ds-text-primary;
+            background: $ds-bg-hover;
+          }
+        }
+      }
+    }
+
+    .navbar-toggler {
+      color: $ds-text-secondary;
+
+      &:not(.collapsed) {
+        background: $ds-bg-hover;
+        color: $ds-text-primary;
+      }
+    }
+  }
+
+  // Project List Wrapper
+  .project-list-wrapper {
+    background: $ds-bg-dark;
+
+    hr {
+      border-color: $ds-border-subtle;
+    }
+
+    // Sidebar
+    .project-list-sidebar-wrapper-react {
+      background: $ds-bg-dark;
+
+      // New Project Dropdown
+      .new-project-dropdown {
+        border-bottom-color: $ds-border-subtle;
+
+        > .dropdown-menu {
+          background: $ds-bg-panel;
+          border: 1px solid $ds-border-default;
+          border-radius: 12px;
+          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+        }
+      }
+
+      .project-list-sidebar-scroll {
+        &::-webkit-scrollbar {
+          width: 6px;
+        }
+
+        &::-webkit-scrollbar-track {
+          background: transparent;
+        }
+
+        &::-webkit-scrollbar-thumb {
+          background: #333;
+          border-radius: 3px;
+        }
+      }
+
+      .ds-nav-sidebar-lower {
+        border-top-color: $ds-border-subtle;
+      }
+
+      .survey-notification {
+        background: $ds-bg-panel;
+        border: 1px solid $ds-border-subtle;
+        color: $ds-text-secondary;
+
+        .notification-body .btn {
+          background: $ds-bg-surface;
+          border: 1px solid $ds-border-default;
+          color: $ds-text-secondary;
+          border-radius: 8px;
+          transition: all $ds-transition-smooth;
+
+          &:hover {
+            background: $ds-bg-hover;
+            color: $ds-text-primary;
+            transform: translateY(-1px);
+          }
+        }
+      }
+    }
+
+    // Sidebar Filters
+    ul.project-list-filters {
+      > li {
+        > button {
+          color: $ds-text-secondary;
+          border-radius: 8px;
+          transition: all $ds-transition-fast;
+
+          &:hover {
+            background: $ds-bg-hover;
+            color: $ds-text-primary;
+          }
+        }
+
+        &.active button {
+          background: var(--green-50);
+          color: #FFFFFF;
+          font-weight: 600;
+        }
+      }
+
+      .dropdown-header {
+        color: $ds-text-muted;
+      }
+
+      .tag-menu button.dropdown-toggle {
+        color: $ds-text-muted;
+
+        &:hover,
+        &:active,
+        &[aria-expanded='true'] {
+          background: $ds-bg-hover;
+          color: $ds-text-primary;
+        }
+      }
+    }
+
+    // Main Content Area
+    .project-ds-nav-content-and-messages {
+      > * {
+        border-left-color: $ds-border-subtle;
+      }
+
+      .project-ds-nav-content {
+        background: $ds-bg-panel;
+        border-color: $ds-border-subtle;
+      }
+
+      .cookie-banner {
+        background: $ds-bg-panel;
+        border: 1px solid $ds-border-subtle;
+      }
+    }
+
+    // Project Table
+    .project-dash-table {
+      .btn-link {
+        color: $ds-text-secondary;
+
+        &:hover,
+        &:focus {
+          background: $ds-bg-hover !important;
+          color: $ds-text-primary;
+        }
+      }
+
+      .dash-cell-name a {
+        color: $ds-text-primary !important;
+      }
+
+      // Table rows
+      tr {
+        border-color: $ds-border-subtle;
+
+        &:hover {
+          background: rgba(255, 255, 255, 0.02);
+        }
+      }
+
+      th {
+        background: $ds-bg-surface;
+        color: $ds-text-primary;
+        border-color: $ds-border-subtle;
+      }
+
+      td {
+        color: $ds-text-secondary;
+        border-color: $ds-border-subtle;
+      }
+    }
+  }
+
+  // Icon Dropdown
+  .ds-nav-icon-dropdown {
+    .dropdown-toggle {
+      color: $ds-text-secondary;
+      border-radius: 10px;
+      transition: all $ds-transition-fast;
+
+      &:hover {
+        background: $ds-bg-hover;
+        color: $ds-text-primary;
+      }
+
+      &.show {
+        background: var(--green-50);
+        color: #FFFFFF;
+      }
+    }
+  }
+
+  // DS Nav Name
+  .ds-nav-ds-name {
+    color: $ds-text-muted;
+
+    span {
+      color: $ds-text-muted;
+    }
+  }
+
+  // Add Affiliation
+  .add-affiliation {
+    color: $ds-text-secondary;
+
+    &:hover {
+      color: var(--green-50);
+    }
+  }
+}
+
+// Theme Toggle - Dark version
+.ide-redesign-main .theme-toggle {
+  color: $ds-text-secondary;
+
+  &:hover {
+    color: $ds-text-primary;
+  }
+
+  legend {
+    color: $ds-text-secondary;
+  }
+}
+
+.ide-redesign-main .theme-toggle-radios {
+  background: $ds-bg-surface;
+  border: 1px solid $ds-border-subtle;
+}
+
+.ide-redesign-main .theme-toggle-radio {
+  label {
+    color: $ds-text-secondary;
+    transition: all $ds-transition-fast;
+
+    &:hover {
+      color: $ds-text-primary;
+    }
+  }
+
+  input:checked + label {
+    background: var(--green-50);
+    color: #FFFFFF;
+  }
+}

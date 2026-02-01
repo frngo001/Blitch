@@ -26,3 +26,98 @@
     max-width: unset;
   }
 }
+
+// ============================================
+// Dark Theme Override - Blitch Monochrome Style
+// Consistent with AI Chat, Team Chat, Settings
+// ============================================
+
+$tooltip-bg-dark: #1C1C1C;
+$tooltip-text-primary: #FFFFFF;
+$tooltip-text-secondary: #A0A0A0;
+$tooltip-border-subtle: rgba(255, 255, 255, 0.12);
+
+.ide-redesign-main {
+  .tooltip {
+    --bs-tooltip-bg: #{$tooltip-bg-dark};
+    --bs-tooltip-color: #{$tooltip-text-primary};
+
+    .tooltip-inner {
+      background: $tooltip-bg-dark;
+      color: $tooltip-text-primary;
+      border: 1px solid $tooltip-border-subtle;
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 13px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    }
+
+    .tooltip-arrow {
+      &::before {
+        border-color: transparent;
+      }
+    }
+
+    &.bs-tooltip-top .tooltip-arrow::before {
+      border-top-color: $tooltip-bg-dark;
+    }
+
+    &.bs-tooltip-bottom .tooltip-arrow::before {
+      border-bottom-color: $tooltip-bg-dark;
+    }
+
+    &.bs-tooltip-start .tooltip-arrow::before {
+      border-left-color: $tooltip-bg-dark;
+    }
+
+    &.bs-tooltip-end .tooltip-arrow::before {
+      border-right-color: $tooltip-bg-dark;
+    }
+  }
+
+  // Popover dark theme
+  .popover {
+    --bs-popover-bg: #{$tooltip-bg-dark};
+    --bs-popover-border-color: #{$tooltip-border-subtle};
+
+    background: $tooltip-bg-dark;
+    border: 1px solid $tooltip-border-subtle;
+    border-radius: 10px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+
+    .popover-header {
+      background: transparent;
+      border-bottom: 1px solid $tooltip-border-subtle;
+      color: $tooltip-text-primary;
+      font-weight: 500;
+    }
+
+    .popover-body {
+      color: $tooltip-text-secondary;
+    }
+
+    .popover-arrow::before {
+      border-color: transparent;
+    }
+
+    .popover-arrow::after {
+      border-color: transparent;
+    }
+
+    &.bs-popover-top .popover-arrow::after {
+      border-top-color: $tooltip-bg-dark;
+    }
+
+    &.bs-popover-bottom .popover-arrow::after {
+      border-bottom-color: $tooltip-bg-dark;
+    }
+
+    &.bs-popover-start .popover-arrow::after {
+      border-left-color: $tooltip-bg-dark;
+    }
+
+    &.bs-popover-end .popover-arrow::after {
+      border-right-color: $tooltip-bg-dark;
+    }
+  }
+}

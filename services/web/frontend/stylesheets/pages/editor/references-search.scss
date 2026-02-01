@@ -114,3 +114,166 @@
 .write-and-cite-upgrade-prompt-header {
   font-size: var(--font-size-05);
 }
+
+// ============================================
+// Dark Theme Override - Blitch Monochrome Style
+// Consistent with AI Chat, Team Chat, Settings
+// ============================================
+
+$search-bg-dark: #0D0D0D;
+$search-bg-panel: #1C1C1C;
+$search-bg-hover: #2A2A2A;
+$search-text-primary: #FFFFFF;
+$search-text-secondary: #A0A0A0;
+$search-text-muted: #666666;
+$search-border-subtle: rgba(255, 255, 255, 0.08);
+$search-border-default: rgba(255, 255, 255, 0.12);
+
+.ide-redesign-main {
+  .references-search-modal {
+    .modal-content {
+      background: $search-bg-dark;
+      border: 1px solid $search-border-default;
+      border-radius: 12px;
+    }
+
+    .modal-header {
+      background: transparent;
+      border-bottom: 1px solid $search-border-subtle;
+
+      .modal-title {
+        color: $search-text-primary;
+      }
+
+      .btn-close {
+        filter: invert(1);
+        opacity: 0.6;
+
+        &:hover {
+          opacity: 1;
+        }
+      }
+    }
+
+    .modal-body {
+      background: transparent;
+      color: $search-text-primary;
+    }
+
+    // Upgrade prompt
+    .references-search-upgrade-prompt {
+      .upgrade-prompt {
+        background: $search-bg-panel;
+        border: 1px solid $search-border-subtle;
+        color: $search-text-primary;
+
+        .message {
+          color: $search-text-secondary;
+
+          &.call-to-action {
+            color: $search-text-primary;
+          }
+        }
+
+        .btn-primary {
+          background: var(--green-50);
+          border-color: var(--green-50);
+          color: #FFFFFF;
+
+          &:hover {
+            background: var(--green-40);
+            border-color: var(--green-40);
+          }
+        }
+      }
+    }
+
+    // Search input
+    input[type="text"],
+    input[type="search"],
+    .form-control {
+      background: $search-bg-panel;
+      border: 1px solid $search-border-subtle;
+      color: $search-text-primary;
+      border-radius: 8px;
+
+      &::placeholder {
+        color: $search-text-muted;
+      }
+
+      &:focus {
+        border-color: rgba(255, 255, 255, 0.2);
+        box-shadow: none;
+      }
+    }
+
+    // Search results
+    .search-results {
+      color: $search-text-secondary;
+
+      .no-results-message,
+      .too-many-results-message {
+        color: $search-text-muted;
+      }
+
+      .search-results-scroll-container {
+        &::-webkit-scrollbar {
+          width: 6px;
+        }
+
+        &::-webkit-scrollbar-track {
+          background: transparent;
+        }
+
+        &::-webkit-scrollbar-thumb {
+          background: #333;
+          border-radius: 3px;
+        }
+      }
+
+      .search-result-hit {
+        border-bottom-color: $search-border-subtle;
+        color: $search-text-secondary;
+        border-radius: 6px;
+        transition: all 0.15s;
+
+        &:hover {
+          background: $search-bg-hover;
+          color: $search-text-primary;
+        }
+
+        &.selected-search-result-hit {
+          color: var(--green-50);
+          background: rgba(34, 197, 94, 0.1);
+          border-left-color: var(--green-50);
+        }
+
+        .hit-title {
+          color: $search-text-primary;
+        }
+
+        .hit-author,
+        .hit-year {
+          color: $search-text-muted;
+        }
+      }
+    }
+  }
+
+  // Write and Cite pros list
+  .write-and-cite-pros-list-wrapper {
+    color: $search-text-primary;
+  }
+
+  .write-and-cite-pros-list li {
+    color: $search-text-secondary;
+  }
+
+  .write-and-cite-pros-check-icon {
+    color: var(--green-50);
+  }
+
+  .write-and-cite-upgrade-prompt-header {
+    color: $search-text-primary;
+  }
+}

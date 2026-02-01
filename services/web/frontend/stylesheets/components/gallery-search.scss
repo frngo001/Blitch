@@ -134,3 +134,106 @@
     }
   }
 }
+
+// ============================================
+// Dark Theme Override - Blitch Monochrome Style
+// For template gallery search (Community Edition)
+// ============================================
+
+$gallery-bg-dark: #0D0D0D;
+$gallery-bg-panel: #1C1C1C;
+$gallery-bg-hover: #2A2A2A;
+$gallery-text-primary: #FFFFFF;
+$gallery-text-secondary: #A0A0A0;
+$gallery-text-muted: #666666;
+$gallery-border-subtle: rgba(255, 255, 255, 0.08);
+$gallery-border-default: rgba(255, 255, 255, 0.12);
+
+.ide-redesign-main {
+  .gallery-search {
+    form {
+      input {
+        background: $gallery-bg-panel;
+        border: 1px solid $gallery-border-subtle;
+        color: $gallery-text-primary;
+        border-radius: 10px;
+
+        &::placeholder {
+          color: $gallery-text-muted;
+        }
+
+        &:focus {
+          border-color: rgba(255, 255, 255, 0.2);
+          box-shadow: none;
+        }
+      }
+
+      .btn-primary {
+        background: var(--green-50);
+        border-color: var(--green-50);
+        color: #FFFFFF;
+
+        &:hover {
+          background: var(--green-40);
+          border-color: var(--green-40);
+        }
+      }
+    }
+
+    .search-hits {
+      .search-hits-loading,
+      .search-hits-empty {
+        color: $gallery-text-muted;
+      }
+
+      .search-hit {
+        background: $gallery-bg-panel;
+        border: 1px solid $gallery-border-subtle;
+        border-radius: 10px;
+        padding: var(--spacing-06);
+        transition: all 0.15s;
+
+        &:hover {
+          border-color: $gallery-border-default;
+          background: $gallery-bg-hover;
+        }
+
+        .search-image a {
+          &::before {
+            background: $gallery-text-primary;
+          }
+
+          img {
+            border: 1px solid $gallery-border-subtle;
+          }
+        }
+
+        .search-title a {
+          color: $gallery-text-primary;
+
+          &:hover {
+            color: var(--green-50);
+          }
+        }
+
+        .search-highlight {
+          color: $gallery-text-secondary;
+
+          mark,
+          em {
+            background: rgba(34, 197, 94, 0.2);
+            color: var(--green-50);
+          }
+        }
+
+        .search-author {
+          color: $gallery-text-muted;
+        }
+
+        .gallery-official {
+          color: var(--green-50);
+        }
+      }
+    }
+  }
+}

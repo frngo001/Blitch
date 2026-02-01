@@ -318,3 +318,394 @@ h4.group-settings-title {
     flex-shrink: 0;
   }
 }
+
+// ============================================
+// Dark Theme Override - AI Chat Style
+// Group Settings - Community Edition
+// Premium glassmorphism, smooth animations
+// ============================================
+
+$gs-bg-dark: #0f0f10;
+$gs-bg-panel: #18181b;
+$gs-bg-elevated: #1f1f23;
+$gs-bg-surface: #27272a;
+$gs-bg-hover: #2e2e33;
+$gs-text-primary: #fafafa;
+$gs-text-secondary: #a1a1aa;
+$gs-text-muted: #71717a;
+$gs-border-subtle: rgba(255, 255, 255, 0.06);
+$gs-border-default: rgba(255, 255, 255, 0.1);
+$gs-border-strong: rgba(255, 255, 255, 0.15);
+
+// AI Chat style transitions
+$gs-transition-fast: 0.15s ease;
+$gs-transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+.ide-redesign-main {
+  // Enrollment Invite Card
+  .enrollment-invite {
+    background: $gs-bg-panel;
+    border: 1px solid $gs-border-subtle;
+    border-radius: 16px;
+    padding: var(--spacing-08);
+
+    .title {
+      color: $gs-text-primary;
+    }
+
+    .inner-card {
+      background: $gs-bg-surface;
+      border: 1px solid $gs-border-subtle;
+      border-radius: 12px;
+
+      &.warning {
+        background: rgba(234, 179, 8, 0.1);
+        border-color: rgba(234, 179, 8, 0.2);
+      }
+    }
+
+    .list-row {
+      color: $gs-text-secondary;
+
+      .icon {
+        color: $gs-text-muted;
+      }
+
+      .icon.error {
+        color: #eab308;
+      }
+    }
+  }
+
+  // Managed Users Badge
+  .managed-users-enabled {
+    color: var(--green-50);
+    background: rgba(34, 197, 94, 0.1);
+    padding: 6px 12px;
+    border-radius: 8px;
+  }
+
+  // Group Settings Titles
+  h3.group-settings-title,
+  h4.group-settings-title {
+    color: $gs-text-primary;
+  }
+
+  // SSO Settings Section
+  .group-settings-sso {
+    background: $gs-bg-panel;
+    border: 1px solid $gs-border-subtle;
+    border-radius: 16px;
+    padding: var(--spacing-08);
+
+    .group-settings-sso-row {
+      padding: 16px 0;
+      border-bottom: 1px solid $gs-border-subtle;
+      transition: all $gs-transition-fast;
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.02);
+        margin: 0 -16px;
+        padding: 16px;
+        border-radius: 10px;
+      }
+    }
+  }
+
+  .below-settings-section {
+    border-top-color: $gs-border-subtle;
+  }
+
+  // SSO Config Info - AI Chat Card Style
+  .sso-config-info {
+    background: $gs-bg-panel;
+    border: 1px solid $gs-border-subtle;
+    border-radius: 16px;
+
+    .sso-config-info-header {
+      background: rgba($gs-bg-elevated, 0.5);
+      border-bottom-color: $gs-border-subtle;
+      padding: var(--spacing-06);
+      border-radius: 16px 16px 0 0;
+
+      .badge {
+        background: var(--green-50);
+        color: #FFFFFF;
+        border-radius: 8px;
+        padding: 6px 12px;
+        font-weight: 500;
+      }
+    }
+
+    .sso-config-options-buttons {
+      .btn {
+        border-radius: 10px;
+        transition: all $gs-transition-smooth;
+
+        &:hover {
+          transform: translateY(-2px);
+        }
+      }
+    }
+
+    .sso-config-info-section {
+      padding: var(--spacing-06);
+      border-bottom: 1px solid $gs-border-subtle;
+
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+
+    .sso-config-info-label {
+      color: $gs-text-muted;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+
+      .certificate-status {
+        &.certificate-valid {
+          color: var(--green-50);
+        }
+
+        &.certificate-expiring-soon {
+          color: #eab308;
+        }
+
+        &.certificate-expired {
+          color: #ef4444;
+        }
+      }
+    }
+
+    .sso-config-info-content {
+      color: $gs-text-primary;
+      font-size: 14px;
+    }
+
+    .sso-config-info-content-empty {
+      color: $gs-text-muted;
+      font-style: italic;
+    }
+
+    p {
+      color: $gs-text-secondary;
+    }
+  }
+
+  // SSO Config Modal - AI Chat Glassmorphism Style
+  .sso-config-modal-content {
+    .sso-config-interstitial-title {
+      color: $gs-text-primary;
+    }
+
+    .sso-config-modal-icon-wrapper {
+      .sso-config-interstitial-icon {
+        background: $gs-bg-surface;
+        border: 1px solid $gs-border-subtle;
+        color: $gs-text-muted;
+      }
+
+      .sso-config-test-result-icon {
+        background: rgba(34, 197, 94, 0.15);
+        border: 1px solid rgba(34, 197, 94, 0.3);
+        color: var(--green-50);
+      }
+
+      .sso-config-test-error-icon {
+        background: rgba(239, 68, 68, 0.15);
+        border: 1px solid rgba(239, 68, 68, 0.3);
+        color: #ef4444;
+      }
+    }
+
+    .payload-content {
+      background: $gs-bg-panel;
+      border: 1px solid $gs-border-subtle;
+      border-radius: 12px;
+      color: $gs-text-primary;
+
+      .saml-response-xml-wrapper {
+        background: $gs-bg-elevated;
+        border-radius: 10px;
+        margin-top: var(--spacing-06);
+
+        .saml-response-header {
+          background: rgba(255, 255, 255, 0.02);
+          border-bottom: 1px solid $gs-border-subtle;
+          color: $gs-text-primary;
+        }
+
+        .saml-response-footer {
+          background: linear-gradient(180deg, transparent, $gs-bg-elevated);
+        }
+
+        .saml-response-xml {
+          color: $gs-text-secondary;
+        }
+
+        .expand-viewer {
+          color: var(--green-50);
+
+          &:hover {
+            color: var(--green-40);
+          }
+        }
+      }
+
+      .payload-content-user-info-item {
+        color: $gs-text-secondary;
+
+        strong {
+          color: $gs-text-primary;
+        }
+      }
+    }
+  }
+
+  // Certificate Display
+  .certificate-wrapper {
+    background: $gs-bg-surface;
+    border: 1px solid $gs-border-subtle;
+    border-radius: 10px;
+    padding: 14px 16px;
+
+    .certificate {
+      color: $gs-text-secondary;
+      font-family: 'Fira Code', 'Monaco', monospace;
+      font-size: 12px;
+    }
+
+    .certificate-delete {
+      color: #ef4444;
+      transition: all $gs-transition-fast;
+
+      &:hover {
+        color: #f87171;
+      }
+    }
+
+    .view-more {
+      color: var(--green-50);
+
+      &:hover {
+        color: var(--green-40);
+      }
+    }
+  }
+
+  .certificate-truncated {
+    .certificate {
+      color: $gs-text-muted;
+    }
+  }
+
+  .certificate-full .certificate {
+    color: $gs-text-secondary;
+  }
+
+  // Certificate Form
+  .certificate-form-row {
+    .certificate-input {
+      input {
+        background: $gs-bg-surface;
+        border: 1px solid $gs-border-subtle;
+        color: $gs-text-primary;
+        border-radius: 10px;
+        padding: 12px 16px;
+        font-family: 'Fira Code', 'Monaco', monospace;
+        font-size: 13px;
+        transition: all $gs-transition-smooth;
+
+        &::placeholder {
+          color: $gs-text-muted;
+        }
+
+        &:focus {
+          border-color: rgba(34, 197, 94, 0.5);
+          outline: none;
+          box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1);
+        }
+      }
+    }
+  }
+
+  // Buttons in group settings - AI Chat style
+  .group-settings-sso,
+  .sso-config-info,
+  .sso-config-modal-content {
+    .btn-primary {
+      background: var(--green-50);
+      color: #FFFFFF;
+      border: none;
+      border-radius: 10px;
+      font-weight: 500;
+      padding: 12px 20px;
+      box-shadow: 0 2px 8px rgba(34, 197, 94, 0.25);
+      transition: all $gs-transition-smooth;
+
+      &:hover {
+        background: var(--green-40);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 16px rgba(34, 197, 94, 0.35);
+      }
+
+      &:active {
+        transform: translateY(0);
+      }
+    }
+
+    .btn-secondary {
+      background: $gs-bg-surface;
+      color: $gs-text-secondary;
+      border: 1px solid $gs-border-default;
+      border-radius: 10px;
+      padding: 12px 20px;
+      font-weight: 500;
+      transition: all $gs-transition-smooth;
+
+      &:hover {
+        background: $gs-bg-hover;
+        color: $gs-text-primary;
+        border-color: $gs-border-strong;
+        transform: translateY(-2px);
+      }
+
+      &:active {
+        transform: translateY(0);
+      }
+    }
+
+    .btn-danger {
+      background: rgba(239, 68, 68, 0.15);
+      color: #ef4444;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      border-radius: 10px;
+      padding: 12px 20px;
+      font-weight: 500;
+      transition: all $gs-transition-smooth;
+
+      &:hover {
+        background: rgba(239, 68, 68, 0.25);
+        border-color: rgba(239, 68, 68, 0.5);
+        transform: translateY(-2px);
+      }
+    }
+
+    .btn-link {
+      color: var(--green-50);
+      text-decoration: none;
+      transition: color $gs-transition-fast;
+
+      &:hover {
+        color: var(--green-40);
+        text-decoration: underline;
+      }
+    }
+  }
+}

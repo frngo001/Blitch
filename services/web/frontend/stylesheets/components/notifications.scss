@@ -330,3 +330,191 @@
 .form-messages-bottom-margin > :last-child {
   margin-bottom: var(--spacing-06);
 }
+
+// ============================================
+// Dark Theme Override - Blitch Monochrome Style
+// Consistent with AI Chat, Team Chat, Settings
+// Colored notification icons/borders preserved
+// ============================================
+
+$notif-bg-dark: #0D0D0D;
+$notif-bg-panel: #1C1C1C;
+$notif-text-primary: #FFFFFF;
+$notif-text-secondary: #A0A0A0;
+$notif-text-muted: #666666;
+$notif-border-subtle: rgba(255, 255, 255, 0.08);
+$notif-border-default: rgba(255, 255, 255, 0.12);
+
+.ide-redesign-main {
+  // Override notification CSS variables for dark theme
+  --notification-bg-info: rgba(59, 130, 246, 0.15);
+  --notification-bg-success: rgba(34, 197, 94, 0.15);
+  --notification-bg-warning: rgba(234, 179, 8, 0.15);
+  --notification-bg-error: rgba(239, 68, 68, 0.15);
+  --notification-bg-offer: #{$notif-bg-panel};
+  --notification-border-info: rgba(59, 130, 246, 0.3);
+  --notification-border-success: rgba(34, 197, 94, 0.3);
+  --notification-border-warning: rgba(234, 179, 8, 0.3);
+  --notification-border-error: rgba(239, 68, 68, 0.3);
+  --notification-border-offer: #{$notif-border-default};
+  --notification-icon-info: #3b82f6;
+  --notification-icon-success: var(--green-50);
+  --notification-icon-warning: #eab308;
+  --notification-icon-error: #ef4444;
+  --notification-icon-offer: #{$notif-text-secondary};
+  --notification-content-primary: #{$notif-text-primary};
+  --notification-content-secondary: #{$notif-text-secondary};
+  --notification-bg-primary: #{$notif-bg-panel};
+  --notification-reconfirmation-bg: #{$notif-bg-panel};
+  --notification-disclaimer-color: #{$notif-text-muted};
+  --notification-close-btn-bg: rgba(255, 255, 255, 0.08);
+
+  .notification {
+    border-radius: 10px;
+    backdrop-filter: blur(8px);
+
+    a:not(.btn) {
+      color: $notif-text-primary;
+      text-decoration-color: rgba(255, 255, 255, 0.4);
+
+      &:hover {
+        text-decoration-color: rgba(255, 255, 255, 0.8);
+      }
+    }
+
+    .notification-content {
+      color: $notif-text-primary;
+
+      p {
+        color: $notif-text-secondary;
+      }
+
+      strong,
+      b {
+        color: $notif-text-primary;
+      }
+    }
+
+    .notification-cta {
+      a,
+      .btn {
+        color: $notif-text-primary;
+      }
+
+      .btn-primary {
+        background: var(--green-50);
+        border-color: var(--green-50);
+        color: #FFFFFF;
+
+        &:hover {
+          background: var(--green-40);
+          border-color: var(--green-40);
+        }
+      }
+
+      .btn-secondary {
+        background: $notif-bg-panel;
+        border: 1px solid $notif-border-default;
+        color: $notif-text-secondary;
+
+        &:hover {
+          background: #2A2A2A;
+          color: $notif-text-primary;
+        }
+      }
+    }
+
+    .notification-close-btn button {
+      color: $notif-text-muted;
+      transition: all 0.15s;
+
+      &:hover,
+      &:focus {
+        background: rgba(255, 255, 255, 0.1);
+        color: $notif-text-primary;
+      }
+    }
+
+    // Type-specific styling with preserved colors
+    &.notification-type-info {
+      .notification-icon {
+        color: #3b82f6;
+      }
+    }
+
+    &.notification-type-success {
+      .notification-icon {
+        color: var(--green-50);
+      }
+    }
+
+    &.notification-type-warning {
+      .notification-icon {
+        color: #eab308;
+      }
+    }
+
+    &.notification-type-error {
+      .notification-icon {
+        color: #ef4444;
+      }
+    }
+
+    &.notification-type-offer {
+      background: $notif-bg-panel;
+      border-color: $notif-border-default;
+
+      .notification-icon {
+        color: $notif-text-secondary;
+      }
+    }
+  }
+
+  .notification-list {
+    .notification {
+      margin-bottom: var(--spacing-04);
+    }
+  }
+
+  // Reconfirmation notification
+  .reconfirm-notification {
+    background: $notif-bg-panel;
+    border: 1px solid $notif-border-default;
+    border-radius: 10px;
+    color: $notif-text-primary;
+
+    .fa-warning {
+      color: #eab308;
+    }
+
+    .btn-reconfirm {
+      background: var(--green-50);
+      border-color: var(--green-50);
+      color: #FFFFFF;
+
+      &:hover {
+        background: var(--green-40);
+        border-color: var(--green-40);
+      }
+    }
+  }
+
+  // Settings page affiliations
+  .affiliations-table {
+    .reconfirm-row td {
+      :not(.alert) {
+        .reconfirm-notification {
+          background: $notif-bg-panel;
+          border: 1px solid rgba(234, 179, 8, 0.3);
+        }
+      }
+    }
+  }
+
+  // Form messages
+  .form-messages-bottom-margin {
+    .notification {
+      margin-bottom: var(--spacing-04);
+    }
+  }
+}

@@ -255,3 +255,198 @@
     }
   }
 }
+
+// ============================================
+// Dark Theme Override - Blitch Monochrome Style
+// Account Settings Page - Community Edition
+// Green accents preserved for status indicators
+// ============================================
+
+$acct-bg-dark: #0D0D0D;
+$acct-bg-panel: #1C1C1C;
+$acct-bg-hover: #2A2A2A;
+$acct-bg-input: #2C2C2C;
+$acct-text-primary: #FFFFFF;
+$acct-text-secondary: #A0A0A0;
+$acct-text-muted: #666666;
+$acct-border-subtle: rgba(255, 255, 255, 0.08);
+$acct-border-default: rgba(255, 255, 255, 0.12);
+
+.ide-redesign-main #settings-page-root,
+.ide-redesign-main #action-project-modal {
+  background: $acct-bg-dark;
+  color: $acct-text-primary;
+
+  // Confirm email form
+  .confirm-email-form {
+    background: $acct-bg-panel !important;
+    border: 1px solid $acct-border-subtle;
+    border-radius: 12px;
+  }
+
+  .confirm-email-form-inner {
+    label {
+      color: $acct-text-secondary;
+    }
+
+    .text-danger {
+      color: #ef4444;
+    }
+
+    .btn-danger-ghost:not(:hover) {
+      background: transparent;
+      color: #ef4444;
+    }
+  }
+}
+
+// Affiliations Table
+.ide-redesign-main .affiliations-table {
+  background: $acct-bg-panel;
+  border: 1px solid $acct-border-subtle;
+  border-radius: 10px;
+  overflow: hidden;
+
+  .affiliations-table-cell {
+    color: $acct-text-secondary;
+    border-bottom: 1px solid $acct-border-subtle;
+  }
+
+  .affiliations-table-row-highlighted {
+    background: $acct-bg-hover;
+  }
+
+  .affiliations-table-label {
+    color: $acct-text-muted;
+  }
+}
+
+// Settings Widgets Container
+.ide-redesign-main .settings-widgets-container {
+  background: $acct-bg-panel;
+  border: 1px solid $acct-border-subtle;
+  border-radius: 12px;
+  overflow: hidden;
+
+  hr {
+    border-color: $acct-border-subtle;
+  }
+}
+
+.ide-redesign-main .settings-widget-container {
+  background: transparent;
+  border-bottom: 1px solid $acct-border-subtle;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  .description-container {
+    color: $acct-text-secondary;
+  }
+
+  .title-row h4 {
+    color: $acct-text-primary;
+  }
+
+  p {
+    color: $acct-text-muted;
+  }
+}
+
+// Security Row
+.ide-redesign-main .security-row {
+  background: $acct-bg-panel;
+  border: 1px solid $acct-border-subtle;
+  border-radius: 10px;
+  margin-bottom: var(--spacing-04);
+  color: $acct-text-secondary;
+
+  .line-header > b {
+    color: $acct-text-primary;
+  }
+
+  .icon {
+    color: $acct-text-secondary;
+  }
+
+  .text {
+    color: $acct-text-secondary;
+  }
+
+  // Keep green for configured status
+  .status-label {
+    &.status-label-configured {
+      background: var(--green-50);
+      color: #FFFFFF;
+    }
+
+    &.status-label-ready {
+      background: $acct-bg-hover;
+      color: $acct-text-secondary;
+    }
+  }
+}
+
+// Status Icons - Keep colors for status
+.ide-redesign-main .settings-widget-status-icon,
+.ide-redesign-main .dropbox-sync-icon {
+  &.status-success,
+  &.dropbox-sync-icon-success {
+    color: var(--green-50);
+  }
+
+  &.status-error,
+  &.dropbox-sync-icon-error {
+    color: #ef4444;
+  }
+
+  &.status-pending,
+  &.dropbox-sync-icon-updating {
+    color: #3b82f6;
+  }
+}
+
+// Unboxed Settings
+.ide-redesign-main .unboxed-setting-row {
+  background: $acct-bg-panel;
+  border: 1px solid $acct-border-subtle;
+  border-radius: 10px;
+  padding: var(--spacing-05);
+  margin-bottom: var(--spacing-04);
+
+  .unboxed-setting-description {
+    color: $acct-text-secondary;
+  }
+}
+
+// Link Accounts Button
+.ide-redesign-main .btn-link-accounts {
+  background: $acct-bg-panel;
+  border: 1px solid $acct-border-subtle;
+  color: $acct-text-secondary;
+  border-radius: 8px;
+
+  &:hover {
+    background: $acct-bg-hover;
+    color: $acct-text-primary;
+  }
+}
+
+// Git Bridge Table
+.ide-redesign-main .linking-git-bridge-revoke-button {
+  color: #ef4444;
+  background: transparent;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: 6px;
+
+  &:hover {
+    background: rgba(239, 68, 68, 0.15);
+    color: #f87171;
+  }
+}
+
+// Recaptcha Branding
+.ide-redesign-main #settings-page-root .recaptcha-branding {
+  color: $acct-text-muted;
+}

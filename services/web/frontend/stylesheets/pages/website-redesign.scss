@@ -1123,3 +1123,382 @@
     }
   }
 }
+
+// ============================================
+// Dark Theme Override - Blitch Monochrome Style
+// Community Edition Website Pages
+// Green buttons and accents preserved
+// ============================================
+
+$web-bg-dark: #0D0D0D;
+$web-bg-panel: #1C1C1C;
+$web-bg-elevated: #1f1f23;
+$web-bg-surface: #27272a;
+$web-bg-hover: #2e2e33;
+$web-text-primary: #FFFFFF;
+$web-text-secondary: #A0A0A0;
+$web-text-muted: #666666;
+$web-border-subtle: rgba(255, 255, 255, 0.08);
+$web-border-default: rgba(255, 255, 255, 0.12);
+
+// Transition timing like AI Chat
+$web-transition-fast: 0.15s ease;
+$web-transition-normal: 0.2s ease;
+$web-transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+.ide-redesign-main .website-redesign,
+.ide-redesign-main.website-redesign {
+  background: $web-bg-dark;
+  color: $web-text-secondary;
+
+  // Typography colors
+  h1, h2, h3, h4, h5, h6,
+  .h1, .h2, .h3, .h4, .h5, .h6 {
+    color: $web-text-primary;
+  }
+
+  p {
+    color: $web-text-secondary;
+  }
+
+  // Links
+  a:not(.btn) {
+    color: var(--green-50);
+    transition: color $web-transition-fast;
+
+    &:hover {
+      color: var(--green-40);
+    }
+  }
+
+  // Cards - Dark glass effect
+  .card {
+    --bs-card-bg: #{$web-bg-panel};
+    background: $web-bg-panel;
+    border: 1px solid $web-border-subtle;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+    transition: all $web-transition-smooth;
+
+    &:hover {
+      border-color: $web-border-default;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+      transform: translateY(-2px);
+    }
+
+    .card-body {
+      color: $web-text-secondary;
+    }
+  }
+
+  .page-content-card {
+    --bs-card-bg: transparent;
+    background: transparent;
+  }
+
+  // Info Cards
+  .info-cards .info-card-container .info-card {
+    background: $web-bg-panel;
+    border: 1px solid $web-border-subtle;
+    border-top: 4px solid var(--green-50);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+    transition: all $web-transition-smooth;
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    }
+
+    h3 {
+      color: $web-text-primary;
+    }
+
+    p {
+      color: $web-text-secondary;
+    }
+
+    .material-symbols {
+      color: var(--green-50);
+    }
+  }
+
+  // Plans Cards
+  .plans-cards .plans-card {
+    background: $web-bg-panel;
+    border: 1px solid $web-border-subtle;
+    transition: all $web-transition-smooth;
+
+    &:hover {
+      border-color: $web-border-default;
+    }
+
+    &.grey-border {
+      border: 2px solid $web-border-default;
+    }
+
+    &.blue-border {
+      border: 2px solid var(--green-50);
+
+      .plans-card-inner-title {
+        color: var(--green-50);
+      }
+    }
+
+    .plans-card-inner {
+      color: $web-text-secondary;
+
+      .plans-card-inner-title {
+        color: $web-text-primary;
+      }
+
+      ul li {
+        color: $web-text-secondary;
+      }
+    }
+  }
+
+  // Features Card
+  .features-card {
+    .features-card-description,
+    .features-card-description-list {
+      h3, h4 {
+        color: $web-text-primary;
+      }
+
+      p {
+        color: $web-text-secondary;
+      }
+
+      ul li {
+        color: $web-text-secondary;
+      }
+    }
+
+    .features-card-media video,
+    .features-card-media-right video {
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+      border: 1px solid $web-border-subtle;
+      border-radius: 12px;
+    }
+  }
+
+  // Customer Story
+  .customer-story-content {
+    .table-of-contents {
+      border-color: $web-border-subtle;
+
+      .heading {
+        color: var(--green-50);
+      }
+
+      li a {
+        color: $web-text-secondary;
+
+        &:hover {
+          color: $web-text-primary;
+        }
+      }
+    }
+
+    .story-details-section {
+      h3 {
+        color: $web-text-primary;
+      }
+
+      p {
+        color: $web-text-secondary;
+      }
+
+      .card-gray {
+        background: $web-bg-panel;
+        border: 1px solid $web-border-subtle;
+        border-radius: 12px;
+      }
+
+      .stats-card {
+        background: $web-bg-panel;
+        border: 1px solid $web-border-subtle;
+      }
+    }
+
+    .customer-quote {
+      border-left-color: var(--green-50);
+
+      blockquote {
+        color: $web-text-primary;
+      }
+
+      p {
+        color: $web-text-secondary;
+      }
+    }
+  }
+
+  // CTA Card
+  .cta-card-individual-customer {
+    background: $web-bg-panel;
+    border: 1px solid $web-border-subtle;
+
+    h2 {
+      color: $web-text-primary;
+    }
+
+    p {
+      color: $web-text-secondary;
+    }
+  }
+
+  // Security Info
+  .security-info {
+    h3 {
+      color: $web-text-primary;
+    }
+
+    p {
+      color: $web-text-secondary;
+    }
+  }
+
+  // Integrations Card
+  .integrations-card {
+    background: $web-bg-panel;
+    border: 1px solid $web-border-subtle;
+    border-radius: 16px;
+  }
+
+  // Resources
+  .resources .resources-card {
+    h3 {
+      color: $web-text-primary;
+    }
+
+    p {
+      color: $web-text-secondary;
+    }
+
+    a {
+      color: var(--green-50);
+
+      &:hover {
+        color: var(--green-40);
+      }
+    }
+  }
+
+  // Buttons - AI Chat Style with current colors
+  .btn {
+    border-radius: 10px;
+    transition: all $web-transition-smooth;
+    font-weight: 500;
+
+    &:hover {
+      transform: translateY(-2px);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+  }
+
+  .btn-primary {
+    background: var(--green-50);
+    border-color: var(--green-50);
+    color: #FFFFFF;
+    box-shadow: 0 2px 8px rgba(34, 197, 94, 0.25);
+
+    &:hover {
+      background: var(--green-40);
+      border-color: var(--green-40);
+      box-shadow: 0 4px 16px rgba(34, 197, 94, 0.35);
+    }
+
+    &:focus {
+      box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.2);
+    }
+  }
+
+  .btn-secondary {
+    background: $web-bg-surface;
+    border: 1px solid $web-border-default;
+    color: $web-text-secondary;
+
+    &:hover {
+      background: $web-bg-hover;
+      border-color: rgba(255, 255, 255, 0.2);
+      color: $web-text-primary;
+    }
+  }
+
+  .btn-blue {
+    background: var(--green-50);
+    border-color: var(--green-50);
+    color: #FFFFFF;
+    box-shadow: 0 2px 8px rgba(34, 197, 94, 0.25);
+
+    &:hover {
+      background: var(--green-40);
+      border-color: var(--green-40);
+      box-shadow: 0 4px 16px rgba(34, 197, 94, 0.35);
+    }
+  }
+
+  .btn-link {
+    color: var(--green-50);
+
+    &:hover {
+      color: var(--green-40);
+    }
+  }
+
+  // Inline Green Link
+  .inline-green-link {
+    color: var(--green-50);
+
+    &:hover {
+      color: var(--green-40);
+    }
+  }
+
+  // Content Alt sections
+  .content-alt {
+    background: $web-bg-panel;
+  }
+
+  // Page Header
+  .page-header {
+    color: $web-text-primary;
+    border-bottom-color: $web-border-subtle;
+  }
+
+  // Header Description
+  .header-description p {
+    color: $web-text-secondary;
+  }
+
+  // Badge Premium
+  .badge-premium {
+    background: var(--green-50);
+    color: #FFFFFF;
+  }
+
+  // Editor PDF Video
+  .editor-pdf-video video {
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    border: 1px solid $web-border-subtle;
+    border-radius: 12px;
+  }
+
+  // Organization Logos
+  .organization-logos-container {
+    .organization-logo {
+      filter: brightness(0) invert(0.7);
+      opacity: 0.7;
+      transition: all $web-transition-fast;
+
+      &:hover {
+        opacity: 1;
+        filter: brightness(0) invert(1);
+      }
+    }
+  }
+}

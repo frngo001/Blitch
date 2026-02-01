@@ -24,3 +24,144 @@
     z-index: 20;
   }
 }
+
+// ============================================
+// Dark Theme Override - Blitch Monochrome Style
+// Consistent with AI Chat, Team Chat, Settings
+// ============================================
+
+$toast-bg-dark: #1C1C1C;
+$toast-text-primary: #FFFFFF;
+$toast-text-secondary: #A0A0A0;
+$toast-text-muted: #666666;
+$toast-border-subtle: rgba(255, 255, 255, 0.08);
+$toast-border-default: rgba(255, 255, 255, 0.12);
+
+.ide-redesign-main {
+  .toast-container {
+    .toast,
+    .toast-content {
+      background: $toast-bg-dark;
+      border: 1px solid $toast-border-default;
+      border-radius: 10px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+      color: $toast-text-primary;
+
+      .toast-header {
+        background: transparent;
+        border-bottom: 1px solid $toast-border-subtle;
+        color: $toast-text-primary;
+        padding: 12px 16px;
+
+        strong {
+          color: $toast-text-primary;
+        }
+
+        small,
+        .text-muted {
+          color: $toast-text-muted !important;
+        }
+
+        .btn-close {
+          filter: invert(1);
+          opacity: 0.5;
+
+          &:hover {
+            opacity: 1;
+          }
+        }
+      }
+
+      .toast-body {
+        color: $toast-text-secondary;
+        padding: 12px 16px;
+
+        a {
+          color: $toast-text-primary;
+          text-decoration: underline;
+          text-decoration-color: rgba(255, 255, 255, 0.4);
+
+          &:hover {
+            text-decoration-color: rgba(255, 255, 255, 0.8);
+          }
+        }
+
+        .btn-primary {
+          background: var(--green-50);
+          border-color: var(--green-50);
+          color: #FFFFFF;
+
+          &:hover {
+            background: var(--green-40);
+            border-color: var(--green-40);
+          }
+        }
+
+        .btn-secondary {
+          background: #2A2A2A;
+          border: 1px solid $toast-border-default;
+          color: $toast-text-secondary;
+
+          &:hover {
+            background: #333;
+            color: $toast-text-primary;
+          }
+        }
+      }
+    }
+
+    // Toast type variants
+    .toast-success {
+      border-left: 3px solid var(--green-50);
+
+      .toast-header .material-symbols,
+      .toast-body .material-symbols {
+        color: var(--green-50);
+      }
+    }
+
+    .toast-error {
+      border-left: 3px solid #ef4444;
+
+      .toast-header .material-symbols,
+      .toast-body .material-symbols {
+        color: #ef4444;
+      }
+    }
+
+    .toast-warning {
+      border-left: 3px solid #eab308;
+
+      .toast-header .material-symbols,
+      .toast-body .material-symbols {
+        color: #eab308;
+      }
+    }
+
+    .toast-info {
+      border-left: 3px solid #3b82f6;
+
+      .toast-header .material-symbols,
+      .toast-body .material-symbols {
+        color: #3b82f6;
+      }
+    }
+  }
+
+  .global-toasts {
+    .toast,
+    .toast-content {
+      background: $toast-bg-dark;
+      border: 1px solid $toast-border-default;
+      border-radius: 10px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+      color: $toast-text-primary;
+      min-width: 300px;
+      max-width: 500px;
+
+      .toast-body {
+        color: $toast-text-secondary;
+      }
+    }
+  }
+}

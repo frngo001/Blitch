@@ -18,3 +18,53 @@
     margin-bottom: 0;
   }
 }
+
+// ============================================
+// Dark Theme Override - Blitch Monochrome Style
+// Notification Settings - Community Edition
+// Green accents preserved for checkboxes
+// ============================================
+
+$notif-bg-dark: #0D0D0D;
+$notif-bg-panel: #1C1C1C;
+$notif-bg-hover: #2A2A2A;
+$notif-text-primary: #FFFFFF;
+$notif-text-secondary: #A0A0A0;
+$notif-text-muted: #666666;
+$notif-border-subtle: rgba(255, 255, 255, 0.08);
+
+.ide-redesign-main .notification-settings-container {
+  background: $notif-bg-dark;
+  color: $notif-text-primary;
+
+  h2 {
+    color: $notif-text-primary;
+  }
+
+  h4 {
+    color: $notif-text-secondary;
+  }
+
+  .setting-container {
+    background: $notif-bg-panel;
+    border: 1px solid $notif-border-subtle;
+    border-radius: 10px;
+    padding: var(--spacing-05);
+    margin-bottom: var(--spacing-04);
+
+    label {
+      color: $notif-text-secondary;
+    }
+
+    p {
+      color: $notif-text-muted;
+    }
+  }
+
+  // Keep green for checkboxes
+  input[type="checkbox"] {
+    accent-color: var(--green-50);
+    background: $notif-bg-hover;
+    border: 1px solid $notif-border-subtle;
+  }
+}

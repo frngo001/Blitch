@@ -279,116 +279,197 @@ a.btn:visited {
 
 // ============================================
 // Dark Theme Override - Blitch Monochrome Style
-// Consistent with AI Chat, Team Chat, Settings
-// Green accents preserved for primary buttons
+// AI Chat Style Button Effects
+// Smooth transitions, hover transforms, box-shadows
+// Current colors preserved
 // ============================================
 
 $btn-bg-dark: #0D0D0D;
 $btn-bg-panel: #1C1C1C;
-$btn-bg-hover: #2A2A2A;
+$btn-bg-surface: #27272a;
+$btn-bg-hover: #2e2e33;
 $btn-text-primary: #FFFFFF;
 $btn-text-secondary: #A0A0A0;
 $btn-text-muted: #666666;
 $btn-border-subtle: rgba(255, 255, 255, 0.08);
 $btn-border-default: rgba(255, 255, 255, 0.12);
 
+// AI Chat style transitions
+$btn-transition-fast: 0.15s ease;
+$btn-transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
 .ide-redesign-main {
   .btn {
-    border-radius: 8px;
-    transition: all 0.15s;
+    border-radius: 10px;
+    font-weight: 500;
+    transition: all $btn-transition-smooth;
 
-    // Primary Button - Keep Green
+    // AI Chat style hover lift effect
+    &:hover:not(:disabled):not([disabled]) {
+      transform: translateY(-2px);
+    }
+
+    &:active:not(:disabled):not([disabled]) {
+      transform: translateY(0);
+    }
+
+    // Primary Button - Keep Green with AI Chat effects
     &.btn-primary {
       background: var(--green-50);
       border-color: var(--green-50);
       color: #FFFFFF;
+      box-shadow: 0 2px 8px rgba(34, 197, 94, 0.25);
 
       &:hover,
       &:focus {
         background: var(--green-40);
         border-color: var(--green-40);
+        box-shadow: 0 4px 16px rgba(34, 197, 94, 0.35);
       }
 
       &:active {
         background: var(--green-60);
         border-color: var(--green-60);
+        box-shadow: 0 2px 8px rgba(34, 197, 94, 0.25);
+      }
+
+      &:focus-visible {
+        box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.25);
       }
 
       &[disabled],
       &:disabled {
         background: var(--green-50);
         opacity: 0.5;
+        box-shadow: none;
+        transform: none;
       }
     }
 
-    // Secondary Button - Dark theme
+    // Secondary Button - Dark theme with AI Chat effects
     &.btn-secondary {
-      background: $btn-bg-panel;
+      background: $btn-bg-surface;
       border: 1px solid $btn-border-default;
       color: $btn-text-secondary;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 
       &:hover,
       &:focus {
         background: $btn-bg-hover;
-        border-color: $btn-border-default;
+        border-color: rgba(255, 255, 255, 0.2);
         color: $btn-text-primary;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
       }
 
       &:active {
         background: #333;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+      }
+
+      &:focus-visible {
+        box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
       }
 
       &[disabled],
       &:disabled {
         opacity: 0.5;
         color: $btn-text-muted;
+        box-shadow: none;
+        transform: none;
       }
     }
 
-    // Ghost Button
+    // Ghost Button with AI Chat effects
     &.btn-ghost {
       background: transparent;
       color: $btn-text-secondary;
-      border: none;
+      border: 1px solid transparent;
 
       &:hover,
       &:focus {
         background: $btn-bg-hover;
+        border-color: $btn-border-subtle;
         color: $btn-text-primary;
+      }
+
+      &:active {
+        background: $btn-bg-surface;
       }
     }
 
-    // Danger Button - Keep red
+    // Danger Button - Keep red with AI Chat effects
     &.btn-danger {
       background: #ef4444;
       border-color: #ef4444;
       color: #FFFFFF;
+      box-shadow: 0 2px 8px rgba(239, 68, 68, 0.25);
 
       &:hover,
       &:focus {
         background: #dc2626;
         border-color: #dc2626;
+        box-shadow: 0 4px 16px rgba(239, 68, 68, 0.35);
+      }
+
+      &:active {
+        background: #b91c1c;
+        box-shadow: 0 2px 8px rgba(239, 68, 68, 0.25);
+      }
+
+      &:focus-visible {
+        box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.25);
       }
     }
 
-    // Danger Ghost
+    // Danger Ghost with AI Chat effects
     &.btn-danger-ghost {
       background: transparent;
       color: #ef4444;
+      border: 1px solid transparent;
 
       &:hover,
       &:focus {
-        background: rgba(239, 68, 68, 0.15);
+        background: rgba(239, 68, 68, 0.12);
+        border-color: rgba(239, 68, 68, 0.2);
         color: #f87171;
+      }
+
+      &:active {
+        background: rgba(239, 68, 68, 0.18);
+      }
+    }
+
+    // Premium Button - Green gradient like AI Chat
+    &.btn-premium {
+      background: linear-gradient(135deg, var(--green-50) 0%, var(--green-40) 100%);
+      border: none;
+      color: #FFFFFF;
+      box-shadow: 0 2px 12px rgba(34, 197, 94, 0.3);
+
+      &:hover {
+        background: linear-gradient(135deg, var(--green-40) 0%, var(--green-30) 100%);
+        box-shadow: 0 4px 20px rgba(34, 197, 94, 0.4);
       }
     }
   }
 
-  // Link buttons
+  // Large button adjustments
+  .btn.btn-lg {
+    border-radius: 12px;
+    padding: var(--spacing-05) var(--spacing-08);
+  }
+
+  // Small button adjustments
+  .btn.btn-sm {
+    border-radius: 8px;
+  }
+
+  // Link buttons with AI Chat effects
   .btn-link {
     color: $btn-text-secondary;
     text-decoration: underline;
     text-decoration-color: rgba(255, 255, 255, 0.3);
+    transition: all $btn-transition-fast;
 
     &:hover,
     &:focus {
@@ -407,6 +488,7 @@ $btn-border-default: rgba(255, 255, 255, 0.12);
 
   .btn-inline-link {
     color: $btn-text-secondary;
+    transition: color $btn-transition-fast;
 
     &:hover,
     &:focus {
@@ -414,32 +496,47 @@ $btn-border-default: rgba(255, 255, 255, 0.12);
     }
   }
 
-  // Icon buttons
+  // Icon buttons with AI Chat effects
   .icon-button,
   .icon-button-small,
   .icon-button-large {
     color: $btn-text-secondary;
     background: transparent;
-    border: none;
-    border-radius: 8px;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    transition: all $btn-transition-smooth;
 
     &:hover {
       background: $btn-bg-hover;
+      border-color: $btn-border-subtle;
       color: $btn-text-primary;
+      transform: translateY(-1px);
+    }
+
+    &:active {
+      transform: translateY(0);
+      background: $btn-bg-surface;
     }
   }
 
-  // Copy button
+  // Copy button with AI Chat effects
   .copy-button {
-    background: $btn-bg-panel;
+    background: $btn-bg-surface;
     color: $btn-text-secondary;
     border: 1px solid $btn-border-subtle;
-    border-radius: 6px;
+    border-radius: 8px;
+    transition: all $btn-transition-smooth;
 
     &:hover {
       background: var(--green-50);
       color: #FFFFFF;
       border-color: var(--green-50);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
+    }
+
+    &:active {
+      transform: translateY(0);
     }
   }
 
@@ -458,6 +555,24 @@ $btn-border-default: rgba(255, 255, 255, 0.12);
   .button-content {
     .material-symbols {
       color: inherit;
+      transition: transform $btn-transition-fast;
+    }
+  }
+
+  // Hover effect for icons in buttons
+  .btn:hover .button-content .material-symbols {
+    transform: scale(1.05);
+  }
+
+  // Social buttons
+  .btn.btn-social {
+    background: $btn-bg-surface;
+    border: 1px solid $btn-border-default;
+    color: $btn-text-secondary;
+
+    &:hover {
+      background: $btn-bg-hover;
+      color: $btn-text-primary;
     }
   }
 }
