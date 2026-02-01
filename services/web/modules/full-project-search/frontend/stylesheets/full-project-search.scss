@@ -354,3 +354,428 @@
     }
   } */
 }
+
+// ============================================
+// Premium Dark Theme - AI Chat Design Style
+// Search Panel - Community Edition
+// Glassmorphism, animations, green accents
+// ============================================
+
+$search-bg-primary: #0f0f10;
+$search-bg-secondary: #18181b;
+$search-bg-elevated: #1f1f23;
+$search-bg-surface: #27272a;
+$search-bg-hover: #2e2e33;
+$search-bg-input: #2C2C2C;
+
+$search-border-subtle: rgba(255, 255, 255, 0.06);
+$search-border-default: rgba(255, 255, 255, 0.1);
+$search-border-strong: rgba(255, 255, 255, 0.15);
+
+$search-text-primary: #fafafa;
+$search-text-secondary: #a1a1aa;
+$search-text-tertiary: #71717a;
+
+$search-accent-green: #22c55e;
+$search-accent-green-light: #4ade80;
+$search-accent-green-dark: #16a34a;
+
+$search-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+$search-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+$search-shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
+
+$search-radius-sm: 8px;
+$search-radius-md: 12px;
+$search-radius-lg: 16px;
+$search-radius-full: 9999px;
+
+$search-transition-fast: 0.15s ease;
+$search-transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+// Apply premium dark theme to search panel
+.ide-redesign-main .full-project-search,
+.ide-redesign-main .full-project-search[data-bs-theme='dark'] {
+  // Override CSS variables with AI Chat colors
+  --full-project-search-bg-color: #{$search-bg-primary};
+  --full-project-search-color: #{$search-text-secondary};
+  --full-project-search-results-bg-color: #{$search-bg-primary};
+  --full-project-search-selected-hit-bg-color: #{$search-accent-green};
+  --full-project-search-selected-hit-color: #FFFFFF;
+  --matched-hit-highlight-color: rgba(#{red($search-accent-green)}, #{green($search-accent-green)}, #{blue($search-accent-green)}, 0.3);
+  --matched-hit-selected-highlight-color: #{$search-accent-green};
+  --matched-hit-selected-unfocused-highlight-color: #{$search-bg-surface};
+  --collapsible-file-header-count-color: #{$search-text-secondary};
+  --collapsible-file-header-count-bg-color: #{$search-bg-surface};
+  --search-modifier-checked-bg: #{$search-accent-green};
+  --search-modifier-hover-color: #{$search-bg-hover};
+  --full-project-search-border-color: #{$search-border-subtle};
+  --collapsible-file-header-hover-bg: #{$search-bg-hover};
+  --matched-hit-highlight-text-color: #{$search-text-primary};
+  --matched-file-hit-hover-bg: #{$search-bg-hover};
+  --search-modifier-checked-color: #FFFFFF;
+  --search-modifier-color: #{$search-text-secondary};
+  --panel-heading-color: #{$search-text-primary};
+
+  background: $search-bg-primary !important;
+  border-right: 1px solid $search-border-subtle;
+
+  // Panel Header - Premium style
+  .full-project-search-heading {
+    background: transparent;
+    padding: 16px;
+    border-bottom: 1px solid $search-border-subtle;
+
+    .panel-heading-label {
+      color: $search-text-primary;
+      font-weight: 600;
+      font-size: 14px;
+      letter-spacing: -0.01em;
+    }
+  }
+
+  // Close Button - Premium style
+  .panel-heading-close-button {
+    color: $search-text-tertiary;
+    background: transparent;
+    border: none;
+    width: 32px;
+    height: 32px;
+    border-radius: $search-radius-sm;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all $search-transition-fast;
+
+    &:hover,
+    &:focus {
+      color: $search-text-primary;
+      background: $search-bg-hover;
+    }
+  }
+
+  // Search Form Container
+  .full-project-search-form {
+    padding: 16px;
+    background: transparent;
+    border-bottom: 1px solid $search-border-subtle !important;
+  }
+
+  // Input Group - Premium glassmorphism style
+  .input-group {
+    display: flex;
+    gap: 8px;
+
+    input[type='search'],
+    input[type='text'],
+    .form-control {
+      background: $search-bg-surface !important;
+      border: 1px solid $search-border-subtle !important;
+      color: $search-text-primary !important;
+      border-radius: $search-radius-sm !important;
+      padding: 10px 14px;
+      font-size: 14px;
+      transition: all $search-transition-fast;
+      flex: 1;
+
+      &::placeholder {
+        color: $search-text-tertiary !important;
+      }
+
+      &:hover:not(:focus) {
+        border-color: $search-border-default !important;
+      }
+
+      &:focus {
+        border-color: $search-accent-green !important;
+        outline: none;
+        box-shadow: 0 0 0 3px rgba($search-accent-green, 0.15) !important;
+      }
+    }
+
+    // Search Button - Premium gradient style
+    .btn,
+    button[type='submit'] {
+      background: linear-gradient(135deg, $search-accent-green 0%, $search-accent-green-dark 100%) !important;
+      border: none !important;
+      color: #FFFFFF !important;
+      border-radius: $search-radius-sm !important;
+      padding: 10px 20px;
+      font-weight: 600;
+      font-size: 14px;
+      box-shadow: $search-shadow-md, 0 0 20px rgba($search-accent-green, 0.25);
+      transition: all $search-transition-smooth;
+      white-space: nowrap;
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: $search-shadow-lg, 0 0 30px rgba($search-accent-green, 0.35);
+      }
+
+      &:active {
+        transform: translateY(0);
+      }
+
+      &:disabled {
+        opacity: 0.5;
+        transform: none;
+        box-shadow: none;
+      }
+    }
+  }
+
+  // Search Modifiers (Aa, [.*], W) - Premium pill style
+  .full-project-search-modifiers {
+    margin-top: 12px;
+    gap: 8px !important;
+
+    .form-check-label {
+      background: $search-bg-surface;
+      border: 1px solid $search-border-subtle;
+      color: $search-text-secondary !important;
+      border-radius: $search-radius-sm !important;
+      width: 36px !important;
+      height: 36px !important;
+      font-size: 13px !important;
+      font-weight: 500;
+      transition: all $search-transition-fast;
+
+      &:hover {
+        background: $search-bg-hover !important;
+        color: $search-text-primary !important;
+        border-color: $search-border-default;
+      }
+    }
+
+    input:checked ~ .form-check-label {
+      background: $search-accent-green !important;
+      border-color: $search-accent-green !important;
+      color: #FFFFFF !important;
+      box-shadow: 0 2px 8px rgba($search-accent-green, 0.3);
+    }
+
+    input:focus-visible ~ .form-check-label {
+      box-shadow: 0 0 0 3px rgba($search-accent-green, 0.3);
+    }
+  }
+
+  // Match Counts - Subtle style
+  .match-counts {
+    color: $search-text-tertiary;
+    font-size: 12px;
+    padding: 12px 16px !important;
+    border-bottom: 1px solid $search-border-subtle;
+  }
+
+  // Results Area
+  .matched-files {
+    background: $search-bg-primary !important;
+    padding: 8px !important;
+
+    // Custom scrollbar
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: $search-border-default;
+      border-radius: 3px;
+
+      &:hover {
+        background: $search-border-strong;
+      }
+    }
+  }
+
+  // File Headers - Collapsible sections
+  .collapsible-file-header {
+    background: transparent !important;
+    color: $search-text-primary;
+    padding: 10px 12px;
+    border-radius: $search-radius-sm !important;
+    transition: all $search-transition-fast;
+    font-weight: 500;
+
+    &:hover {
+      background: $search-bg-hover !important;
+    }
+
+    // Count badge
+    .collapsible-file-header-count {
+      background: $search-bg-surface !important;
+      color: $search-text-secondary !important;
+      border-radius: $search-radius-full;
+      padding: 2px 8px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    // Expand/collapse icon
+    .material-symbols {
+      color: $search-text-tertiary;
+      transition: color $search-transition-fast;
+    }
+
+    &:hover .material-symbols {
+      color: $search-text-primary;
+    }
+  }
+
+  // Matched file section
+  .matched-file {
+    margin-bottom: 4px;
+  }
+
+  // Hit results tree line
+  .matched-file-hits {
+    &::before {
+      background-color: $search-border-subtle !important;
+    }
+  }
+
+  // Individual hit results
+  .matched-file-hit {
+    background: transparent !important;
+    color: $search-text-secondary !important;
+    padding: 8px 12px !important;
+    border-radius: $search-radius-sm !important;
+    transition: all $search-transition-fast;
+    margin: 2px 0;
+
+    &:hover {
+      background: $search-bg-hover !important;
+      color: $search-text-primary !important;
+    }
+
+    // Selected hit
+    &.matched-file-hit-selected {
+      background: rgba($search-accent-green, 0.15) !important;
+      color: $search-accent-green !important;
+
+      &:hover {
+        background: rgba($search-accent-green, 0.2) !important;
+      }
+
+      .matched-line-number {
+        color: $search-accent-green;
+        opacity: 0.7;
+      }
+
+      .matched-hit-highlight {
+        background: rgba($search-accent-green, 0.3) !important;
+        color: $search-text-primary !important;
+      }
+    }
+  }
+
+  // Line numbers
+  .matched-line-number {
+    color: $search-text-tertiary !important;
+    font-size: 12px;
+    min-width: 32px;
+  }
+
+  // Highlight matches
+  .matched-hit-highlight {
+    background: rgba($search-accent-green, 0.2) !important;
+    color: $search-accent-green-light !important;
+    border-radius: 3px;
+    padding: 1px 3px;
+  }
+
+  // Notification messages
+  .notification {
+    background: rgba($search-bg-surface, 0.8) !important;
+    backdrop-filter: blur(12px);
+    border: 1px solid $search-border-subtle !important;
+    border-radius: $search-radius-md;
+    color: $search-text-secondary;
+    margin: 12px !important;
+
+    .notification-icon {
+      color: $search-text-tertiary;
+    }
+
+    &.notification-type-info {
+      border-color: rgba($search-accent-green, 0.2) !important;
+
+      .notification-icon {
+        color: $search-accent-green;
+      }
+    }
+
+    &.notification-type-warning {
+      border-color: rgba(234, 179, 8, 0.2) !important;
+
+      .notification-icon {
+        color: #FBBF24;
+      }
+    }
+
+    &.notification-type-error {
+      border-color: rgba(239, 68, 68, 0.2) !important;
+
+      .notification-icon {
+        color: #F87171;
+      }
+    }
+  }
+
+  // Replace form if exists
+  .full-project-search-replace {
+    padding: 12px 16px;
+    border-top: 1px solid $search-border-subtle;
+
+    input {
+      background: $search-bg-surface !important;
+      border: 1px solid $search-border-subtle !important;
+      color: $search-text-primary !important;
+      border-radius: $search-radius-sm;
+      padding: 10px 14px;
+
+      &:focus {
+        border-color: $search-accent-green !important;
+        box-shadow: 0 0 0 3px rgba($search-accent-green, 0.15) !important;
+      }
+    }
+
+    .btn-secondary {
+      background: $search-bg-surface !important;
+      border: 1px solid $search-border-default !important;
+      color: $search-text-secondary !important;
+      border-radius: $search-radius-sm;
+      transition: all $search-transition-fast;
+
+      &:hover {
+        background: $search-bg-hover !important;
+        color: $search-text-primary !important;
+      }
+    }
+  }
+
+  // Empty state
+  .full-project-search-empty {
+    color: $search-text-tertiary;
+    padding: 40px 20px;
+    text-align: center;
+
+    .material-symbols {
+      font-size: 48px;
+      opacity: 0.5;
+      margin-bottom: 12px;
+    }
+
+    p {
+      color: $search-text-secondary;
+    }
+  }
+
+  // Loading state
+  .loading-indicator,
+  .spinner-border {
+    color: $search-accent-green;
+  }
+}

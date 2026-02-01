@@ -423,40 +423,73 @@ body {
 }
 
 // ============================================
-// Dark Theme Override - Blitch Monochrome Style
+// Premium Dark Theme - AI Chat Style Design
 // Project List / Dashboard - Community Edition
-// Green accents preserved for actions
+// Modern glassmorphism, animations, micro-interactions
+// Green accents preserved
 // ============================================
 
-$ds-bg-dark: #0D0D0D;
-$ds-bg-panel: #1C1C1C;
+// Design Tokens - Exact match to AI Chat
+$ds-bg-primary: #0f0f10;
+$ds-bg-secondary: #18181b;
+$ds-bg-elevated: #1f1f23;
 $ds-bg-surface: #27272a;
 $ds-bg-hover: #2e2e33;
-$ds-text-primary: #FFFFFF;
-$ds-text-secondary: #A0A0A0;
-$ds-text-muted: #666666;
-$ds-border-subtle: rgba(255, 255, 255, 0.08);
-$ds-border-default: rgba(255, 255, 255, 0.12);
+$ds-bg-input: #2C2C2C;
 
-// Transition timing like AI Chat
+$ds-border-subtle: rgba(255, 255, 255, 0.06);
+$ds-border-default: rgba(255, 255, 255, 0.1);
+$ds-border-strong: rgba(255, 255, 255, 0.15);
+
+$ds-text-primary: #fafafa;
+$ds-text-secondary: #a1a1aa;
+$ds-text-tertiary: #71717a;
+
+// Accent - Green (preserved as requested)
+$ds-accent-green: #22c55e;
+$ds-accent-green-light: #4ade80;
+$ds-accent-green-dark: #16a34a;
+
+$ds-gradient-green: linear-gradient(135deg, $ds-accent-green 0%, $ds-accent-green-dark 100%);
+$ds-gradient-glow: linear-gradient(135deg, rgba($ds-accent-green, 0.15) 0%, rgba($ds-accent-green-dark, 0.15) 100%);
+
+$ds-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+$ds-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+$ds-shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
+$ds-shadow-glow: 0 0 40px rgba($ds-accent-green, 0.15);
+
+$ds-radius-sm: 8px;
+$ds-radius-md: 12px;
+$ds-radius-lg: 16px;
+$ds-radius-xl: 20px;
+$ds-radius-full: 9999px;
+
+// Transitions - AI Chat timing
 $ds-transition-fast: 0.15s ease;
+$ds-transition-normal: 0.2s ease;
 $ds-transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
 // Apply dark theme directly to project page (no .ide-redesign-main required)
 .project-ds-nav-page {
-  background: $ds-bg-dark !important;
+  background: $ds-bg-primary !important;
   color: $ds-text-secondary;
+  min-height: 100vh;
 
-  // Navbar Override
+  // Navbar Override - Premium glassmorphism style
   .navbar-default {
-    background: $ds-bg-dark;
+    background: rgba($ds-bg-primary, 0.85) !important;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border-bottom: 1px solid $ds-border-subtle;
+    transition: all $ds-transition-smooth;
 
     .navbar-brand .navbar-title {
       color: $ds-text-primary;
+      font-weight: 600;
+      letter-spacing: -0.01em;
 
       &:hover {
-        color: $ds-text-secondary;
+        color: $ds-accent-green;
       }
     }
 
@@ -464,22 +497,29 @@ $ds-transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       > .nav-link,
       > .dropdown-toggle {
         color: $ds-text-secondary;
-        border-color: $ds-border-subtle;
-        border-radius: 10px;
+        border-color: transparent;
+        border-radius: $ds-radius-md;
         transition: all $ds-transition-smooth;
+        font-weight: 500;
+        padding: 8px 16px;
 
         &:hover,
-        &:focus,
-        &.show {
+        &:focus {
           color: $ds-text-primary;
           background: $ds-bg-hover;
           transform: translateY(-1px);
+        }
+
+        &.show {
+          color: $ds-text-primary;
+          background: $ds-bg-surface;
+          border-color: $ds-border-default;
         }
       }
 
       &.subdued > .nav-link,
       &.subdued > .dropdown-toggle {
-        color: $ds-text-muted;
+        color: $ds-text-tertiary;
 
         &:hover {
           color: $ds-text-primary;
@@ -488,31 +528,42 @@ $ds-transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       }
 
       &.primary > .nav-link {
-        background: var(--green-50);
+        background: $ds-gradient-green;
         color: #FFFFFF;
-        border-color: var(--green-50);
-        box-shadow: 0 2px 8px rgba(34, 197, 94, 0.25);
+        border: none;
+        box-shadow: $ds-shadow-md, 0 0 20px rgba($ds-accent-green, 0.3);
+        font-weight: 600;
 
         &:hover {
-          background: var(--green-40);
-          border-color: var(--green-40);
-          box-shadow: 0 4px 16px rgba(34, 197, 94, 0.35);
+          transform: translateY(-2px);
+          box-shadow: $ds-shadow-lg, 0 0 30px rgba($ds-accent-green, 0.4);
+        }
+
+        &:active {
+          transform: translateY(0);
         }
       }
     }
 
-    // Mobile menu
+    // Mobile menu with glassmorphism
     .navbar-collapse {
-      background: $ds-bg-dark;
+      background: rgba($ds-bg-primary, 0.95);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
 
       .navbar-nav > li .dropdown-menu.show {
-        background: $ds-bg-panel;
-        border-radius: 10px;
+        background: $ds-bg-secondary;
+        border: 1px solid $ds-border-default;
+        border-radius: $ds-radius-lg;
+        box-shadow: $ds-shadow-lg;
+        backdrop-filter: blur(16px);
 
         .dropdown-item {
           color: $ds-text-secondary;
-          border-radius: 8px;
+          border-radius: $ds-radius-sm;
           transition: all $ds-transition-fast;
+          margin: 2px 4px;
+          padding: 10px 14px;
 
           &:hover {
             color: $ds-text-primary;
@@ -524,38 +575,98 @@ $ds-transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
     .navbar-toggler {
       color: $ds-text-secondary;
+      border-radius: $ds-radius-sm;
+      transition: all $ds-transition-fast;
 
       &:not(.collapsed) {
-        background: $ds-bg-hover;
-        color: $ds-text-primary;
+        background: $ds-accent-green;
+        color: #FFFFFF;
       }
     }
   }
 
-  // Project List Wrapper
+  // Project List Wrapper - Main layout
   .project-list-wrapper {
-    background: $ds-bg-dark;
+    background: $ds-bg-primary;
+    min-height: calc(100vh - 60px);
 
     hr {
       border-color: $ds-border-subtle;
+      opacity: 1;
     }
 
-    // Sidebar
+    // Sidebar with subtle gradient
     .project-list-sidebar-wrapper-react {
-      background: $ds-bg-dark;
+      background: linear-gradient(180deg, $ds-bg-primary 0%, rgba($ds-bg-secondary, 0.5) 100%);
+      border-right: 1px solid $ds-border-subtle;
 
-      // New Project Dropdown
+      // New Project Button - Premium CTA
       .new-project-dropdown {
         border-bottom-color: $ds-border-subtle;
+        padding-bottom: 16px;
+
+        > button,
+        > .btn {
+          background: $ds-gradient-green !important;
+          border: none !important;
+          color: #FFFFFF !important;
+          border-radius: $ds-radius-md !important;
+          font-weight: 600;
+          box-shadow: $ds-shadow-md, 0 0 20px rgba($ds-accent-green, 0.25);
+          transition: all $ds-transition-smooth;
+          padding: 10px 20px;
+
+          &:hover {
+            transform: translateY(-2px);
+            box-shadow: $ds-shadow-lg, 0 0 30px rgba($ds-accent-green, 0.35);
+          }
+
+          &:active {
+            transform: translateY(0);
+          }
+        }
 
         > .dropdown-menu {
-          background: $ds-bg-panel;
+          background: rgba($ds-bg-secondary, 0.95);
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
           border: 1px solid $ds-border-default;
-          border-radius: 12px;
-          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+          border-radius: $ds-radius-lg;
+          box-shadow: $ds-shadow-lg, 0 0 60px rgba(0, 0, 0, 0.3);
+          padding: 8px;
+          margin-top: 8px;
+
+          .dropdown-item {
+            color: $ds-text-secondary;
+            border-radius: $ds-radius-sm;
+            transition: all $ds-transition-fast;
+            padding: 10px 14px;
+            margin: 2px 0;
+
+            &:hover {
+              background: $ds-bg-hover;
+              color: $ds-text-primary;
+              transform: translateX(4px);
+            }
+
+            .material-symbols {
+              color: $ds-text-tertiary;
+              transition: color $ds-transition-fast;
+            }
+
+            &:hover .material-symbols {
+              color: $ds-accent-green;
+            }
+          }
+
+          .dropdown-divider {
+            border-color: $ds-border-subtle;
+            margin: 8px 0;
+          }
         }
       }
 
+      // Custom scrollbar - Premium style
       .project-list-sidebar-scroll {
         &::-webkit-scrollbar {
           width: 6px;
@@ -566,63 +677,108 @@ $ds-transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         &::-webkit-scrollbar-thumb {
-          background: #333;
+          background: $ds-border-default;
           border-radius: 3px;
+
+          &:hover {
+            background: $ds-border-strong;
+          }
         }
       }
 
       .ds-nav-sidebar-lower {
         border-top-color: $ds-border-subtle;
+        padding-top: 16px;
       }
 
+      // Survey notification card
       .survey-notification {
-        background: $ds-bg-panel;
+        background: rgba($ds-bg-surface, 0.6);
+        backdrop-filter: blur(12px);
         border: 1px solid $ds-border-subtle;
         color: $ds-text-secondary;
+        border-radius: $ds-radius-lg;
+        transition: all $ds-transition-smooth;
+
+        &:hover {
+          border-color: $ds-border-default;
+        }
 
         .notification-body .btn {
           background: $ds-bg-surface;
           border: 1px solid $ds-border-default;
           color: $ds-text-secondary;
-          border-radius: 8px;
+          border-radius: $ds-radius-sm;
           transition: all $ds-transition-smooth;
 
           &:hover {
             background: $ds-bg-hover;
             color: $ds-text-primary;
-            transform: translateY(-1px);
+            transform: translateY(-2px);
+            box-shadow: $ds-shadow-sm;
           }
         }
       }
     }
 
-    // Sidebar Filters
+    // Sidebar Filters - Premium list style
     ul.project-list-filters {
       > li {
+        margin: 2px 0;
+
         > button {
           color: $ds-text-secondary;
-          border-radius: 8px;
+          border-radius: $ds-radius-sm;
           transition: all $ds-transition-fast;
+          font-weight: 500;
+          position: relative;
+          overflow: hidden;
+
+          &::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 3px;
+            height: 0;
+            background: $ds-accent-green;
+            border-radius: 0 2px 2px 0;
+            transition: height $ds-transition-fast;
+          }
 
           &:hover {
-            background: $ds-bg-hover;
+            background: rgba($ds-bg-hover, 0.5);
             color: $ds-text-primary;
+
+            &::before {
+              height: 60%;
+            }
           }
         }
 
         &.active button {
-          background: var(--green-50);
-          color: #FFFFFF;
+          background: rgba($ds-accent-green, 0.15);
+          color: $ds-accent-green;
           font-weight: 600;
+
+          &::before {
+            height: 70%;
+          }
         }
       }
 
       .dropdown-header {
-        color: $ds-text-muted;
+        color: $ds-text-tertiary;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        font-weight: 600;
       }
 
       .tag-menu button.dropdown-toggle {
-        color: $ds-text-muted;
+        color: $ds-text-tertiary;
+        transition: all $ds-transition-fast;
 
         &:hover,
         &:active,
@@ -633,110 +789,155 @@ $ds-transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       }
     }
 
-    // Main Content Area
+    // Main Content Area with glassmorphism panel
     .project-ds-nav-content-and-messages {
       > * {
         border-left-color: $ds-border-subtle;
       }
 
       .project-ds-nav-content {
-        background: $ds-bg-panel;
+        background: $ds-bg-secondary;
         border-color: $ds-border-subtle;
+        position: relative;
+
+        // Subtle gradient overlay at top
+        &::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          height: 120px;
+          background: linear-gradient(180deg, rgba($ds-accent-green, 0.03) 0%, transparent 100%);
+          pointer-events: none;
+          border-radius: inherit;
+        }
       }
 
       .cookie-banner {
-        background: $ds-bg-panel;
+        background: rgba($ds-bg-secondary, 0.9);
+        backdrop-filter: blur(12px);
         border: 1px solid $ds-border-subtle;
+        border-radius: $ds-radius-md;
       }
     }
 
-    // Project Table
+    // Project Table - Premium data grid style
     .project-dash-table {
       .btn-link {
-        color: $ds-text-secondary;
+        color: $ds-text-tertiary;
+        border-radius: $ds-radius-sm;
+        transition: all $ds-transition-fast;
 
         &:hover,
         &:focus {
           background: $ds-bg-hover !important;
           color: $ds-text-primary;
+          transform: scale(1.05);
         }
       }
 
       .dash-cell-name a {
         color: $ds-text-primary !important;
-      }
-
-      // Table rows
-      tr {
-        border-color: $ds-border-subtle;
+        font-weight: 500;
+        transition: color $ds-transition-fast;
 
         &:hover {
-          background: rgba(255, 255, 255, 0.02);
+          color: $ds-accent-green !important;
+        }
+      }
+
+      // Table rows with hover animation
+      tr {
+        border-color: $ds-border-subtle;
+        transition: all $ds-transition-fast;
+
+        &:hover {
+          background: rgba($ds-accent-green, 0.03) !important;
+
+          td {
+            border-color: $ds-border-default;
+          }
         }
       }
 
       th {
-        background: $ds-bg-surface;
-        color: $ds-text-primary;
-        border-color: $ds-border-subtle;
+        background: $ds-bg-surface !important;
+        color: $ds-text-primary !important;
+        border-color: $ds-border-subtle !important;
+        font-weight: 600;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
       }
 
       td {
-        color: $ds-text-secondary;
-        border-color: $ds-border-subtle;
+        color: $ds-text-secondary !important;
+        border-color: $ds-border-subtle !important;
+        transition: all $ds-transition-fast;
       }
     }
   }
 
-  // Icon Dropdown
+  // Icon Dropdown - Premium style
   .ds-nav-icon-dropdown {
     .dropdown-toggle {
       color: $ds-text-secondary;
-      border-radius: 10px;
+      border-radius: $ds-radius-md;
       transition: all $ds-transition-fast;
 
       &:hover {
         background: $ds-bg-hover;
         color: $ds-text-primary;
+        transform: scale(1.05);
       }
 
       &.show {
-        background: var(--green-50);
+        background: $ds-accent-green;
         color: #FFFFFF;
+        box-shadow: 0 0 16px rgba($ds-accent-green, 0.3);
       }
     }
   }
 
-  // DS Nav Name
+  // DS Nav Name - Section title style
   .ds-nav-ds-name {
-    color: $ds-text-muted;
+    color: $ds-text-tertiary;
 
     span {
-      color: $ds-text-muted;
+      color: $ds-text-tertiary;
+      font-size: 10px;
+      letter-spacing: 0.08em;
     }
   }
 
-  // Add Affiliation
+  // Add Affiliation link
   .add-affiliation {
     color: $ds-text-secondary;
+    transition: color $ds-transition-fast;
 
     &:hover {
-      color: var(--green-50);
+      color: $ds-accent-green;
     }
   }
 }
 
-// Theme Toggle - Dark version
+// Theme Toggle - Premium pill style
 .project-ds-nav-page .theme-toggle,
 .ide-redesign-main .theme-toggle {
   color: $ds-text-secondary;
+  padding: 12px 16px;
+  border-radius: $ds-radius-md;
+  transition: all $ds-transition-fast;
 
   &:hover {
     color: $ds-text-primary;
+    background: rgba($ds-bg-hover, 0.5);
   }
 
   legend {
     color: $ds-text-secondary;
+    font-weight: 500;
   }
 }
 
@@ -744,13 +945,17 @@ $ds-transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 .ide-redesign-main .theme-toggle-radios {
   background: $ds-bg-surface;
   border: 1px solid $ds-border-subtle;
+  border-radius: $ds-radius-full;
+  padding: 3px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 .project-ds-nav-page .theme-toggle-radio,
 .ide-redesign-main .theme-toggle-radio {
   label {
-    color: $ds-text-secondary;
+    color: $ds-text-tertiary;
     transition: all $ds-transition-fast;
+    padding: 6px 10px;
 
     &:hover {
       color: $ds-text-primary;
@@ -758,64 +963,80 @@ $ds-transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   input:checked + label {
-    background: var(--green-50);
+    background: $ds-accent-green;
     color: #FFFFFF;
+    box-shadow: 0 2px 8px rgba($ds-accent-green, 0.3);
   }
 }
 
 // ============================================
-// Additional Dark Theme Styles for Project Page
-// Notification Banner, Search, Inputs, Buttons
+// Additional Premium Styles for Project Page
+// Notifications, Forms, Tables, Cards, Modals
+// AI Chat Design Language
 // ============================================
 
 .project-ds-nav-page {
-  // Notification/Alert Banner
+  // Notification/Alert Banners - Premium glassmorphism
   .user-notifications,
   .notification,
   .alert {
-    background: $ds-bg-panel !important;
+    background: rgba($ds-bg-secondary, 0.8) !important;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border: 1px solid $ds-border-subtle !important;
-    border-radius: 12px;
+    border-radius: $ds-radius-lg;
     color: $ds-text-secondary;
+    padding: 16px 20px;
+    transition: all $ds-transition-smooth;
+
+    &:hover {
+      border-color: $ds-border-default !important;
+    }
 
     a {
-      color: var(--green-50);
+      color: $ds-accent-green;
+      font-weight: 500;
 
       &:hover {
-        color: var(--green-40);
+        color: $ds-accent-green-light;
       }
     }
 
+    // Alert variants with colored glow
     &.alert-warning {
-      background: rgba(234, 179, 8, 0.1) !important;
-      border-color: rgba(234, 179, 8, 0.2) !important;
-      color: #F59E0B;
+      background: rgba(234, 179, 8, 0.08) !important;
+      border-color: rgba(234, 179, 8, 0.15) !important;
+      color: #FBBF24;
+      box-shadow: 0 0 20px rgba(234, 179, 8, 0.1);
     }
 
     &.alert-info {
-      background: rgba(34, 197, 94, 0.1) !important;
-      border-color: rgba(34, 197, 94, 0.2) !important;
-      color: var(--green-50);
+      background: rgba($ds-accent-green, 0.08) !important;
+      border-color: rgba($ds-accent-green, 0.15) !important;
+      color: $ds-accent-green;
+      box-shadow: 0 0 20px rgba($ds-accent-green, 0.1);
     }
 
     &.alert-danger {
-      background: rgba(239, 68, 68, 0.1) !important;
-      border-color: rgba(239, 68, 68, 0.2) !important;
-      color: #EF4444;
+      background: rgba(239, 68, 68, 0.08) !important;
+      border-color: rgba(239, 68, 68, 0.15) !important;
+      color: #F87171;
+      box-shadow: 0 0 20px rgba(239, 68, 68, 0.1);
     }
 
     &.alert-success {
-      background: rgba(34, 197, 94, 0.1) !important;
-      border-color: rgba(34, 197, 94, 0.2) !important;
-      color: var(--green-50);
+      background: rgba($ds-accent-green, 0.08) !important;
+      border-color: rgba($ds-accent-green, 0.15) !important;
+      color: $ds-accent-green;
+      box-shadow: 0 0 20px rgba($ds-accent-green, 0.1);
     }
 
     .btn {
-      border-radius: 8px;
+      border-radius: $ds-radius-sm;
       transition: all $ds-transition-smooth;
 
       &:hover {
-        transform: translateY(-1px);
+        transform: translateY(-2px);
       }
     }
 
@@ -827,48 +1048,107 @@ $ds-transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       &:hover {
         background: $ds-bg-hover;
         color: $ds-text-primary;
+        box-shadow: $ds-shadow-sm;
       }
     }
   }
 
-  // Search Input
+  // Form Controls - Premium input style
   input[type="text"],
   input[type="search"],
+  input[type="email"],
+  input[type="password"],
+  textarea,
+  select,
   .form-control {
     background: $ds-bg-surface !important;
     border: 1px solid $ds-border-subtle !important;
     color: $ds-text-primary !important;
-    border-radius: 8px;
-    transition: border-color $ds-transition-fast;
+    border-radius: $ds-radius-sm;
+    transition: all $ds-transition-fast;
+    padding: 10px 14px;
+    font-size: 14px;
 
     &::placeholder {
-      color: $ds-text-muted !important;
+      color: $ds-text-tertiary !important;
+    }
+
+    &:hover:not(:focus) {
+      border-color: $ds-border-default !important;
     }
 
     &:focus {
-      border-color: var(--green-50) !important;
+      border-color: $ds-accent-green !important;
       outline: none;
-      box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.2) !important;
+      box-shadow: 0 0 0 3px rgba($ds-accent-green, 0.15), $ds-shadow-sm !important;
+    }
+
+    &:disabled {
+      background: $ds-bg-elevated !important;
+      color: $ds-text-tertiary !important;
+      cursor: not-allowed;
     }
   }
 
-  // Page Title
-  h1, h2, h3, h4, h5, h6 {
-    color: $ds-text-primary;
+  // Search field with icon
+  .search-input-wrapper {
+    position: relative;
+
+    input {
+      padding-left: 40px;
+    }
+
+    .material-symbols {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: $ds-text-tertiary;
+    }
   }
 
-  // Table
+  // Page Titles - Premium typography
+  h1, h2, h3, h4, h5, h6 {
+    color: $ds-text-primary;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+
+  h1 {
+    font-size: 28px;
+    line-height: 1.2;
+  }
+
+  h2 {
+    font-size: 22px;
+  }
+
+  // Table - Premium data grid
   table {
     background: transparent;
+    border-collapse: separate;
+    border-spacing: 0;
 
     thead {
       background: $ds-bg-surface;
 
       th {
         background: $ds-bg-surface !important;
-        color: $ds-text-primary !important;
+        color: $ds-text-secondary !important;
         border-color: $ds-border-subtle !important;
         font-weight: 600;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        padding: 12px 16px;
+
+        &:first-child {
+          border-top-left-radius: $ds-radius-md;
+        }
+
+        &:last-child {
+          border-top-right-radius: $ds-radius-md;
+        }
       }
     }
 
@@ -876,10 +1156,28 @@ $ds-transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       tr {
         background: transparent;
         border-color: $ds-border-subtle;
-        transition: background $ds-transition-fast;
+        transition: all $ds-transition-fast;
 
         &:hover {
-          background: rgba(255, 255, 255, 0.02) !important;
+          background: rgba($ds-accent-green, 0.04) !important;
+
+          td {
+            border-color: $ds-border-default;
+          }
+
+          .dash-cell-name a {
+            color: $ds-accent-green !important;
+          }
+        }
+
+        &:last-child td {
+          &:first-child {
+            border-bottom-left-radius: $ds-radius-md;
+          }
+
+          &:last-child {
+            border-bottom-right-radius: $ds-radius-md;
+          }
         }
       }
 
@@ -887,122 +1185,234 @@ $ds-transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         background: transparent !important;
         color: $ds-text-secondary !important;
         border-color: $ds-border-subtle !important;
+        padding: 14px 16px;
+        transition: all $ds-transition-fast;
       }
     }
 
     // Project name links
-    a {
+    .dash-cell-name a {
       color: $ds-text-primary !important;
+      font-weight: 500;
+      transition: color $ds-transition-fast;
 
       &:hover {
-        color: var(--green-50) !important;
+        color: $ds-accent-green !important;
       }
     }
   }
 
-  // Checkboxes
+  // Checkboxes - Custom style
   input[type="checkbox"] {
-    accent-color: var(--green-50);
+    accent-color: $ds-accent-green;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
   }
 
-  // Action Buttons in Table
+  // Dropdown Menus - Premium glassmorphism
   .dropdown-menu {
-    background: $ds-bg-panel !important;
-    border: 1px solid $ds-border-subtle !important;
-    border-radius: 12px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    background: rgba($ds-bg-secondary, 0.95) !important;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid $ds-border-default !important;
+    border-radius: $ds-radius-lg;
+    box-shadow: $ds-shadow-lg, 0 0 60px rgba(0, 0, 0, 0.2);
+    padding: 8px;
+    animation: dropdownFadeIn 0.15s ease-out;
+
+    @keyframes dropdownFadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
 
     .dropdown-item {
       color: $ds-text-secondary;
-      border-radius: 8px;
+      border-radius: $ds-radius-sm;
       transition: all $ds-transition-fast;
+      padding: 10px 14px;
+      margin: 2px 0;
+      font-weight: 500;
+
+      .material-symbols {
+        color: $ds-text-tertiary;
+        margin-right: 10px;
+        transition: color $ds-transition-fast;
+      }
 
       &:hover {
         background: $ds-bg-hover;
         color: $ds-text-primary;
+        transform: translateX(4px);
+
+        .material-symbols {
+          color: $ds-accent-green;
+        }
       }
 
-      &.active {
-        background: var(--green-50);
-        color: #FFFFFF;
+      &.active,
+      &:active {
+        background: rgba($ds-accent-green, 0.15);
+        color: $ds-accent-green;
+      }
+
+      &.text-danger {
+        color: #F87171;
+
+        &:hover {
+          background: rgba(239, 68, 68, 0.1);
+          color: #FCA5A5;
+        }
       }
     }
 
     .dropdown-divider {
       border-color: $ds-border-subtle;
+      margin: 8px 0;
+    }
+
+    .dropdown-header {
+      color: $ds-text-tertiary;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 600;
+      padding: 8px 14px;
     }
   }
 
-  // Buttons
+  // Buttons - Premium style system
   .btn {
-    border-radius: 10px;
+    border-radius: $ds-radius-md;
     transition: all $ds-transition-smooth;
-    font-weight: 500;
+    font-weight: 600;
+    padding: 10px 20px;
+    font-size: 14px;
+    letter-spacing: -0.01em;
 
     &:hover:not(:disabled) {
       transform: translateY(-2px);
     }
+
+    &:active:not(:disabled) {
+      transform: translateY(0);
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
   }
 
   .btn-primary {
-    background: var(--green-50) !important;
-    border-color: var(--green-50) !important;
+    background: $ds-gradient-green !important;
+    border: none !important;
     color: #FFFFFF !important;
-    box-shadow: 0 2px 8px rgba(34, 197, 94, 0.25);
+    box-shadow: $ds-shadow-md, 0 0 20px rgba($ds-accent-green, 0.25);
 
-    &:hover {
-      background: var(--green-40) !important;
-      border-color: var(--green-40) !important;
-      box-shadow: 0 4px 16px rgba(34, 197, 94, 0.35);
+    &:hover:not(:disabled) {
+      box-shadow: $ds-shadow-lg, 0 0 30px rgba($ds-accent-green, 0.35);
+    }
+
+    &:active:not(:disabled) {
+      box-shadow: $ds-shadow-sm, 0 0 15px rgba($ds-accent-green, 0.2);
     }
   }
 
   .btn-secondary,
-  .btn-outline-primary {
+  .btn-outline-primary,
+  .btn-outline-secondary {
     background: transparent !important;
     border: 1px solid $ds-border-default !important;
     color: $ds-text-secondary !important;
 
-    &:hover {
+    &:hover:not(:disabled) {
       background: $ds-bg-hover !important;
-      border-color: rgba(255, 255, 255, 0.2) !important;
+      border-color: $ds-border-strong !important;
       color: $ds-text-primary !important;
+      box-shadow: $ds-shadow-sm;
+    }
+  }
+
+  .btn-danger {
+    background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%) !important;
+    border: none !important;
+    color: #FFFFFF !important;
+    box-shadow: 0 2px 8px rgba(239, 68, 68, 0.25);
+
+    &:hover:not(:disabled) {
+      box-shadow: 0 4px 16px rgba(239, 68, 68, 0.35);
     }
   }
 
   .btn-link {
     color: $ds-text-secondary;
+    padding: 8px 12px;
 
     &:hover {
-      color: var(--green-50);
+      color: $ds-accent-green;
+      background: rgba($ds-accent-green, 0.08);
     }
   }
 
-  // Pagination
+  // Button Groups
+  .btn-group {
+    .btn {
+      border-radius: 0;
+
+      &:first-child {
+        border-top-left-radius: $ds-radius-md;
+        border-bottom-left-radius: $ds-radius-md;
+      }
+
+      &:last-child {
+        border-top-right-radius: $ds-radius-md;
+        border-bottom-right-radius: $ds-radius-md;
+      }
+    }
+  }
+
+  // Pagination - Premium style
   .pagination {
+    gap: 4px;
+
     .page-item {
       .page-link {
         background: transparent;
-        border-color: $ds-border-subtle;
+        border: 1px solid $ds-border-subtle;
         color: $ds-text-secondary;
-        border-radius: 8px;
+        border-radius: $ds-radius-sm;
         transition: all $ds-transition-fast;
+        padding: 8px 14px;
+        font-weight: 500;
+        min-width: 40px;
+        text-align: center;
 
         &:hover {
           background: $ds-bg-hover;
           color: $ds-text-primary;
+          border-color: $ds-border-default;
         }
       }
 
       &.active .page-link {
-        background: var(--green-50);
-        border-color: var(--green-50);
+        background: $ds-accent-green;
+        border-color: $ds-accent-green;
         color: #FFFFFF;
+        box-shadow: 0 2px 8px rgba($ds-accent-green, 0.3);
       }
 
       &.disabled .page-link {
         background: transparent;
-        color: $ds-text-muted;
+        color: $ds-text-tertiary;
+        border-color: $ds-border-subtle;
+        cursor: not-allowed;
       }
     }
   }
@@ -1012,48 +1422,259 @@ $ds-transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     color: $ds-text-secondary;
   }
 
+  strong, b {
+    color: $ds-text-primary;
+    font-weight: 600;
+  }
+
+  small, .text-muted {
+    color: $ds-text-tertiary !important;
+  }
+
   // Links
-  a:not(.btn):not(.dropdown-item):not(.nav-link) {
-    color: var(--green-50);
+  a:not(.btn):not(.dropdown-item):not(.nav-link):not(.dash-cell-name a) {
+    color: $ds-accent-green;
+    transition: color $ds-transition-fast;
 
     &:hover {
-      color: var(--green-40);
+      color: $ds-accent-green-light;
     }
   }
 
-  // Empty state / No projects message
+  // Empty state / No projects - Premium illustration style
   .empty-state,
-  .no-projects {
-    color: $ds-text-muted;
+  .no-projects,
+  .project-list-empty {
+    text-align: center;
+    padding: 60px 40px;
+
+    .material-symbols {
+      font-size: 64px;
+      color: $ds-text-tertiary;
+      margin-bottom: 20px;
+      opacity: 0.5;
+    }
 
     h3, h4 {
       color: $ds-text-primary;
+      margin-bottom: 12px;
     }
 
     p {
       color: $ds-text-secondary;
+      max-width: 400px;
+      margin: 0 auto 24px;
+      line-height: 1.6;
+    }
+
+    .btn {
+      margin-top: 8px;
     }
   }
 
-  // Cards
+  // Cards - Premium glassmorphism style
   .card {
-    background: $ds-bg-panel !important;
+    background: rgba($ds-bg-secondary, 0.6) !important;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border: 1px solid $ds-border-subtle !important;
-    border-radius: 16px;
+    border-radius: $ds-radius-xl;
+    overflow: hidden;
+    transition: all $ds-transition-smooth;
+
+    &:hover {
+      border-color: $ds-border-default !important;
+      transform: translateY(-2px);
+      box-shadow: $ds-shadow-lg;
+    }
 
     .card-header {
-      background: transparent;
-      border-bottom-color: $ds-border-subtle;
+      background: rgba($ds-bg-surface, 0.5);
+      border-bottom: 1px solid $ds-border-subtle;
       color: $ds-text-primary;
+      font-weight: 600;
+      padding: 16px 20px;
     }
 
     .card-body {
       color: $ds-text-secondary;
+      padding: 20px;
     }
 
     .card-footer {
-      background: transparent;
-      border-top-color: $ds-border-subtle;
+      background: rgba($ds-bg-surface, 0.3);
+      border-top: 1px solid $ds-border-subtle;
+      padding: 16px 20px;
     }
+  }
+
+  // Modals - Premium glassmorphism
+  .modal-backdrop {
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
+  }
+
+  .modal-content {
+    background: rgba($ds-bg-secondary, 0.95) !important;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid $ds-border-default !important;
+    border-radius: $ds-radius-xl;
+    box-shadow: $ds-shadow-lg, 0 0 80px rgba(0, 0, 0, 0.3);
+  }
+
+  .modal-header {
+    border-bottom: 1px solid $ds-border-subtle;
+    padding: 20px 24px;
+
+    .modal-title {
+      color: $ds-text-primary;
+      font-weight: 600;
+      font-size: 18px;
+    }
+
+    .btn-close {
+      filter: invert(1);
+      opacity: 0.5;
+      transition: opacity $ds-transition-fast;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+
+  .modal-body {
+    padding: 24px;
+    color: $ds-text-secondary;
+  }
+
+  .modal-footer {
+    border-top: 1px solid $ds-border-subtle;
+    padding: 16px 24px;
+    gap: 12px;
+  }
+
+  // Tooltips
+  .tooltip {
+    .tooltip-inner {
+      background: $ds-bg-elevated;
+      color: $ds-text-primary;
+      border: 1px solid $ds-border-subtle;
+      border-radius: $ds-radius-sm;
+      padding: 8px 12px;
+      font-size: 13px;
+      box-shadow: $ds-shadow-md;
+    }
+
+    .tooltip-arrow::before {
+      border-color: $ds-bg-elevated transparent transparent transparent;
+    }
+  }
+
+  // Loading spinner
+  .spinner-border,
+  .loading-spinner {
+    color: $ds-accent-green;
+  }
+
+  // Progress bars
+  .progress {
+    background: $ds-bg-surface;
+    border-radius: $ds-radius-full;
+    height: 6px;
+    overflow: hidden;
+
+    .progress-bar {
+      background: $ds-gradient-green;
+      border-radius: $ds-radius-full;
+    }
+  }
+
+  // Badges
+  .badge {
+    border-radius: $ds-radius-full;
+    padding: 4px 10px;
+    font-weight: 600;
+    font-size: 11px;
+    letter-spacing: 0.02em;
+
+    &.bg-primary,
+    &.badge-primary {
+      background: rgba($ds-accent-green, 0.15) !important;
+      color: $ds-accent-green;
+    }
+
+    &.bg-secondary,
+    &.badge-secondary {
+      background: $ds-bg-surface !important;
+      color: $ds-text-secondary;
+    }
+
+    &.bg-success,
+    &.badge-success {
+      background: rgba($ds-accent-green, 0.15) !important;
+      color: $ds-accent-green;
+    }
+
+    &.bg-warning,
+    &.badge-warning {
+      background: rgba(234, 179, 8, 0.15) !important;
+      color: #FBBF24;
+    }
+
+    &.bg-danger,
+    &.badge-danger {
+      background: rgba(239, 68, 68, 0.15) !important;
+      color: #F87171;
+    }
+  }
+
+  // Tab navigation
+  .nav-tabs {
+    border-bottom: 1px solid $ds-border-subtle;
+    gap: 4px;
+
+    .nav-item {
+      .nav-link {
+        color: $ds-text-secondary;
+        border: none;
+        border-radius: $ds-radius-sm $ds-radius-sm 0 0;
+        padding: 12px 20px;
+        font-weight: 500;
+        transition: all $ds-transition-fast;
+        position: relative;
+
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 0;
+          height: 2px;
+          background: $ds-accent-green;
+          transition: width $ds-transition-fast;
+        }
+
+        &:hover {
+          color: $ds-text-primary;
+          background: rgba($ds-bg-hover, 0.5);
+        }
+
+        &.active {
+          color: $ds-accent-green;
+          background: transparent;
+
+          &::after {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+
+  .tab-content {
+    padding-top: 20px;
   }
 }
