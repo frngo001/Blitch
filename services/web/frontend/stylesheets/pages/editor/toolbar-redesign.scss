@@ -477,29 +477,66 @@ $toolbar-transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 // ============================================
-// Dropdown Menus - Global fix for portals
-// Uses body:has() to target dropdowns rendered outside toolbar
+// Dropdown Menus - Global fix for clipping
+// Ensures dropdowns render above all content
 // ============================================
 
-// Overflow fix for dropdown containers
-.ide-redesign-body:has(.dropdown.show) {
+// CRITICAL: Fix overflow on ALL parent containers
+// The .ide-redesign-main is the root container and MUST allow overflow
+.ide-redesign-main {
   overflow: visible !important;
+
+  // Ensure proper stacking context
+  position: relative;
+  z-index: 1;
 }
 
-.ide-redesign-main .ide-redesign-toolbar,
-.ide-redesign-main .ide-redesign-toolbar-menu-bar,
-.ide-redesign-main .ide-redesign-toolbar-menu {
+// Toolbar and all nested containers must allow overflow
+.ide-redesign-main .ide-redesign-toolbar {
   overflow: visible !important;
+  position: relative;
+  z-index: 100;
+}
+
+.ide-redesign-main .ide-redesign-toolbar-menu,
+.ide-redesign-main .ide-redesign-toolbar-menu-bar {
+  overflow: visible !important;
+  position: relative;
+}
+
+// Dropdown containers need proper positioning
+.ide-redesign-main .ide-redesign-toolbar .dropdown {
+  position: relative;
+  z-index: 101;
+
+  // When dropdown is open, ensure it's above everything
+  &.show {
+    z-index: 9998;
+  }
+}
+
+// Ensure the toggle button doesn't create clipping issues
+.ide-redesign-main .ide-redesign-toolbar .dropdown-toggle {
+  position: relative;
 }
 
 // Target ALL dropdowns when ide-redesign is active (including portals)
-body:has(.ide-redesign-main) .dropdown-menu {
+body:has(.ide-redesign-main) .dropdown-menu,
+.ide-redesign-main .dropdown-menu {
   background: #1a1a1a !important;
   border: 1px solid rgba(255, 255, 255, 0.1) !important;
   border-radius: 8px !important;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6) !important;
   padding: 6px !important;
-  z-index: 1050 !important;
+  z-index: 9999 !important;
+  position: absolute !important;
+
+  // Ensure the menu is visible
+  &.show {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
 
   // Dropdown items - all types
   .dropdown-item,

@@ -785,396 +785,711 @@ del.review-panel-content-highlight {
 }
 
 // ============================================
-// Dark Theme Override - Blitch Monochrome Style
-// Consistent with AI Chat, Team Chat, Settings, and Rail
-// Green buttons preserved for primary actions
+// Premium Dark Theme - AI Chat Matching Style
+// Modern, elegant, consistent with AI Chat UI
 // ============================================
 
-$review-bg-dark: #0D0D0D;
-$review-bg-panel: #1C1C1C;
-$review-bg-entry: #161616;
-$review-bg-hover: #2A2A2A;
-$review-bg-input: #2C2C2C;
-$review-text-primary: #FFFFFF;
-$review-text-secondary: #A0A0A0;
-$review-text-muted: #666666;
-$review-border-subtle: rgba(255, 255, 255, 0.08);
-$review-border-default: rgba(255, 255, 255, 0.12);
+// Design Tokens - Matching AI Chat
+$rp-bg-primary: #0f0f10;
+$rp-bg-secondary: #18181b;
+$rp-bg-elevated: #1f1f23;
+$rp-bg-surface: #27272a;
+$rp-bg-hover: #2e2e33;
+
+$rp-border-subtle: rgba(255, 255, 255, 0.06);
+$rp-border-default: rgba(255, 255, 255, 0.1);
+$rp-border-strong: rgba(255, 255, 255, 0.15);
+
+$rp-text-primary: #fafafa;
+$rp-text-secondary: #a1a1aa;
+$rp-text-tertiary: #71717a;
+
+$rp-accent-green: #22c55e;
+$rp-accent-green-light: #4ade80;
+$rp-accent-blue: #3b82f6;
+$rp-accent-amber: #f59e0b;
+$rp-accent-red: #ef4444;
+
+$rp-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+$rp-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+$rp-shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
+
+$rp-radius-sm: 8px;
+$rp-radius-md: 12px;
+$rp-radius-lg: 16px;
+
+$rp-transition-fast: 0.15s ease;
+$rp-transition-normal: 0.2s ease;
 
 // Override CSS Variables for Dark Theme
 .ide-redesign-main {
-  --review-panel-bg-color: #{$review-bg-dark};
-  --review-panel-color: #{$review-text-primary};
-  --review-panel-color-secondary: #{$review-text-secondary};
-  --review-panel-header-bg-color: #{$review-bg-dark};
-  --review-panel-footer-bg-color: #{$review-bg-dark};
-  --review-panel-entry-bg-color: #{$review-bg-entry};
-  --review-panel-empty-state-bg-color: #{$review-bg-panel};
-  --review-panel-button-hover-bg-color: #{$review-bg-hover};
-  --review-panel-border-color: #{$review-border-subtle};
+  --review-panel-bg-color: #{$rp-bg-primary};
+  --review-panel-color: #{$rp-text-primary};
+  --review-panel-color-secondary: #{$rp-text-secondary};
+  --review-panel-header-bg-color: #{$rp-bg-primary};
+  --review-panel-footer-bg-color: #{$rp-bg-primary};
+  --review-panel-entry-bg-color: #{$rp-bg-elevated};
+  --review-panel-empty-state-bg-color: #{$rp-bg-secondary};
+  --review-panel-button-hover-bg-color: #{$rp-bg-hover};
+  --review-panel-border-color: #{$rp-border-subtle};
 }
 
-// Review Panel Container
+// ============================================
+// Main Container
+// ============================================
 .ide-redesign-main .review-panel-inner {
-  background: $review-bg-dark;
-  border-color: $review-border-subtle;
+  background: $rp-bg-primary;
+  border-color: $rp-border-subtle;
+  font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-// Review Panel Header
+// ============================================
+// Header - Clean minimal style
+// ============================================
 .ide-redesign-main .review-panel-header {
-  background: $review-bg-dark;
-  border-bottom-color: $review-border-subtle;
+  background: $rp-bg-primary;
+  border-bottom: 1px solid $rp-border-subtle;
+  padding: 12px 16px;
 }
 
-// Review Panel Entries
+// ============================================
+// Entry Cards - Premium card style
+// ============================================
 .ide-redesign-main .review-panel-entry {
-  background: $review-bg-entry;
-  border: 1px solid $review-border-subtle;
-  border-radius: 10px;
+  background: $rp-bg-elevated;
+  border: 1px solid $rp-border-subtle;
+  border-radius: $rp-radius-md;
+  transition: all $rp-transition-normal;
+  box-shadow: $rp-shadow-sm;
 
   &:hover {
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
-    border-color: $review-border-default;
+    border-color: $rp-border-default;
+    box-shadow: $rp-shadow-md;
+    transform: translateY(-1px);
   }
 
-  // Selected/highlighted state - use white border instead of green
+  // Selected/highlighted state - subtle blue glow
   &.review-panel-entry-selected,
   &.review-panel-entry-highlighted,
   &.review-panel-entry-textarea-focused {
-    border-color: rgba(255, 255, 255, 0.25);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    border-color: rgba($rp-accent-blue, 0.4);
+    box-shadow: $rp-shadow-md, 0 0 0 3px rgba($rp-accent-blue, 0.1);
   }
 }
 
+// ============================================
 // Entry Header
+// ============================================
 .ide-redesign-main .review-panel-entry-header {
   .review-panel-entry-user {
-    color: $review-text-primary;
-    font-weight: 500;
+    color: $rp-text-primary;
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: -0.01em;
   }
 
   .review-panel-entry-time {
-    color: $review-text-muted;
+    color: $rp-text-tertiary;
+    font-size: 12px;
   }
 
   .review-panel-entry-actions .btn {
-    color: $review-text-muted;
-    border-radius: 6px;
-    transition: all 0.15s;
+    color: $rp-text-tertiary;
+    border-radius: $rp-radius-sm;
+    transition: all $rp-transition-fast;
+    width: 28px;
+    height: 28px;
 
     &:hover,
     &:focus {
-      background: $review-bg-hover;
-      color: $review-text-primary;
+      background: $rp-bg-hover;
+      color: $rp-text-primary;
+      transform: scale(1.05);
     }
   }
 }
 
-// Change Body
+// ============================================
+// Entry Content
+// ============================================
 .ide-redesign-main .review-panel-change-body {
-  color: $review-text-secondary;
+  color: $rp-text-secondary;
+  font-size: 13px;
+  line-height: 1.6;
 }
 
-// Content Highlight
 .ide-redesign-main .review-panel-content-highlight {
-  color: $review-text-primary;
+  color: $rp-text-primary;
+  font-weight: 500;
 }
 
-// Comment Input
+// ============================================
+// Comment Input - Modern input style
+// ============================================
 .ide-redesign-main .review-panel-comment-input {
-  background: $review-bg-input;
-  border: 1px solid $review-border-subtle;
-  color: $review-text-primary;
-  border-radius: 8px;
-  transition: border-color 0.15s;
+  background: $rp-bg-surface;
+  border: 1px solid $rp-border-default;
+  color: $rp-text-primary;
+  border-radius: $rp-radius-md;
+  padding: 10px 14px;
+  font-size: 13px;
+  transition: all $rp-transition-normal;
+  resize: none;
 
   &::placeholder {
-    color: $review-text-muted;
+    color: $rp-text-tertiary;
   }
 
   &:focus {
-    border-color: rgba(255, 255, 255, 0.2);
+    border-color: rgba($rp-accent-blue, 0.5);
+    box-shadow: 0 0 0 3px rgba($rp-accent-blue, 0.1);
     outline: none;
   }
 }
 
+// ============================================
 // Comment Body
+// ============================================
 .ide-redesign-main .review-panel-comment-body {
-  color: $review-text-primary;
+  color: $rp-text-primary;
+  font-size: 13px;
+  line-height: 1.6;
 }
 
-// Comment Reply Divider
 .ide-redesign-main .review-panel-comment-reply-divider {
-  border-left-color: $review-text-muted;
+  border-left: 2px solid $rp-accent-amber;
+  opacity: 0.6;
 }
 
-// Empty State
+// ============================================
+// Empty State - Elegant centered display
+// ============================================
 .ide-redesign-main .review-panel-empty-state-inner {
   p {
-    color: $review-text-muted;
+    color: $rp-text-tertiary;
+    font-size: 14px;
+    line-height: 1.6;
   }
 }
 
 .ide-redesign-main .review-panel-empty-state-comment-icon {
-  background: $review-bg-panel;
-  border: 1px solid $review-border-subtle;
+  background: linear-gradient(135deg, $rp-bg-secondary 0%, $rp-bg-elevated 100%);
+  border: 1px solid $rp-border-subtle;
+  box-shadow: $rp-shadow-md;
+  width: 72px;
+  height: 72px;
 
   .material-symbols {
-    color: $review-text-muted;
+    color: $rp-text-tertiary;
+    font-size: 28px;
   }
 }
 
-// Footer Tabs
+// ============================================
+// Footer Tabs - Modern tab style
+// ============================================
 .ide-redesign-main .review-panel-footer {
-  background: $review-bg-dark;
-  border-top-color: $review-border-subtle;
+  background: $rp-bg-primary;
+  border-top: 1px solid $rp-border-subtle;
+  padding: 0;
 
   .review-panel-tab {
-    color: $review-text-muted;
-    transition: all 0.15s;
+    color: $rp-text-tertiary;
+    transition: all $rp-transition-normal;
+    font-size: 13px;
+    font-weight: 500;
+    border-top: 2px solid transparent;
+    padding: 14px 0;
+
+    .material-symbols {
+      font-size: 20px;
+      transition: transform $rp-transition-fast;
+    }
 
     &:hover,
     &:focus {
-      color: $review-text-primary;
+      color: $rp-text-primary;
+      background: rgba(255, 255, 255, 0.02);
+
+      .material-symbols {
+        transform: scale(1.1);
+      }
     }
 
     &-active {
-      color: $review-text-primary;
-      // Neutral white border instead of green
-      border-top-color: rgba(255, 255, 255, 0.6);
+      color: $rp-text-primary;
+      border-top-color: $rp-accent-green;
+      background: rgba($rp-accent-green, 0.03);
     }
   }
 }
 
-// Resolved Comments Popover
+// ============================================
+// Resolved Comments Popover - Glass effect
+// ============================================
 .ide-redesign-main .review-panel-resolved-comments {
-  --bs-popover-bg: #{$review-bg-panel};
+  --bs-popover-bg: #{$rp-bg-secondary};
   --bs-popover-border-width: 1px;
 
-  background: $review-bg-panel;
-  border: 1px solid $review-border-subtle;
-  border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  background: rgba($rp-bg-secondary, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid $rp-border-default;
+  border-radius: $rp-radius-lg;
+  box-shadow: $rp-shadow-lg;
+  overflow: hidden;
 
   .popover-body {
-    color: $review-text-primary;
+    color: $rp-text-primary;
+    padding: 16px;
   }
 }
 
 .ide-redesign-main .review-panel-resolved-comments-header {
-  color: $review-text-primary;
+  color: $rp-text-primary;
+  padding: 12px 16px;
+  border-bottom: 1px solid $rp-border-subtle;
+  background: rgba(255, 255, 255, 0.02);
 }
 
 .ide-redesign-main .review-panel-resolved-comments-label {
-  color: $review-text-primary;
+  color: $rp-text-primary;
+  font-weight: 600;
+  font-size: 14px;
 }
 
 .ide-redesign-main .review-panel-resolved-comment {
-  background: $review-bg-entry;
-  border-radius: 10px;
-  border: 1px solid $review-border-subtle;
+  background: $rp-bg-elevated;
+  border-radius: $rp-radius-md;
+  border: 1px solid $rp-border-subtle;
+  transition: all $rp-transition-normal;
+
+  &:hover {
+    border-color: $rp-border-default;
+    box-shadow: $rp-shadow-sm;
+  }
 }
 
 .ide-redesign-main .review-panel-resolved-comment-header {
-  color: $review-text-muted;
+  color: $rp-text-tertiary;
+  font-size: 12px;
 }
 
 .ide-redesign-main .review-panel-resolved-comment-filename {
-  color: $review-text-primary;
+  color: $rp-text-primary;
+  font-weight: 500;
 }
 
 .ide-redesign-main .review-panel-resolved-comment-quoted-text {
-  background: $review-bg-hover;
-  border-radius: 6px;
+  background: $rp-bg-surface;
+  border-radius: $rp-radius-sm;
+  border-left: 3px solid $rp-accent-blue;
+  padding: 10px 14px;
 }
 
 .ide-redesign-main .review-panel-resolved-comment-quoted-text-label {
-  color: $review-text-muted;
+  color: $rp-text-tertiary;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
 }
 
 .ide-redesign-main .review-panel-resolved-comment-quoted-text-quote {
-  color: $review-text-primary;
+  color: $rp-text-secondary;
+  font-style: italic;
 }
 
 .ide-redesign-main .review-panel-resolved-comment-buttons .btn {
-  color: $review-text-muted;
+  color: $rp-text-tertiary;
+  border-radius: $rp-radius-sm;
+  transition: all $rp-transition-fast;
 
   &:hover,
   &:focus {
-    background: $review-bg-hover;
-    color: $review-text-primary;
+    background: $rp-bg-hover;
+    color: $rp-text-primary;
+    transform: scale(1.05);
   }
 }
 
+// ============================================
 // Toggle Button
+// ============================================
 .ide-redesign-main .review-panel-resolved-comments-toggle {
-  color: $review-text-muted;
+  color: $rp-text-tertiary;
+  border-radius: $rp-radius-sm;
+  transition: all $rp-transition-fast;
 
   &:hover,
   &:focus {
-    background: $review-bg-hover;
-    color: $review-text-primary;
+    background: $rp-bg-hover;
+    color: $rp-text-primary;
   }
 }
 
+// ============================================
 // Overview Panel
+// ============================================
 .ide-redesign-main .review-panel-overview {
-  background: $review-bg-dark;
+  background: $rp-bg-primary;
+  padding: 12px;
 }
 
 .ide-redesign-main .review-panel-overfile-divider {
-  border-bottom-color: $review-border-subtle;
+  border-bottom-color: $rp-border-subtle;
+  margin: 12px 0;
 }
 
-// Mini Panel
+// ============================================
+// Mini Panel - Floating preview
+// ============================================
 .ide-redesign-main .review-panel-mini {
   .review-panel-entry-content {
-    background: $review-bg-panel;
-    border: 1px solid $review-border-subtle;
-    border-radius: 10px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    background: rgba($rp-bg-secondary, 0.95);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid $rp-border-default;
+    border-radius: $rp-radius-md;
+    box-shadow: $rp-shadow-lg;
+    animation: slideIn 0.2s ease-out;
   }
 
   .review-panel-entry-indicator {
-    color: $review-text-muted;
+    color: $rp-text-tertiary;
+    transition: all $rp-transition-fast;
 
     &:hover {
-      color: $review-text-primary;
+      color: $rp-text-primary;
+      transform: scale(1.1);
     }
   }
 }
 
-// Tooltip Menu
-.ide-redesign-main .review-tooltip-menu {
-  background: $review-bg-panel;
-  border: 1px solid $review-border-subtle;
-  border-radius: 10px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-}
-
-.ide-redesign-main .review-tooltip-menu-button {
-  color: $review-text-secondary;
-  background: transparent;
-  border-radius: 6px;
-  transition: all 0.15s;
-
-  &:hover {
-    background: $review-bg-hover;
-    color: $review-text-primary;
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
   }
 }
 
-// Tooltip Add Comment Button - Neutral style (no green)
-.ide-redesign-main .review-tooltip-add-comment-button {
+// ============================================
+// Tooltip Menu - Premium floating menu
+// ============================================
+.ide-redesign-main .review-tooltip-menu {
+  background: rgba($rp-bg-secondary, 0.95);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid $rp-border-default;
+  border-radius: $rp-radius-md;
+  box-shadow: $rp-shadow-lg;
+  padding: 6px;
+  animation: tooltipAppear 0.15s ease-out;
+}
+
+@keyframes tooltipAppear {
+  from {
+    opacity: 0;
+    transform: translateY(4px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.ide-redesign-main .review-tooltip-menu-button {
+  color: $rp-text-secondary;
   background: transparent;
-  color: $review-text-secondary;
-  border: 1px solid $review-border-subtle;
+  border-radius: $rp-radius-sm;
+  padding: 8px 12px;
+  transition: all $rp-transition-fast;
+  font-size: 13px;
+  font-weight: 500;
+
+  .material-symbols {
+    font-size: 18px;
+  }
 
   &:hover {
-    background: $review-bg-hover;
-    color: $review-text-primary;
-    border-color: $review-border-default;
+    background: $rp-bg-hover;
+    color: $rp-text-primary;
+  }
+}
+
+// Add Comment Button in Tooltip - Green accent
+.ide-redesign-main .review-tooltip-add-comment-button {
+  background: rgba($rp-accent-green, 0.1);
+  color: $rp-accent-green;
+  border: 1px solid rgba($rp-accent-green, 0.2);
+  font-weight: 600;
+
+  &:hover {
+    background: rgba($rp-accent-green, 0.15);
+    color: $rp-accent-green-light;
+    border-color: rgba($rp-accent-green, 0.3);
   }
 }
 
 .ide-redesign-main .review-tooltip-menu-divider {
-  background: $review-border-subtle;
+  background: $rp-border-subtle;
+  width: 1px;
+  margin: 4px 2px;
 }
 
-// Add Comment Buttons - Green Text Only (No Green Background)
+// ============================================
+// Add Comment Buttons - Primary action style
+// ============================================
 .ide-redesign-main .review-panel-add-comment-buttons {
+  gap: 10px;
+  margin-top: 12px;
+
   .btn-primary {
-    // Green text only, no green background
-    background: transparent;
-    color: #22c55e;
-    border: 1px solid $review-border-default;
-    border-radius: 8px;
+    background: $rp-accent-green;
+    color: white;
+    border: none;
+    border-radius: $rp-radius-sm;
     font-weight: 600;
-    transition: all 0.15s;
+    font-size: 13px;
+    padding: 8px 16px;
+    transition: all $rp-transition-normal;
+    box-shadow: 0 2px 8px rgba($rp-accent-green, 0.3);
 
     &:hover {
-      background: $review-bg-hover;
-      color: #4ade80;
-      border-color: $review-border-default;
+      background: $rp-accent-green-light;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba($rp-accent-green, 0.4);
     }
 
     &:active {
-      background: rgba(34, 197, 94, 0.1);
+      transform: translateY(0);
     }
   }
 
   .btn-secondary,
   .review-panel-add-comment-cancel-button {
     background: transparent;
-    color: $review-text-secondary;
-    border: 1px solid $review-border-subtle;
-    border-radius: 8px;
-    transition: all 0.15s;
+    color: $rp-text-secondary;
+    border: 1px solid $rp-border-default;
+    border-radius: $rp-radius-sm;
+    font-size: 13px;
+    padding: 8px 16px;
+    transition: all $rp-transition-fast;
 
     &:hover,
     &:focus {
-      background: $review-bg-hover;
-      color: $review-text-primary;
-      border-color: $review-border-default;
+      background: $rp-bg-hover;
+      color: $rp-text-primary;
+      border-color: $rp-border-strong;
     }
   }
 }
 
-// Mode Switcher Dark Theme
+// ============================================
+// Mode Switcher - Status pill style
+// ============================================
+.ide-redesign-main .review-mode-switcher {
+  .dropdown-menu {
+    background: rgba($rp-bg-secondary, 0.95);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid $rp-border-default;
+    border-radius: $rp-radius-md;
+    box-shadow: $rp-shadow-lg;
+    padding: 6px;
+    min-width: 160px;
+  }
+}
+
 .ide-redesign-main .review-mode-switcher-toggle-button {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 999px;
+  transition: all $rp-transition-normal;
+
   &.editing {
-    background: $review-bg-hover;
-    color: $review-text-primary;
+    background: $rp-bg-surface;
+    color: $rp-text-primary;
+    border: 1px solid $rp-border-subtle;
+
+    &:hover {
+      background: $rp-bg-hover;
+      border-color: $rp-border-default;
+    }
   }
 
   &.reviewing {
-    background: rgba(234, 179, 8, 0.15);
-    color: #F59E0B;
+    background: rgba($rp-accent-amber, 0.15);
+    color: $rp-accent-amber;
+    border: 1px solid rgba($rp-accent-amber, 0.2);
+
+    &:hover {
+      background: rgba($rp-accent-amber, 0.2);
+    }
   }
 
   &.viewing {
-    background: rgba(59, 130, 246, 0.15);
-    color: #60A5FA;
+    background: rgba($rp-accent-blue, 0.15);
+    color: $rp-accent-blue;
+    border: 1px solid rgba($rp-accent-blue, 0.2);
+
+    &:hover {
+      background: rgba($rp-accent-blue, 0.2);
+    }
   }
 }
 
-// Entry Icons - Subtle monochrome style (no colored backgrounds)
+// ============================================
+// Entry Icons - Semantic colors
+// ============================================
 .ide-redesign-main .review-panel-entry-icon-accept {
-  background: $review-bg-hover;
-  color: $review-text-secondary;
+  background: rgba($rp-accent-green, 0.15);
+  color: $rp-accent-green;
+  border-radius: $rp-radius-sm;
 }
 
 .ide-redesign-main .review-panel-entry-icon-reject {
-  background: $review-bg-hover;
-  color: $review-text-secondary;
+  background: rgba($rp-accent-red, 0.15);
+  color: $rp-accent-red;
+  border-radius: $rp-radius-sm;
 }
 
 .ide-redesign-main .review-panel-entry-icon-changed {
-  background: $review-bg-hover;
-  color: $review-text-secondary;
+  background: rgba($rp-accent-blue, 0.15);
+  color: $rp-accent-blue;
+  border-radius: $rp-radius-sm;
 }
 
-// Dropdown Menu
+// ============================================
+// Dropdown Menu - Premium menu style
+// ============================================
 .ide-redesign-main .review-panel-inner .dropdown-menu {
-  background: $review-bg-panel;
-  border: 1px solid $review-border-subtle;
-  border-radius: 10px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  background: rgba($rp-bg-secondary, 0.95);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid $rp-border-default;
+  border-radius: $rp-radius-md;
+  box-shadow: $rp-shadow-lg;
   padding: 6px;
+  animation: dropdownSlide 0.15s ease-out;
 
   .dropdown-item {
-    color: $review-text-secondary;
-    border-radius: 6px;
-    padding: 8px 12px;
-    transition: all 0.15s;
+    color: $rp-text-secondary;
+    border-radius: $rp-radius-sm;
+    padding: 10px 14px;
+    font-size: 13px;
+    transition: all $rp-transition-fast;
 
     &:hover {
-      background: $review-bg-hover;
-      color: $review-text-primary;
+      background: $rp-bg-hover;
+      color: $rp-text-primary;
+    }
+
+    &:active {
+      background: $rp-bg-surface;
     }
   }
 
   .dropdown-divider {
-    border-color: $review-border-subtle;
+    border-color: $rp-border-subtle;
+    margin: 4px 0;
+  }
+}
+
+@keyframes dropdownSlide {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// ============================================
+// User Color Badge - Refined style
+// ============================================
+.ide-redesign-main .review-panel-entry-user-color-badge {
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+// ============================================
+// Expandable Content - Smooth transitions
+// ============================================
+.ide-redesign-main .review-panel-expandable-content {
+  color: $rp-text-secondary;
+  line-height: 1.6;
+}
+
+.ide-redesign-main .review-panel-expandable-links {
+  .btn-inline-link {
+    color: $rp-accent-blue;
+    font-weight: 500;
+    transition: color $rp-transition-fast;
+
+    &:hover {
+      color: lighten($rp-accent-blue, 10%);
+    }
+  }
+}
+
+// ============================================
+// Scrollbar - Custom minimal style
+// ============================================
+.ide-redesign-main .review-panel-overview,
+.ide-redesign-main .review-panel-resolved-comments .popover-body {
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $rp-bg-surface;
+    border-radius: 3px;
+
+    &:hover {
+      background: $rp-bg-hover;
+    }
+  }
+}
+
+// ============================================
+// More Comments Button - Floating action
+// ============================================
+.ide-redesign-main .review-panel-more-comments-button-container {
+  .btn {
+    background: rgba($rp-bg-secondary, 0.95);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid $rp-border-default;
+    border-radius: 999px;
+    color: $rp-text-primary;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 8px 16px;
+    box-shadow: $rp-shadow-md;
+    transition: all $rp-transition-normal;
+
+    &:hover {
+      background: $rp-bg-hover;
+      transform: translateY(-2px);
+      box-shadow: $rp-shadow-lg;
+    }
+
+    .material-symbols {
+      font-size: 16px;
+    }
   }
 }
