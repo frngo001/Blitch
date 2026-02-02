@@ -785,41 +785,29 @@ del.review-panel-content-highlight {
 }
 
 // ============================================
-// Premium Dark Theme - EXACT AI Chat Match
-// 1:1 Design Token Alignment with AI Chat Panel
+// Clean Dark Theme - Minimal AI Chat Match
+// Simple, clean design without heavy gradients
 // ============================================
 
-// Design Tokens - EXACT MATCH to AI Chat Panel (ai-chat-rail.scss)
-$rp-bg-dark: #0D0D0D;           // ai-chat: $bg-dark
-$rp-bg-panel: #1C1C1C;          // ai-chat: $bg-panel
-$rp-bg-input: #2C2C2C;          // ai-chat: $bg-input
-$rp-bg-hover: #2A2A2A;          // ai-chat: hover states
+// Design Tokens - Match AI Chat Panel (ai-chat-rail.scss)
+$rp-bg-dark: #0D0D0D;
+$rp-bg-panel: #1C1C1C;
+$rp-bg-input: #2C2C2C;
+$rp-bg-hover: #2A2A2A;
 
-$rp-text-primary: #FFFFFF;      // ai-chat: $text-primary-chat
-$rp-text-secondary: #888888;    // ai-chat: $text-secondary-chat
-$rp-text-muted: #666666;        // ai-chat: $text-muted-chat
+$rp-text-primary: #FFFFFF;
+$rp-text-secondary: #888888;
+$rp-text-muted: #666666;
 
-$rp-border-subtle: rgba(255, 255, 255, 0.08);  // ai-chat: $border-subtle-chat
+$rp-border-subtle: rgba(255, 255, 255, 0.08);
 
 $rp-accent-green: #22c55e;
-$rp-accent-green-light: #4ade80;
-$rp-accent-blue: #38bdf8;       // ai-chat: $accent-blue-chat
+$rp-accent-blue: #38bdf8;
 $rp-accent-amber: #f59e0b;
-$rp-accent-red: #ef4444;
-
-$rp-shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.3);
-$rp-shadow-md: 0 8px 32px rgba(0, 0, 0, 0.4);  // ai-chat style
-$rp-shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
-
-$rp-radius-sm: 6px;             // ai-chat: button radius
-$rp-radius-md: 10px;            // ai-chat: card radius
-$rp-radius-lg: 16px;            // ai-chat: large elements
-$rp-radius-full: 24px;          // ai-chat: input box radius
 
 $rp-transition-fast: 0.15s;
-$rp-transition-normal: 0.2s ease;
 
-// Override CSS Variables for Dark Theme - EXACT AI Chat Match
+// Override CSS Variables for Dark Theme
 .ide-redesign-main {
   --review-panel-bg-color: #{$rp-bg-dark};
   --review-panel-color: #{$rp-text-primary};
@@ -832,62 +820,45 @@ $rp-transition-normal: 0.2s ease;
   --review-panel-border-color: #{$rp-border-subtle};
 }
 
-// ============================================
-// Main Container - Matches .ai-chat-rail
-// ============================================
+// Main Container
 .ide-redesign-main .review-panel-inner {
   background: $rp-bg-dark;
   border-color: $rp-border-subtle;
-  // EXACT font-family from AI Chat
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   -webkit-font-smoothing: antialiased;
   color: $rp-text-primary;
 }
 
-// ============================================
-// Header - Matches .ai-chat-rail-header
-// ============================================
+// Header - Simple and clean
 .ide-redesign-main .review-panel-header {
-  background: transparent;
-  border: none;
-  border-bottom: none;
+  background: $rp-bg-dark;
+  border-bottom: 1px solid $rp-border-subtle;
   padding: 12px 16px;
 }
 
-// ============================================
-// Entry Cards - Matches AI Chat message cards
-// ============================================
+// Entry Cards - Simple flat design
 .ide-redesign-main .review-panel-entry {
-  // Matches AI Chat .personalize-card / message style
-  background: linear-gradient(180deg, #1F1F1F 0%, #181818 100%);
+  background: $rp-bg-panel;
   border: 1px solid $rp-border-subtle;
-  border-radius: $rp-radius-lg;
+  border-radius: 12px;
   transition: all $rp-transition-fast;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-  padding: var(--spacing-04);
 
   &:hover {
     border-color: rgba(255, 255, 255, 0.12);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
   }
 
-  // Selected/highlighted state - subtle glow matching AI Chat
   &.review-panel-entry-selected,
   &.review-panel-entry-highlighted,
   &.review-panel-entry-textarea-focused {
-    border-color: rgba($rp-accent-blue, 0.3);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 0 0 2px rgba($rp-accent-blue, 0.15);
+    border-color: rgba($rp-accent-blue, 0.4);
   }
 }
 
-// ============================================
-// Entry Header - Matches AI Chat header style
-// ============================================
+// Entry Header
 .ide-redesign-main .review-panel-entry-header {
   .review-panel-entry-user {
     color: $rp-text-primary;
-    font-weight: 600;
-    font-size: 15px;
+    font-weight: 500;
   }
 
   .review-panel-entry-time {
@@ -895,17 +866,16 @@ $rp-transition-normal: 0.2s ease;
     font-size: 12px;
   }
 
-  // Action buttons - Match .ai-chat-header-btn
   .review-panel-entry-actions .btn {
-    width: 32px;
-    height: 32px;
+    width: 28px;
+    height: 28px;
     display: flex;
     align-items: center;
     justify-content: center;
     background: transparent;
     border: none;
-    border-radius: $rp-radius-sm;
-    color: $rp-text-secondary;
+    border-radius: 6px;
+    color: $rp-text-muted;
     cursor: pointer;
     transition: all $rp-transition-fast;
 
@@ -914,173 +884,126 @@ $rp-transition-normal: 0.2s ease;
       background: rgba(255, 255, 255, 0.08);
       color: $rp-text-primary;
     }
-
-    .material-symbols {
-      font-size: 20px;
-    }
   }
 }
 
-// ============================================
-// Entry Content - Match AI Chat message style
-// ============================================
+// Entry Content
 .ide-redesign-main .review-panel-change-body {
-  // Match AI Chat .ai-chat-assistant-content
-  color: #E0E0E0;
-  font-size: 15px;
-  line-height: 1.6;
+  color: $rp-text-secondary;
+  font-size: 14px;
+  line-height: 1.5;
 }
 
 .ide-redesign-main .review-panel-content-highlight {
   color: $rp-text-primary;
-  font-weight: 500;
 }
 
-// ============================================
-// Comment Input - EXACT match to .chat-input-box / .chat-textarea
-// ============================================
+// Comment Input - Simple rounded input
 .ide-redesign-main .review-panel-comment-input {
-  // Match AI Chat input style exactly
   background: $rp-bg-input;
   border: 1px solid $rp-border-subtle;
-  border-radius: $rp-radius-full;
+  border-radius: 8px;
   color: $rp-text-primary;
-  padding: 14px 18px;
-  font-size: 15px;
-  line-height: 1.5;
+  padding: 10px 12px;
+  font-size: 14px;
   transition: all $rp-transition-fast;
   resize: none;
-  font-family: inherit;
 
   &::placeholder {
     color: $rp-text-muted;
   }
 
   &:focus {
-    border-color: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.2);
     outline: none;
   }
 }
 
-// ============================================
-// Comment Body - Match AI Chat assistant content
-// ============================================
+// Comment Body
 .ide-redesign-main .review-panel-comment-body {
-  // Match AI Chat .ai-chat-assistant-content
-  color: #E0E0E0;
-  font-size: 15px;
-  line-height: 1.6;
+  color: $rp-text-secondary;
+  font-size: 14px;
+  line-height: 1.5;
 }
 
 .ide-redesign-main .review-panel-comment-reply-divider {
-  // Match AI Chat yellow accent (like thinking block border)
   border-left: 2px solid $rp-accent-amber;
-  opacity: 0.7;
+  opacity: 0.6;
 }
 
-// ============================================
-// Empty State - Match AI Chat placeholder style
-// ============================================
+// Empty State - Clean and minimal
 .ide-redesign-main .review-panel-empty-state-inner {
-  // Match .ai-chat-placeholder
   p {
-    color: $rp-text-secondary;
+    color: $rp-text-muted;
     font-size: 14px;
-    line-height: 1.5;
   }
 }
 
 .ide-redesign-main .review-panel-empty-state-comment-icon {
-  // Match AI Chat card gradient style
-  background: linear-gradient(180deg, #1F1F1F 0%, #181818 100%);
+  // Simple flat circle with subtle background
+  background: $rp-bg-panel;
   border: 1px solid $rp-border-subtle;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-  width: 80px;
-  height: 80px;
+  width: 72px;
+  height: 72px;
 
   .material-symbols {
-    color: $rp-text-primary;
-    font-size: 32px;
+    color: $rp-text-muted;
+    font-size: 28px;
   }
 }
 
-// ============================================
-// Footer Tabs - Match AI Chat style
-// ============================================
+// Footer Tabs - Clean tabs
 .ide-redesign-main .review-panel-footer {
   background: $rp-bg-dark;
   border-top: 1px solid $rp-border-subtle;
-  padding: 0;
 
   .review-panel-tab {
     color: $rp-text-muted;
     transition: all $rp-transition-fast;
-    font-size: 14px;
-    font-weight: 500;
+    font-size: 13px;
     border-top: 2px solid transparent;
-    padding: 14px 0;
-
-    .material-symbols {
-      font-size: 20px;
-      transition: all $rp-transition-fast;
-    }
 
     &:hover,
     &:focus {
       color: $rp-text-primary;
-      background: rgba(255, 255, 255, 0.04);
-
-      .material-symbols {
-        transform: scale(1.05);
-      }
     }
 
     &-active {
       color: $rp-text-primary;
       border-top-color: $rp-accent-green;
-      background: rgba($rp-accent-green, 0.05);
     }
   }
 }
 
-// ============================================
-// Resolved Comments Popover - Match AI Chat dropdown style
-// ============================================
+// Resolved Comments Popover
 .ide-redesign-main .review-panel-resolved-comments {
   --bs-popover-bg: #{$rp-bg-panel};
   --bs-popover-border-width: 1px;
 
   background: $rp-bg-panel;
   border: 1px solid $rp-border-subtle;
-  border-radius: 12px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
 
   .popover-body {
     color: $rp-text-primary;
-    padding: 8px;
   }
 }
 
 .ide-redesign-main .review-panel-resolved-comments-header {
   color: $rp-text-primary;
-  padding: 12px 16px;
   border-bottom: 1px solid $rp-border-subtle;
-  background: transparent;
 }
 
 .ide-redesign-main .review-panel-resolved-comments-label {
   color: $rp-text-primary;
-  font-weight: 600;
-  font-size: 15px;
+  font-weight: 500;
 }
 
 .ide-redesign-main .review-panel-resolved-comment {
-  // Match AI Chat card style
-  background: linear-gradient(180deg, #1F1F1F 0%, #181818 100%);
-  border-radius: 12px;
+  background: $rp-bg-input;
+  border-radius: 10px;
   border: 1px solid $rp-border-subtle;
-  transition: all $rp-transition-fast;
 
   &:hover {
     border-color: rgba(255, 255, 255, 0.12);
@@ -1089,37 +1012,32 @@ $rp-transition-normal: 0.2s ease;
 
 .ide-redesign-main .review-panel-resolved-comment-header {
   color: $rp-text-muted;
-  font-size: 12px;
 }
 
 .ide-redesign-main .review-panel-resolved-comment-filename {
   color: $rp-text-primary;
-  font-weight: 500;
 }
 
 .ide-redesign-main .review-panel-resolved-comment-quoted-text {
   background: rgba(255, 255, 255, 0.03);
-  border-radius: $rp-radius-md;
+  border-radius: 8px;
   border-left: 2px solid $rp-accent-blue;
-  padding: 10px 14px;
+  padding: 8px 12px;
 }
 
 .ide-redesign-main .review-panel-resolved-comment-quoted-text-label {
   color: $rp-text-muted;
   font-size: 11px;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
-  font-weight: 600;
 }
 
 .ide-redesign-main .review-panel-resolved-comment-quoted-text-quote {
   color: $rp-text-secondary;
-  font-style: italic;
 }
 
 .ide-redesign-main .review-panel-resolved-comment-buttons .btn {
-  color: $rp-text-secondary;
-  border-radius: $rp-radius-sm;
+  color: $rp-text-muted;
+  border-radius: 6px;
   transition: all $rp-transition-fast;
 
   &:hover,
@@ -1129,20 +1047,17 @@ $rp-transition-normal: 0.2s ease;
   }
 }
 
-// ============================================
-// Toggle Button - Match AI Chat header button style
-// ============================================
+// Toggle Button
 .ide-redesign-main .review-panel-resolved-comments-toggle {
-  // Match .ai-chat-header-btn
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   display: flex;
   align-items: center;
   justify-content: center;
   background: transparent;
   border: none;
   border-radius: 6px;
-  color: $rp-text-secondary;
+  color: $rp-text-muted;
   cursor: pointer;
   transition: all $rp-transition-fast;
 
@@ -1151,36 +1066,24 @@ $rp-transition-normal: 0.2s ease;
     background: rgba(255, 255, 255, 0.08);
     color: $rp-text-primary;
   }
-
-  .material-symbols {
-    font-size: 20px;
-  }
 }
 
-// ============================================
 // Overview Panel
-// ============================================
 .ide-redesign-main .review-panel-overview {
   background: $rp-bg-dark;
-  padding: 16px;
 }
 
 .ide-redesign-main .review-panel-overfile-divider {
   border-bottom-color: $rp-border-subtle;
-  margin: 12px 0;
 }
 
-// ============================================
-// Mini Panel - Match AI Chat floating card style
-// ============================================
+// Mini Panel
 .ide-redesign-main .review-panel-mini {
   .review-panel-entry-content {
-    // Match AI Chat card style
     background: $rp-bg-panel;
     border: 1px solid $rp-border-subtle;
-    border-radius: 12px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-    animation: slideIn 0.2s ease-out;
+    border-radius: 10px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
   }
 
   .review-panel-entry-indicator {
@@ -1189,128 +1092,71 @@ $rp-transition-normal: 0.2s ease;
 
     &:hover {
       color: $rp-text-primary;
-      transform: scale(1.05);
     }
   }
 }
 
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateX(8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-// ============================================
-// Tooltip Menu - Match AI Chat dropdown/popover style
-// ============================================
+// Tooltip Menu
 .ide-redesign-main .review-tooltip-menu {
-  // Match AI Chat .model-dropdown style
   background: $rp-bg-panel;
   border: 1px solid $rp-border-subtle;
-  border-radius: 12px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-  padding: 8px;
-  animation: tooltipAppear 0.15s ease-out;
-}
-
-@keyframes tooltipAppear {
-  from {
-    opacity: 0;
-    transform: translateY(4px) scale(0.96);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
+  border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
 }
 
 .ide-redesign-main .review-tooltip-menu-button {
-  // Match AI Chat .model-option style
   color: $rp-text-primary;
   background: transparent;
-  border-radius: 8px;
-  padding: 8px 10px;
+  border-radius: 6px;
+  padding: 6px 8px;
   transition: all $rp-transition-fast;
-  font-size: 13px;
-  font-weight: 500;
-
-  .material-symbols {
-    font-size: 18px;
-    color: $rp-text-secondary;
-  }
 
   &:hover {
     background: rgba(255, 255, 255, 0.08);
-    color: $rp-text-primary;
   }
 }
 
-// Add Comment Button in Tooltip - Match AI Chat .quick-pill style
 .ide-redesign-main .review-tooltip-add-comment-button {
-  background: $rp-bg-panel;
+  background: $rp-bg-input;
   color: $rp-text-primary;
   border: 1px solid $rp-border-subtle;
-  border-radius: 999px;
-  font-weight: 500;
-  padding: 8px 16px;
-  transition: all 0.2s;
+  border-radius: 6px;
+  padding: 6px 12px;
 
   &:hover {
     background: $rp-bg-hover;
-    transform: translateY(-1px);
   }
 }
 
 .ide-redesign-main .review-tooltip-menu-divider {
   background: $rp-border-subtle;
-  width: 1px;
-  margin: 4px 2px;
 }
 
-// ============================================
-// Add Comment Buttons - Match AI Chat .send-btn / .toolbar-btn style
-// ============================================
+// Add Comment Buttons
 .ide-redesign-main .review-panel-add-comment-buttons {
   gap: 8px;
-  margin-top: 12px;
 
-  // Primary button - Match AI Chat .send-btn.active style
   .btn-primary {
-    background: $rp-text-primary;
-    color: $rp-bg-dark;
+    background: $rp-accent-green;
+    color: #fff;
     border: none;
-    border-radius: 50%;
-    font-weight: 600;
-    font-size: 13px;
-    padding: 10px 18px;
-    transition: all 0.2s;
-    min-width: auto;
+    border-radius: 6px;
+    font-weight: 500;
+    padding: 8px 16px;
+    transition: all $rp-transition-fast;
 
     &:hover {
-      background: $rp-text-secondary;
-      transform: translateY(-1px);
-    }
-
-    &:active {
-      transform: translateY(0);
+      background: darken($rp-accent-green, 5%);
     }
   }
 
-  // Secondary/Cancel button - Match AI Chat .toolbar-btn style
   .btn-secondary,
   .review-panel-add-comment-cancel-button {
     background: transparent;
     color: $rp-text-muted;
     border: none;
-    border-radius: 50%;
-    font-size: 13px;
-    padding: 10px 18px;
-    transition: all $rp-transition-fast;
+    border-radius: 6px;
+    padding: 8px 16px;
 
     &:hover,
     &:focus {
@@ -1320,108 +1166,89 @@ $rp-transition-normal: 0.2s ease;
   }
 }
 
-// ============================================
-// Mode Switcher - Match AI Chat .model-selector-btn style
-// ============================================
+// Mode Switcher
 .ide-redesign-main .review-mode-switcher {
   .dropdown-menu {
-    // Match AI Chat .model-dropdown
     background: $rp-bg-panel;
     border: 1px solid $rp-border-subtle;
-    border-radius: 12px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-    padding: 8px;
-    min-width: 160px;
+    border-radius: 10px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    padding: 6px;
   }
 }
 
 .ide-redesign-main .review-mode-switcher-toggle-button {
-  // Match AI Chat .model-selector-btn
   font-size: 13px;
-  font-weight: 500;
   padding: 6px 10px;
-  border-radius: 8px;
+  border-radius: 6px;
   transition: all $rp-transition-fast;
 
   &.editing {
-    background: transparent;
+    background: $rp-bg-input;
     color: $rp-text-secondary;
     border: 1px solid $rp-border-subtle;
 
     &:hover {
-      background: rgba(255, 255, 255, 0.05);
+      background: $rp-bg-hover;
       color: $rp-text-primary;
       border-color: rgba(255, 255, 255, 0.15);
     }
   }
 
   &.reviewing {
-    background: rgba($rp-accent-amber, 0.15);
+    background: rgba($rp-accent-amber, 0.2);
     color: $rp-accent-amber;
-    border: 1px solid rgba($rp-accent-amber, 0.2);
+    border: 1px solid rgba($rp-accent-amber, 0.3);
 
     &:hover {
-      background: rgba($rp-accent-amber, 0.2);
+      background: rgba($rp-accent-amber, 0.3);
+      border-color: rgba($rp-accent-amber, 0.5);
     }
   }
 
   &.viewing {
-    // Match AI Chat .model-option.active (blue accent)
-    background: rgba($rp-accent-blue, 0.15);
+    background: rgba($rp-accent-blue, 0.2);
     color: $rp-accent-blue;
-    border: 1px solid rgba($rp-accent-blue, 0.2);
+    border: 1px solid rgba($rp-accent-blue, 0.3);
 
     &:hover {
-      background: rgba($rp-accent-blue, 0.2);
+      background: rgba($rp-accent-blue, 0.3);
+      border-color: rgba($rp-accent-blue, 0.5);
     }
   }
 }
 
-// ============================================
-// Entry Icons - Match AI Chat status badge style
-// ============================================
+// Entry Icons
 .ide-redesign-main .review-panel-entry-icon-accept {
-  // Match AI Chat .ai-chat-tool-status.completed
-  background: rgba(34, 197, 94, 0.2);
-  color: #22c55e;
+  background: rgba(34, 197, 94, 0.15);
+  color: $rp-accent-green;
   border-radius: 6px;
-  padding: 4px;
 }
 
 .ide-redesign-main .review-panel-entry-icon-reject {
-  // Match AI Chat .ai-chat-tool-status.error
-  background: rgba(239, 68, 68, 0.2);
+  background: rgba(239, 68, 68, 0.15);
   color: #ef4444;
   border-radius: 6px;
-  padding: 4px;
 }
 
 .ide-redesign-main .review-panel-entry-icon-changed {
-  // Match AI Chat .ai-chat-tool-status.running
-  background: rgba(56, 189, 248, 0.2);
+  background: rgba(56, 189, 248, 0.15);
   color: $rp-accent-blue;
   border-radius: 6px;
-  padding: 4px;
 }
 
-// ============================================
-// Dropdown Menu - Match AI Chat .model-dropdown style
-// ============================================
+// Dropdown Menu
 .ide-redesign-main .review-panel-inner .dropdown-menu {
-  // EXACT match to AI Chat dropdown
   background: $rp-bg-panel;
   border: 1px solid $rp-border-subtle;
-  border-radius: 12px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-  padding: 8px;
-  animation: dropdownSlide 0.15s ease-out;
-  z-index: 100;
+  border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  padding: 6px;
 
   .dropdown-item {
-    // Match AI Chat .model-option style
     color: $rp-text-primary;
     background: transparent;
-    border-radius: 8px;
+    border-radius: 6px;
     padding: 8px 10px;
     font-size: 13px;
     transition: all $rp-transition-fast;
@@ -1438,42 +1265,22 @@ $rp-transition-normal: 0.2s ease;
 
   .dropdown-divider {
     border-color: $rp-border-subtle;
-    margin: 8px 0;
   }
 }
 
-@keyframes dropdownSlide {
-  from {
-    opacity: 0;
-    transform: translateY(-4px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-// ============================================
-// User Color Badge - Refined style
-// ============================================
+// User Color Badge
 .ide-redesign-main .review-panel-entry-user-color-badge {
-  border-radius: 4px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
 }
 
-// ============================================
-// Expandable Content - Smooth transitions
-// ============================================
+// Expandable Content
 .ide-redesign-main .review-panel-expandable-content {
   color: $rp-text-secondary;
-  line-height: 1.6;
 }
 
 .ide-redesign-main .review-panel-expandable-links {
   .btn-inline-link {
     color: $rp-accent-blue;
-    font-weight: 500;
-    transition: color $rp-transition-fast;
 
     &:hover {
       color: lighten($rp-accent-blue, 10%);
@@ -1481,9 +1288,7 @@ $rp-transition-normal: 0.2s ease;
   }
 }
 
-// ============================================
-// Scrollbar - EXACT match to AI Chat scrollbar
-// ============================================
+// Scrollbar
 .ide-redesign-main .review-panel-overview,
 .ide-redesign-main .review-panel-resolved-comments .popover-body,
 .ide-redesign-main .review-panel-inner {
@@ -1501,29 +1306,20 @@ $rp-transition-normal: 0.2s ease;
   }
 }
 
-// ============================================
-// More Comments Button - Match AI Chat .ai-chat-scroll-down-btn
-// ============================================
+// More Comments Button
 .ide-redesign-main .review-panel-more-comments-button-container {
   .btn {
-    // EXACT match to AI Chat scroll button
     background: $rp-bg-panel;
     border: 1px solid $rp-border-subtle;
-    border-radius: 50%;
+    border-radius: 20px;
     color: $rp-text-primary;
     font-size: 12px;
-    font-weight: 500;
-    padding: 8px 16px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    transition: all 0.2s;
+    padding: 6px 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    transition: all $rp-transition-fast;
 
     &:hover {
       background: $rp-bg-hover;
-      transform: translateY(-2px);
-    }
-
-    .material-symbols {
-      font-size: 20px;
     }
   }
 }
