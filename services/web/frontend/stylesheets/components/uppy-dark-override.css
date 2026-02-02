@@ -1,0 +1,94 @@
+/**
+ * Uppy Dark Theme Override
+ * This file MUST be imported AFTER @uppy/dashboard/dist/style.css
+ * to ensure our dark theme styles take precedence.
+ */
+
+/* Reset all Uppy backgrounds to dark */
+.ide-redesign-main .uppy-Root,
+.ide-redesign-main .uppy-Dashboard,
+.ide-redesign-main .uppy-Dashboard--modal,
+.ide-redesign-main .uppy-Dashboard-inner,
+.ide-redesign-main .uppy-Dashboard-innerWrap,
+.ide-redesign-main .uppy-Dashboard-AddFiles,
+.ide-redesign-main .uppy-Dashboard-AddFiles-list,
+.ide-redesign-main .uppy-DashboardContent-panel,
+.ide-redesign-main .uppy-DashboardContent-bar,
+.ide-redesign-main .uppy-Dashboard-files,
+.ide-redesign-main .uppy-Dashboard-dropFilesHereHint {
+  background: #0D0D0D !important;
+  background-color: #0D0D0D !important;
+}
+
+/* Upload drop zone border */
+.ide-redesign-main .uppy-Dashboard-AddFiles {
+  border: 2px dashed rgba(255, 255, 255, 0.2) !important;
+  border-radius: 12px !important;
+}
+
+/* Text colors */
+.ide-redesign-main .uppy-Dashboard-AddFiles-title {
+  color: #A0A0A0 !important;
+}
+
+.ide-redesign-main .uppy-Dashboard-AddFiles-info {
+  color: #666666 !important;
+}
+
+.ide-redesign-main .uppy-Dashboard-note {
+  color: #666666 !important;
+}
+
+/* Browse link - green accent */
+.ide-redesign-main .uppy-Dashboard-browse {
+  color: #4CAF50 !important;
+}
+
+.ide-redesign-main .uppy-Dashboard-browse:hover {
+  color: #66BB6A !important;
+}
+
+/* Status bar */
+.ide-redesign-main .uppy-StatusBar {
+  background: #1C1C1C !important;
+  background-color: #1C1C1C !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+.ide-redesign-main .uppy-StatusBar-status {
+  color: #A0A0A0 !important;
+}
+
+.ide-redesign-main .uppy-StatusBar-progress {
+  background: #4CAF50 !important;
+}
+
+/* File items */
+.ide-redesign-main .uppy-Dashboard-Item {
+  background: #1C1C1C !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 8px !important;
+}
+
+.ide-redesign-main .uppy-Dashboard-Item-name {
+  color: #FFFFFF !important;
+}
+
+.ide-redesign-main .uppy-Dashboard-Item-statusSize {
+  color: #666666 !important;
+}
+
+/* Informer */
+.ide-redesign-main .uppy-Informer p {
+  background: #1C1C1C !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  color: #FFFFFF !important;
+  border-radius: 8px !important;
+}
+
+/* Drop hint overlay */
+.ide-redesign-main .uppy-Dashboard-dropFilesHereHint {
+  background: rgba(76, 175, 80, 0.1) !important;
+  border: 2px dashed #4CAF50 !important;
+  color: #4CAF50 !important;
+}

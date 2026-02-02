@@ -1298,28 +1298,79 @@ $filetree-green-light: var(--green-10);
   }
 }
 
-// Additional Uppy overrides with higher specificity
+// =============================================================================
+// CRITICAL: Override Uppy's imported CSS (@uppy/dashboard/dist/style.css)
+// Uppy CSS loads with its own styles - we need maximum specificity + !important
+// =============================================================================
+
+// Global Uppy dark theme overrides
+.ide-redesign-main {
+  // All Uppy dashboard containers
+  .uppy-Root,
+  .uppy-Dashboard,
+  .uppy-Dashboard--modal,
+  .uppy-Dashboard-inner,
+  .uppy-Dashboard-innerWrap,
+  .uppy-Dashboard-AddFiles,
+  .uppy-Dashboard-AddFiles-list,
+  .uppy-DashboardContent-panel,
+  .uppy-DashboardContent-bar {
+    background: #0D0D0D !important;
+    background-color: #0D0D0D !important;
+  }
+
+  .uppy-Dashboard-AddFiles {
+    border: 2px dashed rgba(255, 255, 255, 0.2) !important;
+    border-radius: 12px !important;
+  }
+
+  .uppy-Dashboard-AddFiles-title,
+  .uppy-Dashboard-AddFiles-info {
+    color: #A0A0A0 !important;
+  }
+
+  .uppy-Dashboard-browse {
+    color: var(--green-50) !important;
+    &:hover {
+      color: var(--green-40) !important;
+    }
+  }
+
+  .uppy-Dashboard-note {
+    color: #666666 !important;
+  }
+
+  .uppy-StatusBar {
+    background: #1C1C1C !important;
+  }
+}
+
+// Modal-specific overrides (even higher specificity)
 .ide-redesign-main .modal-new-file .uppy-Root,
 .ide-redesign-main .modal-new-file .uppy-Dashboard,
 .ide-redesign-main .modal-new-file .uppy-Dashboard-inner,
 .ide-redesign-main .modal-new-file .uppy-Dashboard-innerWrap,
-.ide-redesign-main .modal-new-file .uppy-Dashboard-AddFiles {
-  background: $filetree-bg-dark !important;
-  background-color: $filetree-bg-dark !important;
+.ide-redesign-main .modal-new-file .uppy-Dashboard-AddFiles,
+.ide-redesign-main .modal-new-file-body-upload .uppy-Root,
+.ide-redesign-main .modal-new-file-body-upload .uppy-Dashboard,
+.ide-redesign-main .modal-new-file-body-upload .uppy-Dashboard-inner,
+.ide-redesign-main .modal-new-file-body-upload .uppy-Dashboard-innerWrap,
+.ide-redesign-main .modal-new-file-body-upload .uppy-Dashboard-AddFiles {
+  background: #0D0D0D !important;
+  background-color: #0D0D0D !important;
 }
 
-.ide-redesign-main .uppy-Root,
-.ide-redesign-main .uppy-Dashboard,
-.ide-redesign-main .uppy-Dashboard-inner,
-.ide-redesign-main .uppy-Dashboard-innerWrap {
-  background: $filetree-bg-dark !important;
-  background-color: $filetree-bg-dark !important;
+// Attribute selector fallback (catches dynamically added classes)
+.ide-redesign-main [class*="uppy-Dashboard"] {
+  background: #0D0D0D !important;
+  background-color: #0D0D0D !important;
 }
 
-.ide-redesign-main .uppy-Dashboard-AddFiles {
-  background: $filetree-bg-dark !important;
-  background-color: $filetree-bg-dark !important;
-  border: 2px dashed rgba(255, 255, 255, 0.15) !important;
+// Target data attribute (Uppy uses this for drag-drop)
+.ide-redesign-main [data-uppy-drag-drop-supported] .uppy-Dashboard-AddFiles,
+.ide-redesign-main [data-uppy-drag-drop-supported="true"] .uppy-Dashboard-AddFiles {
+  background: #0D0D0D !important;
+  background-color: #0D0D0D !important;
 }
 
 // File Conflict Body - Dark Style

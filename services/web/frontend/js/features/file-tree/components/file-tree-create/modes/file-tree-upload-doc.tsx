@@ -8,6 +8,8 @@ import { useProjectContext } from '../../../../../shared/context/project-context
 import * as eventTracking from '../../../../../infrastructure/event-tracking'
 import '@uppy/core/dist/style.css'
 import '@uppy/dashboard/dist/style.css'
+// Dark theme override - MUST be imported AFTER Uppy styles
+import '@/stylesheets/components/uppy-dark-override.css'
 import { refreshProjectMetadata } from '../../../util/api'
 import ErrorMessage from '../error-message'
 import { debugConsole } from '@/utils/debugging'
