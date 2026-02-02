@@ -784,6 +784,46 @@ del.review-panel-content-highlight {
   }
 }
 
+// Dark theme override for mode switcher - MUST be here to override base styles
+.ide-redesign-main .review-mode-switcher-toggle-button {
+  border-radius: 8px;
+  border: none;
+
+  &.editing {
+    background-color: #2C2C2C !important;
+    color: #888888 !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+
+    &:hover {
+      background-color: #2A2A2A !important;
+      color: #FFFFFF !important;
+      border-color: rgba(255, 255, 255, 0.15) !important;
+    }
+  }
+
+  &.reviewing {
+    background-color: rgba(245, 158, 11, 0.2) !important;
+    color: #f59e0b !important;
+    border: 1px solid rgba(245, 158, 11, 0.3) !important;
+
+    &:hover {
+      background-color: rgba(245, 158, 11, 0.3) !important;
+      border-color: rgba(245, 158, 11, 0.5) !important;
+    }
+  }
+
+  &.viewing {
+    background-color: rgba(56, 189, 248, 0.2) !important;
+    color: #38bdf8 !important;
+    border: 1px solid rgba(56, 189, 248, 0.3) !important;
+
+    &:hover {
+      background-color: rgba(56, 189, 248, 0.3) !important;
+      border-color: rgba(56, 189, 248, 0.5) !important;
+    }
+  }
+}
+
 // ============================================
 // Clean Dark Theme - Minimal AI Chat Match
 // Simple, clean design without heavy gradients
@@ -809,31 +849,123 @@ $rp-transition-fast: 0.15s;
 
 // Override CSS Variables for Dark Theme
 .ide-redesign-main {
-  --review-panel-bg-color: #{$rp-bg-dark};
-  --review-panel-color: #{$rp-text-primary};
-  --review-panel-color-secondary: #{$rp-text-secondary};
-  --review-panel-header-bg-color: #{$rp-bg-dark};
-  --review-panel-footer-bg-color: #{$rp-bg-dark};
-  --review-panel-entry-bg-color: #{$rp-bg-panel};
-  --review-panel-empty-state-bg-color: #{$rp-bg-panel};
-  --review-panel-button-hover-bg-color: #{$rp-bg-hover};
-  --review-panel-border-color: #{$rp-border-subtle};
+  --review-panel-bg-color: #{$rp-bg-dark} !important;
+  --review-panel-color: #{$rp-text-primary} !important;
+  --review-panel-color-secondary: #{$rp-text-secondary} !important;
+  --review-panel-header-bg-color: #{$rp-bg-dark} !important;
+  --review-panel-footer-bg-color: #{$rp-bg-dark} !important;
+  --review-panel-entry-bg-color: #{$rp-bg-panel} !important;
+  --review-panel-empty-state-bg-color: #{$rp-bg-panel} !important;
+  --review-panel-button-hover-bg-color: #{$rp-bg-hover} !important;
+  --review-panel-border-color: #{$rp-border-subtle} !important;
+  // Override active border color (was blue)
+  --border-active: #{$rp-border-subtle} !important;
+
+  // Remove any blue outlines/borders
+  .review-panel-container,
+  .review-panel-inner,
+  .review-panel-header {
+    outline: none !important;
+    box-shadow: none;
+
+    *:focus {
+      outline: none !important;
+      box-shadow: none !important;
+    }
+  }
+}
+
+// Override base mode switcher styles for dark theme
+.ide-redesign-main .review-mode-switcher {
+  &:hover,
+  &:focus {
+    .review-mode-switcher-toggle-button.editing {
+      background-color: $rp-bg-hover !important;
+    }
+
+    .review-mode-switcher-toggle-button.reviewing {
+      background-color: rgba($rp-accent-amber, 0.25) !important;
+    }
+
+    .review-mode-switcher-toggle-button.viewing {
+      background-color: rgba($rp-accent-blue, 0.25) !important;
+    }
+  }
 }
 
 // Main Container
 .ide-redesign-main .review-panel-inner {
-  background: $rp-bg-dark;
-  border-color: $rp-border-subtle;
+  background: $rp-bg-dark !important;
+  background-color: $rp-bg-dark !important;
+  border-color: $rp-border-subtle !important;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   -webkit-font-smoothing: antialiased;
   color: $rp-text-primary;
 }
 
+// Remove blue focus outlines globally
+.ide-redesign-main .review-panel-container {
+  button:focus,
+  button:focus-visible,
+  .btn:focus,
+  .btn:focus-visible {
+    outline: none !important;
+    box-shadow: none !important;
+    border-color: transparent !important;
+  }
+}
+
 // Header - Simple and clean
 .ide-redesign-main .review-panel-header {
-  background: $rp-bg-dark;
-  border-bottom: 1px solid $rp-border-subtle;
+  background: $rp-bg-dark !important;
+  background-color: $rp-bg-dark !important;
+  border-bottom: 1px solid $rp-border-subtle !important;
   padding: 12px 16px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  // Header title
+  .review-panel-label {
+    color: $rp-text-primary;
+    font-weight: 500;
+    font-size: 14px;
+  }
+
+  // Header buttons container
+  .review-panel-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  // All buttons in header
+  button,
+  .btn {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent !important;
+    border: none !important;
+    border-radius: 6px;
+    color: $rp-text-muted;
+    cursor: pointer;
+    transition: all $rp-transition-fast;
+    padding: 0;
+
+    &:hover,
+    &:focus {
+      background: rgba(255, 255, 255, 0.08) !important;
+      color: $rp-text-primary;
+    }
+
+    .material-symbols {
+      font-size: 18px;
+    }
+  }
 }
 
 // Entry Cards - Simple flat design
@@ -1047,24 +1179,62 @@ $rp-transition-fast: 0.15s;
   }
 }
 
-// Toggle Button
+// Toggle Button (resolved comments button in header)
 .ide-redesign-main .review-panel-resolved-comments-toggle {
-  width: 28px;
-  height: 28px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: transparent;
-  border: none;
-  border-radius: 6px;
-  color: $rp-text-muted;
+  width: 28px !important;
+  height: 28px !important;
+  min-width: 28px;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  border-radius: 6px !important;
+  color: $rp-text-muted !important;
   cursor: pointer;
   transition: all $rp-transition-fast;
+  padding: 0 !important;
+  outline: none !important;
+  box-shadow: none !important;
+
+  &:hover,
+  &:focus,
+  &:focus-visible {
+    background: rgba(255, 255, 255, 0.08) !important;
+    background-color: rgba(255, 255, 255, 0.08) !important;
+    color: $rp-text-primary !important;
+    outline: none !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+
+  .material-symbols {
+    font-size: 18px;
+    color: inherit;
+  }
+}
+
+// Close button in header
+.ide-redesign-main .review-panel-header .close-button,
+.ide-redesign-main .review-panel-header [aria-label="Close"],
+.ide-redesign-main .review-panel-header button[class*="close"] {
+  width: 28px !important;
+  height: 28px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: transparent !important;
+  border: none !important;
+  border-radius: 6px !important;
+  color: $rp-text-muted !important;
+  padding: 0 !important;
+  outline: none !important;
 
   &:hover,
   &:focus {
-    background: rgba(255, 255, 255, 0.08);
-    color: $rp-text-primary;
+    background: rgba(255, 255, 255, 0.08) !important;
+    color: $rp-text-primary !important;
   }
 }
 
@@ -1177,46 +1347,7 @@ $rp-transition-fast: 0.15s;
   }
 }
 
-.ide-redesign-main .review-mode-switcher-toggle-button {
-  font-size: 13px;
-  padding: 6px 10px;
-  border-radius: 6px;
-  transition: all $rp-transition-fast;
-
-  &.editing {
-    background: $rp-bg-input;
-    color: $rp-text-secondary;
-    border: 1px solid $rp-border-subtle;
-
-    &:hover {
-      background: $rp-bg-hover;
-      color: $rp-text-primary;
-      border-color: rgba(255, 255, 255, 0.15);
-    }
-  }
-
-  &.reviewing {
-    background: rgba($rp-accent-amber, 0.2);
-    color: $rp-accent-amber;
-    border: 1px solid rgba($rp-accent-amber, 0.3);
-
-    &:hover {
-      background: rgba($rp-accent-amber, 0.3);
-      border-color: rgba($rp-accent-amber, 0.5);
-    }
-  }
-
-  &.viewing {
-    background: rgba($rp-accent-blue, 0.2);
-    color: $rp-accent-blue;
-    border: 1px solid rgba($rp-accent-blue, 0.3);
-
-    &:hover {
-      background: rgba($rp-accent-blue, 0.3);
-      border-color: rgba($rp-accent-blue, 0.5);
-    }
-  }
-}
+// Mode switcher toggle button styles moved to line 788 with !important
 
 // Entry Icons
 .ide-redesign-main .review-panel-entry-icon-accept {
