@@ -215,3 +215,170 @@ $ide-redesign-transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
   }
 }
+
+// ============================================
+// Search Panel - Dark Theme Override
+// Matches AI Chat / Review Panel Design
+// ============================================
+
+$search-bg-dark: #0D0D0D;
+$search-bg-panel: #1C1C1C;
+$search-bg-input: #2C2C2C;
+$search-bg-hover: #2A2A2A;
+$search-text-primary: #FFFFFF;
+$search-text-secondary: #888888;
+$search-text-muted: #666666;
+$search-border-subtle: rgba(255, 255, 255, 0.08);
+$search-accent-blue: #38bdf8;
+
+.ide-redesign-main {
+  // Search Panel Container
+  .ol-cm-search-form {
+    background: $search-bg-dark !important;
+    border-bottom: 1px solid $search-border-subtle;
+    padding: 12px 16px;
+
+    // Input group - the main search box
+    .ol-cm-search-input-group {
+      background: $search-bg-input !important;
+      border: 1px solid $search-border-subtle !important;
+      border-radius: 8px !important;
+
+      &:focus-within {
+        border-color: rgba(255, 255, 255, 0.2) !important;
+        box-shadow: none !important;
+      }
+
+      // Search input
+      input[type="text"],
+      .ol-cm-search-form-input,
+      .form-control {
+        background: transparent !important;
+        color: $search-text-primary !important;
+        border: none !important;
+
+        &::placeholder {
+          color: $search-text-muted !important;
+        }
+
+        &:focus {
+          box-shadow: none !important;
+          outline: none !important;
+        }
+      }
+
+      // Option buttons (Aa, [.*], W, etc.)
+      .btn.btn,
+      .ol-cm-search-input-button {
+        background: $search-bg-panel !important;
+        color: $search-text-muted !important;
+        border: none !important;
+        border-radius: 6px !important;
+
+        &:hover {
+          background: $search-bg-hover !important;
+          color: $search-text-primary !important;
+        }
+
+        &.checked {
+          background: $search-accent-blue !important;
+          color: $search-bg-dark !important;
+        }
+
+        &.focused {
+          box-shadow: none !important;
+          outline: 2px solid rgba($search-accent-blue, 0.3) !important;
+        }
+      }
+    }
+
+    // Error state
+    .ol-cm-search-input-group.ol-cm-search-input-error {
+      &:focus-within {
+        border-color: #ef4444 !important;
+        box-shadow: none !important;
+      }
+    }
+
+    // Navigation buttons (up/down arrows)
+    .ol-cm-search-form-button-group {
+      .btn,
+      .btn-secondary {
+        background: $search-bg-panel !important;
+        color: $search-text-secondary !important;
+        border: 1px solid $search-border-subtle !important;
+        border-radius: 6px !important;
+
+        &:hover {
+          background: $search-bg-hover !important;
+          color: $search-text-primary !important;
+        }
+
+        &:focus {
+          box-shadow: none !important;
+        }
+
+        .material-symbols {
+          color: inherit;
+        }
+      }
+    }
+
+    // Position indicator (1 of 5)
+    .ol-cm-search-form-position {
+      color: $search-text-muted !important;
+    }
+
+    // Replace buttons
+    .ol-cm-search-replace-buttons {
+      .btn,
+      .btn-secondary {
+        background: $search-bg-panel !important;
+        color: $search-text-secondary !important;
+        border: 1px solid $search-border-subtle !important;
+        border-radius: 6px !important;
+
+        &:hover {
+          background: $search-bg-hover !important;
+          color: $search-text-primary !important;
+        }
+      }
+    }
+
+    // Close button
+    .ol-cm-search-form-close {
+      .btn-close,
+      button {
+        background: transparent !important;
+        color: $search-text-muted !important;
+        border: none !important;
+        border-radius: 6px !important;
+        opacity: 1;
+        filter: none;
+
+        &:hover {
+          background: rgba(255, 255, 255, 0.08) !important;
+          color: $search-text-primary !important;
+        }
+
+        // Override the X button styling
+        &::before {
+          color: $search-text-muted;
+        }
+      }
+    }
+  }
+
+  // Full project search button
+  .full-project-search-btn {
+    background: $search-bg-panel !important;
+    color: $search-text-secondary !important;
+    border: 1px solid $search-border-subtle !important;
+    border-radius: 6px !important;
+
+    &:hover {
+      background: $search-bg-hover !important;
+      color: $search-text-primary !important;
+    }
+  }
+}

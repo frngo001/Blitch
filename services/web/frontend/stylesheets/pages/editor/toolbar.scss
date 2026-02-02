@@ -30,16 +30,161 @@
   --toolbar-btn-color: var(--content-primary-dark);
   --toolbar-btn-hover-bg-color: var(--neutral-80);
   --toolbar-btn-hover-color: var(--white);
-  --editor-toolbar-bg: var(--bg-dark-primary);
+  --editor-toolbar-bg: #0D0D0D;
   --toolbar-filetree-bg-color: var(--neutral-80);
 
   .ol-cm-toolbar-portal {
     display: flex;
     align-items: center;
     background-color: var(--editor-toolbar-bg);
+    background: #0D0D0D;
 
+    // Review panel header in toolbar - AI Chat Style (no title, icons only)
     .review-panel-header {
       align-self: flex-start;
+      background: #0D0D0D !important;
+      background-color: #0D0D0D !important;
+      border: none !important;
+      border-bottom: none !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      outline: none !important;
+      box-shadow: none !important;
+      width: var(--review-panel-width);
+      height: auto !important;
+      min-height: unset !important;
+
+      // Override review panel CSS variables
+      --review-panel-header-bg-color: #0D0D0D !important;
+      --review-panel-border-color: rgba(255, 255, 255, 0.08) !important;
+      --review-panel-header-height: auto !important;
+
+      // Override all blue variables
+      --border-active: transparent !important;
+      --border-active-dark: transparent !important;
+      --blue-50: transparent !important;
+      --blue-30: transparent !important;
+      --bs-btn-focus-box-shadow: none !important;
+
+      // Remove all blue from all children
+      * {
+        outline: none !important;
+        box-shadow: none !important;
+      }
+
+      // New custom header content (matching AI Chat rail header)
+      .review-panel-header-content {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 12px 16px;
+        background: transparent;
+        border: none;
+
+        .review-panel-header-left {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+        }
+
+        .review-panel-header-right {
+          display: flex;
+          align-items: center;
+          gap: 4px;
+        }
+      }
+
+      // Header button - Exact AI Chat style (32x32)
+      .review-panel-header-btn {
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: transparent;
+        border: none;
+        border-radius: 6px;
+        color: #A0A0A0;
+        cursor: pointer;
+        transition: all 0.15s ease;
+        padding: 0;
+
+        &:hover {
+          background: rgba(255, 255, 255, 0.08);
+          color: #FFFFFF;
+        }
+
+        .material-symbols {
+          font-size: 20px;
+        }
+      }
+
+      // Resolved comments toggle - same style
+      .review-panel-resolved-comments-toggle {
+        width: 32px !important;
+        height: 32px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        background: transparent !important;
+        border: none !important;
+        border-radius: 6px !important;
+        color: #A0A0A0 !important;
+        cursor: pointer;
+        transition: all 0.15s ease;
+        padding: 0 !important;
+
+        &:hover {
+          background: rgba(255, 255, 255, 0.08) !important;
+          color: #FFFFFF !important;
+        }
+
+        .material-symbols {
+          font-size: 20px;
+        }
+      }
+
+      // Legacy RailPanelHeader support (fallback)
+      .rail-panel-header {
+        background: #0D0D0D !important;
+        border: none !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+
+        .rail-panel-title {
+          display: none; // Hide title
+        }
+
+        .rail-panel-header-actions {
+          display: flex;
+          align-items: center;
+          gap: 4px;
+        }
+
+        button,
+        .btn {
+          width: 32px;
+          height: 32px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: transparent !important;
+          border: none !important;
+          border-radius: 6px;
+          color: #A0A0A0;
+          padding: 0;
+
+          &:hover,
+          &:focus,
+          &:focus-visible {
+            background: rgba(255, 255, 255, 0.08) !important;
+            color: #FFFFFF;
+          }
+
+          .material-symbols {
+            font-size: 20px;
+          }
+        }
+      }
     }
   }
 

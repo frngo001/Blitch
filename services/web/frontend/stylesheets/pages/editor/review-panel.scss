@@ -47,9 +47,14 @@ $rp-type-blue: #6b7797;
     border-right: 1px solid var(--border-divider-themed);
   }
 
+  // Reset the header wrapper - all styling goes to .rail-panel-header inside
   .review-panel-header {
+    border: none;
     border-bottom: none;
-    flex: 0 0 var(--review-panel-width);
+    flex: none;
+    height: auto;
+    padding: 0;
+    background: transparent;
   }
 
   .review-panel-more-comments-button-container {
@@ -858,21 +863,41 @@ $rp-transition-fast: 0.15s;
   --review-panel-empty-state-bg-color: #{$rp-bg-panel} !important;
   --review-panel-button-hover-bg-color: #{$rp-bg-hover} !important;
   --review-panel-border-color: #{$rp-border-subtle} !important;
-  // Override active border color (was blue)
+}
+
+// CRITICAL: Override all blue colors in review panel scope
+.ide-redesign-main .review-panel-container {
+  // Override ALL blue variables at container level
   --border-active: #{$rp-border-subtle} !important;
+  --border-active-dark: transparent !important;
+  --blue-50: #{$rp-border-subtle} !important;
+  --blue-30: transparent !important;
+  --bg-info-01: #{$rp-bg-panel} !important;
+  --bs-btn-focus-box-shadow: none !important;
 
-  // Remove any blue outlines/borders
-  .review-panel-container,
-  .review-panel-inner,
-  .review-panel-header {
+  // Remove ALL blue outlines/borders from entire tree
+  *,
+  *:focus,
+  *:focus-visible,
+  *:active {
     outline: none !important;
-    box-shadow: none;
-
-    *:focus {
-      outline: none !important;
-      box-shadow: none !important;
-    }
+    outline-color: transparent !important;
+    box-shadow: none !important;
   }
+}
+
+// Also override at inner level for more specificity
+.ide-redesign-main .review-panel-inner {
+  --border-active: #{$rp-border-subtle} !important;
+  --blue-50: transparent !important;
+}
+
+// Override selected entry border (was using --border-active which is blue)
+.ide-redesign-main .review-panel-entry.review-panel-entry-selected,
+.ide-redesign-main .review-panel-entry.review-panel-entry-highlighted,
+.ide-redesign-main .review-panel-entry.review-panel-entry-textarea-focused {
+  border: 1px solid rgba($rp-accent-blue, 0.3) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
 }
 
 // Override base mode switcher styles for dark theme
@@ -915,26 +940,98 @@ $rp-transition-fast: 0.15s;
   }
 }
 
-// Header - Simple and clean
+// Header wrapper - AI Chat Style (no title, icons only)
 .ide-redesign-main .review-panel-header {
   background: $rp-bg-dark !important;
   background-color: $rp-bg-dark !important;
+  border: none !important;
+  border-bottom: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  height: auto !important;
+  min-height: unset !important;
+  flex: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+// Custom header content - Matches AI Chat rail header exactly
+.ide-redesign-main .review-panel-header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: transparent;
+  border: none;
+
+  .review-panel-header-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .review-panel-header-right {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+}
+
+// Header button - Exact AI Chat style (32x32, border-radius: 6px)
+.ide-redesign-main .review-panel-header-btn {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  color: $rp-text-secondary;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  padding: 0;
+  outline: none !important;
+  box-shadow: none !important;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: $rp-text-primary;
+  }
+
+  &:focus,
+  &:focus-visible {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+
+  .material-symbols {
+    font-size: 20px;
+  }
+}
+
+// Legacy RailPanelHeader support (fallback)
+.ide-redesign-main .review-panel-header .rail-panel-header {
+  background: $rp-bg-dark !important;
   border-bottom: 1px solid $rp-border-subtle !important;
   padding: 12px 16px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  outline: none !important;
+  box-shadow: none !important;
 
   // Header title
-  .review-panel-label {
+  .rail-panel-title {
     color: $rp-text-primary;
     font-weight: 500;
     font-size: 14px;
+    margin: 0;
   }
 
   // Header buttons container
-  .review-panel-header-actions {
+  .rail-panel-header-actions {
     display: flex;
     align-items: center;
     gap: 4px;
@@ -955,11 +1052,16 @@ $rp-transition-fast: 0.15s;
     cursor: pointer;
     transition: all $rp-transition-fast;
     padding: 0;
+    outline: none !important;
+    box-shadow: none !important;
 
     &:hover,
-    &:focus {
+    &:focus,
+    &:focus-visible {
       background: rgba(255, 255, 255, 0.08) !important;
       color: $rp-text-primary;
+      outline: none !important;
+      box-shadow: none !important;
     }
 
     .material-symbols {
@@ -1179,11 +1281,11 @@ $rp-transition-fast: 0.15s;
   }
 }
 
-// Toggle Button (resolved comments button in header)
+// Toggle Button (resolved comments button in header) - Matches AI Chat header btn (32x32)
 .ide-redesign-main .review-panel-resolved-comments-toggle {
-  width: 28px !important;
-  height: 28px !important;
-  min-width: 28px;
+  width: 32px !important;
+  height: 32px !important;
+  min-width: 32px;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -1191,9 +1293,9 @@ $rp-transition-fast: 0.15s;
   background-color: transparent !important;
   border: none !important;
   border-radius: 6px !important;
-  color: $rp-text-muted !important;
+  color: $rp-text-secondary !important;
   cursor: pointer;
-  transition: all $rp-transition-fast;
+  transition: all 0.15s ease;
   padding: 0 !important;
   outline: none !important;
   box-shadow: none !important;
@@ -1210,7 +1312,7 @@ $rp-transition-fast: 0.15s;
   }
 
   .material-symbols {
-    font-size: 18px;
+    font-size: 20px;
     color: inherit;
   }
 }
