@@ -968,20 +968,26 @@ $filetree-green-light: var(--green-10);
   }
 }
 
-// New File Modal - Dark Style
+// New File Modal - Dark Style Override
 .ide-redesign-main .modal-new-file {
   .modal-content {
-    background: $filetree-bg-dark;
-    border: 1px solid $filetree-border-subtle;
+    background: $filetree-bg-dark !important;
+    background-color: $filetree-bg-dark !important;
+    border: 1px solid $filetree-border-subtle !important;
     border-radius: 16px;
+    overflow: hidden;
   }
 
   .modal-header {
-    background: transparent;
-    border-bottom: 1px solid $filetree-border-subtle;
+    background: $filetree-bg-dark !important;
+    background-color: $filetree-bg-dark !important;
+    border-bottom: 1px solid $filetree-border-subtle !important;
+    padding: 16px 20px;
 
     .modal-title {
-      color: $filetree-text-primary;
+      color: $filetree-text-primary !important;
+      font-size: 16px;
+      font-weight: 500;
     }
 
     .btn-close {
@@ -995,55 +1001,167 @@ $filetree-green-light: var(--green-10);
   }
 
   .modal-body {
-    background: transparent;
+    background: $filetree-bg-dark !important;
+    background-color: $filetree-bg-dark !important;
+    padding: 0;
+  }
+
+  // Modal row layout
+  .modal-new-file-row {
+    display: flex;
+    background: $filetree-bg-dark !important;
   }
 }
 
-// New File List Sidebar
+// Table structure - Dark Theme Override
+.ide-redesign-main .modal-new-file table,
+.ide-redesign-main .modal-new-file tbody,
+.ide-redesign-main .modal-new-file tr,
+.ide-redesign-main .modal-new-file td {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+.ide-redesign-main .modal-new-file table {
+  display: flex;
+  width: 100%;
+}
+
+.ide-redesign-main .modal-new-file tbody {
+  display: flex;
+  width: 100%;
+}
+
+.ide-redesign-main .modal-new-file tr {
+  display: flex;
+  width: 100%;
+}
+
+// New File List Sidebar - Dark Theme Override
 .ide-redesign-main .modal-new-file-list {
-  background: $filetree-bg-panel;
-  border-right: 1px solid $filetree-border-subtle;
+  background: $filetree-bg-panel !important;
+  background-color: $filetree-bg-panel !important;
+  border-right: 1px solid $filetree-border-subtle !important;
 
-  ul li {
-    a, .btn {
-      color: $filetree-text-secondary;
-      transition: all 0.15s;
-
-      &:hover {
-        color: $filetree-text-primary;
-        background: $filetree-bg-hover;
-      }
-    }
-
-    &.active {
-      background: rgba(255, 255, 255, 0.08);
+  ul {
+    li {
+      background: transparent !important;
 
       a, .btn {
-        // Keep green for active state
-        color: var(--green-50);
+        color: $filetree-text-secondary !important;
+        background: transparent !important;
+        transition: all 0.15s ease;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 12px !important;
+        border-radius: 6px;
+        margin: 2px 6px;
+
+        &:hover {
+          color: $filetree-text-primary !important;
+          background: $filetree-bg-hover !important;
+        }
+
+        &:focus {
+          color: $filetree-text-primary !important;
+          background: $filetree-bg-hover !important;
+          outline: none !important;
+          box-shadow: none !important;
+        }
+      }
+
+      // Icon styling for visibility
+      .material-symbols {
+        color: $filetree-text-muted;
+        font-size: 20px;
+      }
+
+      &:hover {
+        background: transparent !important;
+
+        .material-symbols {
+          color: $filetree-text-secondary;
+        }
+      }
+
+      &.active {
+        background: transparent !important;
+
+        a, .btn {
+          color: var(--green-50) !important;
+          background: rgba(76, 175, 80, 0.12) !important;
+        }
+
+        .material-symbols {
+          color: var(--green-50);
+        }
       }
     }
   }
 }
 
-// New File Body
+// New File Body - Dark Theme Override
 .ide-redesign-main .modal-new-file-body {
-  background: $filetree-bg-dark;
-  color: $filetree-text-primary;
+  background: $filetree-bg-dark !important;
+  background-color: $filetree-bg-dark !important;
+  color: $filetree-text-primary !important;
+  flex: 1;
+  padding: 20px 24px;
 
-  input[type="text"] {
-    background: #2C2C2C;
-    border: 1px solid $filetree-border-subtle;
-    color: $filetree-text-primary;
+  // Label styling
+  label {
+    color: $filetree-text-secondary !important;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+
+  input[type="text"],
+  .form-control {
+    background: #2C2C2C !important;
+    background-color: #2C2C2C !important;
+    border: 1px solid $filetree-border-subtle !important;
+    color: $filetree-text-primary !important;
     border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 14px;
 
     &::placeholder {
-      color: $filetree-text-muted;
+      color: $filetree-text-muted !important;
     }
 
     &:focus {
-      border-color: rgba(255, 255, 255, 0.2);
-      outline: none;
+      border-color: rgba(255, 255, 255, 0.25) !important;
+      outline: none !important;
+      box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.06) !important;
+    }
+  }
+
+  // Help text
+  .form-text,
+  .help-block,
+  small {
+    color: $filetree-text-muted !important;
+    font-size: 12px;
+  }
+
+  // Create button
+  .btn-primary {
+    background: var(--green-50) !important;
+    border-color: var(--green-50) !important;
+    color: #000000 !important;
+    font-weight: 500;
+    padding: 10px 20px;
+    border-radius: 8px;
+
+    &:hover {
+      background: var(--green-40) !important;
+      border-color: var(--green-40) !important;
+    }
+
+    &:focus {
+      box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.25) !important;
     }
   }
 }
