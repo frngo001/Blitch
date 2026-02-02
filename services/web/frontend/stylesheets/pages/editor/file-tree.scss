@@ -1188,94 +1188,138 @@ $filetree-green-light: var(--green-10);
   }
 }
 
-// File Upload Area - Dark Style
+// File Upload Area - Dark Style Override
 .ide-redesign-main .modal-new-file-body-upload {
+  background: $filetree-bg-dark !important;
+  background-color: $filetree-bg-dark !important;
+
   .uppy-Root {
-    color: $filetree-text-primary;
+    color: $filetree-text-primary !important;
+    background: $filetree-bg-dark !important;
+    background-color: $filetree-bg-dark !important;
+  }
+
+  .uppy-Dashboard {
+    background: $filetree-bg-dark !important;
+    background-color: $filetree-bg-dark !important;
   }
 
   .uppy-Dashboard-inner {
-    background: $filetree-bg-dark;
-    border: none;
+    background: $filetree-bg-dark !important;
+    background-color: $filetree-bg-dark !important;
+    border: none !important;
+  }
+
+  .uppy-Dashboard-innerWrap {
+    background: $filetree-bg-dark !important;
+    background-color: $filetree-bg-dark !important;
   }
 
   .uppy-Dashboard-AddFiles {
-    background: transparent;
-    border: 1px dashed $filetree-border-subtle;
-    border-radius: 12px;
+    background: $filetree-bg-dark !important;
+    background-color: $filetree-bg-dark !important;
+    border: 2px dashed rgba(255, 255, 255, 0.15) !important;
+    border-radius: 12px !important;
     transition: all 0.15s;
 
     &:hover {
-      border-color: rgba(255, 255, 255, 0.2);
-      background: rgba(255, 255, 255, 0.02);
+      border-color: rgba(255, 255, 255, 0.25) !important;
+      background: rgba(255, 255, 255, 0.02) !important;
     }
   }
 
   .uppy-Dashboard-AddFiles-title {
-    color: $filetree-text-secondary;
+    color: $filetree-text-secondary !important;
 
     .uppy-Dashboard-browse {
-      // Keep green for the browse link
-      color: var(--green-50);
+      color: var(--green-50) !important;
 
       &:hover {
-        color: var(--green-40);
+        color: var(--green-40) !important;
       }
     }
   }
 
+  .uppy-Dashboard-AddFiles-info {
+    color: $filetree-text-muted !important;
+  }
+
   .uppy-Dashboard-note {
-    color: $filetree-text-muted;
+    color: $filetree-text-muted !important;
   }
 
   .uppy-Dashboard-dropFilesHereHint {
-    background: rgba(var(--green-50), 0.1);
-    border: 2px dashed var(--green-50);
-    border-radius: 12px;
-    color: var(--green-50);
+    background: rgba(76, 175, 80, 0.1) !important;
+    border: 2px dashed var(--green-50) !important;
+    border-radius: 12px !important;
+    color: var(--green-50) !important;
   }
 
   .uppy-Dashboard-Item {
-    background: $filetree-bg-panel;
-    border: 1px solid $filetree-border-subtle;
-    border-radius: 8px;
+    background: $filetree-bg-panel !important;
+    border: 1px solid $filetree-border-subtle !important;
+    border-radius: 8px !important;
   }
 
   .uppy-Dashboard-Item-name {
-    color: $filetree-text-primary;
+    color: $filetree-text-primary !important;
   }
 
   .uppy-Dashboard-Item-statusSize {
-    color: $filetree-text-muted;
+    color: $filetree-text-muted !important;
   }
 
   .uppy-Dashboard-Item-action--remove {
-    color: $filetree-text-muted;
+    color: $filetree-text-muted !important;
 
     &:hover {
-      color: #EF4444;
+      color: #EF4444 !important;
     }
   }
 
   .uppy-StatusBar {
-    background: $filetree-bg-panel;
-    border-top: 1px solid $filetree-border-subtle;
+    background: $filetree-bg-panel !important;
+    border-top: 1px solid $filetree-border-subtle !important;
   }
 
   .uppy-StatusBar-progress {
-    background: var(--green-50);
+    background: var(--green-50) !important;
   }
 
   .uppy-StatusBar-status {
-    color: $filetree-text-secondary;
+    color: $filetree-text-secondary !important;
   }
 
   .uppy-Informer p {
-    background: $filetree-bg-panel;
-    border: 1px solid $filetree-border-subtle;
-    color: $filetree-text-primary;
-    border-radius: 8px;
+    background: $filetree-bg-panel !important;
+    border: 1px solid $filetree-border-subtle !important;
+    color: $filetree-text-primary !important;
+    border-radius: 8px !important;
   }
+}
+
+// Additional Uppy overrides with higher specificity
+.ide-redesign-main .modal-new-file .uppy-Root,
+.ide-redesign-main .modal-new-file .uppy-Dashboard,
+.ide-redesign-main .modal-new-file .uppy-Dashboard-inner,
+.ide-redesign-main .modal-new-file .uppy-Dashboard-innerWrap,
+.ide-redesign-main .modal-new-file .uppy-Dashboard-AddFiles {
+  background: $filetree-bg-dark !important;
+  background-color: $filetree-bg-dark !important;
+}
+
+.ide-redesign-main .uppy-Root,
+.ide-redesign-main .uppy-Dashboard,
+.ide-redesign-main .uppy-Dashboard-inner,
+.ide-redesign-main .uppy-Dashboard-innerWrap {
+  background: $filetree-bg-dark !important;
+  background-color: $filetree-bg-dark !important;
+}
+
+.ide-redesign-main .uppy-Dashboard-AddFiles {
+  background: $filetree-bg-dark !important;
+  background-color: $filetree-bg-dark !important;
+  border: 2px dashed rgba(255, 255, 255, 0.15) !important;
 }
 
 // File Conflict Body - Dark Style
