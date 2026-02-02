@@ -12,6 +12,7 @@ import { ElementType, lazy, Suspense } from 'react'
 import { FullSizeLoadingSpinner } from '@/shared/components/loading-spinner'
 import getMeta from '@/utils/meta'
 import OLNotification from '@/shared/components/ol/ol-notification'
+import { useIsNewEditorEnabled } from '@/features/ide-redesign/utils/new-editor-utils'
 
 const createFileModeModules = importOverleafModules('createFileModes') as {
   import: { CreateFilePane: ElementType; CreateFileMode: ElementType }
@@ -20,8 +21,20 @@ const createFileModeModules = importOverleafModules('createFileModes') as {
 
 const FileTreeUploadDoc = lazy(() => import('./modes/file-tree-upload-doc'))
 
+// Dark theme styles for new editor
+const darkThemeStyles = {
+  sidebar: {
+    background: '#1C1C1C',
+    borderRight: '1px solid rgba(255, 255, 255, 0.08)',
+  },
+  body: {
+    background: '#0D0D0D',
+  },
+}
+
 export default function FileTreeModalCreateFileBody() {
   const { t } = useTranslation()
+  const newEditor = useIsNewEditorEnabled()
 
   const { newFileCreateMode } = useFileTreeActionable()
   const { fileCount } = useFileTreeData()
@@ -49,10 +62,13 @@ export default function FileTreeModalCreateFileBody() {
   }
 
   return (
-    <table>
+    <table style={newEditor ? { background: 'transparent' } : undefined}>
       <tbody>
         <tr>
-          <td className="modal-new-file-list">
+          <td
+            className="modal-new-file-list"
+            style={newEditor ? darkThemeStyles.sidebar : undefined}
+          >
             <ul className="list-unstyled">
               <FileTreeModalCreateFileMode
                 mode="doc"
@@ -93,6 +109,7 @@ export default function FileTreeModalCreateFileBody() {
 
           <td
             className={`modal-new-file-body modal-new-file-body-${newFileCreateMode}`}
+            style={newEditor ? darkThemeStyles.body : undefined}
           >
             {typeof fileCount !== 'number' &&
               fileCount.status === 'warning' && (

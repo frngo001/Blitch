@@ -289,6 +289,7 @@ export default function FileTreeUploadDoc() {
         <Dashboard
           uppy={uppy}
           showProgressDetails
+          theme="dark"
           // note={`Up to ${maxNumberOfFiles} files, up to ${maxFileSize / (1024 * 1024)}MB`}
           height={400}
           width="100%"
